@@ -14,19 +14,18 @@ importers:
       markdown-it-anchor: ^8.4.1
       markdown-it-container: ^3.0.0
       markdown-it-table-of-contents: ^0.5.2
-      pg: ^8.6.0
-    dependencies:
+      pg: ^8.7.1
+    devDependencies:
+      '@types/lodash': 4.14.176
+      cli-progress: 3.9.1
       diff: 5.0.0
+      dockerode: 3.3.1
+      dotenv: 10.0.0
       highlight.js: 11.3.1
       lodash: 4.17.21
       markdown-it-anchor: 8.4.1
       markdown-it-container: 3.0.0
       markdown-it-table-of-contents: 0.5.2
-    devDependencies:
-      '@types/lodash': 4.14.176
-      cli-progress: 3.9.1
-      dockerode: 3.3.1
-      dotenv: 10.0.0
       pg: 8.7.1
 
   api:
@@ -4137,7 +4136,7 @@ packages:
   /diff/5.0.0:
     resolution: {integrity: sha512-/VTCrvm5Z0JGty/BWHljh+BAiw3IK+2j87NGMu8Nwc/f48WoDAC395uomO9ZD117ZOBaHmkX1oyLvkVM/aIT3w==}
     engines: {node: '>=0.3.1'}
-    dev: false
+    dev: true
 
   /dijkstrajs/1.0.2:
     resolution: {integrity: sha512-QV6PMaHTCNmKSeP6QoXhVTw9snc9VD8MulTT0Bd99Pacp4SS1cjcrYPgBPmibqKVtMJJfqC6XvOXgPMEEPH/fg==}
@@ -5441,7 +5440,7 @@ packages:
   /highlight.js/11.3.1:
     resolution: {integrity: sha512-PUhCRnPjLtiLHZAQ5A/Dt5F8cWZeMyj9KRsACsWT+OD6OP0x6dp5OmT5jdx0JgEyPxPZZIPQpRN2TciUT7occw==}
     engines: {node: '>=12.0.0'}
-    dev: false
+    dev: true
 
   /homedir-polyfill/1.0.3:
     resolution: {integrity: sha512-eSmmWE5bZTK2Nou4g0AI3zZ9rswp7GRKoKXS1BLUkvPviOqs4YTN1djQIqrXy9k5gEtdLPy86JjRwsNM9tnDcA==}
@@ -7310,16 +7309,16 @@ packages:
     peerDependencies:
       '@types/markdown-it': '*'
       markdown-it: '*'
-    dev: false
+    dev: true
 
   /markdown-it-container/3.0.0:
     resolution: {integrity: sha512-y6oKTq4BB9OQuY/KLfk/O3ysFhB3IMYoIWhGJEidXt1NQFocFK2sA2t0NYZAMyMShAGL6x5OPIbrmXPIqaN9rw==}
-    dev: false
+    dev: true
 
   /markdown-it-table-of-contents/0.5.2:
     resolution: {integrity: sha512-6o+rxSwzXmXCUn1n8QGTSpgbcnHBG6lUU8x7A5Cssuq5vbfzTfitfGPvQ5PZkp+gP1NGS/DR2rkYqJPn0rbZ1A==}
     engines: {node: '>6.4.0'}
-    dev: false
+    dev: true
 
   /markdown-it/12.2.0:
     resolution: {integrity: sha512-Wjws+uCrVQRqOoJvze4HCqkKl1AsSh95iFAeQDwnyfxM09divCBSXlDR1uTvyUP3Grzpn4Ru8GeCxYPM8vkCQg==}
