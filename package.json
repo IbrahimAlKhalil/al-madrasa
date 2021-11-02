@@ -6,7 +6,7 @@
   "private": true,
   "author": "SAHARA IT",
   "scripts": {
-    "start": "node scripts/run.js.js",
+    "start": "node scripts/run.js",
     "user": "./api/cli.js users create --email sahara@it.com --password 12345678 --role $(./api/cli.js roles create --admin --role Administrator)",
     "migrate": "cd ./api && pnpm build && ./cli.js database migrate:up",
     "build": "node scripts/build.js"
