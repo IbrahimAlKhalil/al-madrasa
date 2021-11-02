@@ -1,0 +1,28 @@
+{
+  "name": "al-madrasah",
+  "version": "1.0.0",
+  "description": "Al-Madrasah Content Management System",
+  "main": "index.js",
+  "private": true,
+  "author": "SAHARA IT",
+  "scripts": {
+    "start": "node scripts/index.js",
+    "user": "./api/cli.js users create --email sahara@it.com --password 12345678 --role $(./api/cli.js roles create --admin --role Administrator)",
+    "migrate": "cd ./api && pnpm build && ./cli.js database migrate:up"
+  },
+  "dependencies": {
+    "diff": "^5.0.0",
+    "highlight.js": "^11.3.1",
+    "lodash": "^4.17.21",
+    "markdown-it-anchor": "^8.4.1",
+    "markdown-it-container": "^3.0.0",
+    "markdown-it-table-of-contents": "^0.5.2"
+  },
+  "devDependencies": {
+    "@types/lodash": "4.14.176",
+    "cli-progress": "^3.9.1",
+    "dockerode": "^3.3.1",
+    "dotenv": "^10.0.0",
+    "pg": "^8.6.0"
+  }
+}
