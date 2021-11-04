@@ -125,7 +125,6 @@ export default defineComponent({
 	},
 	emits: ['input'],
 	setup(props, { emit }) {
-		console.log(props);
 		const { t } = useI18n();
 
 		const active = ref<number | null>(null);

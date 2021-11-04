@@ -135,7 +135,7 @@ async function startApi() {
 async function startApp() {
     logTask('Starting', 'CMS App');
 
-    childProcess.spawn(path.resolve(__dirname, '../app/node_modules/.bin/vite'), ['--port', env.APP_PORT], {
+    childProcess.spawn(path.resolve(__dirname, '../app/node_modules/.bin/vite'), ['--port', env.APP_PORT, '--host', '0.0.0.0'], {
         env,
         shell: true,
         stdio: "inherit",
