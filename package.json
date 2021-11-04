@@ -7,13 +7,17 @@
   "author": "SAHARA IT",
   "scripts": {
     "start": "node scripts/run.js",
-    "user": "./api/cli.js users create --email sahara@it.com --password 12345678 --role $(./api/cli.js roles create --admin --role Administrator)",
-    "migrate": "cd ./api && pnpm build && ./cli.js database migrate:up",
-    "build": "node scripts/build.js"
+    "prod": "node scripts/prod.js",
+    "build": "node scripts/build.js",
+    "user": "./api/cli.js users create --email saharaitech@gmail.com --password 12345678 --role $(./api/cli.js roles create --admin --role Administrator)",
+    "db:migrate": "cd ./api && pnpm build && ./cli.js database migrate:up",
+    "db:dump": "node scripts/dump.js",
+    "db:restore": "node scripts/restore.js"
   },
   "devDependencies": {
     "@directus/app": "workspace:9.0.0-rc.101",
     "@types/lodash": "4.14.176",
+    "@types/pg": "^8.6.1",
     "bytes": "^3.1.0",
     "cli-progress": "^3.9.1",
     "color": "^4.0.1",

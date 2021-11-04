@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { useNavigation } from '../../collections/composables/use-navigation';
+import { useNavigation } from '../../content/composables/use-navigation';
 import { defineComponent, computed, ref, toRefs } from 'vue';
 import { allowedCollections } from "../allowed-collections";
 import { useCollectionsStore } from '@/stores/collections';

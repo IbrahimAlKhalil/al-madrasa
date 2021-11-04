@@ -6,6 +6,7 @@ importers:
     specifiers:
       '@directus/app': workspace:9.0.0-rc.101
       '@types/lodash': 4.14.176
+      '@types/pg': ^8.6.1
       bytes: ^3.1.0
       cli-progress: ^3.9.1
       color: ^4.0.1
@@ -23,6 +24,7 @@ importers:
     devDependencies:
       '@directus/app': link:app
       '@types/lodash': 4.14.176
+      '@types/pg': 8.6.1
       bytes: 3.1.0
       cli-progress: 3.9.1
       color: 4.0.1
@@ -2308,6 +2310,14 @@ packages:
 
   /@types/parse-json/4.0.0:
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
+
+  /@types/pg/8.6.1:
+    resolution: {integrity: sha512-1Kc4oAGzAl7uqUStZCDvaLFqZrW9qWSjXOmBfdgyBP5La7Us6Mg4GBvRlSoaZMhQF/zSj1C8CtKMBkoiT8eL8w==}
+    dependencies:
+      '@types/node': 16.11.6
+      pg-protocol: 1.5.0
+      pg-types: 2.2.0
+    dev: true
 
   /@types/pino-http/5.8.0:
     resolution: {integrity: sha512-/gKFhkzVotTl61mMacH5qptjBOGGqZyVXCRhDDVPg76JdmYYO0bftZV0lcAY7sAzCCZQciTsGdQcv0/B1X3C9Q==}

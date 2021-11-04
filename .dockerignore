@@ -1,5 +1,7 @@
 *
 
+!scripts
+!database
 !api/dist
 !api/cli.js
 !api/index.js

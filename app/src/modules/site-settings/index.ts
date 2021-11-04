@@ -1,4 +1,4 @@
-import {useNavigation} from "@/modules/collections/composables/use-navigation";
+import {useNavigation} from "@/modules/content/composables/use-navigation";
 import CollectionOrItem from './routes/collection-or-item.vue';
 import { addQueryToPath } from '@/utils/add-query-to-path';
 import {allowedCollections} from "./allowed-collections";
