@@ -194,7 +194,13 @@ time: Date et heure
 timestamp: Horodatage
 uuid: UUID (IDentifiant Unique Universel)
 hash: Hash
-geometry: Géométrie
+geometry: Géometrie (Toutes)
+geometry.Point: 'Géometrie: Point'
+geometry.LineString: 'Géometrie: LineString'
+geometry.Polygon: 'Géometrie: Polygon'
+geometry.MultiPoint: 'Géometrie: MultiPoint'
+geometry.MultiLineString: 'Géometrie: MultiLineString'
+geometry.MultiPolygon: 'Géometrie: MultiPolygon'
 not_available_for_type: Non disponible pour ce type
 create_translations: Créer des traductions
 auto_refresh: Actualisation automatique
@@ -631,7 +637,6 @@ toggle: Activer/Désactiver
 icon_on: Icône de sélection
 icon_off: Icône de désélection
 label: Étiquette
-insights: Connaissances (Beta)
 dashboard: Dashboard
 panel: Panneau
 panel_options: Options de panneau
@@ -945,7 +950,6 @@ fields:
     enforce_tfa: Nécessite A2F
     users: Membres avec le rôle
     module_list: Module de Navigation
-    collection_list: Navigation de la collection
   directus_webhooks:
     name: Nom
     method: Méthode
@@ -1023,15 +1027,6 @@ field_options:
       name_placeholder: Entrez un titre...
       link_name: Lien
       link_placeholder: URL relative ou absolue...
-    collection_list:
-      group_name_addLabel: Ajouter un nouveau groupe...
-      fields:
-        group_name: Nom du groupe
-        group_placeholder: Étiquetez ce groupe...
-        type_name: Type
-        choices_always: Toujours ouvert
-        choices_start_open: Démarrer Ouverture
-        choices_start_collapsed: Commencer à réduire
     collections_name: Collections
     collections_addLabel: Ajouter une collection...
   directus_users:

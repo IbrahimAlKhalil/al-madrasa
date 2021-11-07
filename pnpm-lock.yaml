@@ -4,7 +4,7 @@ importers:
 
   .:
     specifiers:
-      '@directus/app': workspace:9.0.0-rc.101
+      '@directus/app': workspace:9.0.0
       '@types/lodash': 4.14.176
       '@types/pg': ^8.6.1
       bytes: ^3.1.0
@@ -42,16 +42,16 @@ importers:
 
   api:
     specifiers:
-      '@directus/app': 9.0.0-rc.101
-      '@directus/drive': 9.0.0-rc.101
-      '@directus/drive-azure': 9.0.0-rc.101
-      '@directus/drive-gcs': 9.0.0-rc.101
-      '@directus/drive-s3': 9.0.0-rc.101
-      '@directus/extensions-sdk': 9.0.0-rc.101
-      '@directus/format-title': 9.0.0-rc.101
-      '@directus/schema': 9.0.0-rc.101
-      '@directus/shared': 9.0.0-rc.101
-      '@directus/specs': 9.0.0-rc.101
+      '@directus/app': 9.0.0
+      '@directus/drive': 9.0.0
+      '@directus/drive-azure': 9.0.0
+      '@directus/drive-gcs': 9.0.0
+      '@directus/drive-s3': 9.0.0
+      '@directus/extensions-sdk': 9.0.0
+      '@directus/format-title': 9.0.0
+      '@directus/schema': 9.0.0
+      '@directus/shared': 9.0.0
+      '@directus/specs': 9.0.0
       '@godaddy/terminus': ^4.9.0
       '@keyv/redis': ^2.1.2
       '@rollup/plugin-alias': ^3.1.2
@@ -172,15 +172,15 @@ importers:
       wellknown: ^0.5.0
     dependencies:
       '@directus/app': link:../app
-      '@directus/drive': 9.0.0-rc.101
-      '@directus/drive-azure': 9.0.0-rc.101
-      '@directus/drive-gcs': 9.0.0-rc.101
-      '@directus/drive-s3': 9.0.0-rc.101
-      '@directus/extensions-sdk': 9.0.0-rc.101_fe5dba605b0bb936acabd6196f70f582
-      '@directus/format-title': 9.0.0-rc.101
-      '@directus/schema': 9.0.0-rc.101
-      '@directus/shared': 9.0.0-rc.101_5f61652015031676e98e1034ab5f6f33
-      '@directus/specs': 9.0.0-rc.101
+      '@directus/drive': 9.0.0
+      '@directus/drive-azure': 9.0.0
+      '@directus/drive-gcs': 9.0.0
+      '@directus/drive-s3': 9.0.0
+      '@directus/extensions-sdk': 9.0.0_fe5dba605b0bb936acabd6196f70f582
+      '@directus/format-title': 9.0.0
+      '@directus/schema': 9.0.0
+      '@directus/shared': 9.0.0_5f61652015031676e98e1034ab5f6f33
+      '@directus/specs': 9.0.0
       '@godaddy/terminus': 4.9.0
       '@rollup/plugin-alias': 3.1.8_rollup@2.58.3
       '@rollup/plugin-virtual': 2.0.3_rollup@2.58.3
@@ -304,10 +304,10 @@ importers:
 
   app:
     specifiers:
-      '@directus/docs': 9.0.0-rc.101
-      '@directus/extensions-sdk': 9.0.0-rc.101
-      '@directus/format-title': 9.0.0-rc.101
-      '@directus/shared': 9.0.0-rc.101
+      '@directus/docs': 9.0.0
+      '@directus/extensions-sdk': 9.0.0
+      '@directus/format-title': 9.0.0
+      '@directus/shared': 9.0.0
       '@fortawesome/fontawesome-svg-core': 1.2.36
       '@fortawesome/free-brands-svg-icons': 5.15.4
       '@fullcalendar/core': 5.10.1
@@ -378,10 +378,10 @@ importers:
       vuedraggable: 4.1.0
       wellknown: 0.5.0
     devDependencies:
-      '@directus/docs': 9.0.0-rc.101
-      '@directus/extensions-sdk': 9.0.0-rc.101_pg@8.7.1+typescript@4.4.4
-      '@directus/format-title': 9.0.0-rc.101
-      '@directus/shared': 9.0.0-rc.101_pg@8.7.1
+      '@directus/docs': 9.0.0
+      '@directus/extensions-sdk': 9.0.0_pg@8.7.1+typescript@4.4.4
+      '@directus/format-title': 9.0.0
+      '@directus/shared': 9.0.0_pg@8.7.1
       '@fortawesome/fontawesome-svg-core': 1.2.36
       '@fortawesome/free-brands-svg-icons': 5.15.4
       '@fullcalendar/core': 5.10.1
@@ -985,22 +985,22 @@ packages:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
 
-  /@directus/docs/9.0.0-rc.101:
-    resolution: {integrity: sha512-JgzbCnyGQKZPGYUP5kNkteLuC8RcW50E/pYxsRr/BBF5bdkjmkqa1WMJimjWfCMHl4WCwmrsHFDL6Kt46rCRUw==}
+  /@directus/docs/9.0.0:
+    resolution: {integrity: sha512-7PNSwLx79w8s8iFwaKzk5XCrr3iMzR9DLHYlbhFiwARVRSJssTCpD823DaM6v4Qjus54GiTfTiuNyVXxY+5rrQ==}
     dev: true
 
-  /@directus/drive-azure/9.0.0-rc.101:
-    resolution: {integrity: sha512-U12k9x57YfPS6A8KQNVT6JPDDKxd+8aKVkF/5jTGLK7cgI4ZZG49RPbQHFT8THcv6NQKHm3YSo6QZ71BfvBu6g==}
+  /@directus/drive-azure/9.0.0:
+    resolution: {integrity: sha512-iThmdHSpAeKxt+RKs82ydT+JDMimN/uB7nOHcLibAvWYNap1nCkFOOdwKSGQ4taIPC4ChLDxmasiGopYPTCqCQ==}
     dependencies:
       '@azure/storage-blob': 12.8.0
-      '@directus/drive': 9.0.0-rc.101
+      '@directus/drive': 9.0.0
       normalize-path: 3.0.0
     dev: false
 
-  /@directus/drive-gcs/9.0.0-rc.101:
-    resolution: {integrity: sha512-R5dnSlMXLCEpP/oqOJ6mg0B5aduU2pKoVObLWLG1ZT+hSXlO/sqnL13wSki2hJ2HeDsd7a6NqDC3vC3rtVJ5Kw==}
+  /@directus/drive-gcs/9.0.0:
+    resolution: {integrity: sha512-Wy4WkC/L8T8FmTKTKwnHDQJHEaerqML4Utcbh3L4NYbMRTysycujolnvNAXtNMwYDdp5oWx0HikFXXEHxaDUPw==}
     dependencies:
-      '@directus/drive': 9.0.0-rc.101
+      '@directus/drive': 9.0.0
       '@google-cloud/storage': 5.15.3
       lodash: 4.17.21
       normalize-path: 3.0.0
@@ -1008,27 +1008,27 @@ packages:
       - supports-color
     dev: false
 
-  /@directus/drive-s3/9.0.0-rc.101:
-    resolution: {integrity: sha512-NCO7Zny2T51Omtg7/zmqk5kZWziZsMSpldNma8Ng5StKOivEKpXjg5+YTj1nL27oJRE6/rcRnLvcyFb1oDDnVg==}
+  /@directus/drive-s3/9.0.0:
+    resolution: {integrity: sha512-nnwMhQXJs4c2p1pWef/Y13bRSNte+wdTMg4AL4CZkZGxhh1/JMCgxYlHDTtVgUrIeyS32MGmrtaCRDb0ALnRew==}
     dependencies:
-      '@directus/drive': 9.0.0-rc.101
+      '@directus/drive': 9.0.0
       aws-sdk: 2.1014.0
       normalize-path: 3.0.0
     dev: false
 
-  /@directus/drive/9.0.0-rc.101:
-    resolution: {integrity: sha512-eVeZBCCyotkooy3sAx/4f6707pvdVtScpEzKlAyLv4rBhDSIHsA32zdXj1MiWHZCaAFcGOLXSGpHJwOc/orOVQ==}
+  /@directus/drive/9.0.0:
+    resolution: {integrity: sha512-SiBHSU+ro4SwgLpDvwVtG1zTYFw6CS8LxZLgh5L9HKYPUQGSagxFLjtaebDisIKVewtiOfkxcO5hfl8dAj7fOg==}
     dependencies:
       fs-extra: 10.0.0
       node-exceptions: 4.0.1
     dev: false
 
-  /@directus/extensions-sdk/9.0.0-rc.101_fe5dba605b0bb936acabd6196f70f582:
-    resolution: {integrity: sha512-JT+io+X6fKoBw+Cz+1GVIZ/sXQOOlxeK4t4cpomHZHRUxiNsm/58locFiTXdi0/H7csB17s3ehI4GzXhp5/yRw==}
+  /@directus/extensions-sdk/9.0.0_fe5dba605b0bb936acabd6196f70f582:
+    resolution: {integrity: sha512-PM3XhV3uVF2w3Lr4cMP9CwIrHjijex5wpmPxy7LJn2jLA5Bv+P03A1j/suNox2XN21x1HxCI/fRa8IZJ5RO/5Q==}
     engines: {node: '>=12.20.0'}
     hasBin: true
     dependencies:
-      '@directus/shared': 9.0.0-rc.101_5f61652015031676e98e1034ab5f6f33
+      '@directus/shared': 9.0.0_5f61652015031676e98e1034ab5f6f33
       '@rollup/plugin-commonjs': 21.0.1_rollup@2.58.3
       '@rollup/plugin-json': 4.1.0_rollup@2.58.3
       '@rollup/plugin-node-resolve': 13.0.6_rollup@2.58.3
@@ -1055,12 +1055,12 @@ packages:
       - typescript
     dev: false
 
-  /@directus/extensions-sdk/9.0.0-rc.101_pg@8.7.1+typescript@4.4.4:
-    resolution: {integrity: sha512-JT+io+X6fKoBw+Cz+1GVIZ/sXQOOlxeK4t4cpomHZHRUxiNsm/58locFiTXdi0/H7csB17s3ehI4GzXhp5/yRw==}
+  /@directus/extensions-sdk/9.0.0_pg@8.7.1+typescript@4.4.4:
+    resolution: {integrity: sha512-PM3XhV3uVF2w3Lr4cMP9CwIrHjijex5wpmPxy7LJn2jLA5Bv+P03A1j/suNox2XN21x1HxCI/fRa8IZJ5RO/5Q==}
     engines: {node: '>=12.20.0'}
     hasBin: true
     dependencies:
-      '@directus/shared': 9.0.0-rc.101_pg@8.7.1
+      '@directus/shared': 9.0.0_pg@8.7.1
       '@rollup/plugin-commonjs': 21.0.1_rollup@2.58.3
       '@rollup/plugin-json': 4.1.0_rollup@2.58.3
       '@rollup/plugin-node-resolve': 13.0.6_rollup@2.58.3
@@ -1087,19 +1087,19 @@ packages:
       - typescript
     dev: true
 
-  /@directus/format-title/9.0.0-rc.101:
-    resolution: {integrity: sha512-j41Qrhi4nedKkuA7rNmpoFTC1rlECk++GHR4MwkO1C/qSCW9PiIAIELpHteotYiCeRtCcygN4OKp9FukBbVhkQ==}
+  /@directus/format-title/9.0.0:
+    resolution: {integrity: sha512-lYaEsu4+6Yo2tYiC0uo8fv+9aufvMATZA5Fr5lHSsGv8CcppNKSnAZxHE34/1siaZ90xmhVIIIcOR53HZvI5fQ==}
     engines: {node: '>=6.0.0'}
 
-  /@directus/schema/9.0.0-rc.101:
-    resolution: {integrity: sha512-jYAp86Et4w3d8tRf2+Mah0GaoaZQcP1Kol6k6ZWmv1eJaINs7i/qLBxHenbi0/Fbh1jJGow1ZCWeQ3EasS5YSQ==}
+  /@directus/schema/9.0.0:
+    resolution: {integrity: sha512-PWj4tiQrTMaBBQrkyx2HTW+EPPpZkL8eMA6teme7VIThRtIMio8P5aMk4vwIxk0YCPVrR3WssLO+lYjQAeibMQ==}
     dependencies:
       knex-schema-inspector: 1.6.4
       lodash: 4.17.21
     dev: false
 
-  /@directus/shared/9.0.0-rc.101_5f61652015031676e98e1034ab5f6f33:
-    resolution: {integrity: sha512-lBg3xU6Ku09M/DzfOkEr9mEfdkLZfuElpuK056lGROnA5YygeaCBCdeMoINRekCHweFI3kORE8O1gm/wPu3zwQ==}
+  /@directus/shared/9.0.0_5f61652015031676e98e1034ab5f6f33:
+    resolution: {integrity: sha512-RfE3l/Kf5uyMqS3q775lhRq/QM29m4FjHfJXop9lWDeEWuLJWIrK4RhTGmD2lfwglKJevE75NdKt0hJB2c1hxg==}
     dependencies:
       axios: 0.24.0
       date-fns: 2.24.0
@@ -1124,8 +1124,8 @@ packages:
       - tedious
     dev: false
 
-  /@directus/shared/9.0.0-rc.101_pg@8.7.1:
-    resolution: {integrity: sha512-lBg3xU6Ku09M/DzfOkEr9mEfdkLZfuElpuK056lGROnA5YygeaCBCdeMoINRekCHweFI3kORE8O1gm/wPu3zwQ==}
+  /@directus/shared/9.0.0_pg@8.7.1:
+    resolution: {integrity: sha512-RfE3l/Kf5uyMqS3q775lhRq/QM29m4FjHfJXop9lWDeEWuLJWIrK4RhTGmD2lfwglKJevE75NdKt0hJB2c1hxg==}
     dependencies:
       axios: 0.24.0
       date-fns: 2.24.0
@@ -1150,8 +1150,8 @@ packages:
       - tedious
     dev: true
 
-  /@directus/specs/9.0.0-rc.101:
-    resolution: {integrity: sha512-KlqBzmosWY67Il9gyquIW8pYpClwKXu893XBEFylS6e3VxA9Rk4Uv/0ZXri7vQ6GxoVP7f1rPOQJqYv/NC+G3A==}
+  /@directus/specs/9.0.0:
+    resolution: {integrity: sha512-mBf6O7WV2vGGYCHDStZ5ZTVBSApM/fckSnjj8wGml48xOIT5elxMC9oXBtVa87Sru0FRRZKW41sTKOcPQ8iKSw==}
     dependencies:
       openapi3-ts: 2.0.1
     dev: false
