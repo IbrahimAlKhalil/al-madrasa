@@ -16,6 +16,8 @@ import { loadModules } from './modules/register';
 import { router } from './router';
 import './styles/main.scss';
 import { registerViews } from './views/register';
+import {PiniaDebounce} from "@pinia/plugin-debounce";
+import {debounce} from "lodash";
 
 init();
 
@@ -34,10 +36,13 @@ async function init() {
 	console.time('🕓 Application Loaded');
 
 	const app = createApp(App);
+	const pinia = createPinia();
+
+	pinia.use(PiniaDebounce(debounce))
 
 	app.use(router);
 	app.use(i18n);
-	app.use(createPinia());
+	app.use(pinia);
 
 	registerDirectives(app);
 	registerComponents(app);

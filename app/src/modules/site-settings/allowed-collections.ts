@@ -1,1 +1,1 @@
-export const allowedCollections = new Set(['website', 'institute', 'widget_placement']);
+export const allowedCollections = new Set(['website', 'institute', 'menu']);

@@ -215,7 +215,6 @@ async function startPostgres() {
     childProcess.spawnSync(directusPath, ['database', 'migrate:up'], {
         shell: true,
     });
-    childProcess.spawnSync(directusPath, ['schema', 'apply', path.join(__dirname, '../snapshot.json'), '-y']);
 }
 
 async function stop() {

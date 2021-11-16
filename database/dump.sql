@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 14.0
--- Dumped by pg_dump version 14.0 (Ubuntu 14.0-1.pgdg20.04+1)
+-- Dumped by pg_dump version 14.1 (Ubuntu 14.1-1.pgdg20.04+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -878,7 +878,6 @@ CREATE TABLE "public"."directus_roles" (
     "description" "text",
     "ip_access" "text",
     "enforce_tfa" boolean DEFAULT false NOT NULL,
-    "collection_list" "json",
     "admin_access" boolean DEFAULT false NOT NULL,
     "app_access" boolean DEFAULT true NOT NULL
 );
@@ -1254,6 +1253,41 @@ ALTER SEQUENCE "public"."institute_id_seq" OWNED BY "public"."institute"."id";
 
 
 --
+-- Name: menu; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE "public"."menu" (
+    "id" integer NOT NULL,
+    "user_created" "uuid",
+    "date_created" timestamp with time zone,
+    "user_updated" "uuid",
+    "date_updated" timestamp with time zone,
+    "title" character varying(255) NOT NULL,
+    "items" "json"
+);
+
+
+--
+-- Name: menu_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE "public"."menu_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: menu_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE "public"."menu_id_seq" OWNED BY "public"."menu"."id";
+
+
+--
 -- Name: page; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1266,8 +1300,8 @@ CREATE TABLE "public"."page" (
     "user_updated" "uuid",
     "date_updated" timestamp with time zone,
     "title" character varying(255) NOT NULL,
-    "url" character varying(255) NOT NULL,
-    "content" "text" NOT NULL
+    "content" "text" NOT NULL,
+    "slug" "text" NOT NULL
 );
 
 
@@ -1530,6 +1564,41 @@ ALTER SEQUENCE "public"."reaction_type_id_seq" OWNED BY "public"."reaction_type"
 
 
 --
+-- Name: section; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE "public"."section" (
+    "id" integer NOT NULL,
+    "sort" integer,
+    "user_updated" "uuid",
+    "date_updated" timestamp with time zone,
+    "visible" boolean DEFAULT true NOT NULL,
+    "value" "json",
+    "page_section" integer NOT NULL
+);
+
+
+--
+-- Name: section_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE "public"."section_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: section_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE "public"."section_id_seq" OWNED BY "public"."section"."id";
+
+
+--
 -- Name: theme; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1557,6 +1626,75 @@ CREATE SEQUENCE "public"."theme_id_seq"
 --
 
 ALTER SEQUENCE "public"."theme_id_seq" OWNED BY "public"."theme"."id";
+
+
+--
+-- Name: theme_page; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE "public"."theme_page" (
+    "id" integer NOT NULL,
+    "sort" integer,
+    "name" character varying(255) NOT NULL,
+    "icon" character varying(255),
+    "theme" integer NOT NULL
+);
+
+
+--
+-- Name: theme_page_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE "public"."theme_page_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: theme_page_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE "public"."theme_page_id_seq" OWNED BY "public"."theme_page"."id";
+
+
+--
+-- Name: theme_page_section; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE "public"."theme_page_section" (
+    "id" integer NOT NULL,
+    "sort" integer,
+    "page" integer NOT NULL,
+    "name" character varying(255) NOT NULL,
+    "fields" "json",
+    "icon" character varying(255),
+    "sortable" boolean DEFAULT true NOT NULL,
+    "can_hide" boolean DEFAULT true NOT NULL
+);
+
+
+--
+-- Name: theme_page_section_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE "public"."theme_page_section_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: theme_page_section_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE "public"."theme_page_section_id_seq" OWNED BY "public"."theme_page_section"."id";
 
 
 --
@@ -1699,102 +1837,6 @@ CREATE SEQUENCE "public"."website_id_seq"
 --
 
 ALTER SEQUENCE "public"."website_id_seq" OWNED BY "public"."website"."id";
-
-
---
--- Name: widget; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE "public"."widget" (
-    "id" integer NOT NULL,
-    "name" character varying(255) NOT NULL,
-    "metadata" "json"
-);
-
-
---
--- Name: widget_area; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE "public"."widget_area" (
-    "id" integer NOT NULL,
-    "name" character varying(255) NOT NULL,
-    "theme" integer NOT NULL
-);
-
-
---
--- Name: widget_area_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE "public"."widget_area_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: widget_area_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE "public"."widget_area_id_seq" OWNED BY "public"."widget_area"."id";
-
-
---
--- Name: widget_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE "public"."widget_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: widget_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE "public"."widget_id_seq" OWNED BY "public"."widget"."id";
-
-
---
--- Name: widget_placement; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE "public"."widget_placement" (
-    "id" integer NOT NULL,
-    "user_created" "uuid",
-    "date_created" timestamp with time zone,
-    "widget" integer NOT NULL,
-    "area" integer NOT NULL,
-    "options" "json"
-);
-
-
---
--- Name: widget_placement_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE "public"."widget_placement_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: widget_placement_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE "public"."widget_placement_id_seq" OWNED BY "public"."widget_placement"."id";
 
 
 --
@@ -1987,6 +2029,13 @@ ALTER TABLE ONLY "public"."institute" ALTER COLUMN "id" SET DEFAULT "nextval"('"
 
 
 --
+-- Name: menu id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."menu" ALTER COLUMN "id" SET DEFAULT "nextval"('"public"."menu_id_seq"'::"regclass");
+
+
+--
 -- Name: page id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2043,10 +2092,31 @@ ALTER TABLE ONLY "public"."reaction_type" ALTER COLUMN "id" SET DEFAULT "nextval
 
 
 --
+-- Name: section id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."section" ALTER COLUMN "id" SET DEFAULT "nextval"('"public"."section_id_seq"'::"regclass");
+
+
+--
 -- Name: theme id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY "public"."theme" ALTER COLUMN "id" SET DEFAULT "nextval"('"public"."theme_id_seq"'::"regclass");
+
+
+--
+-- Name: theme_page id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."theme_page" ALTER COLUMN "id" SET DEFAULT "nextval"('"public"."theme_page_id_seq"'::"regclass");
+
+
+--
+-- Name: theme_page_section id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."theme_page_section" ALTER COLUMN "id" SET DEFAULT "nextval"('"public"."theme_page_section_id_seq"'::"regclass");
 
 
 --
@@ -2075,27 +2145,6 @@ ALTER TABLE ONLY "public"."video_category_pivot" ALTER COLUMN "id" SET DEFAULT "
 --
 
 ALTER TABLE ONLY "public"."website" ALTER COLUMN "id" SET DEFAULT "nextval"('"public"."website_id_seq"'::"regclass");
-
-
---
--- Name: widget id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY "public"."widget" ALTER COLUMN "id" SET DEFAULT "nextval"('"public"."widget_id_seq"'::"regclass");
-
-
---
--- Name: widget_area id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY "public"."widget_area" ALTER COLUMN "id" SET DEFAULT "nextval"('"public"."widget_area_id_seq"'::"regclass");
-
-
---
--- Name: widget_placement id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY "public"."widget_placement" ALTER COLUMN "id" SET DEFAULT "nextval"('"public"."widget_placement_id_seq"'::"regclass");
 
 
 --
@@ -2181,40 +2230,41 @@ ALTER TABLE ONLY "public"."widget_placement" ALTER COLUMN "id" SET DEFAULT "next
 --
 
 INSERT INTO "public"."directus_collections" VALUES ('image_category', 'category', NULL, NULL, false, false, '[{"language":"en-US","translation":"Category","singular":"Category","plural":"Categories"}]', NULL, true, NULL, NULL, 'sort', 'all', NULL, NULL, 2, 'image', 'open');
+INSERT INTO "public"."directus_collections" VALUES ('page', 'view_quilt', NULL, NULL, false, false, NULL, 'status', true, 'archived', 'draft', 'sort', 'all', NULL, NULL, 1, NULL, 'open');
+INSERT INTO "public"."directus_collections" VALUES ('video', 'videocam', NULL, NULL, false, false, NULL, 'status', true, 'archived', 'draft', 'sort', 'all', NULL, NULL, 3, NULL, 'closed');
+INSERT INTO "public"."directus_collections" VALUES ('audio', 'music_note', NULL, NULL, false, false, NULL, 'status', true, 'archived', 'draft', 'sort', 'all', NULL, NULL, 4, NULL, 'closed');
+INSERT INTO "public"."directus_collections" VALUES ('image', 'image', NULL, NULL, false, false, NULL, 'status', true, 'archived', 'draft', 'sort', 'all', NULL, NULL, 5, NULL, 'closed');
 INSERT INTO "public"."directus_collections" VALUES ('article_category_pivot', 'import_export', NULL, NULL, true, false, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, 1, 'article', 'open');
 INSERT INTO "public"."directus_collections" VALUES ('article_category', 'category', NULL, NULL, false, false, '[{"language":"en-US","translation":"Category","singular":"Category","plural":"Categories"}]', NULL, true, NULL, NULL, 'sort', 'all', NULL, NULL, 2, 'article', 'open');
+INSERT INTO "public"."directus_collections" VALUES ('article', 'article', NULL, NULL, false, false, '[{"language":"en-US","translation":"Post","singular":"Post","plural":"Posts"}]', 'status', true, 'archived', 'draft', 'sort', 'all', NULL, NULL, 2, NULL, 'closed');
+INSERT INTO "public"."directus_collections" VALUES ('document', 'text_snippet', NULL, NULL, false, false, NULL, 'status', true, 'archived', 'draft', 'sort', 'all', NULL, NULL, 6, NULL, 'closed');
+INSERT INTO "public"."directus_collections" VALUES ('book', 'menu_book', NULL, NULL, false, false, NULL, 'status', true, 'archived', 'draft', 'sort', 'all', NULL, NULL, 7, NULL, 'closed');
+INSERT INTO "public"."directus_collections" VALUES ('comment', 'comment', NULL, NULL, false, false, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, 9, NULL, 'closed');
 INSERT INTO "public"."directus_collections" VALUES ('document_category_pivot', 'import_export', NULL, NULL, true, false, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, 1, 'document', 'open');
 INSERT INTO "public"."directus_collections" VALUES ('document_category', 'category', NULL, NULL, false, false, '[{"language":"en-US","translation":"Category","singular":"Category","plural":"Categories"}]', NULL, true, NULL, NULL, 'sort', 'all', NULL, NULL, 2, 'document', 'open');
+INSERT INTO "public"."directus_collections" VALUES ('reaction', 'thumb_up', NULL, NULL, false, false, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, 10, NULL, 'closed');
 INSERT INTO "public"."directus_collections" VALUES ('video_category_pivot', 'import_export', NULL, NULL, true, false, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, 1, 'video', 'open');
 INSERT INTO "public"."directus_collections" VALUES ('video_category', 'category', NULL, NULL, false, false, '[{"language":"en-US","translation":"Category","singular":"Category","plural":"Categories"}]', NULL, true, NULL, NULL, 'sort', 'all', NULL, NULL, 2, 'video', 'open');
+INSERT INTO "public"."directus_collections" VALUES ('question', 'email', NULL, NULL, false, false, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, 8, NULL, 'closed');
+INSERT INTO "public"."directus_collections" VALUES ('menu', 'widgets', NULL, NULL, true, false, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, 12, NULL, 'open');
+INSERT INTO "public"."directus_collections" VALUES ('website', 'language', NULL, NULL, true, true, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, 11, NULL, 'open');
+INSERT INTO "public"."directus_collections" VALUES ('institute', 'location_city', NULL, NULL, true, true, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, 13, NULL, 'open');
 INSERT INTO "public"."directus_collections" VALUES ('audio_category_pivot', 'import_export', NULL, NULL, true, false, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, 1, 'audio', 'open');
 INSERT INTO "public"."directus_collections" VALUES ('audio_category', 'category', NULL, NULL, false, false, '[{"language":"en-US","translation":"Category","singular":"Category","plural":"Categories"}]', NULL, true, NULL, NULL, 'sort', 'all', NULL, NULL, 2, 'audio', 'open');
 INSERT INTO "public"."directus_collections" VALUES ('book_category_pivot', 'import_export', NULL, NULL, true, false, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, 1, 'book', 'open');
-INSERT INTO "public"."directus_collections" VALUES ('book', 'menu_book', NULL, NULL, false, false, NULL, 'status', true, 'archived', 'draft', 'sort', 'all', NULL, NULL, 7, NULL, 'closed');
 INSERT INTO "public"."directus_collections" VALUES ('comment_entity', 'import_export', NULL, NULL, true, false, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, 1, 'comment', 'open');
 INSERT INTO "public"."directus_collections" VALUES ('image_category_pivot', 'import_export', NULL, NULL, true, false, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, 1, 'image', 'open');
 INSERT INTO "public"."directus_collections" VALUES ('book_author', 'perm_identity', NULL, NULL, false, false, '[{"language":"en-US","translation":"Author","singular":"Author","plural":"Authors"}]', NULL, true, NULL, NULL, 'sort', 'all', NULL, NULL, 3, 'book', 'open');
-INSERT INTO "public"."directus_collections" VALUES ('institute', 'location_city', NULL, NULL, true, true, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, 13, NULL, 'open');
-INSERT INTO "public"."directus_collections" VALUES ('website', 'language', NULL, NULL, true, true, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, 11, NULL, 'open');
+INSERT INTO "public"."directus_collections" VALUES ('section', NULL, NULL, NULL, true, false, NULL, NULL, true, NULL, NULL, 'sort', 'all', NULL, NULL, 17, NULL, 'open');
 INSERT INTO "public"."directus_collections" VALUES ('book_category', 'category', NULL, NULL, false, false, '[{"language":"en-US","translation":"Category","singular":"Category","plural":"Categories"}]', NULL, true, NULL, NULL, 'sort', 'all', NULL, NULL, 2, 'book', 'open');
 INSERT INTO "public"."directus_collections" VALUES ('reaction_entity', 'import_export', NULL, NULL, true, false, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, 1, 'reaction', 'open');
 INSERT INTO "public"."directus_collections" VALUES ('reaction_type', 'emoji_emotions', NULL, NULL, false, false, '[{"language":"en-US","translation":"Type","singular":"Type","plural":"Types"}]', NULL, true, NULL, NULL, 'sort', 'all', NULL, NULL, 2, 'reaction', 'open');
 INSERT INTO "public"."directus_collections" VALUES ('question_category_pivot', 'import_export', NULL, NULL, true, false, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, 1, 'question', 'open');
-INSERT INTO "public"."directus_collections" VALUES ('widget_placement', 'widgets', NULL, NULL, false, false, '[{"language":"en-US","translation":"Widget","singular":"Widget","plural":"Widgets"}]', NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, 12, NULL, 'open');
-INSERT INTO "public"."directus_collections" VALUES ('widget_area', 'backup_table', NULL, '{{name}}', false, false, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, 15, NULL, 'open');
+INSERT INTO "public"."directus_collections" VALUES ('theme', 'format_paint', NULL, '{{name}}', true, false, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, 14, NULL, 'open');
+INSERT INTO "public"."directus_collections" VALUES ('theme_page', NULL, NULL, NULL, true, false, NULL, NULL, true, NULL, NULL, 'sort', 'all', NULL, NULL, 15, NULL, 'open');
+INSERT INTO "public"."directus_collections" VALUES ('theme_page_section', NULL, NULL, NULL, true, false, NULL, NULL, true, NULL, NULL, 'sort', 'all', NULL, NULL, 16, NULL, 'open');
 INSERT INTO "public"."directus_collections" VALUES ('question_type', 'contact_support', NULL, NULL, false, false, '[{"language":"en-US","translation":"Type","singular":"Type","plural":"Types"}]', NULL, true, NULL, NULL, 'sort', 'all', NULL, NULL, 3, 'question', 'open');
 INSERT INTO "public"."directus_collections" VALUES ('question_category', 'category', NULL, NULL, false, false, '[{"language":"en-US","translation":"Category","singular":"Category","plural":"Categories"}]', NULL, true, NULL, NULL, 'sort', 'all', NULL, NULL, 2, 'question', 'open');
-INSERT INTO "public"."directus_collections" VALUES ('widget', 'widgets', NULL, NULL, false, false, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, 16, NULL, 'open');
-INSERT INTO "public"."directus_collections" VALUES ('theme', 'format_paint', NULL, '{{name}}', false, false, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, 14, NULL, 'open');
-INSERT INTO "public"."directus_collections" VALUES ('page', 'view_quilt', NULL, NULL, false, false, NULL, 'status', true, 'archived', 'draft', 'sort', 'all', NULL, NULL, 1, NULL, 'open');
-INSERT INTO "public"."directus_collections" VALUES ('video', 'videocam', NULL, NULL, false, false, NULL, 'status', true, 'archived', 'draft', 'sort', 'all', NULL, NULL, 3, NULL, 'closed');
-INSERT INTO "public"."directus_collections" VALUES ('audio', 'music_note', NULL, NULL, false, false, NULL, 'status', true, 'archived', 'draft', 'sort', 'all', NULL, NULL, 4, NULL, 'closed');
-INSERT INTO "public"."directus_collections" VALUES ('article', 'article', NULL, NULL, false, false, '[{"language":"en-US","translation":"Post","singular":"Post","plural":"Posts"}]', 'status', true, 'archived', 'draft', 'sort', 'all', NULL, NULL, 2, NULL, 'closed');
-INSERT INTO "public"."directus_collections" VALUES ('image', 'image', NULL, NULL, false, false, NULL, 'status', true, 'archived', 'draft', 'sort', 'all', NULL, NULL, 5, NULL, 'closed');
-INSERT INTO "public"."directus_collections" VALUES ('document', 'text_snippet', NULL, NULL, false, false, NULL, 'status', true, 'archived', 'draft', 'sort', 'all', NULL, NULL, 6, NULL, 'closed');
-INSERT INTO "public"."directus_collections" VALUES ('question', 'email', NULL, NULL, false, false, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, 8, NULL, 'closed');
-INSERT INTO "public"."directus_collections" VALUES ('comment', 'comment', NULL, NULL, false, false, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, 9, NULL, 'closed');
-INSERT INTO "public"."directus_collections" VALUES ('reaction', 'thumb_up', NULL, NULL, false, false, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, 10, NULL, 'closed');
 
 
 --
@@ -2227,7 +2277,11 @@ INSERT INTO "public"."directus_collections" VALUES ('reaction', 'thumb_up', NULL
 -- Data for Name: directus_fields; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO "public"."directus_fields" VALUES (430, 'widget_placement', 'options', 'json', 'widget-metadata', '{"collection":"widget","field":"metadata"}', 'formatted-json-value', NULL, false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (431, 'page', 'slug', NULL, 'input', '{"placeholder":"Slug","iconLeft":"settings_ethernet","slug":true,"trim":true}', 'slug', NULL, false, false, 8, 'full', NULL, NULL, NULL, true, NULL);
+INSERT INTO "public"."directus_fields" VALUES (432, 'menu', 'id', NULL, 'input', NULL, NULL, NULL, true, true, 1, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (434, 'menu', 'date_created', 'date-created', 'datetime', NULL, 'datetime', '{"relative":true}', true, true, 3, 'half', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (435, 'menu', 'user_updated', 'user-updated', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, 4, 'half', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (436, 'menu', 'date_updated', 'date-updated', 'datetime', NULL, 'datetime', '{"relative":true}', true, true, 5, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (18, 'article', 'featured_image', NULL, 'file-image', NULL, 'image', NULL, false, false, 10, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (154, 'video', 'sort', NULL, 'input', NULL, NULL, NULL, false, true, 3, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (155, 'video', 'user_created', 'user-created', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, 4, 'half', NULL, NULL, NULL, false, NULL);
@@ -2244,14 +2298,19 @@ INSERT INTO "public"."directus_fields" VALUES (14, 'article', 'date_updated', 'd
 INSERT INTO "public"."directus_fields" VALUES (9, 'article', 'status', NULL, 'select-dropdown', '{"choices":[{"text":"$t:published","value":"published"},{"text":"$t:draft","value":"draft"},{"text":"$t:archived","value":"archived"}]}', 'labels', '{"showAsDot":true,"choices":[{"background":"#00C897","value":"published"},{"background":"#D3DAE4","value":"draft"},{"background":"#F7971C","value":"archived"}]}', false, false, 7, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (151, 'article', 'categories', 'm2m', 'list-m2m', '{"template":"{{name}}"}', NULL, NULL, false, false, 12, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (152, 'video', 'id', NULL, 'input', NULL, NULL, NULL, true, true, 1, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (433, 'menu', 'user_created', 'user-created', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, 2, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (156, 'video', 'date_created', 'date-created', 'datetime', NULL, 'datetime', '{"relative":true}', true, true, 5, 'half', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (440, 'theme_page', 'id', NULL, 'input', NULL, NULL, NULL, true, true, 1, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (441, 'theme_page', 'sort', NULL, 'input', NULL, NULL, NULL, false, true, 2, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (104, 'article_category', 'id', NULL, 'input', NULL, NULL, NULL, true, true, NULL, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (448, 'theme_page_section', 'name', NULL, 'input', '{"fields":[],"placeholder":"Name","iconLeft":"title","trim":true}', 'formatted-json-value', NULL, false, false, 4, 'full', NULL, NULL, NULL, true, NULL);
 INSERT INTO "public"."directus_fields" VALUES (105, 'article_category', 'sort', NULL, 'input', NULL, NULL, NULL, false, true, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (106, 'article_category', 'user_created', 'user-created', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (107, 'article_category', 'date_created', 'date-created', 'datetime', NULL, 'datetime', '{"relative":true}', true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (108, 'article_category', 'user_updated', 'user-updated', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (109, 'article_category', 'date_updated', 'date-updated', 'datetime', NULL, 'datetime', '{"relative":true}', true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (110, 'article_category', 'name', NULL, 'input', '{"placeholder":"Name","iconLeft":"title"}', 'raw', NULL, false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (455, 'section', 'visible', 'boolean', 'boolean', NULL, 'boolean', '{"labelOn":"Visible","labelOff":"Invisible","iconOn":"visibility","iconOff":"visibility_off"}', false, true, 5, 'full', NULL, NULL, NULL, true, NULL);
 INSERT INTO "public"."directus_fields" VALUES (179, 'audio', 'date_created', 'date-created', 'datetime', NULL, 'datetime', '{"relative":true}', true, true, 5, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (180, 'audio', 'user_updated', 'user-updated', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, 6, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (176, 'audio', 'status', NULL, 'select-dropdown', '{"choices":[{"text":"$t:published","value":"published"},{"text":"$t:draft","value":"draft"},{"text":"$t:archived","value":"archived"}]}', 'labels', '{"showAsDot":true,"choices":[{"background":"#00C897","value":"published"},{"background":"#D3DAE4","value":"draft"},{"background":"#F7971C","value":"archived"}]}', false, false, 2, 'full', NULL, NULL, NULL, false, NULL);
@@ -2310,10 +2369,16 @@ INSERT INTO "public"."directus_fields" VALUES (232, 'book_category', 'date_creat
 INSERT INTO "public"."directus_fields" VALUES (233, 'book_category', 'user_updated', 'user-updated', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (234, 'book_category', 'date_updated', 'date-updated', 'datetime', NULL, 'datetime', '{"relative":true}', true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (235, 'book_category', 'name', NULL, 'input', '{"placeholder":"Name","iconLeft":"title","trim":true}', 'raw', NULL, false, false, NULL, 'full', NULL, NULL, NULL, true, NULL);
+INSERT INTO "public"."directus_fields" VALUES (437, 'menu', 'title', NULL, 'input', '{"placeholder":"Title","iconLeft":"title"}', NULL, NULL, false, false, 6, 'full', NULL, NULL, NULL, true, NULL);
 INSERT INTO "public"."directus_fields" VALUES (199, 'image', 'user_created', 'user-created', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, 4, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (220, 'book', 'user_created', 'user-created', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, 4, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (219, 'book', 'sort', NULL, 'input', NULL, NULL, NULL, false, true, 3, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (213, 'image', 'categories', 'm2m', 'list-m2m', '{"template":"{{name}}"}', NULL, NULL, false, false, 12, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (443, 'theme_page', 'name', NULL, 'input', '{"placeholder":"Name","iconLeft":"title","trim":true}', NULL, NULL, false, false, 3, 'full', NULL, NULL, NULL, true, NULL);
+INSERT INTO "public"."directus_fields" VALUES (456, 'section', 'value', 'json', NULL, NULL, 'formatted-json-value', NULL, false, false, 7, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (445, 'theme_page_section', 'sort', NULL, 'input', NULL, NULL, NULL, false, true, 2, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (476, 'audio_category', 'audios', 'm2m', 'list-m2m', '{"template":"{{audio_id.title}}{{audio_id.date_created}}"}', 'related-values', '{"template":"{{audio_id.title}}{{audio_id.date_created}}"}', false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (444, 'theme_page_section', 'id', NULL, 'input', NULL, NULL, NULL, true, true, 1, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (248, 'book_author', 'id', NULL, 'input', NULL, NULL, NULL, true, true, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (249, 'book_author', 'sort', NULL, 'input', NULL, NULL, NULL, false, true, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (250, 'book_author', 'user_created', 'user-created', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
@@ -2337,6 +2402,8 @@ INSERT INTO "public"."directus_fields" VALUES (196, 'image', 'id', NULL, 'input'
 INSERT INTO "public"."directus_fields" VALUES (299, 'comment', 'parent', 'm2o', 'select-dropdown-m2o', '{"template":"{{user_created}}{{comment}}"}', NULL, NULL, false, false, 6, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (290, 'comment', 'comment', NULL, 'input-multiline', NULL, 'raw', NULL, false, false, 7, 'full', NULL, NULL, NULL, true, NULL);
 INSERT INTO "public"."directus_fields" VALUES (291, 'comment', 'approved', 'boolean', 'boolean', '{"label":"Approved"}', NULL, NULL, false, false, 8, 'full', NULL, NULL, NULL, true, NULL);
+INSERT INTO "public"."directus_fields" VALUES (438, 'menu', 'items', 'json', 'menu', NULL, 'formatted-json-value', NULL, false, false, 7, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (457, 'theme_page', 'icon', NULL, 'select-icon', NULL, 'icon', NULL, false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (218, 'book', 'status', NULL, 'select-dropdown', '{"choices":[{"text":"$t:published","value":"published"},{"text":"$t:draft","value":"draft"},{"text":"$t:archived","value":"archived"}]}', 'labels', '{"showAsDot":true,"choices":[{"background":"#00C897","value":"published"},{"background":"#D3DAE4","value":"draft"},{"background":"#F7971C","value":"archived"}]}', false, false, 2, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (262, 'book', 'book', 'file', 'file', NULL, 'file', NULL, false, false, 8, 'half', NULL, NULL, NULL, true, NULL);
 INSERT INTO "public"."directus_fields" VALUES (263, 'book', 'author', 'm2o', 'select-dropdown-m2o', '{"template":"{{photo}}{{name}}"}', NULL, NULL, false, false, 10, 'full', NULL, NULL, NULL, false, NULL);
@@ -2357,6 +2424,7 @@ INSERT INTO "public"."directus_fields" VALUES (293, 'comment_entity', 'id', NULL
 INSERT INTO "public"."directus_fields" VALUES (294, 'comment_entity', 'comment_id', NULL, NULL, NULL, NULL, NULL, false, true, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (295, 'comment_entity', 'item', NULL, NULL, NULL, NULL, NULL, false, true, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (296, 'comment_entity', 'collection', NULL, NULL, NULL, NULL, NULL, false, true, NULL, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (477, 'image_category', 'images', 'm2m', 'list-m2m', '{"template":"{{image_id.title}}{{image_id.date_created}}"}', 'related-values', '{"template":"{{image_id.title}}{{image_id.date_created}}"}', false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (317, 'question_type', 'name', NULL, 'input', '{"placeholder":"Name","iconLeft":"title","trim":true}', 'raw', '{}', false, false, NULL, 'full', NULL, NULL, NULL, true, NULL);
 INSERT INTO "public"."directus_fields" VALUES (285, 'comment', 'id', NULL, 'input', NULL, NULL, NULL, true, true, 1, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (286, 'comment', 'user_created', 'user-created', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, 2, 'half', NULL, NULL, NULL, false, NULL);
@@ -2399,6 +2467,8 @@ INSERT INTO "public"."directus_fields" VALUES (331, 'reaction', 'user_created', 
 INSERT INTO "public"."directus_fields" VALUES (332, 'reaction', 'date_created', 'date-created', 'datetime', NULL, 'datetime', '{"relative":true}', true, true, 3, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (334, 'reaction', 'entity', 'm2a', 'list-m2a', '{"enableCreate":false}', 'raw', NULL, false, false, 4, 'full', NULL, NULL, NULL, true, NULL);
 INSERT INTO "public"."directus_fields" VALUES (333, 'reaction', 'type', 'm2o', 'select-dropdown-m2o', '{"template":"{{name}}"}', NULL, NULL, false, false, 5, 'full', NULL, NULL, NULL, true, NULL);
+INSERT INTO "public"."directus_fields" VALUES (471, 'theme', 'pages', 'o2m', 'list-o2m', '{"template":"{{name}}"}', 'related-values', '{"template":"{{name}}"}', false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (394, 'website', 'theme', 'm2o', 'select-dropdown-m2o', '{"template":"{{name}}"}', NULL, NULL, false, false, NULL, 'full', NULL, NULL, NULL, true, NULL);
 INSERT INTO "public"."directus_fields" VALUES (371, 'article', 'tags', 'json', 'tags', '{"placeholder":"Tags","allowCustom":true,"iconLeft":"local_offer"}', 'labels', NULL, false, false, 11, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (372, 'video', 'tags', 'json', 'tags', '{"placeholder":"Tags","iconLeft":"local_offer"}', NULL, NULL, false, false, 12, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (339, 'institute', 'id', NULL, 'input', NULL, NULL, NULL, true, true, 1, 'full', NULL, NULL, NULL, false, NULL);
@@ -2409,8 +2479,6 @@ INSERT INTO "public"."directus_fields" VALUES (344, 'institute', 'phone_number',
 INSERT INTO "public"."directus_fields" VALUES (345, 'institute', 'email_address', NULL, 'input', '{"placeholder":"Email Address","iconLeft":"alternate_email","trim":true}', NULL, NULL, false, false, 6, 'full', NULL, NULL, NULL, true, NULL);
 INSERT INTO "public"."directus_fields" VALUES (348, 'theme', 'id', NULL, 'input', NULL, NULL, NULL, true, true, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (349, 'theme', 'name', NULL, 'input', '{"placeholder":"Name","iconLeft":"title","trim":true}', NULL, NULL, false, false, NULL, 'full', NULL, NULL, NULL, true, NULL);
-INSERT INTO "public"."directus_fields" VALUES (350, 'widget', 'id', NULL, 'input', NULL, NULL, NULL, true, true, NULL, 'full', NULL, NULL, NULL, false, NULL);
-INSERT INTO "public"."directus_fields" VALUES (351, 'widget', 'name', NULL, 'input', '{"placeholder":"Name","iconLeft":"title","trim":true}', NULL, NULL, false, false, NULL, 'full', NULL, NULL, NULL, true, NULL);
 INSERT INTO "public"."directus_fields" VALUES (356, 'question_category', 'id', NULL, 'input', NULL, NULL, NULL, true, true, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (357, 'question_category', 'sort', NULL, 'input', NULL, NULL, NULL, false, true, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (358, 'question_category', 'user_created', 'user-created', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
@@ -2421,9 +2489,7 @@ INSERT INTO "public"."directus_fields" VALUES (362, 'question_category', 'name',
 INSERT INTO "public"."directus_fields" VALUES (364, 'question_category_pivot', 'id', NULL, NULL, NULL, NULL, NULL, false, true, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (365, 'question_category_pivot', 'question_id', NULL, NULL, NULL, NULL, NULL, false, true, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (366, 'question_category_pivot', 'question_category_id', NULL, NULL, NULL, NULL, NULL, false, true, NULL, 'full', NULL, NULL, NULL, false, NULL);
-INSERT INTO "public"."directus_fields" VALUES (367, 'widget_area', 'id', NULL, 'input', NULL, NULL, NULL, true, true, 1, 'full', NULL, NULL, NULL, false, NULL);
-INSERT INTO "public"."directus_fields" VALUES (369, 'widget_area', 'name', NULL, 'input', '{"placeholder":"Name","iconLeft":"title","trim":true}', NULL, NULL, false, false, 2, 'full', NULL, NULL, NULL, false, NULL);
-INSERT INTO "public"."directus_fields" VALUES (354, 'widget_placement', 'user_created', 'user-created', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, 2, 'half', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (478, 'document_category', 'documents', 'm2m', 'list-m2m', '{"template":"{{document_id.title}}{{document_id.date_created}}"}', 'related-values', '{"template":"{{document_id.title}}{{document_id.date_created}}"}', false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (381, 'website', 'id', NULL, 'input', NULL, NULL, NULL, true, true, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (373, 'audio', 'tags', 'json', 'tags', '{"placeholder":"Tags","iconLeft":"local_offer"}', NULL, NULL, false, false, 11, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (197, 'image', 'status', NULL, 'select-dropdown', '{"choices":[{"text":"$t:published","value":"published"},{"text":"$t:draft","value":"draft"},{"text":"$t:archived","value":"archived"}]}', 'labels', '{"showAsDot":true,"choices":[{"background":"#00C897","value":"published"},{"background":"#D3DAE4","value":"draft"},{"background":"#F7971C","value":"archived"}]}', false, false, 2, 'full', NULL, NULL, NULL, false, NULL);
@@ -2436,15 +2502,30 @@ INSERT INTO "public"."directus_fields" VALUES (382, 'website', 'user_updated', '
 INSERT INTO "public"."directus_fields" VALUES (383, 'website', 'date_updated', 'date-updated', 'datetime', NULL, 'datetime', '{"relative":true}', true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (384, 'website', 'title', NULL, 'input', '{"placeholder":"Title","iconLeft":"title","trim":true}', NULL, NULL, false, false, NULL, 'full', NULL, NULL, NULL, true, NULL);
 INSERT INTO "public"."directus_fields" VALUES (385, 'website', 'keywords', 'json', 'tags', '{"placeholder":"Keywords","iconLeft":"local_offer"}', NULL, NULL, false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (480, 'book_author', 'books', 'o2m', 'list-o2m', '{"template":"{{name}}{{date_created}}"}', 'related-values', '{"template":"{{name}}{{date_created}}"}', false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (389, 'question_type', 'visible_on_website', 'boolean', 'boolean', '{"label":"Visible"}', NULL, NULL, false, false, NULL, 'full', NULL, NULL, NULL, true, NULL);
 INSERT INTO "public"."directus_fields" VALUES (377, 'question', 'question_type', 'm2o', 'select-dropdown-m2o', '{"template":"{{name}}"}', NULL, NULL, false, false, 4, 'full', '[{"language":"en-US","translation":"Type"}]', NULL, NULL, true, NULL);
 INSERT INTO "public"."directus_fields" VALUES (363, 'question', 'categories', 'm2m', 'list-m2m', '{"template":"{{name}}"}', NULL, NULL, false, false, 8, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (447, 'theme_page_section', 'page', 'm2o', 'select-dropdown-m2o', '{"template":"{{name}}{{theme}}"}', 'related-values', '{"template":"{{name}}"}', false, false, 3, 'full', NULL, NULL, NULL, true, NULL);
 INSERT INTO "public"."directus_fields" VALUES (386, 'website', 'description', NULL, 'input-multiline', '{"placeholder":"Description","trim":true}', NULL, NULL, false, false, NULL, 'half', NULL, NULL, NULL, true, NULL);
 INSERT INTO "public"."directus_fields" VALUES (387, 'website', 'logo', 'file', 'file-image', NULL, NULL, NULL, false, false, NULL, 'half', NULL, NULL, NULL, false, NULL);
-INSERT INTO "public"."directus_fields" VALUES (394, 'website', 'theme', 'm2o', 'select-dropdown-m2o', '{"template":"{{name}}"}', NULL, NULL, false, false, NULL, 'full', NULL, NULL, NULL, true, NULL);
-INSERT INTO "public"."directus_fields" VALUES (353, 'widget_placement', 'id', NULL, 'input', NULL, NULL, NULL, true, true, 1, 'full', NULL, NULL, NULL, false, NULL);
-INSERT INTO "public"."directus_fields" VALUES (355, 'widget_placement', 'date_created', 'date-created', 'datetime', NULL, 'datetime', '{"relative":true}', true, true, 3, 'half', NULL, NULL, NULL, false, NULL);
-INSERT INTO "public"."directus_fields" VALUES (378, 'widget_placement', 'widget', 'm2o', 'select-dropdown-m2o', '{"template":"{{name}}{{theme}}"}', NULL, NULL, false, false, 4, 'full', NULL, NULL, NULL, true, NULL);
+INSERT INTO "public"."directus_fields" VALUES (465, 'theme_page_section', 'sortable', 'boolean', 'boolean', NULL, 'boolean', NULL, false, false, 5, 'full', NULL, NULL, NULL, true, NULL);
+INSERT INTO "public"."directus_fields" VALUES (458, 'theme_page_section', 'icon', NULL, 'select-icon', NULL, 'icon', NULL, false, false, 7, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (450, 'theme_page_section', 'fields', 'json', NULL, NULL, 'formatted-json-value', NULL, false, false, 8, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (481, 'question_category', 'questions', 'm2m', 'list-m2m', '{"template":"{{question_id.question}}"}', 'related-values', '{"template":"{{question_id.question}}"}', false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (483, 'reaction_type', 'reactions', 'o2m', 'list-o2m', '{"template":"{{id}}"}', 'related-values', '{"template":"{{id}}"}', false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (411, 'page', 'title', NULL, 'input', '{"placeholder":"Title","iconLeft":"title","trim":true}', NULL, NULL, false, false, 9, 'full', NULL, NULL, NULL, true, NULL);
+INSERT INTO "public"."directus_fields" VALUES (418, 'page', 'content', NULL, 'input-rich-text-html', '{
+  "tinymceOverrides": {
+    "plugins": "preview paste directionality code fullscreen image link media table hr pagebreak insertdatetime lists imagetools",
+    "toolbar": "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | customImage customMedia link | ltr rtl | fontselect fontsizeselect formatselect",
+    "menubar": "edit view insert format tools table tc",
+    "template_cdate_format": "[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]",
+    "template_mdate_format": "[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]",
+    "contextmenu": "link image table",
+    "height": 500
+  }
+}', NULL, NULL, false, false, 10, 'full', NULL, NULL, NULL, true, NULL);
 INSERT INTO "public"."directus_fields" VALUES (320, 'question', 'answer', NULL, 'input-rich-text-html', '{
   "tinymceOverrides": {
     "plugins": "preview paste directionality code fullscreen image link media table hr pagebreak insertdatetime lists imagetools",
@@ -2467,36 +2548,33 @@ INSERT INTO "public"."directus_fields" VALUES (17, 'article', 'content', NULL, '
     "height": 500
   }
 }', 'raw', NULL, false, false, 9, 'full', NULL, NULL, NULL, false, NULL);
-INSERT INTO "public"."directus_fields" VALUES (418, 'page', 'content', NULL, 'input-rich-text-html', '{
-  "tinymceOverrides": {
-    "plugins": "preview paste directionality code fullscreen image link media table hr pagebreak insertdatetime lists imagetools",
-    "toolbar": "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | customImage customMedia link | ltr rtl | fontselect fontsizeselect formatselect",
-    "menubar": "edit view insert format tools table tc",
-    "template_cdate_format": "[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]",
-    "template_mdate_format": "[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]",
-    "contextmenu": "link image table",
-    "height": 500
-  }
-}', NULL, NULL, false, false, NULL, 'full', NULL, NULL, NULL, true, NULL);
-INSERT INTO "public"."directus_fields" VALUES (404, 'page', 'id', NULL, 'input', NULL, NULL, NULL, true, true, NULL, 'full', NULL, NULL, NULL, false, NULL);
-INSERT INTO "public"."directus_fields" VALUES (405, 'page', 'status', NULL, 'select-dropdown', '{"choices":[{"text":"$t:published","value":"published"},{"text":"$t:draft","value":"draft"},{"text":"$t:archived","value":"archived"}]}', 'labels', '{"showAsDot":true,"choices":[{"background":"#00C897","value":"published"},{"background":"#D3DAE4","value":"draft"},{"background":"#F7971C","value":"archived"}]}', false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
-INSERT INTO "public"."directus_fields" VALUES (406, 'page', 'sort', NULL, 'input', NULL, NULL, NULL, false, true, NULL, 'full', NULL, NULL, NULL, false, NULL);
-INSERT INTO "public"."directus_fields" VALUES (407, 'page', 'user_created', 'user-created', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
-INSERT INTO "public"."directus_fields" VALUES (408, 'page', 'date_created', 'date-created', 'datetime', NULL, 'datetime', '{"relative":true}', true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
-INSERT INTO "public"."directus_fields" VALUES (409, 'page', 'user_updated', 'user-updated', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
-INSERT INTO "public"."directus_fields" VALUES (410, 'page', 'date_updated', 'date-updated', 'datetime', NULL, 'datetime', '{"relative":true}', true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
-INSERT INTO "public"."directus_fields" VALUES (411, 'page', 'title', NULL, 'input', '{"placeholder":"Title","iconLeft":"title","trim":true}', NULL, NULL, false, false, NULL, 'full', NULL, NULL, NULL, true, NULL);
-INSERT INTO "public"."directus_fields" VALUES (412, 'page', 'url', NULL, 'input', '{"placeholder":"URL","iconLeft":"http","trim":true,"slug":true}', NULL, NULL, false, false, NULL, 'full', NULL, NULL, NULL, true, NULL);
-INSERT INTO "public"."directus_fields" VALUES (421, 'widget', 'metadata', 'json', NULL, NULL, 'formatted-json-value', NULL, false, false, NULL, 'full', NULL, NULL, NULL, true, NULL);
-INSERT INTO "public"."directus_fields" VALUES (428, 'widget_area', 'theme', 'm2o', 'select-dropdown-m2o', '{"template":"{{name}}"}', NULL, NULL, false, false, NULL, 'full', NULL, NULL, NULL, true, NULL);
-INSERT INTO "public"."directus_fields" VALUES (429, 'widget_placement', 'area', 'm2o', 'select-dropdown-m2o', '{"template":"{{name}}"}', NULL, NULL, false, false, 5, 'full', NULL, NULL, NULL, true, NULL);
+INSERT INTO "public"."directus_fields" VALUES (462, 'theme_page', 'theme', 'm2o', 'select-dropdown-m2o', '{"template":"{{name}}"}', 'related-values', '{"template":"{{name}}"}', false, false, NULL, 'full', NULL, NULL, NULL, true, NULL);
+INSERT INTO "public"."directus_fields" VALUES (479, 'book_category', 'books', 'm2m', 'list-m2m', '{"template":"{{book_id.name}}{{book_id.author.name}}"}', 'related-values', '{"template":"{{book_id.name}}{{book_id.author.name}}"}', false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (482, 'question_type', 'questions', 'o2m', 'list-o2m', '{"template":"{{question}}"}', 'related-values', '{"template":"{{question}}"}', false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (484, 'theme', 'websites', 'o2m', 'list-o2m', '{"template":"{{title}}"}', 'related-values', '{"template":"{{title}}"}', false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (404, 'page', 'id', NULL, 'input', NULL, NULL, NULL, true, true, 1, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (405, 'page', 'status', NULL, 'select-dropdown', '{"choices":[{"text":"$t:published","value":"published"},{"text":"$t:draft","value":"draft"},{"text":"$t:archived","value":"archived"}]}', 'labels', '{"showAsDot":true,"choices":[{"background":"#00C897","value":"published"},{"background":"#D3DAE4","value":"draft"},{"background":"#F7971C","value":"archived"}]}', false, false, 2, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (406, 'page', 'sort', NULL, 'input', NULL, NULL, NULL, false, true, 3, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (407, 'page', 'user_created', 'user-created', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, 4, 'half', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (408, 'page', 'date_created', 'date-created', 'datetime', NULL, 'datetime', '{"relative":true}', true, true, 5, 'half', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (409, 'page', 'user_updated', 'user-updated', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, 6, 'half', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (410, 'page', 'date_updated', 'date-updated', 'datetime', NULL, 'datetime', '{"relative":true}', true, true, 7, 'half', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (451, 'section', 'id', NULL, 'input', NULL, NULL, NULL, true, true, 1, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (464, 'section', 'page_section', 'm2o', 'select-dropdown-m2o', '{"template":"{{name}}"}', 'related-values', '{"template":"{{name}}"}', false, true, 6, 'full', NULL, NULL, NULL, true, NULL);
+INSERT INTO "public"."directus_fields" VALUES (452, 'section', 'sort', NULL, 'input', NULL, NULL, NULL, false, true, 2, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (453, 'section', 'user_updated', 'user-updated', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, 3, 'half', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (454, 'section', 'date_updated', 'date-updated', 'datetime', NULL, 'datetime', '{"relative":true}', true, true, 4, 'half', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (467, 'theme_page_section', 'can_hide', 'boolean', 'boolean', '{"label":"Yes"}', 'boolean', NULL, false, false, 6, 'full', NULL, NULL, NULL, true, NULL);
+INSERT INTO "public"."directus_fields" VALUES (472, 'theme_page', 'sections', 'o2m', 'list-o2m', '{"template":"{{name}}"}', 'related-values', '{"template":"{{name}}"}', false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (473, 'theme_page_section', 'sections', 'o2m', 'list-o2m', '{"template":"{{id}}{{visible}}"}', 'related-values', '{"template":"{{id}}{{visible}}"}', false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (474, 'article_category', 'articles', 'm2m', 'list-m2m', '{"template":"{{article_id.title}}{{article_id.date_created}}"}', 'related-values', '{"template":"{{article_id.title}}{{article_id.date_created}}"}', false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (475, 'video_category', 'videos', 'm2m', 'list-m2m', '{"template":"{{video_id.title}}{{video_id.date_created}}"}', 'related-values', '{"template":"{{video_id.title}}{{video_id.date_created}}"}', false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
 
 
 --
 -- Data for Name: directus_files; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO "public"."directus_files" VALUES ('7bbac584-1b32-451b-840a-9f9ee76ec48c', 'local', '7bbac584-1b32-451b-840a-9f9ee76ec48c.png', '51f6fb256629fc755b8870c801092942.png', '51f6fb256629fc755b8870c801092942', 'image/png', NULL, 'c4249cc5-34dd-4434-acac-0859f6c4bd17', '2021-10-27 11:54:09.941072+00', NULL, '2021-10-27 11:54:09.954+00', NULL, 10530, 256, 256, NULL, NULL, NULL, NULL, NULL, '{"ihdr":{"ImageWidth":256,"ImageHeight":256,"BitDepth":8,"ColorType":"RGB with Alpha","Compression":"Deflate/Inflate","Filter":"Adaptive","Interlace":"Noninterlaced","EXIF:Orientation":"1"}}');
 
 
 --
@@ -2550,6 +2628,8 @@ INSERT INTO "public"."directus_migrations" VALUES ('20211007A', 'Update Presets'
 INSERT INTO "public"."directus_migrations" VALUES ('20211009A', 'Add Auth Data', '2021-10-25 04:54:36.50129+00');
 INSERT INTO "public"."directus_migrations" VALUES ('20211016A', 'Add Webhook Headers', '2021-10-31 04:57:32.689869+00');
 INSERT INTO "public"."directus_migrations" VALUES ('20211103A', 'Set Unique to User Token', '2021-11-04 07:33:42.503066+00');
+INSERT INTO "public"."directus_migrations" VALUES ('20211103B', 'Update Special Geometry', '2021-11-07 06:48:43.437101+00');
+INSERT INTO "public"."directus_migrations" VALUES ('20211104A', 'Remove Collections Listing', '2021-11-07 06:48:43.448991+00');
 
 
 --
@@ -2568,88 +2648,91 @@ INSERT INTO "public"."directus_migrations" VALUES ('20211103A', 'Set Unique to U
 -- Data for Name: directus_presets; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO "public"."directus_presets" VALUES (39, NULL, 'c4249cc5-34dd-4434-acac-0859f6c4bd17', NULL, 'directus_users', NULL, 'cards', '{"cards":{"sort":["email"],"page":1}}', '{"cards":{"icon":"account_circle","title":"{{ first_name }} {{ last_name }}","subtitle":"{{ email }}","size":4}}', NULL, NULL);
+INSERT INTO "public"."directus_presets" VALUES (57, NULL, 'fc56f213-4f3f-4e09-ad76-710e2f22009b', NULL, 'page', NULL, 'tabular', '{"tabular":{"page":1}}', NULL, NULL, NULL);
+INSERT INTO "public"."directus_presets" VALUES (58, NULL, 'fc56f213-4f3f-4e09-ad76-710e2f22009b', NULL, 'directus_users', NULL, 'cards', '{"cards":{"sort":["email"],"page":1}}', '{"cards":{"icon":"account_circle","title":"{{ first_name }} {{ last_name }}","subtitle":"{{ email }}","size":4}}', NULL, NULL);
 
 
 --
 -- Data for Name: directus_relations; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO "public"."directus_relations" VALUES (137, 'menu', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
+INSERT INTO "public"."directus_relations" VALUES (138, 'menu', 'user_updated', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (3, 'article', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (4, 'article', 'user_updated', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (5, 'article', 'featured_image', 'directus_files', NULL, NULL, NULL, NULL, NULL, 'nullify');
+INSERT INTO "public"."directus_relations" VALUES (141, 'section', 'user_updated', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (93, 'document_category', 'user_updated', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (94, 'document', 'document', 'directus_files', NULL, NULL, NULL, NULL, NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (95, 'document_category_pivot', 'document_category_id', 'document_category', NULL, NULL, NULL, 'document_id', NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (96, 'document_category_pivot', 'document_id', 'document', 'categories', NULL, NULL, 'document_category_id', NULL, 'delete');
 INSERT INTO "public"."directus_relations" VALUES (97, 'comment', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
+INSERT INTO "public"."directus_relations" VALUES (142, 'theme_page', 'theme', 'theme', 'pages', NULL, NULL, NULL, NULL, 'delete');
+INSERT INTO "public"."directus_relations" VALUES (140, 'theme_page_section', 'page', 'theme_page', 'sections', NULL, NULL, NULL, NULL, 'delete');
+INSERT INTO "public"."directus_relations" VALUES (143, 'section', 'page_section', 'theme_page_section', 'sections', NULL, NULL, NULL, NULL, 'delete');
+INSERT INTO "public"."directus_relations" VALUES (51, 'article_category_pivot', 'article_id', 'article', NULL, NULL, NULL, 'article_category_id', NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (99, 'comment_entity', 'item', NULL, NULL, 'collection', 'article,audio,book,document,image,video', 'comment_id', NULL, 'nullify');
+INSERT INTO "public"."directus_relations" VALUES (50, 'article_category_pivot', 'article_category_id', 'article_category', 'articles', NULL, NULL, 'article_id', NULL, 'delete');
+INSERT INTO "public"."directus_relations" VALUES (59, 'video_category_pivot', 'video_id', 'video', NULL, NULL, NULL, 'video_category_id', NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (100, 'comment_entity', 'comment_id', 'comment', 'entity', NULL, NULL, 'item', NULL, 'delete');
 INSERT INTO "public"."directus_relations" VALUES (101, 'comment', 'parent', 'comment', NULL, NULL, NULL, NULL, NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (50, 'article_category_pivot', 'article_category_id', 'article_category', NULL, NULL, NULL, 'article_id', NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (51, 'article_category_pivot', 'article_id', 'article', 'categories', NULL, NULL, 'article_category_id', NULL, 'nullify');
+INSERT INTO "public"."directus_relations" VALUES (58, 'video_category_pivot', 'video_category_id', 'video_category', 'videos', NULL, NULL, 'video_id', NULL, 'delete');
+INSERT INTO "public"."directus_relations" VALUES (66, 'audio_category_pivot', 'audio_id', 'audio', NULL, NULL, NULL, 'audio_category_id', NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (52, 'video', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (53, 'video', 'user_updated', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (54, 'video_category', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (55, 'video_category', 'user_updated', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (56, 'video', 'video', 'directus_files', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (57, 'video', 'subtitle', 'directus_files', NULL, NULL, NULL, NULL, NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (58, 'video_category_pivot', 'video_category_id', 'video_category', NULL, NULL, NULL, 'video_id', NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (59, 'video_category_pivot', 'video_id', 'video', 'categories', NULL, NULL, 'video_category_id', NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (60, 'audio', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (61, 'audio', 'user_updated', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (62, 'audio_category', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (63, 'audio_category', 'user_updated', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (64, 'audio', 'audio', 'directus_files', NULL, NULL, NULL, NULL, NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (65, 'audio_category_pivot', 'audio_category_id', 'audio_category', NULL, NULL, NULL, 'audio_id', NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (66, 'audio_category_pivot', 'audio_id', 'audio', 'categories', NULL, NULL, 'audio_category_id', NULL, 'delete');
 INSERT INTO "public"."directus_relations" VALUES (67, 'image', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (68, 'image', 'user_updated', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (69, 'image_category', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (70, 'image_category', 'user_updated', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (71, 'image', 'image', 'directus_files', NULL, NULL, NULL, NULL, NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (72, 'image_category_pivot', 'image_category_id', 'image_category', NULL, NULL, NULL, 'image_id', NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (73, 'image_category_pivot', 'image_id', 'image', 'categories', NULL, NULL, 'image_category_id', NULL, 'delete');
 INSERT INTO "public"."directus_relations" VALUES (74, 'book', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (75, 'book', 'user_updated', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (33, 'article_category', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (34, 'article_category', 'user_updated', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
+INSERT INTO "public"."directus_relations" VALUES (65, 'audio_category_pivot', 'audio_category_id', 'audio_category', 'audios', NULL, NULL, 'audio_id', NULL, 'delete');
 INSERT INTO "public"."directus_relations" VALUES (77, 'book_category', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (78, 'book_category', 'user_updated', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
+INSERT INTO "public"."directus_relations" VALUES (73, 'image_category_pivot', 'image_id', 'image', NULL, NULL, NULL, 'image_category_id', NULL, 'nullify');
+INSERT INTO "public"."directus_relations" VALUES (72, 'image_category_pivot', 'image_category_id', 'image_category', 'images', NULL, NULL, 'image_id', NULL, 'delete');
+INSERT INTO "public"."directus_relations" VALUES (96, 'document_category_pivot', 'document_id', 'document', NULL, NULL, NULL, 'document_category_id', NULL, 'nullify');
+INSERT INTO "public"."directus_relations" VALUES (95, 'document_category_pivot', 'document_category_id', 'document_category', 'documents', NULL, NULL, 'document_id', NULL, 'delete');
 INSERT INTO "public"."directus_relations" VALUES (83, 'book_author', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (84, 'book_author', 'user_updated', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (85, 'book_author', 'photo', 'directus_files', NULL, NULL, NULL, NULL, NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (86, 'book_category_pivot', 'book_category_id', 'book_category', NULL, NULL, NULL, 'book_id', NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (87, 'book_category_pivot', 'book_id', 'book', 'categories', NULL, NULL, 'book_category_id', NULL, 'delete');
 INSERT INTO "public"."directus_relations" VALUES (88, 'book', 'book', 'directus_files', NULL, NULL, NULL, NULL, NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (89, 'book', 'author', 'book_author', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (90, 'document', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (91, 'document', 'user_updated', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (92, 'document_category', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
+INSERT INTO "public"."directus_relations" VALUES (87, 'book_category_pivot', 'book_id', 'book', NULL, NULL, NULL, 'book_category_id', NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (105, 'question', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (106, 'question_type', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (107, 'question_type', 'user_updated', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
+INSERT INTO "public"."directus_relations" VALUES (86, 'book_category_pivot', 'book_category_id', 'book_category', 'books', NULL, NULL, 'book_id', NULL, 'delete');
 INSERT INTO "public"."directus_relations" VALUES (109, 'reaction_type', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (110, 'reaction_type', 'user_updated', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (111, 'reaction', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (112, 'reaction', 'type', 'reaction_type', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (113, 'reaction_entity', 'item', NULL, NULL, 'collection', 'article,audio,book,document,image,video', 'reaction_id', NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (114, 'reaction_entity', 'reaction_id', 'reaction', 'entity', NULL, NULL, 'item', NULL, 'delete');
 INSERT INTO "public"."directus_relations" VALUES (115, 'institute', 'user_updated', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (117, 'widget_placement', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
+INSERT INTO "public"."directus_relations" VALUES (89, 'book', 'author', 'book_author', 'books', NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (118, 'question_category', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (119, 'question_category', 'user_updated', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (120, 'question_category_pivot', 'question_category_id', 'question_category', NULL, NULL, NULL, 'question_id', NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (121, 'question_category_pivot', 'question_id', 'question', 'categories', NULL, NULL, 'question_category_id', NULL, 'delete');
-INSERT INTO "public"."directus_relations" VALUES (123, 'question', 'question_type', 'question_type', NULL, NULL, NULL, NULL, NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (124, 'widget_placement', 'widget', 'widget', NULL, NULL, NULL, NULL, NULL, 'nullify');
+INSERT INTO "public"."directus_relations" VALUES (121, 'question_category_pivot', 'question_id', 'question', NULL, NULL, NULL, 'question_category_id', NULL, 'nullify');
+INSERT INTO "public"."directus_relations" VALUES (120, 'question_category_pivot', 'question_category_id', 'question_category', 'questions', NULL, NULL, 'question_id', NULL, 'delete');
 INSERT INTO "public"."directus_relations" VALUES (126, 'website', 'user_updated', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (127, 'website', 'logo', 'directus_files', NULL, NULL, NULL, NULL, NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (130, 'website', 'theme', 'theme', NULL, NULL, NULL, NULL, NULL, 'nullify');
+INSERT INTO "public"."directus_relations" VALUES (123, 'question', 'question_type', 'question_type', 'questions', NULL, NULL, NULL, NULL, 'delete');
+INSERT INTO "public"."directus_relations" VALUES (112, 'reaction', 'type', 'reaction_type', 'reactions', NULL, NULL, NULL, NULL, 'delete');
+INSERT INTO "public"."directus_relations" VALUES (130, 'website', 'theme', 'theme', 'websites', NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (133, 'page', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (134, 'page', 'user_updated', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (135, 'widget_area', 'theme', 'theme', NULL, NULL, NULL, NULL, NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (136, 'widget_placement', 'area', 'widget_area', NULL, NULL, NULL, NULL, NULL, 'nullify');
 
 
 --
@@ -2662,28 +2745,29 @@ INSERT INTO "public"."directus_relations" VALUES (136, 'widget_placement', 'area
 -- Data for Name: directus_roles; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO "public"."directus_roles" VALUES ('60b8780f-7205-4457-8035-65864f3bec95', 'Administrator', 'supervised_user_circle', NULL, NULL, false, NULL, true, true);
+INSERT INTO "public"."directus_roles" VALUES ('60b8780f-7205-4457-8035-65864f3bec95', 'Administrator', 'supervised_user_circle', NULL, NULL, false, true, true);
+INSERT INTO "public"."directus_roles" VALUES ('f1eb41f9-b477-4919-9e19-6ec46b031cc9', 'Administrator', 'supervised_user_circle', NULL, NULL, false, true, true);
 
 
 --
 -- Data for Name: directus_sessions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO "public"."directus_sessions" VALUES ('ap-hO3mj0mWJ_dbEWSz7HbJY-3m3lKjXJdyQdYx5IJ7aui1h6iVr0I1WCqxM9R9o', 'c4249cc5-34dd-4434-acac-0859f6c4bd17', '2021-11-10 09:11:00.368+00', '::ffff:127.0.0.1', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0', NULL);
+INSERT INTO "public"."directus_sessions" VALUES ('MYwxIpB3C-Thl_Gn3rLzUptSS0rv4CnrYQZITbkeBe5kG3-DGsU_tppbvQFg7PWn', 'fc56f213-4f3f-4e09-ad76-710e2f22009b', '2021-11-23 13:20:06.625+00', '::ffff:127.0.0.1', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0', NULL);
 
 
 --
 -- Data for Name: directus_settings; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO "public"."directus_settings" VALUES (1, 'Al-Madrasah', NULL, '#9E8DE4', NULL, NULL, NULL, NULL, 25, NULL, 'all', NULL, '', NULL, NULL, NULL, '[{"type":"module","id":"collections","enabled":true},{"type":"module","id":"users","enabled":true},{"type":"module","id":"files","enabled":true},{"type":"module","id":"insights","enabled":false},{"type":"module","id":"_settings","enabled":true},{"type":"module","id":"settings","enabled":true,"locked":true}]');
+INSERT INTO "public"."directus_settings" VALUES (1, 'Al-Madrasah', NULL, '#4154F1', NULL, NULL, NULL, NULL, 25, NULL, 'all', NULL, '', NULL, NULL, NULL, '[{"type":"module","id":"content","enabled":true},{"type":"module","id":"files","enabled":true},{"type":"module","id":"users","enabled":true},{"type":"module","id":"insights","enabled":true},{"type":"module","id":"customization","enabled":true},{"type":"module","id":"_settings","enabled":true},{"type":"module","id":"settings","enabled":true,"locked":true}]');
 
 
 --
 -- Data for Name: directus_users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO "public"."directus_users" VALUES ('c4249cc5-34dd-4434-acac-0859f6c4bd17', 'SAHARA', 'IT', 'sahara@it.com', '$argon2i$v=19$m=4096,t=3,p=1$g2n//igr0rRZANCGUPA5IQ$VCd/D8g4b1qr586H2bIwcIqbh6+7+f67SfpOX27BeH4', NULL, NULL, NULL, NULL, '7bbac584-1b32-451b-840a-9f9ee76ec48c', 'en-US', 'light', NULL, 'active', '60b8780f-7205-4457-8035-65864f3bec95', NULL, '2021-11-03 09:11:00.369+00', '/users', 'default', NULL, NULL);
+INSERT INTO "public"."directus_users" VALUES ('fc56f213-4f3f-4e09-ad76-710e2f22009b', NULL, NULL, 'saharaitech@gmail.com', '$argon2i$v=19$m=4096,t=3,p=1$jBJsNvV+4OmJz+7VYInqiA$+CNuYR5g2IaRY9mWJLMO17NiTTlRM+N7WK6XGPcqpng', NULL, NULL, NULL, NULL, NULL, 'en-US', 'auto', NULL, 'active', 'f1eb41f9-b477-4919-9e19-6ec46b031cc9', NULL, '2021-11-16 13:20:06.637+00', '/users/fc56f213-4f3f-4e09-ad76-710e2f22009b', 'default', NULL, NULL);
 
 
 --
@@ -2730,6 +2814,12 @@ INSERT INTO "public"."directus_users" VALUES ('c4249cc5-34dd-4434-acac-0859f6c4b
 
 --
 -- Data for Name: institute; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+
+
+--
+-- Data for Name: menu; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 
@@ -2783,6 +2873,12 @@ INSERT INTO "public"."directus_users" VALUES ('c4249cc5-34dd-4434-acac-0859f6c4b
 
 
 --
+-- Data for Name: section; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+
+
+--
 -- Data for Name: spatial_ref_sys; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -2790,6 +2886,18 @@ INSERT INTO "public"."directus_users" VALUES ('c4249cc5-34dd-4434-acac-0859f6c4b
 
 --
 -- Data for Name: theme; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+
+
+--
+-- Data for Name: theme_page; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+
+
+--
+-- Data for Name: theme_page_section; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 
@@ -2814,24 +2922,6 @@ INSERT INTO "public"."directus_users" VALUES ('c4249cc5-34dd-4434-acac-0859f6c4b
 
 --
 -- Data for Name: website; Type: TABLE DATA; Schema: public; Owner: -
---
-
-
-
---
--- Data for Name: widget; Type: TABLE DATA; Schema: public; Owner: -
---
-
-
-
---
--- Data for Name: widget_area; Type: TABLE DATA; Schema: public; Owner: -
---
-
-
-
---
--- Data for Name: widget_placement; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 
@@ -2960,14 +3050,14 @@ SELECT pg_catalog.setval('"public"."comment_id_seq"', 1, false);
 -- Name: directus_activity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."directus_activity_id_seq"', 1651, true);
+SELECT pg_catalog.setval('"public"."directus_activity_id_seq"', 2109, true);
 
 
 --
 -- Name: directus_fields_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."directus_fields_id_seq"', 430, true);
+SELECT pg_catalog.setval('"public"."directus_fields_id_seq"', 484, true);
 
 
 --
@@ -2981,21 +3071,21 @@ SELECT pg_catalog.setval('"public"."directus_permissions_id_seq"', 19, true);
 -- Name: directus_presets_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."directus_presets_id_seq"', 39, true);
+SELECT pg_catalog.setval('"public"."directus_presets_id_seq"', 58, true);
 
 
 --
 -- Name: directus_relations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."directus_relations_id_seq"', 136, true);
+SELECT pg_catalog.setval('"public"."directus_relations_id_seq"', 143, true);
 
 
 --
 -- Name: directus_revisions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."directus_revisions_id_seq"', 1577, true);
+SELECT pg_catalog.setval('"public"."directus_revisions_id_seq"', 2020, true);
 
 
 --
@@ -3062,10 +3152,17 @@ SELECT pg_catalog.setval('"public"."institute_id_seq"', 1, false);
 
 
 --
+-- Name: menu_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('"public"."menu_id_seq"', 1, true);
+
+
+--
 -- Name: page_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."page_id_seq"', 1, false);
+SELECT pg_catalog.setval('"public"."page_id_seq"', 1, true);
 
 
 --
@@ -3118,10 +3215,31 @@ SELECT pg_catalog.setval('"public"."reaction_type_id_seq"', 1, false);
 
 
 --
+-- Name: section_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('"public"."section_id_seq"', 29, true);
+
+
+--
 -- Name: theme_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."theme_id_seq"', 1, true);
+SELECT pg_catalog.setval('"public"."theme_id_seq"', 4, true);
+
+
+--
+-- Name: theme_page_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('"public"."theme_page_id_seq"', 6, true);
+
+
+--
+-- Name: theme_page_section_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('"public"."theme_page_section_id_seq"', 8, true);
 
 
 --
@@ -3149,28 +3267,7 @@ SELECT pg_catalog.setval('"public"."video_id_seq"', 1, true);
 -- Name: website_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."website_id_seq"', 1, true);
-
-
---
--- Name: widget_area_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('"public"."widget_area_id_seq"', 1, true);
-
-
---
--- Name: widget_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('"public"."widget_id_seq"', 1, true);
-
-
---
--- Name: widget_placement_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('"public"."widget_placement_id_seq"', 1, true);
+SELECT pg_catalog.setval('"public"."website_id_seq"', 3, true);
 
 
 --
@@ -3494,6 +3591,14 @@ ALTER TABLE ONLY "public"."institute"
 
 
 --
+-- Name: menu menu_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."menu"
+    ADD CONSTRAINT "menu_pkey" PRIMARY KEY ("id");
+
+
+--
 -- Name: page page_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3558,6 +3663,30 @@ ALTER TABLE ONLY "public"."reaction_type"
 
 
 --
+-- Name: section section_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."section"
+    ADD CONSTRAINT "section_pkey" PRIMARY KEY ("id");
+
+
+--
+-- Name: theme_page theme_page_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."theme_page"
+    ADD CONSTRAINT "theme_page_pkey" PRIMARY KEY ("id");
+
+
+--
+-- Name: theme_page_section theme_page_section_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."theme_page_section"
+    ADD CONSTRAINT "theme_page_section_pkey" PRIMARY KEY ("id");
+
+
+--
 -- Name: theme theme_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3595,30 +3724,6 @@ ALTER TABLE ONLY "public"."video"
 
 ALTER TABLE ONLY "public"."website"
     ADD CONSTRAINT "website_pkey" PRIMARY KEY ("id");
-
-
---
--- Name: widget_area widget_area_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY "public"."widget_area"
-    ADD CONSTRAINT "widget_area_pkey" PRIMARY KEY ("id");
-
-
---
--- Name: widget widget_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY "public"."widget"
-    ADD CONSTRAINT "widget_pkey" PRIMARY KEY ("id");
-
-
---
--- Name: widget_placement widget_placement_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY "public"."widget_placement"
-    ADD CONSTRAINT "widget_placement_pkey" PRIMARY KEY ("id");
 
 
 --
@@ -3783,13 +3888,6 @@ CREATE INDEX "page_title_index" ON "public"."page" USING "btree" ("title");
 
 
 --
--- Name: page_url_uindex; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX "page_url_uindex" ON "public"."page" USING "btree" ("url");
-
-
---
 -- Name: question_category_name_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3846,6 +3944,20 @@ CREATE INDEX "reaction_type_name_index" ON "public"."reaction_type" USING "btree
 
 
 --
+-- Name: theme_page_section_page_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX "theme_page_section_page_index" ON "public"."theme_page_section" USING "btree" ("page");
+
+
+--
+-- Name: theme_page_theme_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX "theme_page_theme_index" ON "public"."theme_page" USING "btree" ("theme");
+
+
+--
 -- Name: video_category_name_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3874,39 +3986,11 @@ CREATE INDEX "video_title_index" ON "public"."video" USING "btree" ("title");
 
 
 --
--- Name: widget_area_name_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX "widget_area_name_index" ON "public"."widget_area" USING "btree" ("name");
-
-
---
--- Name: widget_area_theme_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX "widget_area_theme_index" ON "public"."widget_area" USING "btree" ("theme");
-
-
---
--- Name: widget_name_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX "widget_name_index" ON "public"."widget" USING "btree" ("name");
-
-
---
--- Name: widget_placement_area_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX "widget_placement_area_index" ON "public"."widget_placement" USING "btree" ("area");
-
-
---
 -- Name: article_category_pivot article_category_pivot_article_category_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY "public"."article_category_pivot"
-    ADD CONSTRAINT "article_category_pivot_article_category_id_fk" FOREIGN KEY ("article_category_id") REFERENCES "public"."article_category"("id") ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT "article_category_pivot_article_category_id_fk" FOREIGN KEY ("article_category_id") REFERENCES "public"."article_category"("id") ON DELETE CASCADE;
 
 
 --
@@ -3970,7 +4054,7 @@ ALTER TABLE ONLY "public"."audio"
 --
 
 ALTER TABLE ONLY "public"."audio_category_pivot"
-    ADD CONSTRAINT "audio_category_pivot_audio_category_id_foreign" FOREIGN KEY ("audio_category_id") REFERENCES "public"."audio_category"("id") ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT "audio_category_pivot_audio_category_id_foreign" FOREIGN KEY ("audio_category_id") REFERENCES "public"."audio_category"("id") ON DELETE CASCADE;
 
 
 --
@@ -4018,7 +4102,7 @@ ALTER TABLE ONLY "public"."audio"
 --
 
 ALTER TABLE ONLY "public"."book"
-    ADD CONSTRAINT "book_author_foreign" FOREIGN KEY ("author") REFERENCES "public"."book_author"("id") ON UPDATE CASCADE ON DELETE SET NULL;
+    ADD CONSTRAINT "book_author_foreign" FOREIGN KEY ("author") REFERENCES "public"."book_author"("id") ON DELETE SET NULL;
 
 
 --
@@ -4058,7 +4142,7 @@ ALTER TABLE ONLY "public"."book"
 --
 
 ALTER TABLE ONLY "public"."book_category_pivot"
-    ADD CONSTRAINT "book_category_pivot_book_category_id_foreign" FOREIGN KEY ("book_category_id") REFERENCES "public"."book_category"("id") ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT "book_category_pivot_book_category_id_foreign" FOREIGN KEY ("book_category_id") REFERENCES "public"."book_category"("id") ON DELETE CASCADE;
 
 
 --
@@ -4398,6 +4482,22 @@ ALTER TABLE ONLY "public"."institute"
 
 
 --
+-- Name: menu menu_user_created_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."menu"
+    ADD CONSTRAINT "menu_user_created_foreign" FOREIGN KEY ("user_created") REFERENCES "public"."directus_users"("id") ON DELETE SET NULL;
+
+
+--
+-- Name: menu menu_user_updated_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."menu"
+    ADD CONSTRAINT "menu_user_updated_foreign" FOREIGN KEY ("user_updated") REFERENCES "public"."directus_users"("id") ON DELETE SET NULL;
+
+
+--
 -- Name: page page_user_created_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4490,7 +4590,7 @@ ALTER TABLE ONLY "public"."reaction_entity"
 --
 
 ALTER TABLE ONLY "public"."reaction"
-    ADD CONSTRAINT "reaction_type_foreign" FOREIGN KEY ("type") REFERENCES "public"."reaction_type"("id") ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT "reaction_type_foreign" FOREIGN KEY ("type") REFERENCES "public"."reaction_type"("id") ON DELETE CASCADE;
 
 
 --
@@ -4518,11 +4618,43 @@ ALTER TABLE ONLY "public"."reaction"
 
 
 --
+-- Name: section section_page_section_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."section"
+    ADD CONSTRAINT "section_page_section_foreign" FOREIGN KEY ("page_section") REFERENCES "public"."theme_page_section"("id") ON DELETE CASCADE;
+
+
+--
+-- Name: section section_user_updated_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."section"
+    ADD CONSTRAINT "section_user_updated_foreign" FOREIGN KEY ("user_updated") REFERENCES "public"."directus_users"("id") ON DELETE SET NULL;
+
+
+--
+-- Name: theme_page_section theme_page_section_page_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."theme_page_section"
+    ADD CONSTRAINT "theme_page_section_page_foreign" FOREIGN KEY ("page") REFERENCES "public"."theme_page"("id") ON DELETE CASCADE;
+
+
+--
+-- Name: theme_page theme_page_theme_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY "public"."theme_page"
+    ADD CONSTRAINT "theme_page_theme_foreign" FOREIGN KEY ("theme") REFERENCES "public"."theme"("id") ON DELETE CASCADE;
+
+
+--
 -- Name: video_category_pivot video_category_pivot_video_category_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY "public"."video_category_pivot"
-    ADD CONSTRAINT "video_category_pivot_video_category_id_foreign" FOREIGN KEY ("video_category_id") REFERENCES "public"."video_category"("id") ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT "video_category_pivot_video_category_id_foreign" FOREIGN KEY ("video_category_id") REFERENCES "public"."video_category"("id") ON DELETE CASCADE;
 
 
 --
@@ -4530,7 +4662,7 @@ ALTER TABLE ONLY "public"."video_category_pivot"
 --
 
 ALTER TABLE ONLY "public"."video_category_pivot"
-    ADD CONSTRAINT "video_category_pivot_video_id_foreign" FOREIGN KEY ("video_id") REFERENCES "public"."video"("id") ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT "video_category_pivot_video_id_foreign" FOREIGN KEY ("video_id") REFERENCES "public"."video"("id") ON DELETE CASCADE;
 
 
 --
@@ -4603,38 +4735,6 @@ ALTER TABLE ONLY "public"."website"
 
 ALTER TABLE ONLY "public"."website"
     ADD CONSTRAINT "website_user_updated_foreign" FOREIGN KEY ("user_updated") REFERENCES "public"."directus_users"("id");
-
-
---
--- Name: widget_area widget_area_theme_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY "public"."widget_area"
-    ADD CONSTRAINT "widget_area_theme_foreign" FOREIGN KEY ("theme") REFERENCES "public"."theme"("id") ON DELETE CASCADE;
-
-
---
--- Name: widget_placement widget_placement_area_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY "public"."widget_placement"
-    ADD CONSTRAINT "widget_placement_area_foreign" FOREIGN KEY ("area") REFERENCES "public"."widget_area"("id") ON DELETE CASCADE;
-
-
---
--- Name: widget_placement widget_placement_user_created_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY "public"."widget_placement"
-    ADD CONSTRAINT "widget_placement_user_created_foreign" FOREIGN KEY ("user_created") REFERENCES "public"."directus_users"("id");
-
-
---
--- Name: widget_placement widget_placement_widget_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY "public"."widget_placement"
-    ADD CONSTRAINT "widget_placement_widget_foreign" FOREIGN KEY ("widget") REFERENCES "public"."widget"("id") ON DELETE CASCADE;
 
 
 --
