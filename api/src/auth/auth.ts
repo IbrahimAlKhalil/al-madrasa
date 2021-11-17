@@ -14,10 +14,11 @@ export abstract class AuthDriver {
 	 * Get user id for a given provider payload
 	 *
 	 * @param payload Any data that the user might've provided
+	 * @param knex Knex connection instance
 	 * @throws InvalidCredentialsException
 	 * @return User id of the identifier
 	 */
-	abstract getUserID(payload: Record<string, any>): Promise<string>;
+	abstract getUserID(payload: Record<string, any>, knex: Knex): Promise<string>;
 
 	/**
 	 * Verify user password

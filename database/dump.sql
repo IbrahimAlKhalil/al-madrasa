@@ -2745,15 +2745,7 @@ INSERT INTO "public"."directus_relations" VALUES (134, 'page', 'user_updated', '
 -- Data for Name: directus_roles; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO "public"."directus_roles" VALUES ('60b8780f-7205-4457-8035-65864f3bec95', 'Administrator', 'supervised_user_circle', NULL, NULL, false, true, true);
 INSERT INTO "public"."directus_roles" VALUES ('f1eb41f9-b477-4919-9e19-6ec46b031cc9', 'Administrator', 'supervised_user_circle', NULL, NULL, false, true, true);
-
-
---
--- Data for Name: directus_sessions; Type: TABLE DATA; Schema: public; Owner: -
---
-
-INSERT INTO "public"."directus_sessions" VALUES ('MYwxIpB3C-Thl_Gn3rLzUptSS0rv4CnrYQZITbkeBe5kG3-DGsU_tppbvQFg7PWn', 'fc56f213-4f3f-4e09-ad76-710e2f22009b', '2021-11-23 13:20:06.625+00', '::ffff:127.0.0.1', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0', NULL);
 
 
 --

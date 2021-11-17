@@ -1688,7 +1688,7 @@ export class GraphQLService {
 			server_specs_oas: {
 				type: GraphQLJSON,
 				resolve: async () => {
-					const service = new SpecificationService({ schema: this.schema, accountability: this.accountability });
+					const service = new SpecificationService({ schema: this.schema, accountability: this.accountability, knex: this.knex });
 					return await service.oas.generate();
 				},
 			},
@@ -1708,6 +1708,7 @@ export class GraphQLService {
 						schema: this.schema,
 						accountability: this.accountability,
 						scope: args.scope ?? 'items',
+						knex: this.knex,
 					});
 					return service.getSchema('sdl');
 				},
@@ -1722,6 +1723,7 @@ export class GraphQLService {
 					const service = new ServerService({
 						accountability: this.accountability,
 						schema: this.schema,
+						knex: this.knex,
 					});
 					return await service.serverInfo();
 				},
@@ -1732,6 +1734,7 @@ export class GraphQLService {
 					const service = new ServerService({
 						accountability: this.accountability,
 						schema: this.schema,
+						knex: this.knex
 					});
 					return await service.serverInfo();
 				},
@@ -1771,8 +1774,9 @@ export class GraphQLService {
 					const authenticationService = new AuthenticationService({
 						accountability: accountability,
 						schema: this.schema,
+						knex: this.knex,
 					});
-					const result = await authenticationService.login(DEFAULT_AUTH_PROVIDER, args, args?.otp);
+					const result = await authenticationService.login(DEFAULT_AUTH_PROVIDER, args, this.knex, args?.otp);
 					if (args.mode === 'cookie') {
 						res?.cookie(env.REFRESH_TOKEN_COOKIE_NAME, result.refreshToken, {
 							httpOnly: true,
@@ -1804,6 +1808,7 @@ export class GraphQLService {
 					const authenticationService = new AuthenticationService({
 						accountability: accountability,
 						schema: this.schema,
+						knex: this.knex,
 					});
 					const currentRefreshToken = args.refresh_token || req?.cookies[env.REFRESH_TOKEN_COOKIE_NAME];
 					if (!currentRefreshToken) {
@@ -1840,6 +1845,7 @@ export class GraphQLService {
 					const authenticationService = new AuthenticationService({
 						accountability: accountability,
 						schema: this.schema,
+						knex: this.knex,
 					});
 					const currentRefreshToken = args.refresh_token || req?.cookies[env.REFRESH_TOKEN_COOKIE_NAME];
 					if (!currentRefreshToken) {
@@ -1861,7 +1867,7 @@ export class GraphQLService {
 						userAgent: req?.get('user-agent'),
 						role: null,
 					};
-					const service = new UsersService({ accountability, schema: this.schema });
+					const service = new UsersService({ accountability, schema: this.schema, knex: this.knex });
 
 					try {
 						await service.requestPasswordReset(args.email, args.reset_url || null);
@@ -1886,7 +1892,7 @@ export class GraphQLService {
 						userAgent: req?.get('user-agent'),
 						role: null,
 					};
-					const service = new UsersService({ accountability, schema: this.schema });
+					const service = new UsersService({ accountability, schema: this.schema, knex: this.knex });
 					await service.resetPassword(args.token, args.password);
 					return true;
 				},
@@ -1907,10 +1913,12 @@ export class GraphQLService {
 					const service = new TFAService({
 						accountability: this.accountability,
 						schema: this.schema,
+						knex: this.knex
 					});
 					const authService = new AuthenticationService({
 						accountability: this.accountability,
 						schema: this.schema,
+						knex: this.knex,
 					});
 					await authService.verifyPassword(this.accountability.user, args.password);
 					const { url, secret } = await service.generateTFA(this.accountability.user);
@@ -1928,6 +1936,7 @@ export class GraphQLService {
 					const service = new TFAService({
 						accountability: this.accountability,
 						schema: this.schema,
+						knex: this.knex
 					});
 
 					await service.enableTFA(this.accountability.user, args.otp, args.secret);
@@ -1944,6 +1953,7 @@ export class GraphQLService {
 					const service = new TFAService({
 						accountability: this.accountability,
 						schema: this.schema,
+						knex: this.knex
 					});
 					const otpValid = await service.verifyOTP(this.accountability.user, args.otp);
 					if (otpValid === false) {
@@ -1983,6 +1993,7 @@ export class GraphQLService {
 					const service = new UtilsService({
 						accountability: this.accountability,
 						schema: this.schema,
+						knex: this.knex
 					});
 					const { item, to } = args;
 					await service.sort(args.collection, { item, to });
@@ -1998,6 +2009,7 @@ export class GraphQLService {
 					const service = new RevisionsService({
 						accountability: this.accountability,
 						schema: this.schema,
+						knex: this.knex,
 					});
 					await service.revert(args.revision);
 					return true;
@@ -2028,6 +2040,7 @@ export class GraphQLService {
 					const service = new UsersService({
 						accountability: this.accountability,
 						schema: this.schema,
+						knex: this.knex,
 					});
 					await service.acceptInvite(args.token, args.password);
 					return true;
@@ -2065,6 +2078,7 @@ export class GraphQLService {
 						const collectionsService = new CollectionsService({
 							accountability: this.accountability,
 							schema: this.schema,
+							knex: this.knex,
 						});
 
 						return await collectionsService.readByQuery();
@@ -2080,6 +2094,7 @@ export class GraphQLService {
 						const collectionsService = new CollectionsService({
 							accountability: this.accountability,
 							schema: this.schema,
+							knex: this.knex,
 						});
 
 						return await collectionsService.readOne(args.name);
@@ -2132,6 +2147,7 @@ export class GraphQLService {
 						const service = new FieldsService({
 							accountability: this.accountability,
 							schema: this.schema,
+							knex: this.knex,
 						});
 						return await service.readAll();
 					},
@@ -2145,6 +2161,7 @@ export class GraphQLService {
 						const service = new FieldsService({
 							accountability: this.accountability,
 							schema: this.schema,
+							knex: this.knex,
 						});
 
 						return await service.readAll(args.collection);
@@ -2160,6 +2177,7 @@ export class GraphQLService {
 						const service = new FieldsService({
 							accountability: this.accountability,
 							schema: this.schema,
+							knex: this.knex,
 						});
 						return await service.readOne(args.collection, args.field);
 					},
@@ -2204,6 +2222,7 @@ export class GraphQLService {
 						const service = new RelationsService({
 							accountability: this.accountability,
 							schema: this.schema,
+							knex: this.knex,
 						});
 
 						return await service.readAll();
@@ -2218,6 +2237,7 @@ export class GraphQLService {
 						const service = new RelationsService({
 							accountability: this.accountability,
 							schema: this.schema,
+							knex: this.knex,
 						});
 
 						return await service.readAll(args.collection);
@@ -2233,6 +2253,7 @@ export class GraphQLService {
 						const service = new RelationsService({
 							accountability: this.accountability,
 							schema: this.schema,
+							knex: this.knex
 						});
 						return await service.readOne(args.collection, args.field);
 					},
@@ -2257,6 +2278,7 @@ export class GraphQLService {
 						const collectionsService = new CollectionsService({
 							accountability: this.accountability,
 							schema: this.schema,
+							knex: this.knex,
 						});
 						const collectionKey = await collectionsService.createOne(args.data);
 						return await collectionsService.readOne(collectionKey);
@@ -2274,6 +2296,7 @@ export class GraphQLService {
 						const collectionsService = new CollectionsService({
 							accountability: this.accountability,
 							schema: this.schema,
+							knex: this.knex,
 						});
 						const collectionKey = await collectionsService.updateOne(args.collection, args.data);
 						return await collectionsService.readOne(collectionKey);
@@ -2293,6 +2316,7 @@ export class GraphQLService {
 						const collectionsService = new CollectionsService({
 							accountability: this.accountability,
 							schema: this.schema,
+							knex: this.knex,
 						});
 						await collectionsService.deleteOne(args.collection);
 						return { collection: args.collection };
@@ -2311,6 +2335,7 @@ export class GraphQLService {
 						const service = new FieldsService({
 							accountability: this.accountability,
 							schema: this.schema,
+							knex: this.knex,
 						});
 						await service.createField(args.collection, args.data);
 						return await service.readOne(args.collection, args.data.field);
@@ -2327,6 +2352,7 @@ export class GraphQLService {
 						const service = new FieldsService({
 							accountability: this.accountability,
 							schema: this.schema,
+							knex: this.knex,
 						});
 						await service.updateField(args.collection, {
 							...args.data,
@@ -2351,6 +2377,7 @@ export class GraphQLService {
 						const service = new FieldsService({
 							accountability: this.accountability,
 							schema: this.schema,
+							knex: this.knex,
 						});
 						await service.deleteField(args.collection, args.field);
 						const { collection, field } = args;
@@ -2369,6 +2396,7 @@ export class GraphQLService {
 						const relationsService = new RelationsService({
 							accountability: this.accountability,
 							schema: this.schema,
+							knex: this.knex,
 						});
 
 						await relationsService.createOne(args.data);
@@ -2386,6 +2414,7 @@ export class GraphQLService {
 						const relationsService = new RelationsService({
 							accountability: this.accountability,
 							schema: this.schema,
+							knex: this.knex,
 						});
 
 						await relationsService.updateOne(args.collection, args.field, args.data);
@@ -2408,6 +2437,7 @@ export class GraphQLService {
 						const relationsService = new RelationsService({
 							accountability: this.accountability,
 							schema: this.schema,
+							knex: this.knex,
 						});
 						await relationsService.deleteOne(args.collection, args.field);
 						return { collection: args.collection, field: args.field };
@@ -2422,7 +2452,7 @@ export class GraphQLService {
 					type: ReadCollectionTypes['directus_users'],
 					resolve: async (_, args, __, info) => {
 						if (!this.accountability?.user) return null;
-						const service = new UsersService({ schema: this.schema, accountability: this.accountability });
+						const service = new UsersService({ schema: this.schema, accountability: this.accountability, knex: this.knex });
 						const selections = this.replaceFragmentsInSelections(
 							info.fieldNodes[0]?.selectionSet?.selections,
 							info.fragments
@@ -2448,6 +2478,7 @@ export class GraphQLService {
 						const service = new ActivityService({
 							accountability: this.accountability,
 							schema: this.schema,
+							knex: this.knex,
 						});
 
 						const primaryKey = await service.createOne({
@@ -2486,6 +2517,7 @@ export class GraphQLService {
 						const service = new ActivityService({
 							accountability: this.accountability,
 							schema: this.schema,
+							knex: this.knex,
 						});
 						const primaryKey = await service.updateOne(args.id, { comment: args.comment });
 
@@ -2516,6 +2548,7 @@ export class GraphQLService {
 						const service = new ActivityService({
 							accountability: this.accountability,
 							schema: this.schema,
+							knex: this.knex,
 						});
 						await service.deleteOne(args.id);
 						return { id: args.id };
@@ -2536,6 +2569,7 @@ export class GraphQLService {
 						const service = new FilesService({
 							accountability: this.accountability,
 							schema: this.schema,
+							knex: this.knex,
 						});
 						const primaryKey = await service.importOne(args.url, args.data);
 
@@ -2567,6 +2601,7 @@ export class GraphQLService {
 						const service = new UsersService({
 							accountability: this.accountability,
 							schema: this.schema,
+							knex: this.knex,
 						});
 						await service.inviteUser(args.email, args.role, args.invite_url || null);
 						return true;

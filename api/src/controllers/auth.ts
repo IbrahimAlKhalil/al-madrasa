@@ -9,9 +9,6 @@ import { getAuthProviders } from '../utils/get-auth-providers';
 import logger from '../logger';
 import {
 	createLocalAuthRouter,
-	createOAuth2AuthRouter,
-	createOpenIDAuthRouter,
-	createLDAPAuthRouter,
 } from '../auth/drivers';
 import { DEFAULT_AUTH_PROVIDER } from '../constants';
 
@@ -20,25 +17,7 @@ const router = Router();
 const authProviders = getAuthProviders();
 
 for (const authProvider of authProviders) {
-	let authRouter: Router | undefined;
-
-	switch (authProvider.driver) {
-		case 'local':
-			authRouter = createLocalAuthRouter(authProvider.name);
-			break;
-
-		case 'oauth2':
-			authRouter = createOAuth2AuthRouter(authProvider.name);
-			break;
-
-		case 'openid':
-			authRouter = createOpenIDAuthRouter(authProvider.name);
-			break;
-
-		case 'ldap':
-			authRouter = createLDAPAuthRouter(authProvider.name);
-			break;
-	}
+	const authRouter = createLocalAuthRouter(authProvider.name)
 
 	if (!authRouter) {
 		logger.warn(`Couldn't create login router for auth provider "${authProvider.name}"`);
@@ -62,6 +41,7 @@ router.post(
 		const authenticationService = new AuthenticationService({
 			accountability: accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const currentRefreshToken = req.body.refresh_token || req.cookies[env.REFRESH_TOKEN_COOKIE_NAME];
@@ -110,6 +90,7 @@ router.post(
 		const authenticationService = new AuthenticationService({
 			accountability: accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const currentRefreshToken = req.body.refresh_token || req.cookies[env.REFRESH_TOKEN_COOKIE_NAME];
@@ -147,7 +128,7 @@ router.post(
 			role: null,
 		};
 
-		const service = new UsersService({ accountability, schema: req.schema });
+		const service = new UsersService({ accountability, schema: req.schema, knex: req.knex });
 
 		try {
 			await service.requestPasswordReset(req.body.email, req.body.reset_url || null);
@@ -181,7 +162,7 @@ router.post(
 			role: null,
 		};
 
-		const service = new UsersService({ accountability, schema: req.schema });
+		const service = new UsersService({ accountability, schema: req.schema, knex: req.knex });
 		await service.resetPassword(req.body.token, req.body.password);
 		return next();
 	}),

@@ -14,6 +14,7 @@ router.use(
 			accountability: req.accountability,
 			schema: req.schema,
 			scope: 'system',
+			knex: req.knex,
 		});
 
 		res.locals.payload = await service.execute(res.locals.graphqlParams);
@@ -31,6 +32,7 @@ router.use(
 			accountability: req.accountability,
 			schema: req.schema,
 			scope: 'items',
+			knex: req.knex,
 		});
 
 		res.locals.payload = await service.execute(res.locals.graphqlParams);

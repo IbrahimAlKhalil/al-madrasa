@@ -43,7 +43,8 @@ export class AuthenticationService {
 	async login(
 		providerName: string = DEFAULT_AUTH_PROVIDER,
 		payload: Record<string, any>,
-		otp?: string
+		knex: Knex,
+		otp?: string,
 	): Promise<{ accessToken: any; refreshToken: any; expires: any; id?: any }> {
 		const STALL_TIME = 100;
 		const timeStart = performance.now();
@@ -65,7 +66,7 @@ export class AuthenticationService {
 				'auth_data'
 			)
 			.from('directus_users')
-			.where('id', await provider.getUserID(cloneDeep(payload)))
+			.where('id', await provider.getUserID(cloneDeep(payload), knex))
 			.andWhere('provider', providerName)
 			.first();
 

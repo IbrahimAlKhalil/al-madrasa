@@ -7,11 +7,12 @@ import * as exceptions from '../exceptions';
 import * as services from '../services';
 import { getSchema } from '../utils/get-schema';
 import { SchemaOverview } from './schema';
+import getDatabase from "../database";
 
 export type ExtensionContext = {
 	services: typeof services;
 	exceptions: typeof exceptions;
-	database: Knex;
+	getDatabase: typeof getDatabase;
 	env: typeof env;
 	logger: Logger;
 	getSchema: typeof getSchema;

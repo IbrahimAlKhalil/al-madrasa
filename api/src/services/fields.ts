@@ -285,7 +285,7 @@ export class FieldsService {
 						this.addColumnToTable(table, field, existingColumn);
 					});
 				} catch (err: any) {
-					throw await translateDatabaseError(err);
+					throw await translateDatabaseError(err, this.knex);
 				}
 			}
 		}
@@ -468,7 +468,7 @@ export class FieldsService {
 		} else if (field.type === 'timestamp') {
 			column = table.timestamp(field.field, { useTz: true });
 		} else if (field.type.startsWith('geometry')) {
-			const helper = getGeometryHelper();
+			const helper = getGeometryHelper(this.knex);
 			column = helper.createColumn(table, field);
 		} else {
 			// @ts-ignore

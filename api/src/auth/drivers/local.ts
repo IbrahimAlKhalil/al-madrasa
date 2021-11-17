@@ -9,14 +9,15 @@ import { AuthenticationService } from '../../services';
 import asyncHandler from '../../utils/async-handler';
 import env from '../../env';
 import { respond } from '../../middleware/respond';
+import { Knex } from "knex";
 
 export class LocalAuthDriver extends AuthDriver {
-	async getUserID(payload: Record<string, any>): Promise<string> {
+	async getUserID(payload: Record<string, any>, knex: Knex): Promise<string> {
 		if (!payload.email) {
 			throw new InvalidCredentialsException();
 		}
 
-		const user = await this.knex
+		const user = await knex
 			.select('id')
 			.from('directus_users')
 			.whereRaw('LOWER(??) = ?', ['email', payload.email.toLowerCase()])
@@ -63,6 +64,7 @@ export function createLocalAuthRouter(provider: string): Router {
 			const authenticationService = new AuthenticationService({
 				accountability: accountability,
 				schema: req.schema,
+				knex: req.knex,
 			});
 
 			const { error } = loginSchema.validate(req.body);
@@ -76,6 +78,7 @@ export function createLocalAuthRouter(provider: string): Router {
 			const { accessToken, refreshToken, expires } = await authenticationService.login(
 				provider,
 				req.body,
+				req.knex,
 				req.body?.otp
 			);
 

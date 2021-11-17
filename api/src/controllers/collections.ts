@@ -14,6 +14,7 @@ router.post(
 		const collectionsService = new CollectionsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		if (Array.isArray(req.body)) {
@@ -35,11 +36,13 @@ const readHandler = asyncHandler(async (req, res, next) => {
 	const collectionsService = new CollectionsService({
 		accountability: req.accountability,
 		schema: req.schema,
+		knex: req.knex,
 	});
 
 	const metaService = new MetaService({
 		accountability: req.accountability,
 		schema: req.schema,
+		knex: req.knex,
 	});
 
 	let result: Item[] = [];
@@ -65,6 +68,7 @@ router.get(
 		const collectionsService = new CollectionsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const collection = await collectionsService.readOne(req.params.collection);
@@ -81,6 +85,7 @@ router.patch(
 		const collectionsService = new CollectionsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		await collectionsService.updateOne(req.params.collection, req.body);
@@ -107,6 +112,7 @@ router.delete(
 		const collectionsService = new CollectionsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		await collectionsService.deleteOne(req.params.collection);

@@ -28,7 +28,7 @@ export async function getSchema(options?: {
 		let cachedSchema;
 
 		try {
-			cachedSchema = (await systemCache.get('schema')) as SchemaOverview;
+			cachedSchema = (await systemCache.get(`schema_${database.client.config.database}`)) as SchemaOverview;
 		} catch (err: any) {
 			logger.warn(err, `[schema-cache] Couldn't retrieve cache. ${err}`);
 		}

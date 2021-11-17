@@ -18,6 +18,7 @@ router.post(
 		const service = new UsersService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const savedKeys: PrimaryKey[] = [];
@@ -55,10 +56,12 @@ const readHandler = asyncHandler(async (req, res, next) => {
 	const service = new UsersService({
 		accountability: req.accountability,
 		schema: req.schema,
+		knex: req.knex,
 	});
 	const metaService = new MetaService({
 		accountability: req.accountability,
 		schema: req.schema,
+		knex: req.knex,
 	});
 
 	const item = await service.readByQuery(req.sanitizedQuery);
@@ -81,6 +84,7 @@ router.get(
 		const service = new UsersService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		try {
@@ -107,6 +111,7 @@ router.get(
 		const service = new UsersService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const items = await service.readOne(req.params.pk, req.sanitizedQuery);
@@ -127,6 +132,7 @@ router.patch(
 		const service = new UsersService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const primaryKey = await service.updateOne(req.accountability.user, req.body);
@@ -149,7 +155,7 @@ router.patch(
 			throw new InvalidPayloadException(`"last_page" key is required.`);
 		}
 
-		const service = new UsersService({ schema: req.schema });
+		const service = new UsersService({ schema: req.schema, knex: req.knex });
 		await service.updateOne(req.accountability.user, { last_page: req.body.last_page });
 
 		return next();
@@ -164,6 +170,7 @@ router.patch(
 		const service = new UsersService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		let keys: PrimaryKey[] = [];
@@ -196,6 +203,7 @@ router.patch(
 		const service = new UsersService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const primaryKey = await service.updateOne(req.params.pk, req.body);
@@ -223,6 +231,7 @@ router.delete(
 		const service = new UsersService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		if (Array.isArray(req.body)) {
@@ -244,6 +253,7 @@ router.delete(
 		const service = new UsersService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		await service.deleteOne(req.params.pk);
@@ -268,6 +278,7 @@ router.post(
 		const service = new UsersService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 		await service.inviteUser(req.body.email, req.body.role, req.body.invite_url || null);
 		return next();
@@ -288,6 +299,7 @@ router.post(
 		const service = new UsersService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 		await service.acceptInvite(req.body.token, req.body.password);
 		return next();
@@ -309,6 +321,7 @@ router.post(
 		const service = new TFAService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const authService = new AuthenticationService({
@@ -343,6 +356,7 @@ router.post(
 		const service = new TFAService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		await service.enableTFA(req.accountability.user, req.body.otp, req.body.secret);
@@ -366,6 +380,7 @@ router.post(
 		const service = new TFAService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const otpValid = await service.verifyOTP(req.accountability.user, req.body.otp);

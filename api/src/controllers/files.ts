@@ -33,7 +33,7 @@ const multipartHandler = asyncHandler(async (req, res, next) => {
 
 	const busboy = new Busboy({ headers });
 	const savedFiles: PrimaryKey[] = [];
-	const service = new FilesService({ accountability: req.accountability, schema: req.schema });
+	const service = new FilesService({ accountability: req.accountability, schema: req.schema, knex: req.knex });
 
 	const existingPrimaryKey = req.params.pk || undefined;
 
@@ -116,6 +116,7 @@ router.post(
 		const service = new FilesService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 		let keys: PrimaryKey | PrimaryKey[] = [];
 
@@ -170,6 +171,7 @@ router.post(
 		const service = new FilesService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const primaryKey = await service.importOne(req.body.url, req.body.data);
@@ -194,11 +196,13 @@ const readHandler = asyncHandler(async (req, res, next) => {
 	const service = new FilesService({
 		accountability: req.accountability,
 		schema: req.schema,
+		knex: req.knex,
 	});
 
 	const metaService = new MetaService({
 		accountability: req.accountability,
 		schema: req.schema,
+		knex: req.knex,
 	});
 
 	let result;
@@ -226,6 +230,7 @@ router.get(
 		const service = new FilesService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const record = await service.readOne(req.params.pk, req.sanitizedQuery);
@@ -242,6 +247,7 @@ router.patch(
 		const service = new FilesService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		let keys: PrimaryKey[] = [];
@@ -275,6 +281,7 @@ router.patch(
 		const service = new FilesService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		await service.updateOne(req.params.pk, req.body);
@@ -302,6 +309,7 @@ router.delete(
 		const service = new FilesService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		if (Array.isArray(req.body)) {
@@ -323,6 +331,7 @@ router.delete(
 		const service = new FilesService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		await service.deleteOne(req.params.pk);

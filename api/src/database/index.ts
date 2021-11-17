@@ -1,31 +1,34 @@
 import SchemaInspector from '@directus/schema';
-import { knex, Knex } from 'knex';
-import { performance } from 'perf_hooks';
+import {knex, Knex} from 'knex';
+import {performance} from 'perf_hooks';
 import env from '../env';
 import logger from '../logger';
-import { getConfigFromEnv } from '../utils/get-config-from-env';
-import { validateEnv } from '../utils/validate-env';
+import {getConfigFromEnv} from '../utils/get-config-from-env';
+import {validateEnv} from '../utils/validate-env';
 import fse from 'fs-extra';
 import path from 'path';
-import { merge } from 'lodash';
-import { promisify } from 'util';
-import { getGeometryHelper } from './helpers/geometry';
+import {merge} from 'lodash';
+import {promisify} from 'util';
+import {getGeometryHelper} from './helpers/geometry';
 
-let database: Knex | null = null;
-let inspector: ReturnType<typeof SchemaInspector> | null = null;
+export const databases: { [key: string]: Knex } = {};
+export const inspectors: { [key: string]: ReturnType<typeof SchemaInspector> } = {};
 
-export default function getDatabase(): Knex {
-	if (database) {
-		return database;
+export default function getDatabase(key = 'master', config?: Record<string, any>): Knex {
+	if (databases.hasOwnProperty(key)) {
+		return databases[key];
 	}
 
-	const connectionConfig: Record<string, any> = getConfigFromEnv('DB_', [
-		'DB_CLIENT',
-		'DB_SEARCH_PATH',
-		'DB_CONNECTION_STRING',
-		'DB_POOL',
-		'DB_EXCLUDE_TABLES',
-	]);
+	const connectionConfig: Record<string, any> = {
+		...getConfigFromEnv('DB_', [
+			'DB_CLIENT',
+			'DB_SEARCH_PATH',
+			'DB_CONNECTION_STRING',
+			'DB_POOL',
+			'DB_EXCLUDE_TABLES',
+		]),
+		...config
+	};
 
 	const poolConfig = getConfigFromEnv('DB_POOL');
 
@@ -89,14 +92,14 @@ export default function getDatabase(): Knex {
 		// This brings MS SQL in line with the other DB vendors. We shouldn't do any automatic
 		// timezone conversion on the database level, especially not when other database vendors don't
 		// act the same
-		merge(knexConfig, { connection: { options: { useUTC: false } } });
+		merge(knexConfig, {connection: {options: {useUTC: false}}});
 	}
 
-	database = knex(knexConfig);
+	databases[key] = knex(knexConfig);
 
 	const times: Record<string, number> = {};
 
-	database
+	databases[key]
 		.on('query', (queryInfo) => {
 			times[queryInfo.__knexUid] = performance.now();
 		})
@@ -106,19 +109,19 @@ export default function getDatabase(): Knex {
 			delete times[queryInfo.__knexUid];
 		});
 
-	return database;
+	return databases[key];
 }
 
-export function getSchemaInspector(): ReturnType<typeof SchemaInspector> {
-	if (inspector) {
-		return inspector;
+export function getSchemaInspector(key = 'master'): ReturnType<typeof SchemaInspector> {
+	if (inspectors.hasOwnProperty(key)) {
+		return inspectors[key];
 	}
 
-	const database = getDatabase();
+	const database = getDatabase(key);
 
-	inspector = SchemaInspector(database);
+	inspectors[key] = SchemaInspector(database);
 
-	return inspector;
+	return inspectors[key];
 }
 
 export async function hasDatabaseConnection(database?: Knex): Promise<boolean> {
@@ -205,7 +208,7 @@ export async function validateMigrations(): Promise<boolean> {
 
 		const requiredVersions = migrationFiles.map((filePath) => filePath.split('-')[0]);
 		const completedVersions = (await database.select('version').from('directus_migrations')).map(
-			({ version }) => version
+			({version}) => version
 		);
 
 		return requiredVersions.every((version) => completedVersions.includes(version));
@@ -235,5 +238,19 @@ export async function validateDatabaseExtensions(): Promise<void> {
 			default:
 				logger.warn(`Geometry type not supported on ${databaseClient}`);
 		}
+	}
+}
+
+export async function connectAllDatabases() {
+	const knex = getDatabase();
+
+	const institutes = await knex.from('institute').select(['db_name', 'db_user', 'db_password']);
+
+	for (const institute of institutes) {
+		getDatabase(institute.db_name, {
+			database: institute.db_name,
+			user: institute.db_user,
+			password: institute.db_password,
+		});
 	}
 }

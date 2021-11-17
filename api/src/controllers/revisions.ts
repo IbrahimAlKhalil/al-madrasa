@@ -13,10 +13,12 @@ const readHandler = asyncHandler(async (req, res, next) => {
 	const service = new RevisionsService({
 		accountability: req.accountability,
 		schema: req.schema,
+		knex: req.knex,
 	});
 	const metaService = new MetaService({
 		accountability: req.accountability,
 		schema: req.schema,
+		knex: req.knex,
 	});
 
 	const records = await service.readByQuery(req.sanitizedQuery);
@@ -35,6 +37,7 @@ router.get(
 		const service = new RevisionsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const record = await service.readOne(req.params.pk, req.sanitizedQuery);

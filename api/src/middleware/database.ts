@@ -1,9 +1,9 @@
 import { RequestHandler } from 'express';
 import asyncHandler from '../utils/async-handler';
-import { getSchema } from '../utils/get-schema';
+import getDatabase from "../database";
 
 const schema: RequestHandler = asyncHandler(async (req, res, next) => {
-	req.schema = await getSchema({ accountability: req.accountability, database: req.knex });
+	req.knex = getDatabase(req.cookies['al-mad-app'] ?? req.header('X-Al-Mad-App') ?? 'master');
 	return next();
 });
 

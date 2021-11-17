@@ -105,7 +105,7 @@ const localTypeMap: Record<string, Type | 'unknown'> = {
 
 export default function getLocalType(
 	column?: SchemaOverview[string]['columns'][string] | Column,
-	field?: { special?: FieldMeta['special'] }
+	field?: { special?: FieldMeta['special'] },
 ): Type | 'unknown' {
 	const database = getDatabase();
 	const databaseClient = getDatabaseClient(database);

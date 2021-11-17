@@ -20,6 +20,7 @@ router.get(
 		const service = new FieldsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 		const fields = await service.readAll();
 
@@ -36,6 +37,7 @@ router.get(
 		const service = new FieldsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 		const fields = await service.readAll(req.params.collection);
 
@@ -52,6 +54,7 @@ router.get(
 		const service = new FieldsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const field = await service.readOne(req.params.collection, req.params.field);
@@ -86,6 +89,7 @@ router.post(
 		const service = new FieldsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const { error } = newFieldSchema.validate(req.body);
@@ -121,6 +125,7 @@ router.patch(
 		const service = new FieldsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		if (Array.isArray(req.body) === false) {
@@ -172,6 +177,7 @@ router.patch(
 		const service = new FieldsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const { error } = updateSchema.validate(req.body);
@@ -213,6 +219,7 @@ router.delete(
 		const service = new FieldsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 		await service.deleteField(req.params.collection, req.params.field);
 		return next();

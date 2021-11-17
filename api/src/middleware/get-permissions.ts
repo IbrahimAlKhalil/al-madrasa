@@ -13,7 +13,7 @@ import hash from 'object-hash';
 import env from '../env';
 
 const getPermissions: RequestHandler = asyncHandler(async (req, res, next) => {
-	const database = getDatabase();
+	const database = req.knex;
 	const { systemCache } = getCache();
 
 	let permissions: Permission[] = [];
@@ -102,8 +102,8 @@ const getPermissions: RequestHandler = asyncHandler(async (req, res, next) => {
 			);
 		}
 
-		const usersService = new UsersService({ schema: req.schema });
-		const rolesService = new RolesService({ schema: req.schema });
+		const usersService = new UsersService({ schema: req.schema, knex: req.knex });
+		const rolesService = new RolesService({ schema: req.schema, knex: req.knex });
 
 		const filterContext: Record<string, any> = {};
 

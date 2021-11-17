@@ -2,7 +2,7 @@ import getDatabase from './database';
 import env from './env';
 import logger from './logger';
 import { AuthDriver } from './auth/auth';
-import { LocalAuthDriver, OAuth2AuthDriver, OpenIDAuthDriver, LDAPAuthDriver } from './auth/drivers';
+import { LocalAuthDriver } from './auth/drivers';
 import { DEFAULT_AUTH_PROVIDER } from './constants';
 import { InvalidConfigException } from './exceptions';
 import { AuthDriverOptions } from './types';
@@ -65,17 +65,5 @@ function getProviderInstance(
 	options: AuthDriverOptions,
 	config: Record<string, any> = {}
 ): AuthDriver | undefined {
-	switch (driver) {
-		case 'local':
-			return new LocalAuthDriver(options, config);
-
-		case 'oauth2':
-			return new OAuth2AuthDriver(options, config);
-
-		case 'openid':
-			return new OpenIDAuthDriver(options, config);
-
-		case 'ldap':
-			return new LDAPAuthDriver(options, config);
-	}
+	return new LocalAuthDriver(options, config)
 }

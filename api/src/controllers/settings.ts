@@ -15,6 +15,7 @@ router.get(
 		const service = new SettingsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 		const records = await service.readSingleton(req.sanitizedQuery);
 		res.locals.payload = { data: records || null };
@@ -29,6 +30,7 @@ router.patch(
 		const service = new SettingsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 		await service.upsertSingleton(req.body);
 

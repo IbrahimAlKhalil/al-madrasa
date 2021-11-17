@@ -70,6 +70,7 @@ router.post(
 		const service = new UtilsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 		await service.sort(req.collection, req.body);
 
@@ -83,6 +84,7 @@ router.post(
 		const service = new RevisionsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 		await service.revert(req.params.revision);
 		next();
@@ -97,6 +99,7 @@ router.post(
 		const service = new ImportService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		let headers: BusboyHeaders;

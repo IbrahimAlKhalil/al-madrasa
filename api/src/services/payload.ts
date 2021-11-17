@@ -225,7 +225,7 @@ export class PayloadService {
 	 * to check if the value is a raw instance before stringifying it in the next step.
 	 */
 	processGeometries<T extends Partial<Record<string, any>>[]>(payloads: T, action: Action): T {
-		const helper = getGeometryHelper();
+		const helper = getGeometryHelper(this.knex);
 
 		const process =
 			action == 'read'

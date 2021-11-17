@@ -138,7 +138,7 @@ export class ItemsService<Item extends AnyItem = AnyItem> implements AbstractSer
 				const result = await trx.insert(payloadWithoutAliases).into(this.collection).returning(primaryKeyField);
 				primaryKey = primaryKey ?? result[0];
 			} catch (err: any) {
-				throw await translateDatabaseError(err);
+				throw await translateDatabaseError(err, this.knex);
 			}
 
 			// Most database support returning, those who don't tend to return the PK anyways
@@ -213,7 +213,7 @@ export class ItemsService<Item extends AnyItem = AnyItem> implements AbstractSer
 				{
 					// This hook is called async. If we would pass the transaction here, the hook can be
 					// called after the transaction is done #5460
-					database: getDatabase(),
+					database: this.knex,
 					schema: this.schema,
 					accountability: this.accountability,
 				}
@@ -296,7 +296,7 @@ export class ItemsService<Item extends AnyItem = AnyItem> implements AbstractSer
 				collection: this.collection,
 			},
 			{
-				database: getDatabase(),
+				database: this.knex,
 				schema: this.schema,
 				accountability: this.accountability,
 			}
@@ -437,7 +437,7 @@ export class ItemsService<Item extends AnyItem = AnyItem> implements AbstractSer
 				try {
 					await trx(this.collection).update(payloadWithTypeCasting).whereIn(primaryKeyField, keys);
 				} catch (err: any) {
-					throw await translateDatabaseError(err);
+					throw await translateDatabaseError(err, this.knex);
 				}
 			}
 
@@ -528,7 +528,7 @@ export class ItemsService<Item extends AnyItem = AnyItem> implements AbstractSer
 				{
 					// This hook is called async. If we would pass the transaction here, the hook can be
 					// called after the transaction is done #5460
-					database: getDatabase(),
+					database: this.knex,
 					schema: this.schema,
 					accountability: this.accountability,
 				}
@@ -614,6 +614,7 @@ export class ItemsService<Item extends AnyItem = AnyItem> implements AbstractSer
 			const authorizationService = new AuthorizationService({
 				accountability: this.accountability,
 				schema: this.schema,
+				knex: this.knex,
 			});
 
 			await authorizationService.checkAccess('delete', this.collection, keys);
@@ -670,7 +671,7 @@ export class ItemsService<Item extends AnyItem = AnyItem> implements AbstractSer
 				{
 					// This hook is called async. If we would pass the transaction here, the hook can be
 					// called after the transaction is done #5460
-					database: getDatabase(),
+					database: this.knex,
 					schema: this.schema,
 					accountability: this.accountability,
 				}

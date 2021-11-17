@@ -17,6 +17,7 @@ router.post(
 		const service = new PermissionsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const savedKeys: PrimaryKey[] = [];
@@ -53,11 +54,13 @@ const readHandler = asyncHandler(async (req, res, next) => {
 	const service = new PermissionsService({
 		accountability: req.accountability,
 		schema: req.schema,
+		knex: req.knex,
 	});
 
 	const metaService = new MetaService({
 		accountability: req.accountability,
 		schema: req.schema,
+		knex: req.knex,
 	});
 
 	let result;
@@ -86,6 +89,7 @@ router.get(
 		const service = new PermissionsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const record = await service.readOne(req.params.pk, req.sanitizedQuery);
@@ -103,6 +107,7 @@ router.patch(
 		const service = new PermissionsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		let keys: PrimaryKey[] = [];
@@ -135,6 +140,7 @@ router.patch(
 		const service = new PermissionsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const primaryKey = await service.updateOne(req.params.pk, req.body);
@@ -162,6 +168,7 @@ router.delete(
 		const service = new PermissionsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		if (Array.isArray(req.body)) {
@@ -183,6 +190,7 @@ router.delete(
 		const service = new PermissionsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		await service.deleteOne(req.params.pk);

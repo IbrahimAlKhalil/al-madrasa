@@ -174,7 +174,7 @@ async function parseCurrentLevel(
 }
 
 function getColumnPreprocessor(knex: Knex, schema: SchemaOverview, table: string) {
-	const helper = getGeometryHelper();
+	const helper = getGeometryHelper(knex);
 
 	return function (fieldNode: FieldNode | M2ONode): Knex.Raw<string> {
 		let field;

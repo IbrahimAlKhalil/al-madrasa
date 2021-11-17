@@ -4,7 +4,7 @@ import { InvalidIPException } from '../exceptions';
 import asyncHandler from '../utils/async-handler';
 
 export const checkIP: RequestHandler = asyncHandler(async (req, res, next) => {
-	const database = getDatabase();
+	const database = req.knex;
 
 	const role = await database
 		.select('ip_access')

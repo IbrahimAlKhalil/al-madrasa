@@ -21,7 +21,7 @@ const notFound: RequestHandler = async (req, res, next) => {
 			false,
 			{ request: req, response: res },
 			{
-				database: getDatabase(),
+				database: req.knex,
 				schema: req.schema,
 				accountability: req.accountability ?? null,
 			}

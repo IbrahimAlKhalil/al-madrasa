@@ -19,7 +19,7 @@ const authenticate: RequestHandler = asyncHandler(async (req, res, next) => {
 		userAgent: req.get('user-agent'),
 	};
 
-	const database = getDatabase();
+	const database = req.knex;
 
 	if (req.token) {
 		if (isDirectusJWT(req.token)) {

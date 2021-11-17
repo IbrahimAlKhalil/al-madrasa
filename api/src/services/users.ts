@@ -250,6 +250,7 @@ export class UsersService extends ItemsService {
 		const mailService = new MailService({
 			schema: this.schema,
 			accountability: this.accountability,
+			knex: this.knex,
 		});
 
 		for (const email of emails) {

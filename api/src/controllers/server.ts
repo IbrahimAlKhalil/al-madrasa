@@ -13,6 +13,7 @@ router.get(
 		const service = new SpecificationService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		res.locals.payload = await service.oas.generate();
@@ -27,11 +28,13 @@ router.get(
 		const service = new SpecificationService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const serverService = new ServerService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const scope = req.params.scope || 'items';
@@ -55,6 +58,7 @@ router.get(
 		const service = new ServerService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 		const data = await service.serverInfo();
 		res.locals.payload = { data };
@@ -69,6 +73,7 @@ router.get(
 		const service = new ServerService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const data = await service.health();

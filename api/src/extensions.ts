@@ -277,7 +277,7 @@ class ExtensionManager {
 			},
 		};
 
-		register(registerFunctions, { services, exceptions, env, database: getDatabase(), logger, getSchema });
+		register(registerFunctions, { services, exceptions, env, getDatabase, logger, getSchema });
 	}
 
 	private registerEndpoint(endpoint: Extension, router: Router) {
@@ -292,7 +292,7 @@ class ExtensionManager {
 		const scopedRouter = express.Router();
 		router.use(`/${routeName}`, scopedRouter);
 
-		register(scopedRouter, { services, exceptions, env, database: getDatabase(), logger, getSchema });
+		register(scopedRouter, { services, exceptions, env, getDatabase, logger, getSchema });
 
 		this.apiEndpoints.push({
 			path: endpointPath,

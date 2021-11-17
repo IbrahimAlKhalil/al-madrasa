@@ -1,5 +1,5 @@
 import axios from 'axios';
-import getDatabase from './database';
+import getDatabase, {databases} from './database';
 import emitter from './emitter';
 import logger from './logger';
 import { ActionHandler, Webhook, WebhookHeader } from './types';
@@ -12,21 +12,27 @@ let registered: { event: string; handler: ActionHandler }[] = [];
 export async function register(): Promise<void> {
 	unregister();
 
-	const webhookService = new WebhooksService({ knex: getDatabase(), schema: await getSchema() });
+	for (const key in databases) {
+		if (!databases.hasOwnProperty(key)) {
+			continue
+		}
 
-	const webhooks = await webhookService.readByQuery({ filter: { status: { _eq: 'active' } } });
-	for (const webhook of webhooks) {
-		if (webhook.actions.includes('*')) {
-			const event = 'items.*';
-			const handler = createHandler(webhook);
-			emitter.onAction(event, handler);
-			registered.push({ event, handler });
-		} else {
-			for (const action of webhook.actions) {
-				const event = `items.${action}`;
+		const webhookService = new WebhooksService({ knex: databases[key], schema: await getSchema({ database: databases[key] }) });
+
+		const webhooks = await webhookService.readByQuery({ filter: { status: { _eq: 'active' } } });
+		for (const webhook of webhooks) {
+			if (webhook.actions.includes('*')) {
+				const event = 'items.*';
 				const handler = createHandler(webhook);
 				emitter.onAction(event, handler);
 				registered.push({ event, handler });
+			} else {
+				for (const action of webhook.actions) {
+					const event = `items.${action}`;
+					const handler = createHandler(webhook);
+					emitter.onAction(event, handler);
+					registered.push({ event, handler });
+				}
 			}
 		}
 	}

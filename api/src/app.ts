@@ -27,7 +27,13 @@ import settingsRouter from './controllers/settings';
 import usersRouter from './controllers/users';
 import utilsRouter from './controllers/utils';
 import webhooksRouter from './controllers/webhooks';
-import { isInstalled, validateDatabaseConnection, validateDatabaseExtensions, validateMigrations } from './database';
+import {
+	connectAllDatabases,
+	isInstalled,
+	validateDatabaseConnection,
+	validateDatabaseExtensions,
+	validateMigrations
+} from './database';
 import emitter from './emitter';
 import env from './env';
 import { InvalidPayloadException } from './exceptions';
@@ -43,6 +49,7 @@ import extractToken from './middleware/extract-token';
 import rateLimiter from './middleware/rate-limiter';
 import sanitizeQuery from './middleware/sanitize-query';
 import schema from './middleware/schema';
+import database from './middleware/database';
 
 import { track } from './utils/track';
 import { validateEnv } from './utils/validate-env';
@@ -63,6 +70,7 @@ export default async function createApp(): Promise<express.Application> {
 
 	await validateDatabaseConnection();
 	await validateDatabaseExtensions();
+	await connectAllDatabases();
 
 	if ((await isInstalled()) === false) {
 		logger.error(`Database doesn't have Directus tables installed.`);
@@ -150,6 +158,8 @@ export default async function createApp(): Promise<express.Application> {
 	if (env.RATE_LIMITER_ENABLED === true) {
 		app.use(rateLimiter);
 	}
+
+	app.use(database);
 
 	app.use(authenticate);
 

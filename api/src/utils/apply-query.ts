@@ -479,7 +479,7 @@ export function applyFilter(
 				dbQuery[logical].whereNotBetween(selectionRaw, value);
 			}
 
-			const geometryHelper = getGeometryHelper();
+			const geometryHelper = getGeometryHelper(knex);
 
 			if (operator == '_intersects') {
 				dbQuery[logical].whereRaw(geometryHelper.intersects(key, compareValue));

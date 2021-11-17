@@ -36,7 +36,7 @@ router.get(
 		const isValidUUID = validate(id, 4);
 		if (isValidUUID === false) throw new ForbiddenException();
 
-		const database = getDatabase();
+		const database = req.knex;
 		const file = await database.select('id', 'storage', 'filename_disk').from('directus_files').where({ id }).first();
 		if (!file) throw new ForbiddenException();
 
@@ -48,10 +48,10 @@ router.get(
 
 	// Validate query params
 	asyncHandler(async (req, res, next) => {
-		const payloadService = new PayloadService('directus_settings', { schema: req.schema });
+		const payloadService = new PayloadService('directus_settings', { schema: req.schema, knex: req.knex });
 		const defaults = { storage_asset_presets: [], storage_asset_transform: 'all' };
 
-		const database = getDatabase();
+		const database = req.knex;
 		const savedAssetSettings = await database
 			.select('storage_asset_presets', 'storage_asset_transform')
 			.from('directus_settings')
@@ -142,6 +142,7 @@ router.get(
 		const service = new AssetsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const transformation: TransformationParams | TransformationPreset = res.locals.transformation.key

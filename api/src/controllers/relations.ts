@@ -17,6 +17,7 @@ router.get(
 		const service = new RelationsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const relations = await service.readAll();
@@ -33,6 +34,7 @@ router.get(
 		const service = new RelationsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 		const relations = await service.readAll(req.params.collection);
 
@@ -49,6 +51,7 @@ router.get(
 		const service = new RelationsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const relation = await service.readOne(req.params.collection, req.params.field);
@@ -77,6 +80,7 @@ router.post(
 		const service = new RelationsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const { error } = newRelationSchema.validate(req.body);
@@ -122,6 +126,7 @@ router.patch(
 		const service = new RelationsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const { error } = updateRelationSchema.validate(req.body);
@@ -155,6 +160,7 @@ router.delete(
 		const service = new RelationsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 		await service.deleteOne(req.params.collection, req.params.field);
 		return next();

@@ -6,6 +6,7 @@ import { extractError as oracle } from './dialects/oracle';
 import { extractError as postgres } from './dialects/postgres';
 import { extractError as sqlite } from './dialects/sqlite';
 import { SQLError } from './dialects/types';
+import {Knex} from "knex";
 
 /**
  * Translates an error thrown by any of the databases into a pre-defined Exception. Currently
@@ -16,7 +17,7 @@ import { SQLError } from './dialects/types';
  * - Value Out of Range
  * - Value Too Long
  */
-export async function translateDatabaseError(error: SQLError): Promise<any> {
+export async function translateDatabaseError(error: SQLError, knex: Knex): Promise<any> {
 	const client = getDatabaseClient();
 	let defaultError: any;
 
@@ -43,7 +44,7 @@ export async function translateDatabaseError(error: SQLError): Promise<any> {
 		defaultError,
 		{ client },
 		{
-			database: getDatabase(),
+			database: knex,
 			schema: null,
 			accountability: null,
 		}
