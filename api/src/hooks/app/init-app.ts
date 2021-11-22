@@ -1,5 +1,4 @@
 import {syncTable} from "../../database/helpers/sync-table";
-import {syncUsers} from "../../database/helpers/sync-users";
 import {getSchema} from "../../utils/get-schema";
 import {ItemsService} from "../../services";
 import getDatabase from "../../database";
@@ -32,7 +31,17 @@ export const initApp: InitHandler = async () => {
 			['id', 'name', 'icon', 'description', 'ip_access', 'enforce_tfa', 'admin_access', 'app_access']
 		);
 
-		await syncUsers(db);
+		await syncTable(
+			db,
+			'directus_users',
+			['id', 'email', 'password', 'status', 'role', 'first_name', 'last_name', 'location', 'title', 'description', 'tags', 'auth_data', 'token']
+		);
+
+		await syncTable(
+			db,
+			'directus_permissions',
+			['id', 'role', 'collection', 'action', 'permissions', 'validation', 'presets', 'fields']
+		)
 
 		await syncTable(
 			db,

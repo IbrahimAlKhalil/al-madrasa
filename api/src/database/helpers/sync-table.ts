@@ -1,8 +1,6 @@
-import {getSchema} from "../../utils/get-schema";
-import {ItemsService} from "../../services";
 import getDatabase from "../index";
+import {isEqual} from "lodash";
 import {Knex} from "knex";
-import {isEqual, omit} from "lodash";
 
 export async function syncTable(database: Knex | string, table: string, fields: string[]) {
 	const masterDB = getDatabase();
@@ -11,40 +9,28 @@ export async function syncTable(database: Knex | string, table: string, fields: 
 		database = getDatabase(database);
 	}
 
-	const masterService = new ItemsService(table,{
-		knex: masterDB,
-		schema: await getSchema(),
-	});
-
-	const items = await masterService.readByQuery({ fields });
-
-	const service = new ItemsService(table,{
-		knex: database,
-		schema: await getSchema({database}),
-	});
+	const items = await masterDB(table)
+		.select(fields);
 
 	for (const item of items) {
-		let has;
-
-		try {
-			has = await service.readOne(item.id, { fields });
-		} catch (e) {
-		}
+		const has = await  database(table)
+			.select(fields)
+			.where('id', item.id)
+			.first();
 
 		if (has) {
 			if (isEqual(has, item)) {
 				continue;
 			}
 
-			await service.updateOne(item.id, omit(item, 'id'), {
-				emitEvents: false,
-			});
+			await database(table)
+				.update(item)
+				.where('id', item.id);
 
 			continue;
 		}
 
-		await service.createOne(item, {
-			emitEvents: false,
-		});
+		await database(table)
+			.insert(item);
 	}
 }
