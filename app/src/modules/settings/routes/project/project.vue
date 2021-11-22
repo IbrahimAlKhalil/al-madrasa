@@ -113,14 +113,23 @@ export default defineComponent({
 		const apps = reactive<any[]>([]);
 		const app = ref(sessionStorage.getItem('default_app') ?? 'master');
 
-		function handleAppSelect(value: string) {
+		async function handleAppSelect(value: string) {
 			if (app.value === value) {
 				return;
 			}
 
 			app.value = value;
 		  sessionStorage.setItem('default_app', value);
-		  location.reload();
+
+		  try {
+		    await api.post('/server/switch-app', {
+			    app: app.value,
+		    });
+
+		    location.reload();
+			} catch (e) {
+			  alert('Failed to switch app')
+	    }
 		}
 
 		api.get('/server/apps').then((res) => {

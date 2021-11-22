@@ -1,10 +1,10 @@
 import {format} from 'date-fns';
 import {Router} from 'express';
-import {ForbiddenException, RouteNotFoundException} from '../exceptions';
+import {ForbiddenException, RouteNotFoundException, UnprocessableEntityException} from '../exceptions';
 import {respond} from '../middleware/respond';
 import {ItemsService, ServerService, SpecificationService} from '../services';
 import asyncHandler from '../utils/async-handler';
-import getDatabase from "../database";
+import getDatabase, {databases} from "../database";
 import {getSchema} from "../utils/get-schema";
 import env from "../env";
 
@@ -131,6 +131,45 @@ router.get(
 				name: r.name,
 			}))
 		];
+
+		return next();
+	}),
+	respond
+)
+
+router.post(
+	'/switch-app',
+	asyncHandler(async (req, res, next) => {
+		if (!req?.accountability?.admin) {
+			throw new ForbiddenException();
+		}
+
+		if (!req.body.hasOwnProperty('app') || typeof req.body.app !== 'string' || !databases.hasOwnProperty(req.body.app)) {
+			throw new UnprocessableEntityException('app must be a string');
+		}
+
+		const database = getDatabase(req.body.app, {
+			database: req.body.app,
+		});
+
+		const session = await req.knex('directus_sessions')
+			.where('token', req.cookies.directus_refresh_token)
+			.first()
+
+		if (!session) {
+			throw new UnprocessableEntityException('app must be a string');
+		}
+
+		const sessionCheck = await database('directus_sessions')
+			.where('token', req.cookies.directus_refresh_token)
+			.first();
+
+		if (!sessionCheck) {
+			await database('directus_sessions')
+				.insert(session)
+				.onConflict('token')
+				.ignore();
+		}
 
 		return next();
 	}),
