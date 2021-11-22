@@ -19,6 +19,16 @@
 
 		<div class="settings">
 			<v-form v-model="edits" :initial-values="initialValues" :fields="fields" :primary-key="1" />
+
+			<div class="apps-select-wrapper with-fill">
+					<div class="full">
+			      <v-select :items="apps" :model-value="app" @update:modelValue="handleAppSelect">
+								<template v-if="!apps" #preview>
+										<v-progress-circular indeterminate/>
+								</template>
+			      </v-select>
+					</div>
+			</div>
 		</div>
 
 		<template #sidebar>
@@ -42,7 +52,7 @@
 
 <script lang="ts">
 import { useI18n } from 'vue-i18n';
-import { defineComponent, ref, computed } from 'vue';
+import {defineComponent, ref, computed, reactive} from 'vue';
 import SettingsNavigation from '../../components/navigation.vue';
 import { useCollection } from '@directus/shared/composables';
 import { useSettingsStore, useServerStore } from '@/stores';
@@ -51,9 +61,13 @@ import { clone } from 'lodash';
 import useShortcut from '@/composables/use-shortcut';
 import unsavedChanges from '@/composables/unsaved-changes';
 import { useRouter, onBeforeRouteUpdate, onBeforeRouteLeave, NavigationGuard } from 'vue-router';
+import VSelect from "@/components/v-select/v-select.vue";
+import VForm from "@/components/v-form/v-form.vue";
+import VProgressCircular from "@/components/v-progress/circular/v-progress-circular.vue";
+import api from "@/api";
 
 export default defineComponent({
-	components: { SettingsNavigation, ProjectInfoSidebarDetail },
+	components: {VProgressCircular, VForm, VSelect, SettingsNavigation, ProjectInfoSidebarDetail },
 	setup() {
 		const { t } = useI18n();
 
@@ -96,6 +110,33 @@ export default defineComponent({
 		onBeforeRouteUpdate(editsGuard);
 		onBeforeRouteLeave(editsGuard);
 
+		const apps = reactive<any[]>([]);
+		const app = ref(sessionStorage.getItem('default_app') ?? 'master');
+
+		function handleAppSelect(value: string) {
+			if (app.value === value) {
+				return;
+			}
+
+			app.value = value;
+		  sessionStorage.setItem('default_app', value);
+		  location.reload();
+		}
+
+		api.get('/server/apps').then((res) => {
+			for (const item of res.data) {
+				apps.push({
+						text: item.code ? `${item.name} - ${item.code}` : item.name,
+						value: item.app,
+				});
+			}
+
+			if (!apps.some((a) => a.value === app.value)) {
+				app.value = 'master';
+		    api.defaults.headers.common['X-Al-Mad-App'] = app.value;
+			}
+		});
+
 		return {
 			t,
 			fields,
@@ -108,6 +149,9 @@ export default defineComponent({
 			leaveTo,
 			save,
 			discardAndLeave,
+		  apps,
+			app,
+			handleAppSelect,
 		};
 
 		async function save() {
@@ -131,6 +175,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/mixins/form-grid';
+
 .settings {
 	padding: var(--content-padding);
 	padding-bottom: var(--content-padding-bottom);
@@ -139,5 +185,11 @@ export default defineComponent({
 .header-icon {
 	--v-button-color-disabled: var(--warning);
 	--v-button-background-color-disabled: var(--warning-10);
+}
+
+.apps-select-wrapper {
+  @include form-grid;
+
+	margin-top: 30px;
 }
 </style>

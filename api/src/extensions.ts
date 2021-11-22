@@ -34,6 +34,7 @@ import virtual from '@rollup/plugin-virtual';
 import alias from '@rollup/plugin-alias';
 import { Url } from './utils/url';
 import getModuleDefault from './utils/get-module-default';
+import * as fs from "fs";
 
 let extensionManager: ExtensionManager | undefined;
 
@@ -84,6 +85,7 @@ class ExtensionManager {
 			logger.warn(err);
 		}
 
+		this.registerCustomHooks();
 		this.registerHooks();
 		this.registerEndpoints();
 
@@ -189,6 +191,71 @@ class ExtensionManager {
 		}
 
 		return depsMapping;
+	}
+
+	private registerCustomHooks() {
+		const files = fs.readdirSync(path.resolve(__dirname, './hooks'));
+
+		for (const file of files) {
+			const filePath = path.resolve(__dirname, `./hooks/${file}`);
+			const register = require(filePath).default;
+
+			const registerFunctions = {
+				filter: (event: string, handler: FilterHandler) => {
+					emitter.onFilter(event, handler);
+
+					this.apiHooks.push({
+						type: 'filter',
+						path: path.resolve(__dirname, `./hooks/${file}`),
+						event,
+						handler,
+					});
+				},
+				action: (event: string, handler: ActionHandler) => {
+					emitter.onAction(event, handler);
+
+					this.apiHooks.push({
+						type: 'action',
+						path: filePath,
+						event,
+						handler,
+					});
+				},
+				init: (event: string, handler: InitHandler) => {
+					emitter.onInit(event, handler);
+
+					this.apiHooks.push({
+						type: 'init',
+						path: filePath,
+						event,
+						handler,
+					});
+				},
+				schedule: (cron: string, handler: ScheduleHandler) => {
+					if (validate(cron)) {
+						const task = schedule(cron, async () => {
+							if (this.isScheduleHookEnabled) {
+								try {
+									await handler();
+								} catch (error: any) {
+									logger.error(error);
+								}
+							}
+						});
+
+						this.apiHooks.push({
+							type: 'schedule',
+							path: filePath,
+							task,
+						});
+					} else {
+						logger.warn(`Couldn't register cron hook. Provided cron is invalid: ${cron}`);
+					}
+				},
+			};
+
+			register(registerFunctions, { services, exceptions, env, getDatabase, logger, getSchema });
+		}
 	}
 
 	private registerHooks(): void {

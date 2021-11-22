@@ -6,6 +6,7 @@ const Docker = require('dockerode');
 const dotenv = require('dotenv');
 const path = require('path');
 const pg = require('pg');
+const fs = require("fs");
 
 // Load environment variables
 dotenv.config();
@@ -159,7 +160,11 @@ async function startPostgres() {
     const postgres = await docker.createContainer({
         name: containerNames.postgres,
         Image: images.postgres,
-        Env: [`POSTGRES_PASSWORD=${env.DB_PASSWORD}`],
+        Env: [
+            `POSTGRES_DB=${env.DB_DATABASE}`,
+            `POSTGRES_USER=${env.DB_USER}`,
+            `POSTGRES_PASSWORD=${env.DB_PASSWORD}`
+        ],
         Hostname: containerNames.postgres,
         HostConfig: {
             PortBindings: {
@@ -207,14 +212,7 @@ async function startPostgres() {
         }
     }, () => !!client);
 
-    const directusPath = path.resolve(__dirname, '../node_modules/.bin/directus');
-
-    childProcess.spawnSync(directusPath, ['database', 'install'], {
-        shell: true,
-    });
-    childProcess.spawnSync(directusPath, ['database', 'migrate:up'], {
-        shell: true,
-    });
+    await client.end();
 }
 
 async function stop() {

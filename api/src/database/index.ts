@@ -244,13 +244,41 @@ export async function validateDatabaseExtensions(): Promise<void> {
 export async function connectAllDatabases() {
 	const knex = getDatabase();
 
-	const institutes = await knex.from('institute').select(['db_name', 'db_user', 'db_password']);
+	const institutes = await knex.from('institute')
+		.where(qb => {
+			qb.whereNotNull('db_name')
+			qb.where({
+				status: 'published',
+			});
+		})
+		.select(['db_name']);
+
+	institutes.push({
+		db_name: 'template',
+	});
 
 	for (const institute of institutes) {
-		getDatabase(institute.db_name, {
+		if (databases.hasOwnProperty(institute.db_name)) {
+			continue;
+		}
+
+		const database = getDatabase(institute.db_name, {
 			database: institute.db_name,
-			user: institute.db_user,
-			password: institute.db_password,
 		});
+
+		try {
+			await database.raw('SELECT 1');
+		} catch (e) {
+			await disconnectDatabase(institute.db_name);
+		}
 	}
+}
+
+export async function disconnectDatabase(key: string) {
+	if (key === 'master' || !databases.hasOwnProperty(key)) {
+		return;
+	}
+
+	await databases[key].destroy();
+	delete databases[key];
 }

@@ -4,7 +4,6 @@ import { pick } from 'lodash';
 import ms from 'ms';
 import validate from 'uuid-validate';
 import { ASSET_TRANSFORM_QUERY_KEYS, SYSTEM_ASSET_ALLOW_LIST } from '../constants';
-import getDatabase from '../database';
 import env from '../env';
 import { ForbiddenException, InvalidQueryException, RangeNotSatisfiableException } from '../exceptions';
 import useCollection from '../middleware/use-collection';

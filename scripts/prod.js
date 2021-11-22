@@ -14,34 +14,49 @@ async function start() {
         process.exit(1);
     }
 
-    const client = new pg.Client({
+    const config = {
         user: process.env.DB_USER,
         host: process.env.DB_HOST,
-        database: process.env.DB_DATABASE,
         password: process.env.DB_PASSWORD,
         port: process.env.DB_PORT,
-    });
+    };
 
-    await client.connect();
+    const dbCreator = new pg.Client(config);
 
-    const result = await client.query(`
+    await dbCreator.connect();
+
+    try {
+        await databaseCreator.query(`create database ${process.env.DB_DATABASE}`);
+    } catch (e) {
+    }
+
+    try {
+        await databaseCreator.query(`create database ${process.env.DB_TEMPLATE}`);
+    } catch (e) {
+    }
+
+    await dbCreator.end();
+
+    const master = new pg.Client({...config, database: process.env.DB_DATABASE});
+
+    const result = await master.query(`
         select exists(
                        select *
                        from pg_catalog.pg_tables
                        where schemaname = 'public'
-                         and tablename similar to 'directus_%'
+                         and tablename = 'directus_collections'
                    )
     `);
 
     if (result.rows[0].exists) {
-        await client.end();
+        await master.end();
 
         return runApp();
     }
 
     require('./scripts/restore');
 
-    await client.end();
+    await master.end();
     await runApp();
 }
 

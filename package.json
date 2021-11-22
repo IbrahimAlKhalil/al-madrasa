@@ -9,7 +9,7 @@
     "start": "node scripts/run.js",
     "prod": "node scripts/prod.js",
     "build": "node scripts/build.js",
-    "user": "./api/cli.js users create --email saharaitech2@gmail.com --password 12345678 --role $(./api/cli.js roles create --admin --role Administrator)",
+    "user": "./api/cli.js users create --email admin@saharait.com --password 12345678 --role $(./api/cli.js roles create --admin --role Administrator)",
     "db:migrate": "cd ./api && pnpm build && ./cli.js database migrate:up",
     "db:dump": "node scripts/dump.js",
     "db:restore": "node scripts/restore.js"

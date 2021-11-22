@@ -1,5 +1,5 @@
 import axios from 'axios';
-import getDatabase, {databases} from './database';
+import {databases} from './database';
 import emitter from './emitter';
 import logger from './logger';
 import { ActionHandler, Webhook, WebhookHeader } from './types';

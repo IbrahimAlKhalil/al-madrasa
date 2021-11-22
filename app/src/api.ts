@@ -10,6 +10,7 @@ const api = axios.create({
 	withCredentials: true,
 	headers: {
 		'Cache-Control': 'no-store',
+		'X-Al-Mad-App': sessionStorage.getItem('default_app') ?? 'master'
 	},
 });
 

@@ -1,9 +1,12 @@
-import { format } from 'date-fns';
-import { Router } from 'express';
-import { RouteNotFoundException } from '../exceptions';
-import { respond } from '../middleware/respond';
-import { ServerService, SpecificationService } from '../services';
+import {format} from 'date-fns';
+import {Router} from 'express';
+import {ForbiddenException, RouteNotFoundException} from '../exceptions';
+import {respond} from '../middleware/respond';
+import {ItemsService, ServerService, SpecificationService} from '../services';
 import asyncHandler from '../utils/async-handler';
+import getDatabase from "../database";
+import {getSchema} from "../utils/get-schema";
+import env from "../env";
 
 const router = Router();
 
@@ -61,7 +64,7 @@ router.get(
 			knex: req.knex,
 		});
 		const data = await service.serverInfo();
-		res.locals.payload = { data };
+		res.locals.payload = {data};
 		return next();
 	}),
 	respond
@@ -87,5 +90,51 @@ router.get(
 	}),
 	respond
 );
+
+router.get(
+	'/apps',
+	asyncHandler(async (req, res, next) => {
+		if (!req?.accountability?.admin) {
+			throw new ForbiddenException();
+		}
+
+		const service = new ItemsService('institute', {
+			knex: getDatabase(),
+			schema: await getSchema({
+				database: getDatabase(),
+			})
+		});
+
+		const results = await service.readByQuery({
+			fields: ['id', 'db_name', 'name', 'code'],
+			filter: {
+				status: {
+					_eq: 'published',
+				}
+			}
+		});
+
+		res.locals.payload = [
+			{
+				app: 'master',
+				code: null,
+				name: 'Master'
+			},
+			{
+				app: env.DB_TEMPLATE,
+				code: null,
+				name: 'Template'
+			},
+			...results.map(r => ({
+				app: r.db_name,
+				code: r.code,
+				name: r.name,
+			}))
+		];
+
+		return next();
+	}),
+	respond
+)
 
 export default router;
