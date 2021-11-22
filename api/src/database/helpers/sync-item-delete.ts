@@ -10,7 +10,7 @@ export const syncItemDelete: ActionHandler = async (meta, context) => {
 
 	const masterDB = getDatabase();
 
-	const institutes = await masterDB(meta.collection)
+	const institutes = await masterDB('institute')
 		.select('db_name');
 
 	institutes.push({
