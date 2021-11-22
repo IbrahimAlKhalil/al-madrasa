@@ -20,7 +20,7 @@ export const syncItem: ActionHandler = async (meta, context) => {
 		db_name: env.DB_TEMPLATE,
 	});
 
-	const item = masterDB(meta.collection)
+	const item = await masterDB(meta.collection)
 		.where('id', id)
 		.first();
 

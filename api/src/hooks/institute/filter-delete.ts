@@ -2,7 +2,6 @@ import {isMaster} from "../../database/helpers/is-master";
 import {FilterHandler, SchemaOverview} from "../../types";
 import {disconnectDatabase} from "../../database";
 import {ItemsService} from "../../services";
-import env from "../../env";
 
 export const filterDelete: FilterHandler = async (payload, meta, context) => {
 	if (!isMaster(context.database)) {
