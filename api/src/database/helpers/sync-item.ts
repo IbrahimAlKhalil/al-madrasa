@@ -1,52 +1,60 @@
-import {ActionHandler} from "../../types";
-import getDatabase from "../../database";
-import {isMaster} from "./is-master";
-import { isEqual} from "lodash";
-import env from "../../env";
+import {getChildDatabases} from "./get-child-databases";
+import {isDBSameAs} from "./is-db-same-as";
+import {ValidateDB} from "../types/validate-db";
+import {isEqual} from "lodash";
+import {Knex} from "knex";
 
-export const syncItem: ActionHandler = async (meta, context) => {
-	if (!isMaster(context.database)) {
-		return;
-	}
-
-	const masterDB = getDatabase();
-
-	const institutes = await masterDB('institute')
-		.select('db_name');
-
-	const id = meta.key ?? meta.keys[0];
-
-	institutes.push({
-		db_name: env.DB_TEMPLATE,
-	});
-
-	const item = await masterDB(meta.collection)
-		.where('id', id)
+async function copy(item: Record<string, any>, table: string, targetDB: Knex) {
+	const hasItem = await targetDB(table)
+		.where('id', item.id)
 		.first();
 
-	if (!item) {
+	if (hasItem) {
+		if (isEqual(hasItem, item)) {
+			return;
+		}
+
+		await targetDB(table)
+			.update(item)
+			.where('id', item.id);
 		return;
 	}
 
-	for (const institute of institutes) {
-		const knex = getDatabase(institute.db_name, {database: institute.db_name});
+	await targetDB(table)
+		.insert(item)
+		.onConflict()
+		.ignore();
+}
 
-		const hasItem = await knex(meta.collection)
-			.where('id', id)
-			.first();
+export const syncItem = async (meta: Record<string, any>, sourceDB: Knex, targetDB?: Knex | null, validateSourceDB?: ValidateDB) => {
+	debugger;
 
-		if (hasItem) {
-			if (isEqual(hasItem, item)) {
-				continue;
-			}
+	const shouldRun = typeof validateSourceDB === 'function' ? await validateSourceDB(sourceDB) : true;
 
-			await knex(meta.collection)
-				.update(item)
-				.where('id', id);
+	if (!shouldRun) return;
+
+	const ids = meta.key ? [meta.key] : meta.keys;
+
+	const items = await sourceDB(meta.collection)
+		.whereIn('id', ids);
+
+	if (items.length === 0) {
+		return;
+	}
+
+	let targetDBS = await getChildDatabases();
+
+	if (targetDB) {
+		targetDBS = [targetDB];
+	}
+
+	for (const _targetDB of targetDBS) {
+		if (isDBSameAs(sourceDB, _targetDB)) {
 			continue;
 		}
 
-		await knex(meta.collection)
-			.insert(item);
+		for (const item of items) {
+			await copy(item, meta.collection, _targetDB);
+		}
 	}
 }

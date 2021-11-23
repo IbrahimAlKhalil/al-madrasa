@@ -1,19 +1,21 @@
+import {isDBSameAs} from "./is-db-same-as";
 import getDatabase from "../index";
 import {isEqual} from "lodash";
 import {Knex} from "knex";
 
-export async function syncTable(database: Knex | string, table: string, fields: string[]) {
-	const masterDB = getDatabase();
+export async function syncTable(sourceDB: Knex | string, targetDB: Knex | string, table: string, fields: string[]) {
+	sourceDB = typeof sourceDB === 'string' ? getDatabase(sourceDB) : sourceDB;
+	targetDB = typeof targetDB === 'string' ? getDatabase(targetDB) : targetDB;
 
-	if (typeof database === 'string') {
-		database = getDatabase(database);
+	if (isDBSameAs(sourceDB, targetDB)) {
+		return;
 	}
 
-	const items = await masterDB(table)
+	const items = await sourceDB(table)
 		.select(fields);
 
 	for (const item of items) {
-		const has = await  database(table)
+		const has = await  targetDB(table)
 			.select(fields)
 			.where('id', item.id)
 			.first();
@@ -23,14 +25,17 @@ export async function syncTable(database: Knex | string, table: string, fields: 
 				continue;
 			}
 
-			await database(table)
+			await targetDB(table)
 				.update(item)
 				.where('id', item.id);
 
 			continue;
 		}
 
-		await database(table)
-			.insert(item);
+		await targetDB(table)
+			.insert(item)
+			.onConflict()
+			.ignore();
 	}
 }
+

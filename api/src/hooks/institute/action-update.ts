@@ -18,14 +18,13 @@ export const actionUpdate: ActionHandler = async (meta, context) => {
 	});
 
 	for (const institute of institutes) {
-		if (institute.status === 'published') {
-			getDatabase(institute.db_name, {
-				database: institute.db_name,
-			});
-
+		if (institute.status === 'archived') {
+			await disconnectDatabase(institute.db_name);
 			continue;
 		}
 
-		await disconnectDatabase(institute.db_name);
+		getDatabase(institute.db_name, {
+			database: institute.db_name,
+		});
 	}
 }

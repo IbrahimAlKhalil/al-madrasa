@@ -109,7 +109,7 @@ router.get(
 			fields: ['id', 'db_name', 'name', 'code'],
 			filter: {
 				status: {
-					_eq: 'published',
+					_neq: 'archived',
 				}
 			}
 		});

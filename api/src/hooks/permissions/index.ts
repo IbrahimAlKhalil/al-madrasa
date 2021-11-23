@@ -1,9 +1,9 @@
-import {syncItemDelete} from "../../database/helpers/sync-item-delete";
-import {syncItem} from "../../database/helpers/sync-item";
+import {commonDeleteMT} from "../app/common-delete-mt";
 import {registerHook} from "../../utils/register-hook";
+import {commonCopyMT} from "../app/common-copy-mt";
 
 export default registerHook((hook) => {
-	hook.action('permissions.create', syncItem);
-	hook.action('permissions.delete', syncItemDelete);
-	hook.action('permissions.update', syncItem);
+	hook.action('permissions.create', commonCopyMT);
+	hook.action('permissions.update', commonCopyMT);
+	hook.action('permissions.delete', commonDeleteMT);
 });

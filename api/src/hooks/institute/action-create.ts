@@ -3,11 +3,14 @@ import {isMaster} from "../../database/helpers/is-master";
 import {ActionHandler, SchemaOverview} from "../../types";
 import {ItemsService} from "../../services";
 import env from "../../env";
+import {killAll} from "../../database/helpers/kill-all";
 
 export const actionCreate: ActionHandler = async (meta, context) => {
+	debugger;
 	if (!isMaster(context.database)) {
 		return;
 	}
+
 
 	const instituteService = new ItemsService('institute', {
 		knex: context.database,
@@ -18,14 +21,7 @@ export const actionCreate: ActionHandler = async (meta, context) => {
 	const institute = await instituteService.readOne(meta.key);
 
 	try {
-		await disconnectDatabase('template');
-
-		await context.database.raw(`
-			SELECT pg_terminate_backend(pg_stat_activity.pid)
-			FROM pg_stat_activity
-			WHERE pg_stat_activity.datname = ?
-			  AND pid <> pg_backend_pid();
-		`, [env.DB_TEMPLATE]);
+		await killAll(env.DB_TEMPLATE);
 
 		await context.database.raw(`
 		   CREATE DATABASE "${institute.db_name}"
@@ -41,7 +37,7 @@ export const actionCreate: ActionHandler = async (meta, context) => {
 		getDatabase('template', {database: 'template'});
 	}
 
-	if (institute.status === 'published') {
+	if (institute.status === 'archived') {
 		await disconnectDatabase(institute.db_name);
 	}
 }
