@@ -1,5 +1,0 @@
-delete app/src/modules/docs
-create app/src/styles/am-style.scss
-update app/src/styles/main.scss
-create app/src/modules/site-settings
-update app/tsconfig.json

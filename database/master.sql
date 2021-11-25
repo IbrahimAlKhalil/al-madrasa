@@ -167,7 +167,8 @@ CREATE TABLE "public"."directus_files" (
     "description" "text",
     "location" "text",
     "tags" "text",
-    "metadata" "json"
+    "metadata" "json",
+    "read_only" boolean DEFAULT true NOT NULL
 );
 
 
@@ -178,7 +179,8 @@ CREATE TABLE "public"."directus_files" (
 CREATE TABLE "public"."directus_folders" (
     "id" "uuid" NOT NULL,
     "name" character varying(255) NOT NULL,
-    "parent" "uuid"
+    "parent" "uuid",
+    "read_only" boolean DEFAULT true NOT NULL
 );
 
 
@@ -546,45 +548,12 @@ ALTER SEQUENCE "public"."institute_id_seq" OWNED BY "public"."institute"."id";
 
 
 --
--- Name: test_collection; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE "public"."test_collection" (
-    "id" integer NOT NULL,
-    "App" character varying(255),
-    "Fapp" "json"
-);
-
-
---
--- Name: test_collection_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE "public"."test_collection_id_seq"
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: test_collection_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE "public"."test_collection_id_seq" OWNED BY "public"."test_collection"."id";
-
-
---
 -- Name: theme; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE "public"."theme" (
     "id" character varying(255) NOT NULL,
-    "user_created" "uuid",
     "date_created" timestamp with time zone,
-    "user_updated" "uuid",
     "date_updated" timestamp with time zone,
     "name" character varying(255) NOT NULL
 );
@@ -597,9 +566,7 @@ CREATE TABLE "public"."theme" (
 CREATE TABLE "public"."theme_page" (
     "id" character varying(255) NOT NULL,
     "sort" integer,
-    "user_created" "uuid",
     "date_created" timestamp with time zone,
-    "user_updated" "uuid",
     "date_updated" timestamp with time zone,
     "name" character varying(255) NOT NULL,
     "icon" character varying(255),
@@ -614,9 +581,7 @@ CREATE TABLE "public"."theme_page" (
 CREATE TABLE "public"."theme_page_section" (
     "id" character varying(255) NOT NULL,
     "sort" integer,
-    "user_created" "uuid",
     "date_created" timestamp with time zone,
-    "user_updated" "uuid",
     "date_updated" timestamp with time zone,
     "name" character varying(255) NOT NULL,
     "icon" character varying(255),
@@ -691,13 +656,6 @@ ALTER TABLE ONLY "public"."institute" ALTER COLUMN "id" SET DEFAULT "nextval"('"
 
 
 --
--- Name: test_collection id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY "public"."test_collection" ALTER COLUMN "id" SET DEFAULT "nextval"('"public"."test_collection_id_seq"'::"regclass");
-
-
---
 -- Data for Name: directus_activity; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -711,7 +669,6 @@ INSERT INTO "public"."directus_collections" VALUES ('institute', 'business', NUL
 INSERT INTO "public"."directus_collections" VALUES ('theme', 'color_lens', NULL, NULL, false, false, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, NULL, NULL, 'open');
 INSERT INTO "public"."directus_collections" VALUES ('theme_page_section', 'format_list_bulleted', NULL, NULL, false, false, '[{"language":"en-US","translation":"Section","singular":"Section","plural":"Sections"}]', NULL, true, NULL, NULL, 'sort', 'all', NULL, NULL, NULL, NULL, 'open');
 INSERT INTO "public"."directus_collections" VALUES ('theme_page', 'article', NULL, NULL, false, false, '[{"language":"en-US","translation":"Page","singular":"Page","plural":"Pages"}]', NULL, true, NULL, NULL, 'sort', 'all', NULL, NULL, NULL, NULL, 'open');
-INSERT INTO "public"."directus_collections" VALUES ('test_collection', NULL, NULL, NULL, false, false, NULL, NULL, true, NULL, NULL, NULL, 'all', NULL, NULL, NULL, NULL, 'open');
 
 
 --
@@ -727,16 +684,13 @@ INSERT INTO "public"."directus_collections" VALUES ('test_collection', NULL, NUL
 INSERT INTO "public"."directus_fields" VALUES (22, 'theme', 'name', NULL, 'input', '{"iconLeft":"title","trim":true}', NULL, NULL, false, false, NULL, 'full', NULL, NULL, NULL, true, NULL);
 INSERT INTO "public"."directus_fields" VALUES (28, 'theme_page', 'id', NULL, 'input', NULL, NULL, NULL, false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (29, 'theme_page', 'sort', NULL, 'input', NULL, NULL, NULL, false, true, NULL, 'full', NULL, NULL, NULL, false, NULL);
-INSERT INTO "public"."directus_fields" VALUES (30, 'theme_page', 'user_created', 'user-created', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (31, 'theme_page', 'date_created', 'date-created', 'datetime', NULL, 'datetime', '{"relative":true}', true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
-INSERT INTO "public"."directus_fields" VALUES (32, 'theme_page', 'user_updated', 'user-updated', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (33, 'theme_page', 'date_updated', 'date-updated', 'datetime', NULL, 'datetime', '{"relative":true}', true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (34, 'theme_page', 'name', NULL, 'input', '{"placeholder":"Name","iconLeft":"title","trim":true}', NULL, NULL, false, false, NULL, 'full', NULL, NULL, NULL, true, NULL);
 INSERT INTO "public"."directus_fields" VALUES (35, 'theme_page', 'icon', NULL, 'select-icon', NULL, 'icon', NULL, false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (4, 'institute', 'date_created', 'date-created', 'datetime', NULL, 'datetime', '{"relative":true}', true, true, 4, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (36, 'theme_page', 'theme', 'm2o', 'select-dropdown-m2o', '{"template":"{{name}}"}', 'related-values', '{"template":"{{name}}"}', false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (5, 'institute', 'user_updated', 'user-updated', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, 5, 'half', NULL, NULL, NULL, false, NULL);
-INSERT INTO "public"."directus_fields" VALUES (69, 'test_collection', 'App', NULL, 'select-dropdown', '{"choices":[{"text":"Template","value":"template"}]}', NULL, NULL, false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (9, 'institute', 'email', NULL, 'input', '{"placeholder":"Email Address","iconLeft":"alternate_email","trim":true}', NULL, NULL, false, false, 10, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (8, 'institute', 'phone', NULL, 'input', '{"placeholder":"Phone Number","iconLeft":"local_phone","trim":true}', NULL, NULL, false, false, 11, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (13, 'institute', 'db_name', NULL, 'input', '{"iconLeft":"storage","placeholder":"DB Name","trim":true}', NULL, NULL, false, true, 13, 'full', NULL, NULL, NULL, false, NULL);
@@ -744,17 +698,12 @@ INSERT INTO "public"."directus_fields" VALUES (60, 'directus_settings', 'Multite
 INSERT INTO "public"."directus_fields" VALUES (37, 'theme', 'theme_page', 'o2m', 'list-o2m', NULL, NULL, NULL, false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (6, 'institute', 'date_updated', 'date-updated', 'datetime', NULL, 'datetime', '{"relative":true}', true, true, 6, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (7, 'institute', 'name', NULL, 'input', '{"placeholder":"Name","iconLeft":"title","trim":true}', NULL, NULL, false, false, 7, 'full', NULL, NULL, NULL, true, NULL);
-INSERT INTO "public"."directus_fields" VALUES (70, 'test_collection', 'Fapp', 'json', 'list', '{"fields":[{"field":"App","name":"App","type":"string","meta":{"field":"App","width":"full","type":"string","interface":"select-dropdown","options":{"choices":[{"text":"Template","value":"template"},{"text":"Jamia Arabia","value":"jamia_arabia"}],"icon":"apps"}}}]}', NULL, NULL, false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (1, 'institute', 'id', NULL, 'input', NULL, NULL, NULL, true, true, 1, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (46, 'theme_page_section', 'id', NULL, 'input', NULL, NULL, NULL, false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (47, 'theme_page_section', 'sort', NULL, 'input', NULL, NULL, NULL, false, true, NULL, 'full', NULL, NULL, NULL, false, NULL);
-INSERT INTO "public"."directus_fields" VALUES (48, 'theme_page_section', 'user_created', 'user-created', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (49, 'theme_page_section', 'date_created', 'date-created', 'datetime', NULL, 'datetime', '{"relative":true}', true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
-INSERT INTO "public"."directus_fields" VALUES (50, 'theme_page_section', 'user_updated', 'user-updated', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (17, 'theme', 'id', NULL, 'input', NULL, NULL, NULL, false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
-INSERT INTO "public"."directus_fields" VALUES (18, 'theme', 'user_created', 'user-created', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (19, 'theme', 'date_created', 'date-created', 'datetime', NULL, 'datetime', '{"relative":true}', true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
-INSERT INTO "public"."directus_fields" VALUES (20, 'theme', 'user_updated', 'user-updated', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (21, 'theme', 'date_updated', 'date-updated', 'datetime', NULL, 'datetime', '{"relative":true}', true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (51, 'theme_page_section', 'date_updated', 'date-updated', 'datetime', NULL, 'datetime', '{"relative":true}', true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (52, 'theme_page_section', 'name', NULL, 'input', '{"placeholder":"Name","iconLeft":"title","trim":true}', NULL, NULL, false, false, NULL, 'full', NULL, NULL, NULL, true, NULL);
@@ -768,7 +717,8 @@ INSERT INTO "public"."directus_fields" VALUES (2, 'institute', 'status', NULL, '
 INSERT INTO "public"."directus_fields" VALUES (16, 'institute', 'domain', NULL, 'input', '{"placeholder":"Domain","iconLeft":"language","trim":true}', NULL, NULL, false, false, 9, 'half', NULL, NULL, NULL, true, NULL);
 INSERT INTO "public"."directus_fields" VALUES (3, 'institute', 'user_created', 'user-created', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, 3, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (11, 'institute', 'code', NULL, 'input', '{"placeholder":"Code","iconLeft":"label","trim":true}', NULL, NULL, false, false, 8, 'half', NULL, NULL, NULL, true, NULL);
-INSERT INTO "public"."directus_fields" VALUES (68, 'test_collection', 'id', NULL, 'input', NULL, NULL, NULL, true, true, NULL, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (71, 'directus_files', 'read_only', 'boolean', 'boolean', '{"label":"Readonly"}', 'boolean', NULL, false, false, NULL, 'full', NULL, NULL, NULL, true, NULL);
+INSERT INTO "public"."directus_fields" VALUES (72, 'directus_folders', 'read_only', 'boolean', 'boolean', '{"label":"Readonly"}', 'boolean', NULL, false, false, NULL, 'full', NULL, NULL, NULL, true, NULL);
 
 
 --
@@ -856,13 +806,7 @@ INSERT INTO "public"."directus_migrations" VALUES ('20211104A', 'Remove Collecti
 
 INSERT INTO "public"."directus_relations" VALUES (1, 'institute', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (2, 'institute', 'user_updated', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (3, 'theme', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (4, 'theme', 'user_updated', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (7, 'theme_page', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (8, 'theme_page', 'user_updated', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (9, 'theme_page', 'theme', 'theme', 'theme_page', NULL, NULL, NULL, NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (13, 'theme_page_section', 'user_created', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
-INSERT INTO "public"."directus_relations" VALUES (14, 'theme_page_section', 'user_updated', 'directus_users', NULL, NULL, NULL, NULL, NULL, 'nullify');
 INSERT INTO "public"."directus_relations" VALUES (15, 'theme_page_section', 'page', 'theme_page', 'theme_page_section', NULL, NULL, NULL, NULL, 'nullify');
 
 
@@ -909,12 +853,6 @@ INSERT INTO "public"."directus_relations" VALUES (15, 'theme_page_section', 'pag
 
 
 --
--- Data for Name: test_collection; Type: TABLE DATA; Schema: public; Owner: -
---
-
-
-
---
 -- Data for Name: theme; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -943,7 +881,7 @@ SELECT pg_catalog.setval('"public"."directus_activity_id_seq"', 1, false);
 -- Name: directus_fields_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."directus_fields_id_seq"', 70, true);
+SELECT pg_catalog.setval('"public"."directus_fields_id_seq"', 72, true);
 
 
 --
@@ -993,13 +931,6 @@ SELECT pg_catalog.setval('"public"."directus_webhooks_id_seq"', 1, false);
 --
 
 SELECT pg_catalog.setval('"public"."institute_id_seq"', 1, false);
-
-
---
--- Name: test_collection_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('"public"."test_collection_id_seq"', 1, false);
 
 
 --
@@ -1184,14 +1115,6 @@ ALTER TABLE ONLY "public"."institute"
 
 ALTER TABLE ONLY "public"."institute"
     ADD CONSTRAINT "institute_pkey" PRIMARY KEY ("id");
-
-
---
--- Name: test_collection test_collection_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY "public"."test_collection"
-    ADD CONSTRAINT "test_collection_pkey" PRIMARY KEY ("id");
 
 
 --
@@ -1395,59 +1318,11 @@ ALTER TABLE ONLY "public"."theme_page_section"
 
 
 --
--- Name: theme_page_section theme_page_section_user_created_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY "public"."theme_page_section"
-    ADD CONSTRAINT "theme_page_section_user_created_foreign" FOREIGN KEY ("user_created") REFERENCES "public"."directus_users"("id") ON DELETE SET NULL;
-
-
---
--- Name: theme_page_section theme_page_section_user_updated_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY "public"."theme_page_section"
-    ADD CONSTRAINT "theme_page_section_user_updated_foreign" FOREIGN KEY ("user_updated") REFERENCES "public"."directus_users"("id") ON DELETE SET NULL;
-
-
---
 -- Name: theme_page theme_page_theme_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY "public"."theme_page"
     ADD CONSTRAINT "theme_page_theme_foreign" FOREIGN KEY ("theme") REFERENCES "public"."theme"("id") ON DELETE CASCADE;
-
-
---
--- Name: theme_page theme_page_user_created_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY "public"."theme_page"
-    ADD CONSTRAINT "theme_page_user_created_foreign" FOREIGN KEY ("user_created") REFERENCES "public"."directus_users"("id") ON DELETE SET NULL;
-
-
---
--- Name: theme_page theme_page_user_updated_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY "public"."theme_page"
-    ADD CONSTRAINT "theme_page_user_updated_foreign" FOREIGN KEY ("user_updated") REFERENCES "public"."directus_users"("id") ON DELETE SET NULL;
-
-
---
--- Name: theme theme_user_created_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY "public"."theme"
-    ADD CONSTRAINT "theme_user_created_foreign" FOREIGN KEY ("user_created") REFERENCES "public"."directus_users"("id") ON DELETE SET NULL;
-
-
---
--- Name: theme theme_user_updated_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY "public"."theme"
-    ADD CONSTRAINT "theme_user_updated_foreign" FOREIGN KEY ("user_updated") REFERENCES "public"."directus_users"("id") ON DELETE SET NULL;
 
 
 --

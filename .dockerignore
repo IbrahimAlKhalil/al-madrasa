@@ -1,11 +1,14 @@
 *
 
+!package.json
+!pnpm-workspace.yaml
+
+!am.mjs
 !scripts
 !database
+
 !api/dist
-!api/cli.js
-!api/index.js
-!api/start.js
 !api/package.json
+!api/.npmrc
 
 !app/dist

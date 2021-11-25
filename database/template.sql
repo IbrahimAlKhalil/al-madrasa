@@ -670,7 +670,8 @@ CREATE TABLE "public"."directus_files" (
     "description" "text",
     "location" "text",
     "tags" "text",
-    "metadata" "json"
+    "metadata" "json",
+    "read_only" boolean DEFAULT false NOT NULL
 );
 
 
@@ -681,7 +682,8 @@ CREATE TABLE "public"."directus_files" (
 CREATE TABLE "public"."directus_folders" (
     "id" "uuid" NOT NULL,
     "name" character varying(255) NOT NULL,
-    "parent" "uuid"
+    "parent" "uuid",
+    "read_only" boolean DEFAULT false NOT NULL
 );
 
 
@@ -1568,7 +1570,7 @@ ALTER SEQUENCE "public"."reaction_type_id_seq" OWNED BY "public"."reaction_type"
 --
 
 CREATE TABLE "public"."section" (
-    "id" character varying(255),
+    "id" character varying(255) NOT NULL,
     "sort" integer,
     "user_updated" "uuid",
     "date_updated" timestamp with time zone,
@@ -1583,16 +1585,17 @@ CREATE TABLE "public"."section" (
 --
 
 CREATE TABLE "public"."theme" (
-    "id" character varying(255),
+    "id" character varying(255) NOT NULL,
     "name" character varying(255) NOT NULL
 );
+
 
 --
 -- Name: theme_page; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE "public"."theme_page" (
-    "id" character varying(255),
+    "id" character varying(255) NOT NULL,
     "sort" integer,
     "name" character varying(255) NOT NULL,
     "icon" character varying(255),
@@ -1605,7 +1608,7 @@ CREATE TABLE "public"."theme_page" (
 --
 
 CREATE TABLE "public"."theme_page_section" (
-    "id" character varying(255),
+    "id" character varying(255) NOT NULL,
     "sort" integer,
     "page" integer NOT NULL,
     "name" character varying(255) NOT NULL,
@@ -1614,6 +1617,7 @@ CREATE TABLE "public"."theme_page_section" (
     "sortable" boolean DEFAULT true NOT NULL,
     "can_hide" boolean DEFAULT true NOT NULL
 );
+
 
 --
 -- Name: video; Type: TABLE; Schema: public; Owner: -
@@ -2010,34 +2014,6 @@ ALTER TABLE ONLY "public"."reaction_type" ALTER COLUMN "id" SET DEFAULT "nextval
 
 
 --
--- Name: section id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY "public"."section" ALTER COLUMN "id" SET DEFAULT "nextval"('"public"."section_id_seq"'::"regclass");
-
-
---
--- Name: theme id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY "public"."theme" ALTER COLUMN "id" SET DEFAULT "nextval"('"public"."theme_id_seq"'::"regclass");
-
-
---
--- Name: theme_page id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY "public"."theme_page" ALTER COLUMN "id" SET DEFAULT "nextval"('"public"."theme_page_id_seq"'::"regclass");
-
-
---
--- Name: theme_page_section id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY "public"."theme_page_section" ALTER COLUMN "id" SET DEFAULT "nextval"('"public"."theme_page_section_id_seq"'::"regclass");
-
-
---
 -- Name: video id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -2141,7 +2117,6 @@ ALTER TABLE ONLY "public"."website" ALTER COLUMN "id" SET DEFAULT "nextval"('"pu
 -- Data for Name: directus_activity; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO "public"."directus_activity" VALUES (2113, 'login', '2fd80d19-ad9d-47d4-9478-63934f225cf3', '2021-11-22 09:10:29.738557+00', '::ffff:127.0.0.1', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0', 'directus_users', '2fd80d19-ad9d-47d4-9478-63934f225cf3', NULL);
 
 
 --
@@ -2254,6 +2229,7 @@ INSERT INTO "public"."directus_fields" VALUES (175, 'audio', 'id', NULL, 'input'
 INSERT INTO "public"."directus_fields" VALUES (182, 'audio_category', 'id', NULL, 'input', NULL, NULL, NULL, true, true, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (183, 'audio_category', 'sort', NULL, 'input', NULL, NULL, NULL, false, true, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (184, 'audio_category', 'user_created', 'user-created', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (457, 'theme_page', 'icon', NULL, 'select-icon', NULL, 'icon', NULL, false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (185, 'audio_category', 'date_created', 'date-created', 'datetime', NULL, 'datetime', '{"relative":true}', true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (186, 'audio_category', 'user_updated', 'user-updated', 'select-dropdown-m2o', '{"template":"{{avatar.$thumbnail}} {{first_name}} {{last_name}}"}', 'user', NULL, true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (187, 'audio_category', 'date_updated', 'date-updated', 'datetime', NULL, 'datetime', '{"relative":true}', true, true, NULL, 'half', NULL, NULL, NULL, false, NULL);
@@ -2322,7 +2298,6 @@ INSERT INTO "public"."directus_fields" VALUES (299, 'comment', 'parent', 'm2o', 
 INSERT INTO "public"."directus_fields" VALUES (290, 'comment', 'comment', NULL, 'input-multiline', NULL, 'raw', NULL, false, false, 7, 'full', NULL, NULL, NULL, true, NULL);
 INSERT INTO "public"."directus_fields" VALUES (291, 'comment', 'approved', 'boolean', 'boolean', '{"label":"Approved"}', NULL, NULL, false, false, 8, 'full', NULL, NULL, NULL, true, NULL);
 INSERT INTO "public"."directus_fields" VALUES (438, 'menu', 'items', 'json', 'menu', NULL, 'formatted-json-value', NULL, false, false, 7, 'full', NULL, NULL, NULL, false, NULL);
-INSERT INTO "public"."directus_fields" VALUES (457, 'theme_page', 'icon', NULL, 'select-icon', NULL, 'icon', NULL, false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (218, 'book', 'status', NULL, 'select-dropdown', '{"choices":[{"text":"$t:published","value":"published"},{"text":"$t:draft","value":"draft"},{"text":"$t:archived","value":"archived"}]}', 'labels', '{"showAsDot":true,"choices":[{"background":"#00C897","value":"published"},{"background":"#D3DAE4","value":"draft"},{"background":"#F7971C","value":"archived"}]}', false, false, 2, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (262, 'book', 'book', 'file', 'file', NULL, 'file', NULL, false, false, 8, 'half', NULL, NULL, NULL, true, NULL);
 INSERT INTO "public"."directus_fields" VALUES (263, 'book', 'author', 'm2o', 'select-dropdown-m2o', '{"template":"{{photo}}{{name}}"}', NULL, NULL, false, false, 10, 'full', NULL, NULL, NULL, false, NULL);
@@ -2488,6 +2463,8 @@ INSERT INTO "public"."directus_fields" VALUES (472, 'theme_page', 'sections', 'o
 INSERT INTO "public"."directus_fields" VALUES (473, 'theme_page_section', 'sections', 'o2m', 'list-o2m', '{"template":"{{id}}{{visible}}"}', 'related-values', '{"template":"{{id}}{{visible}}"}', false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (474, 'article_category', 'articles', 'm2m', 'list-m2m', '{"template":"{{article_id.title}}{{article_id.date_created}}"}', 'related-values', '{"template":"{{article_id.title}}{{article_id.date_created}}"}', false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
 INSERT INTO "public"."directus_fields" VALUES (475, 'video_category', 'videos', 'm2m', 'list-m2m', '{"template":"{{video_id.title}}{{video_id.date_created}}"}', 'related-values', '{"template":"{{video_id.title}}{{video_id.date_created}}"}', false, false, NULL, 'full', NULL, NULL, NULL, false, NULL);
+INSERT INTO "public"."directus_fields" VALUES (485, 'directus_files', 'read_only', 'boolean', 'boolean', '{"label":"Readonly"}', NULL, NULL, false, true, NULL, 'full', NULL, NULL, NULL, true, NULL);
+INSERT INTO "public"."directus_fields" VALUES (486, 'directus_folders', 'read_only', 'boolean', 'boolean', '{"label":"Readonly"}', 'boolean', NULL, false, true, NULL, 'full', NULL, NULL, NULL, true, NULL);
 
 
 --
@@ -2567,7 +2544,6 @@ INSERT INTO "public"."directus_migrations" VALUES ('20211104A', 'Remove Collecti
 -- Data for Name: directus_presets; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO "public"."directus_presets" VALUES (60, NULL, '2fd80d19-ad9d-47d4-9478-63934f225cf3', NULL, 'page', NULL, 'tabular', '{"tabular":{"page":1}}', NULL, NULL, NULL);
 
 
 --
@@ -2663,28 +2639,24 @@ INSERT INTO "public"."directus_relations" VALUES (134, 'page', 'user_updated', '
 -- Data for Name: directus_roles; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO "public"."directus_roles" VALUES ('94a2609b-5d4f-41f2-95f3-d92c99f7209d', 'Administrator', 'supervised_user_circle', NULL, NULL, false, true, true);
 
 
 --
 -- Data for Name: directus_sessions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO "public"."directus_sessions" VALUES ('wGtjnOb7iSQ38bYpj_Kk4CY-2zFm3eQOwWEUa6K3JpTmc8MuKO2zcoIfTNutLDZ9', '2fd80d19-ad9d-47d4-9478-63934f225cf3', '2021-11-29 09:10:29.732+00', '::ffff:127.0.0.1', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0', NULL);
 
 
 --
 -- Data for Name: directus_settings; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO "public"."directus_settings" VALUES (1, 'Al-Madrasah', NULL, '#4154F1', NULL, NULL, NULL, NULL, 25, NULL, 'all', NULL, '', NULL, NULL, NULL, '[{"type":"module","id":"content","enabled":true},{"type":"module","id":"files","enabled":true},{"type":"module","id":"users","enabled":true},{"type":"module","id":"insights","enabled":true},{"type":"module","id":"customization","enabled":true},{"type":"module","id":"_settings","enabled":true},{"type":"module","id":"settings","enabled":true,"locked":true}]');
 
 
 --
 -- Data for Name: directus_users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO "public"."directus_users" VALUES ('2fd80d19-ad9d-47d4-9478-63934f225cf3', 'SAHARA', 'IT', 'saharaitech2@gmail.com', '$argon2i$v=19$m=4096,t=3,p=1$QTARk5/e4/ITU/kx6PPHSA$aq3bNdzI3vlv7QPHy9T4PKIdojAbFJaj4i8rpLDxKyY', NULL, NULL, NULL, NULL, NULL, 'en-US', 'auto', NULL, 'active', '94a2609b-5d4f-41f2-95f3-d92c99f7209d', NULL, '2021-11-22 09:10:29.744+00', '/settings/data-model/theme', 'default', NULL, NULL);
 
 
 --
@@ -2883,7 +2855,7 @@ INSERT INTO "public"."directus_users" VALUES ('2fd80d19-ad9d-47d4-9478-63934f225
 -- Name: article_category_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."article_category_id_seq"', 3, true);
+SELECT pg_catalog.setval('"public"."article_category_id_seq"', 1, false);
 
 
 --
@@ -2897,7 +2869,7 @@ SELECT pg_catalog.setval('"public"."article_category_pivot_id_seq"', 1, false);
 -- Name: article_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."article_id_seq"', 1, true);
+SELECT pg_catalog.setval('"public"."article_id_seq"', 1, false);
 
 
 --
@@ -2967,28 +2939,28 @@ SELECT pg_catalog.setval('"public"."comment_id_seq"', 1, false);
 -- Name: directus_activity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."directus_activity_id_seq"', 2113, true);
+SELECT pg_catalog.setval('"public"."directus_activity_id_seq"', 1, false);
 
 
 --
 -- Name: directus_fields_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."directus_fields_id_seq"', 484, true);
+SELECT pg_catalog.setval('"public"."directus_fields_id_seq"', 486, true);
 
 
 --
 -- Name: directus_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."directus_permissions_id_seq"', 19, true);
+SELECT pg_catalog.setval('"public"."directus_permissions_id_seq"', 1, false);
 
 
 --
 -- Name: directus_presets_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."directus_presets_id_seq"', 60, true);
+SELECT pg_catalog.setval('"public"."directus_presets_id_seq"', 1, false);
 
 
 --
@@ -3002,14 +2974,14 @@ SELECT pg_catalog.setval('"public"."directus_relations_id_seq"', 143, true);
 -- Name: directus_revisions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."directus_revisions_id_seq"', 2020, true);
+SELECT pg_catalog.setval('"public"."directus_revisions_id_seq"', 1, false);
 
 
 --
 -- Name: directus_settings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."directus_settings_id_seq"', 1, true);
+SELECT pg_catalog.setval('"public"."directus_settings_id_seq"', 1, false);
 
 
 --
@@ -3072,14 +3044,14 @@ SELECT pg_catalog.setval('"public"."institute_id_seq"', 1, false);
 -- Name: menu_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."menu_id_seq"', 1, true);
+SELECT pg_catalog.setval('"public"."menu_id_seq"', 1, false);
 
 
 --
 -- Name: page_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."page_id_seq"', 1, true);
+SELECT pg_catalog.setval('"public"."page_id_seq"', 1, false);
 
 
 --
@@ -3132,34 +3104,6 @@ SELECT pg_catalog.setval('"public"."reaction_type_id_seq"', 1, false);
 
 
 --
--- Name: section_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('"public"."section_id_seq"', 29, true);
-
-
---
--- Name: theme_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('"public"."theme_id_seq"', 4, true);
-
-
---
--- Name: theme_page_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('"public"."theme_page_id_seq"', 6, true);
-
-
---
--- Name: theme_page_section_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('"public"."theme_page_section_id_seq"', 8, true);
-
-
---
 -- Name: video_category_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -3177,14 +3121,14 @@ SELECT pg_catalog.setval('"public"."video_category_pivot_id_seq"', 1, false);
 -- Name: video_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."video_id_seq"', 1, true);
+SELECT pg_catalog.setval('"public"."video_id_seq"', 1, false);
 
 
 --
 -- Name: website_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."website_id_seq"', 3, true);
+SELECT pg_catalog.setval('"public"."website_id_seq"', 1, false);
 
 
 --
@@ -4548,14 +4492,6 @@ ALTER TABLE ONLY "public"."section"
 
 ALTER TABLE ONLY "public"."section"
     ADD CONSTRAINT "section_user_updated_foreign" FOREIGN KEY ("user_updated") REFERENCES "public"."directus_users"("id") ON DELETE SET NULL;
-
-
---
--- Name: theme_page_section theme_page_section_page_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY "public"."theme_page_section"
-    ADD CONSTRAINT "theme_page_section_page_foreign" FOREIGN KEY ("page") REFERENCES "public"."theme_page"("id") ON DELETE CASCADE;
 
 
 --

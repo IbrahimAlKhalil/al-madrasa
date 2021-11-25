@@ -5,21 +5,14 @@ WORKDIR /usr/src/app
 COPY . .
 
 RUN npm install -g pnpm
-
-# Install dependencies
 RUN cd ./api && pnpm install --no-optional --prefer-offline
-
-# Install pg
-RUN cd ./api && pnpm add pg --save-prod
-
-# Strip out dev-dependenceis
-RUN cd ./api && pnpm prune --prod --no-optional
-RUN pnpm store prune
 
 RUN rm ./api/node_modules/@directus/app/dist/* -rf
 RUN mv ./app/dist/* ./api/node_modules/@directus/app/dist/
-RUN mv ./scripts/prod.js ./api/
-RUN mv ./scripts/ ./database/ ./api/
+RUN rm ./app -rf
+
+RUN pnpm prune --prod --no-optional
+RUN pnpm store prune
 
 FROM node:17-alpine
 
@@ -29,8 +22,8 @@ WORKDIR /usr/src/app
 
 COPY --from=Builder /usr/src/app/api .
 
-RUN cd ./node_modules/@directus/app/dist && ls
+RUN mkdir ./uploads;
 
-CMD ["node", "./prod.js"]
+CMD ["node", "./am.mjs", "prod"]
 
 EXPOSE 7000
