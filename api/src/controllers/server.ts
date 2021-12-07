@@ -1,9 +1,12 @@
-import { format } from 'date-fns';
-import { Router } from 'express';
-import { RouteNotFoundException } from '../exceptions';
-import { respond } from '../middleware/respond';
-import { ServerService, SpecificationService } from '../services';
+import {format} from 'date-fns';
+import {Router} from 'express';
+import {ForbiddenException, RouteNotFoundException, UnprocessableEntityException} from '../exceptions';
+import {respond} from '../middleware/respond';
+import {ItemsService, ServerService, SpecificationService} from '../services';
 import asyncHandler from '../utils/async-handler';
+import getDatabase, {databases} from "../database";
+import {getSchema} from "../utils/get-schema";
+import env from "../env";
 
 const router = Router();
 
@@ -13,6 +16,7 @@ router.get(
 		const service = new SpecificationService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		res.locals.payload = await service.oas.generate();
@@ -27,11 +31,13 @@ router.get(
 		const service = new SpecificationService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const serverService = new ServerService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const scope = req.params.scope || 'items';
@@ -55,9 +61,10 @@ router.get(
 		const service = new ServerService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 		const data = await service.serverInfo();
-		res.locals.payload = { data };
+		res.locals.payload = {data};
 		return next();
 	}),
 	respond
@@ -69,6 +76,7 @@ router.get(
 		const service = new ServerService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const data = await service.health();
@@ -82,5 +90,90 @@ router.get(
 	}),
 	respond
 );
+
+router.get(
+	'/apps',
+	asyncHandler(async (req, res, next) => {
+		if (!req?.accountability?.admin) {
+			throw new ForbiddenException();
+		}
+
+		const service = new ItemsService('institute', {
+			knex: getDatabase(),
+			schema: await getSchema({
+				database: getDatabase(),
+			})
+		});
+
+		const results = await service.readByQuery({
+			fields: ['id', 'db_name', 'name', 'code'],
+			filter: {
+				status: {
+					_neq: 'archived',
+				}
+			}
+		});
+
+		res.locals.payload = [
+			{
+				app: 'master',
+				code: null,
+				name: 'Master'
+			},
+			{
+				app: env.DB_TEMPLATE,
+				code: null,
+				name: 'Template'
+			},
+			...results.map(r => ({
+				app: r.db_name,
+				code: r.code,
+				name: r.name,
+			}))
+		];
+
+		return next();
+	}),
+	respond
+)
+
+router.post(
+	'/switch-app',
+	asyncHandler(async (req, res, next) => {
+		if (!req?.accountability?.admin) {
+			throw new ForbiddenException();
+		}
+
+		if (!req.body.hasOwnProperty('app') || typeof req.body.app !== 'string' || !databases.hasOwnProperty(req.body.app)) {
+			throw new UnprocessableEntityException('app must be a string');
+		}
+
+		const database = getDatabase(req.body.app, {
+			database: req.body.app,
+		});
+
+		const session = await req.knex('directus_sessions')
+			.where('token', req.cookies.directus_refresh_token)
+			.first()
+
+		if (!session) {
+			throw new UnprocessableEntityException('app must be a string');
+		}
+
+		const sessionCheck = await database('directus_sessions')
+			.where('token', req.cookies.directus_refresh_token)
+			.first();
+
+		if (!sessionCheck) {
+			await database('directus_sessions')
+				.insert(session)
+				.onConflict('token')
+				.ignore();
+		}
+
+		return next();
+	}),
+	respond
+)
 
 export default router;

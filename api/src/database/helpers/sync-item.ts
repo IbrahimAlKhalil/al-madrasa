@@ -1,8 +1,12 @@
 import {getChildDatabases} from "./get-child-databases";
-import {isDBSameAs} from "./is-db-same-as";
+import {isEqual, isObject, mapValues} from "lodash";
 import {ValidateDB} from "../types/validate-db";
-import {isEqual} from "lodash";
+import {isDBSameAs} from "./is-db-same-as";
 import {Knex} from "knex";
+
+function sanitize(item: Record<string, any>) {
+	return mapValues(item, i => isObject(i) ? JSON.stringify(i) : i);
+}
 
 async function copy(item: Record<string, any>, table: string, targetDB: Knex) {
 	const hasItem = await targetDB(table)
@@ -15,13 +19,13 @@ async function copy(item: Record<string, any>, table: string, targetDB: Knex) {
 		}
 
 		await targetDB(table)
-			.update(item)
+			.update(sanitize(item))
 			.where('id', item.id);
 		return;
 	}
 
 	await targetDB(table)
-		.insert(item)
+		.insert(sanitize(item))
 		.onConflict()
 		.ignore();
 }

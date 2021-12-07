@@ -52,7 +52,7 @@
 
 <script lang="ts">
 import { useI18n } from 'vue-i18n';
-import { defineComponent, ref, computed } from 'vue';
+import {defineComponent, ref, computed, reactive} from 'vue';
 import SettingsNavigation from '../../components/navigation.vue';
 import { useCollection } from '@directus/shared/composables';
 import { useSettingsStore, useServerStore } from '@/stores';
@@ -140,7 +140,7 @@ export default defineComponent({
 				});
 			}
 
-			if (!apps.some((a) => a.value === app.value)) {
+			if (!apps.some((a: any) => a.value === app.value)) {
 				app.value = 'master';
 		    api.defaults.headers.common['X-Al-Mad-App'] = app.value;
 			}

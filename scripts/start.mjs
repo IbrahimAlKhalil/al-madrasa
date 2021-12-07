@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
-import childProcess from "child_process";
 import cliProgress from "cli-progress";
+import {restore} from "./restore.mjs";
 import {fileURLToPath} from 'url';
 import Docker from "dockerode";
 import {dirname} from 'path';
+import execa from "execa";
 import path from "path";
 import pg from "pg";
 import fs from "fs";
@@ -130,8 +131,10 @@ async function startApi() {
     }
 
     const tsNode = path.resolve(__dirname, '../api/node_modules/.bin/ts-node-dev');
+    const themesDir = path.resolve(__dirname, '../themes');
+    const appDir = path.resolve(__dirname, '../app');
 
-    childProcess.spawn(tsNode, ['--files', '--transpile-only', '--respawn', '--watch', '.env', '--inspect', '--exit-child', '--', './src/start.ts'], {
+    execa(tsNode, ['--files', '--transpile-only', '--respawn', '--watch', '.env', '--ignore-watch', themesDir, '--ignore-watch', appDir, '--inspect', '--exit-child', '--', './src/start.ts'], {
         env: {
             ...process.env,
             SERVE_APP: false,
@@ -148,7 +151,7 @@ async function startApp() {
 
     const vite = path.resolve(__dirname, '../app/node_modules/.bin/vite')
 
-    childProcess.spawn(vite, ['--port', process.env.APP_PORT, '--host', '0.0.0.0'], {
+    execa(vite, ['--port', process.env.APP_PORT, '--host', '0.0.0.0'], {
         env: process.env,
         shell: true,
         stdio: "inherit",
@@ -235,12 +238,7 @@ async function startPostgres() {
     let exists = await client.query(checkDirectusQuery);
 
     if (!exists.rows[0].exists) {
-        childProcess.spawnSync('node', [
-            path.resolve(__dirname, '../am.js'),
-            'restore',
-            '-d',
-            'master'
-        ]);
+        await restore('master');
     }
 
     exists = await client.query(`
@@ -282,12 +280,7 @@ async function startPostgres() {
     exists = await client.query(checkDirectusQuery);
 
     if (!exists.rows[0].exists) {
-        childProcess.spawnSync('node', [
-            path.resolve(__dirname, '../am.js'),
-            'restore',
-            '-d',
-            'template'
-        ]);
+        await restore('template');
     }
 }
 
@@ -329,14 +322,14 @@ export async function start(postgres, api, app) {
         await startApi();
     }
 
-    if (app) {
-        await startApp();
-    }
+    // if (app) {
+    //     await startApp();
+    // }
 
     if (!postgres && !api && !app) {
         await startPostgres();
         await startApi();
-        await startApp();
+        // await startApp();
     }
 
     console.log('\x1b[42mStarted\x1b[0m \x1b[32m✔\x1b[0m');

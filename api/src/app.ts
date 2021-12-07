@@ -52,13 +52,14 @@ import sanitizeQuery from './middleware/sanitize-query';
 import schema from './middleware/schema';
 import database from './middleware/database';
 
-import { track } from './utils/track';
+// import { track } from './utils/track';
 import { validateEnv } from './utils/validate-env';
 import { validateStorage } from './utils/validate-storage';
 import { register as registerWebhooks } from './webhooks';
 import { flushCaches } from './cache';
 import { registerAuthProviders } from './auth';
 import { Url } from './utils/url';
+import nextJs from './controllers/next';
 
 export default async function createApp(): Promise<express.Application> {
 	validateEnv(['KEY', 'SECRET']);
@@ -102,42 +103,13 @@ export default async function createApp(): Promise<express.Application> {
 
 	app.use(expressLogger);
 
-	app.use((req, res, next) => {
-		(
-			express.json({
-				limit: env.MAX_PAYLOAD_SIZE,
-			}) as RequestHandler
-		)(req, res, (err: any) => {
-			if (err) {
-				return next(new InvalidPayloadException(err.message));
-			}
-
-			return next();
-		});
-	});
-
 	app.use(cookieParser());
-
-	app.use(extractToken);
-
-	app.use((req, res, next) => {
-		res.setHeader('X-Powered-By', 'Directus');
-		next();
-	});
 
 	if (env.CORS_ENABLED === true) {
 		app.use(cors);
 	}
 
-	app.get('/', (req, res, next) => {
-		if (env.ROOT_REDIRECT) {
-			res.redirect(env.ROOT_REDIRECT);
-		} else {
-			next();
-		}
-	});
-
-	if (env.SERVE_APP) {
+	if (env.SERVE_APP && env.NODE_ENV === 'production') {
 		const adminPath = require.resolve('@directus/app');
 		const adminUrl = new Url(env.PUBLIC_URL).addPath('admin');
 
@@ -155,12 +127,43 @@ export default async function createApp(): Promise<express.Application> {
 		app.use('/admin/*', noCacheIndexHtmlHandler);
 	}
 
+	if (env.NODE_ENV === 'development') {
+		const vite = await import('vite');
+
+		const viteServer = await vite.createServer({
+			root: path.resolve(__dirname, '../../app'),
+		});
+
+		app.use('/admin', viteServer.middlewares);
+	}
+
+	app.use(database);
+
+	const themeRouter = await nextJs();
+
+	app.use('/', themeRouter);
+	app.use('/_next', themeRouter);
+
+	app.use((req, res, next) => {
+		(
+			express.json({
+				limit: env.MAX_PAYLOAD_SIZE,
+			}) as RequestHandler
+		)(req, res, (err: any) => {
+			if (err) {
+				return next(new InvalidPayloadException(err.message));
+			}
+
+			return next();
+		});
+	});
+
+	app.use(extractToken);
+
 	// use the rate limiter - all routes for now
 	if (env.RATE_LIMITER_ENABLED === true) {
 		app.use(rateLimiter);
 	}
-
-	app.use(database);
 
 	app.use(authenticate);
 
@@ -178,31 +181,36 @@ export default async function createApp(): Promise<express.Application> {
 
 	await emitter.emitInit('routes.before', { app });
 
-	app.use('/auth', authRouter);
-
-	app.use('/graphql', graphqlRouter);
-
-	app.use('/activity', activityRouter);
 	app.use('/assets', assetsRouter);
-	app.use('/collections', collectionsRouter);
-	app.use('/dashboards', dashboardsRouter);
-	app.use('/extensions', extensionsRouter);
-	app.use('/fields', fieldsRouter);
-	app.use('/files', filesRouter);
-	app.use('/folders', foldersRouter);
-	app.use('/items', itemsRouter);
-	app.use('/notifications', notificationsRouter);
-	app.use('/panels', panelsRouter);
-	app.use('/permissions', permissionsRouter);
-	app.use('/presets', presetsRouter);
-	app.use('/relations', relationsRouter);
-	app.use('/revisions', revisionsRouter);
-	app.use('/roles', rolesRouter);
-	app.use('/server', serverRouter);
-	app.use('/settings', settingsRouter);
-	app.use('/users', usersRouter);
-	app.use('/utils', utilsRouter);
-	app.use('/webhooks', webhooksRouter);
+
+	const router = express.Router();
+
+	router.use('/auth', authRouter);
+
+	router.use('/graphql', graphqlRouter);
+
+	router.use('/activity', activityRouter);
+	router.use('/collections', collectionsRouter);
+	router.use('/dashboards', dashboardsRouter);
+	router.use('/extensions', extensionsRouter);
+	router.use('/fields', fieldsRouter);
+	router.use('/files', filesRouter);
+	router.use('/folders', foldersRouter);
+	router.use('/items', itemsRouter);
+	router.use('/notifications', notificationsRouter);
+	router.use('/panels', panelsRouter);
+	router.use('/permissions', permissionsRouter);
+	router.use('/presets', presetsRouter);
+	router.use('/relations', relationsRouter);
+	router.use('/revisions', revisionsRouter);
+	router.use('/roles', rolesRouter);
+	router.use('/server', serverRouter);
+	router.use('/settings', settingsRouter);
+	router.use('/users', usersRouter);
+	router.use('/utils', utilsRouter);
+	router.use('/webhooks', webhooksRouter);
+
+	app.use('/api', router);
 
 	// Register custom endpoints
 	await emitter.emitInit('routes.custom.before', { app });
@@ -217,7 +225,7 @@ export default async function createApp(): Promise<express.Application> {
 	// Register all webhooks
 	await registerWebhooks();
 
-	track('serverStarted');
+	// track('serverStarted');
 
 	await emitter.emitInit('app.after', { app });
 

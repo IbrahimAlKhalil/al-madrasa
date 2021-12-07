@@ -1,7 +1,7 @@
-import childProcess from "child_process";
 import path, {dirname} from "path";
 import {fileURLToPath} from 'url';
 import crypto from "crypto";
+import execa from "execa";
 import pg from "pg";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -34,7 +34,7 @@ async function run(database, filename) {
         stdio: 'inherit'
     };
 
-    childProcess.spawnSync('pg_dump', [
+    execa.sync('pg_dump', [
         ...dumpFlags,
         `--dbname=${database}`,
         `--file=${path.resolve(__dirname, `../database/${filename}`)}`
@@ -57,7 +57,7 @@ async function run(database, filename) {
       CONNECTION LIMIT = -1;
     `);
 
-    childProcess.spawnSync('psql', [
+    execa.sync('psql', [
         ...restoreFlags,
         `--dbname=${tempDBName}`,
         `--file=${path.resolve(__dirname, `../database/${filename}`)}`,
@@ -97,7 +97,7 @@ async function run(database, filename) {
 
     await tempClient.end();
 
-    childProcess.spawnSync('pg_dump', [
+    execa.sync('pg_dump', [
         ...dumpFlags,
         `--dbname=${tempDBName}`,
         `--file=${path.resolve(__dirname, `../database/${filename}`)}`

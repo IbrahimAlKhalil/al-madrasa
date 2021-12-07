@@ -1,5 +1,5 @@
 <template>
-	<private-view title="Customization">
+	<private-view title="Customization" small-header>
 		<template #title-outer:prepend>
 			<v-button
 					v-tooltip.bottom="t('back')"
@@ -54,22 +54,22 @@
 			/>
 		</template>
 
-		<!--		<iframe :src="liveUrl"/>-->
+		<iframe id="customizer-iframe" :src="liveUrl"/>
 	</private-view>
 </template>
 
 <script lang="ts">
-import RevisionsDrawerDetail from "@/views/private/components/revisions-drawer-detail/revisions-drawer-detail.vue";
-import CommentsSidebarDetail from "@/views/private/components/comments-sidebar-detail/comments-sidebar-detail.vue";
-import SidebarDetail from "@/views/private/components/sidebar-detail/sidebar-detail.vue";
+import RevisionsDrawerDetail from '@/views/private/components/revisions-drawer-detail/revisions-drawer-detail.vue';
+import CommentsSidebarDetail from '@/views/private/components/comments-sidebar-detail/comments-sidebar-detail.vue';
+import SidebarDetail from '@/views/private/components/sidebar-detail/sidebar-detail.vue';
 import {usePageStore} from '@/modules/customization/store/pages';
 import AmCustomizationNav from '../components/navigation.vue';
 import PrivateView from '@/views/private/private-view.vue';
-import {computed, defineComponent, PropType, ref} from 'vue';
-import VButton from "@/components/v-button/v-button.vue";
-import VIcon from "@/components/v-icon/v-icon.vue";
-import {useRoute, useRouter} from "vue-router";
-import {useI18n} from "vue-i18n";
+import {computed, defineComponent, onMounted, PropType, ref, watch} from 'vue';
+import VButton from '@/components/v-button/v-button.vue';
+import VIcon from '@/components/v-icon/v-icon.vue';
+import {useRoute, useRouter} from 'vue-router';
+import {useI18n} from 'vue-i18n';
 
 export default defineComponent({
 	components: {
@@ -101,6 +101,10 @@ export default defineComponent({
 
 		pageStore.hydrate();
 
+		watch(props, () => {
+			pageStore.hydratePage(props.page);
+		});
+
 		function save() {
 			if (!section.value?.id || saving.value) {
 				return;
@@ -108,16 +112,16 @@ export default defineComponent({
 
 			saving.value = true;
 
-			const updates = { ...section.value?.data?.value, ...pageStore.model.get(section.value.id) };
+			const updates = {...section.value?.data?.value, ...pageStore.model.get(section.value.id)};
 
 			pageStore.update(props.page, section.value.id, {value: updates})
-				.then(() => {
-					saving.value = false;
+					.then(() => {
+						saving.value = false;
 
-					if (revision.value) {
-						(revision.value as any).refresh();
-					}
-				});
+						if (revision.value) {
+							(revision.value as any).refresh();
+						}
+					});
 		}
 
 		function revert(value: Record<string, any>) {
@@ -147,8 +151,8 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 iframe {
-  min-height: 100vh;
-  width: 100%;
-  border: 0;
+	height: calc(100vh - 66px);
+	width: 100%;
+	border: 0;
 }
 </style>

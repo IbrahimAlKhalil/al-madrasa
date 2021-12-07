@@ -1,12 +1,12 @@
-import childProcess from "child_process";
 import path, {dirname} from "path";
 import {fileURLToPath} from "url";
+import execa from "execa";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 function run(db, filename) {
-    childProcess.spawnSync('/usr/bin/psql', [
+    execa.sync('/usr/bin/psql', [
         `--username=${process.env.DB_USER}`,
         `--host=${process.env.DB_HOST}`,
         `--port=${process.env.DB_PORT}`,

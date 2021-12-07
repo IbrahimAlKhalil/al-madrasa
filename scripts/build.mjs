@@ -1,12 +1,12 @@
-import childProcess from "child_process";
 import path, {dirname} from "path";
 import {fileURLToPath} from "url";
+import execa from "execa";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 function buildApi() {
-    childProcess.spawnSync('pnpm', ['build'], {
+    execa.sync('pnpm', ['build'], {
         stdio: 'inherit',
         cwd: path.resolve(__dirname, '../api'),
         shell: true,
@@ -14,7 +14,7 @@ function buildApi() {
 }
 
 function buildDashboard() {
-    childProcess.spawnSync('pnpm', ['build'], {
+    execa.sync('pnpm', ['build'], {
         stdio: 'inherit',
         cwd: path.resolve(__dirname, '../app'),
         shell: true,
@@ -22,7 +22,7 @@ function buildDashboard() {
 }
 
 function buildImage() {
-    childProcess.spawnSync('docker', ['build', '.', '-t', 'registry.saharait.com/al-madrasah-cms'], {
+    execa.sync('docker', ['build', '.', '-t', 'registry.saharait.com/al-madrasah-cms'], {
         stdio: 'inherit',
         shell: true,
         cwd: path.resolve(__dirname, '../')

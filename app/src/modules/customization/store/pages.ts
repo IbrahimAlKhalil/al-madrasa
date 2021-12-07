@@ -17,6 +17,17 @@ export const usePageStore = defineStore({
 		loading: false,
 	}),
 	actions: {
+		reloadIframe() {
+			const iframe = document.getElementById('customizer-iframe') as HTMLIFrameElement;
+
+			if (!iframe) {
+				return;
+			}
+
+			if (iframe && iframe.contentWindow) {
+				iframe.contentWindow.location.reload();
+			}
+		},
 		async hydrate() {
 			const requestStore = useRequestsStore();
 			const requestId = requestStore.startRequest();
@@ -86,18 +97,28 @@ export const usePageStore = defineStore({
 					sort: ['sort'],
 				}
 			});
-			const sectionValue = await api.get<{ data: SectionData[] }>('/items/section', {
-				params: {
-					limit: -1,
-					filter: {
-						page_section: {
-							_in: sections.data.data.map((d: any) => d.id)
-						}
+			let sectionValue;
+
+			try {
+				sectionValue = await api.get<{ data: SectionData[] }>('/items/section', {
+					params: {
+						limit: -1,
+						filter: {
+							page_section: {
+								_in: sections.data.data.map((d: any) => d.id)
+							}
+						},
+						fields: ['id', 'sort', 'visible', 'page_section'],
+						sort: ['sort']
 					},
-					fields: ['id', 'sort', 'visible', 'page_section'],
-					sort: ['sort']
-				},
-			});
+				})
+			} catch (e) {
+				sectionValue = {
+					data: {
+						data: [],
+					}
+				}
+			}
 
 			page.sections = {
 				sortable: [] as Section[],
@@ -223,6 +244,7 @@ export const usePageStore = defineStore({
 			}
 
 			requestStore.endRequest(requestId);
+			this.reloadIframe();
 		},
 		async update(pageId: string, sectionId: string, data: Partial<SectionData>) {
 			const requestStore = useRequestsStore();
@@ -255,6 +277,7 @@ export const usePageStore = defineStore({
 			await this.sort(pageId, page.sections.sortable);
 			this.model.delete(sectionId);
 			requestStore.endRequest(requestId);
+			this.reloadIframe();
 		},
 		async input(sectionId: string, value: Record<string, any>) {
 			if (isEmpty(value)) {
@@ -264,7 +287,7 @@ export const usePageStore = defineStore({
 			}
 		}
 	},
-	debounce: {
-		input: 500
-	}
+	// debounce: {
+	// 	input: 500
+	// }
 });

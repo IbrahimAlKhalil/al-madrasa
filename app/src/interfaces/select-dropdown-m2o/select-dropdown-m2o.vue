@@ -116,6 +116,9 @@ export default defineComponent({
 			type: String,
 			required: true,
 		},
+		parent: {
+
+		},
 		field: {
 			type: String,
 			required: true,
@@ -138,6 +141,8 @@ export default defineComponent({
 		const { t } = useI18n();
 
 		const { collection } = toRefs(props);
+
+		console.log(collection.value);
 
 		const relationsStore = useRelationsStore();
 		const collectionsStore = useCollectionsStore();

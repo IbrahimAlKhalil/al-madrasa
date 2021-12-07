@@ -1,7 +1,11 @@
 import {isDBSameAs} from "./is-db-same-as";
 import getDatabase from "../index";
-import {isEqual} from "lodash";
+import {isEqual, isObject, mapValues} from "lodash";
 import {Knex} from "knex";
+
+function sanitize(item: Record<string, any>) {
+	return mapValues(item, i => isObject(i) ? JSON.stringify(i) : i);
+}
 
 export async function syncTable(sourceDB: Knex | string, targetDB: Knex | string, table: string, fields: string[]) {
 	sourceDB = typeof sourceDB === 'string' ? getDatabase(sourceDB) : sourceDB;
@@ -11,11 +15,14 @@ export async function syncTable(sourceDB: Knex | string, targetDB: Knex | string
 		return;
 	}
 
-	const items = await sourceDB(table)
-		.select(fields);
+
+	const items = (
+		await sourceDB(table)
+			.select(fields)
+	).map(sanitize);
 
 	for (const item of items) {
-		const has = await  targetDB(table)
+		const has = await targetDB(table)
 			.select(fields)
 			.where('id', item.id)
 			.first();
