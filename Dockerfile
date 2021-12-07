@@ -20,9 +20,7 @@ RUN apk add --no-cache postgresql-client
 
 WORKDIR /usr/src/app
 
-COPY --from=Builder /usr/src/app/api .
-
-RUN mkdir ./uploads;
+COPY --from=Builder /usr/src/app .
 
 CMD ["node", "./am.mjs", "prod"]
 

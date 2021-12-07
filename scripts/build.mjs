@@ -1,5 +1,6 @@
 import path, {dirname} from "path";
 import {fileURLToPath} from "url";
+import {promises as fs} from 'fs';
 import execa from "execa";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -21,6 +22,18 @@ function buildDashboard() {
     });
 }
 
+async function buildThemes() {
+    const themes = await fs.readdir(path.resolve(__dirname, '../themes'));
+
+    for (const theme of themes) {
+        execa.sync('pnpm', ['build'], {
+            stdio: 'inherit',
+            shell: true,
+            cwd: path.resolve(__dirname, `../themes/${theme}`),
+        });
+    }
+}
+
 function buildImage() {
     execa.sync('docker', ['build', '.', '-t', 'registry.saharait.com/al-madrasah-cms'], {
         stdio: 'inherit',
@@ -29,7 +42,7 @@ function buildImage() {
     });
 }
 
-export function build(api, dashboard, image) {
+export async function build(api, dashboard, image, themes) {
     if (dashboard) {
         api = true;
         dashboard = true;
@@ -43,13 +56,18 @@ export function build(api, dashboard, image) {
         buildDashboard();
     }
 
+    if (themes) {
+        await buildThemes();
+    }
+
     if (image) {
         buildImage();
     }
 
-    if (!api && !api) {
+    if (!api && !dashboard && !image && !themes) {
         buildApi();
         buildDashboard();
+        await buildThemes();
         buildImage();
     }
 }

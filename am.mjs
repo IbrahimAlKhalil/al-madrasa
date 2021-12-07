@@ -50,10 +50,12 @@ program.addCommand(
         .option('-a, --api', 'Build api')
         .option('-d, --dashboard', 'Build dashboard')
         .option('-i, --image', 'Build docker image')
+        .option('-t, --themes', 'Build themes')
         .action((_, p) => build(
             p.getOptionValue('api'),
             p.getOptionValue('dashboard'),
-            p.getOptionValue('image')
+            p.getOptionValue('image'),
+            p.getOptionValue('themes')
         ))
 );
 

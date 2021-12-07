@@ -1,4 +1,4 @@
 export interface PageDeps {
-    id: string;
-    sections?: string[];
+  id: string;
+  sections?: string[];
 }

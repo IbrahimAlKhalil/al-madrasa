@@ -12,3 +12,8 @@
 !api/.npmrc
 
 !app/dist
+
+!uploads
+!themes
+
+themes/**/node_modules

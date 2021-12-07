@@ -1,12 +1,12 @@
-import {SiteSettings} from 't/site-settings';
-import {Page} from 't/page';
+import { SiteSettings } from 't/site-settings';
+import { Page } from 't/page';
 
 export interface Pages {
-    [id: string]: Page;
+  [id: string]: Page;
 }
 
 export interface PageProps {
-    pages: Pages;
-    siteSettings: SiteSettings;
-    data?: Record<string, any>;
+  pages: Pages;
+  siteSettings: SiteSettings;
+  data?: Record<string, any>;
 }
