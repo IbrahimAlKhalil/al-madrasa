@@ -52,7 +52,7 @@ import sanitizeQuery from './middleware/sanitize-query';
 import schema from './middleware/schema';
 import database from './middleware/database';
 
-// import { track } from './utils/track';
+import { track } from './utils/track';
 import { validateEnv } from './utils/validate-env';
 import { validateStorage } from './utils/validate-storage';
 import { register as registerWebhooks } from './webhooks';
@@ -103,7 +103,28 @@ export default async function createApp(): Promise<express.Application> {
 
 	app.use(expressLogger);
 
+	app.use((req, res, next) => {
+		(
+			express.json({
+				limit: env.MAX_PAYLOAD_SIZE,
+			}) as RequestHandler
+		)(req, res, (err: any) => {
+			if (err) {
+				return next(new InvalidPayloadException(err.message));
+			}
+
+			return next();
+		});
+	});
+
 	app.use(cookieParser());
+
+	app.use(extractToken);
+
+	app.use((req, res, next) => {
+		res.setHeader('X-Powered-By', 'Directus');
+		next();
+	});
 
 	if (env.CORS_ENABLED === true) {
 		app.use(cors);
@@ -225,7 +246,7 @@ export default async function createApp(): Promise<express.Application> {
 	// Register all webhooks
 	await registerWebhooks();
 
-	// track('serverStarted');
+	track('serverStarted');
 
 	await emitter.emitInit('app.after', { app });
 

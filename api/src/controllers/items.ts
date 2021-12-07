@@ -22,7 +22,6 @@ router.post(
 		const service = new ItemsService(req.collection, {
 			accountability: req.accountability,
 			schema: req.schema,
-			knex: req.knex,
 		});
 
 		const savedKeys: PrimaryKey[] = [];
@@ -62,13 +61,11 @@ const readHandler = asyncHandler(async (req, res, next) => {
 	const service = new ItemsService(req.collection, {
 		accountability: req.accountability,
 		schema: req.schema,
-		knex: req.knex,
 	});
 
 	const metaService = new MetaService({
 		accountability: req.accountability,
 		schema: req.schema,
-		knex: req.knex,
 	});
 
 	let result;
@@ -103,7 +100,6 @@ router.get(
 		const service = new ItemsService(req.collection, {
 			accountability: req.accountability,
 			schema: req.schema,
-			knex: req.knex,
 		});
 
 		const result = await service.readOne(req.params.pk, req.sanitizedQuery);
@@ -127,7 +123,6 @@ router.patch(
 		const service = new ItemsService(req.collection, {
 			accountability: req.accountability,
 			schema: req.schema,
-			knex: req.knex,
 		});
 
 		if (req.singleton === true) {
@@ -175,7 +170,6 @@ router.patch(
 		const service = new ItemsService(req.collection, {
 			accountability: req.accountability,
 			schema: req.schema,
-			knex: req.knex,
 		});
 
 		const updatedPrimaryKey = await service.updateOne(req.params.pk, req.body);
@@ -206,7 +200,6 @@ router.delete(
 		const service = new ItemsService(req.collection, {
 			accountability: req.accountability,
 			schema: req.schema,
-			knex: req.knex,
 		});
 
 		if (Array.isArray(req.body)) {
@@ -231,7 +224,6 @@ router.delete(
 		const service = new ItemsService(req.collection, {
 			accountability: req.accountability,
 			schema: req.schema,
-			knex: req.knex,
 		});
 
 		await service.deleteOne(req.params.pk);

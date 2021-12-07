@@ -2,37 +2,37 @@
 	<div class="grid">
 		<div class="grid-element half">
 			<p class="type-label">{{ t('template') }}</p>
-			<v-input v-model="template" class="input" :placeholder="`{{ field }}`"/>
+			<v-input v-model="template" class="input" :placeholder="`{{ field }}`" />
 		</div>
 
 		<div class="grid-element half">
 			<p class="type-label">{{ t('interfaces.list.add_label') }}</p>
-			<v-input v-model="addLabel" class="input" :placeholder="t('create_new')"/>
+			<v-input v-model="addLabel" class="input" :placeholder="t('create_new')" />
 		</div>
 
 		<div class="grid-element full">
 			<p class="type-label">{{ t('interfaces.list.edit_fields') }}</p>
 			<repeater
-					:value="repeaterValue"
-					:template="`{{ field }} — {{ interface }}`"
-					:fields="repeaterFields"
-					@input="repeaterValue = $event"
+				:value="repeaterValue"
+				:template="`{{ field }} — {{ interface }}`"
+				:fields="repeaterFields"
+				@input="repeaterValue = $event"
 			/>
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
-import {useI18n} from 'vue-i18n';
-import {defineComponent, PropType, computed} from 'vue';
+import { useI18n } from 'vue-i18n';
+import { defineComponent, PropType, computed } from 'vue';
 import Repeater from './list.vue';
-import {Field, FieldMeta} from '@directus/shared/types';
-import {FIELD_TYPES_SELECT} from '@/constants';
-import {DeepPartial} from '@directus/shared/types';
-import {translate} from '@/utils/translate-object-values';
+import { Field, FieldMeta } from '@directus/shared/types';
+import { FIELD_TYPES_SELECT } from '@/constants';
+import { DeepPartial } from '@directus/shared/types';
+import { translate } from '@/utils/translate-object-values';
 
 export default defineComponent({
-	components: {Repeater},
+	components: { Repeater },
 	props: {
 		value: {
 			type: Object as PropType<Record<string, any>>,
@@ -40,8 +40,8 @@ export default defineComponent({
 		},
 	},
 	emits: ['input'],
-	setup(props, {emit}) {
-		const {t} = useI18n();
+	setup(props, { emit }) {
+		const { t } = useI18n();
 
 		const repeaterValue = computed({
 			get() {
@@ -63,21 +63,6 @@ export default defineComponent({
 		});
 
 		const repeaterFields: DeepPartial<Field>[] = [
-			{
-				name: t('name', 1),
-				field: 'name',
-				type: 'string',
-				meta: {
-					interface: 'input',
-					width: 'full',
-					sort: 2,
-					options: {
-						font: 'monospace',
-						placeholder: 'Name',
-					},
-				},
-				schema: null,
-			},
 			{
 				name: t('field', 1),
 				field: 'field',
@@ -198,7 +183,7 @@ export default defineComponent({
 			},
 		});
 
-		return {t, repeaterValue, repeaterFields, template, addLabel};
+		return { t, repeaterValue, repeaterFields, template, addLabel };
 	},
 });
 </script>

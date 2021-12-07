@@ -20,6 +20,7 @@ import getDatabase from './database';
 import emitter from './emitter';
 import env from './env';
 import * as exceptions from './exceptions';
+import * as sharedExceptions from '@directus/shared/exceptions';
 import logger from './logger';
 import { HookConfig, EndpointConfig, FilterHandler, ActionHandler, InitHandler, ScheduleHandler } from './types';
 import fse from 'fs-extra';

@@ -1,17 +1,17 @@
 import SchemaInspector from '@directus/schema';
-import {Knex} from 'knex';
-import {mapValues} from 'lodash';
-import {systemCollectionRows} from '../database/system-data/collections';
-import {systemFieldRows} from '../database/system-data/fields';
+import { Knex } from 'knex';
+import { mapValues } from 'lodash';
+import { systemCollectionRows } from '../database/system-data/collections';
+import { systemFieldRows } from '../database/system-data/fields';
 import logger from '../logger';
-import {RelationsService} from '../services';
-import {SchemaOverview} from '../types';
-import {Accountability} from '@directus/shared/types';
-import {toArray} from '@directus/shared/utils';
+import { RelationsService } from '../services';
+import { SchemaOverview } from '../types';
+import { Accountability } from '@directus/shared/types';
+import { toArray } from '@directus/shared/utils';
 import getDefaultValue from './get-default-value';
 import getLocalType from './get-local-type';
 import getDatabase from '../database';
-import {getCache} from '../cache';
+import { getCache } from '../cache';
 import env from '../env';
 
 export async function getSchema(options?: {
@@ -20,7 +20,7 @@ export async function getSchema(options?: {
 }): Promise<SchemaOverview> {
 	const database = options?.database || getDatabase();
 	const schemaInspector = SchemaInspector(database);
-	const {systemCache} = getCache();
+	const { systemCache } = getCache();
 
 	let result: SchemaOverview;
 
@@ -132,7 +132,7 @@ async function getDatabaseSchema(
 		const existing = result.collections[field.collection].fields[field.field];
 		const column = schemaOverview[field.collection].columns[field.field];
 		const special = field.special ? toArray(field.special) : [];
-		const type = (existing && getLocalType(column, {special})) || 'alias';
+		const type = (existing && getLocalType(column, { special })) || 'alias';
 
 		result.collections[field.collection].fields[field.field] = {
 			field: field.field,
@@ -149,7 +149,7 @@ async function getDatabaseSchema(
 		};
 	}
 
-	const relationsService = new RelationsService({knex: database, schema: result});
+	const relationsService = new RelationsService({ knex: database, schema: result });
 	result.relations = await relationsService.readAll();
 
 	return result;

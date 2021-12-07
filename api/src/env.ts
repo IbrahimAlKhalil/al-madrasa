@@ -41,7 +41,7 @@ const defaults: Record<string, any> = {
 	CORS_ENABLED: true,
 	CORS_ORIGIN: true,
 	CORS_METHODS: 'GET,POST,PATCH,DELETE',
-	CORS_ALLOWED_HEADERS: 'Content-Type,Authorization,X-Al-Mad-App',
+	CORS_ALLOWED_HEADERS: 'Content-Type,Authorization',
 	CORS_EXPOSED_HEADERS: 'Content-Range',
 	CORS_CREDENTIALS: true,
 	CORS_MAX_AGE: 18000,
@@ -56,6 +56,7 @@ const defaults: Record<string, any> = {
 	CACHE_PERMISSIONS: true,
 
 	AUTH_PROVIDERS: '',
+	AUTH_DISABLE_DEFAULT: false,
 
 	EXTENSIONS_PATH: './extensions',
 

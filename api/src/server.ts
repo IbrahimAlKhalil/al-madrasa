@@ -1,12 +1,12 @@
-import {createTerminus, TerminusOptions} from '@godaddy/terminus';
-import {Request} from 'express';
+import { createTerminus, TerminusOptions } from '@godaddy/terminus';
+import { Request } from 'express';
 import * as http from 'http';
 import * as https from 'https';
-import {once} from 'lodash';
+import { once } from 'lodash';
 import qs from 'qs';
 import url from 'url';
 import createApp from './app';
-import getDatabase, {databases} from './database';
+import getDatabase from './database';
 import env from './env';
 import logger from './logger';
 import emitter from './emitter';
@@ -68,7 +68,7 @@ export async function createServer(): Promise<http.Server> {
 			};
 
 			emitter.emitAction('response', info, {
-				database: req.knex,
+				database: getDatabase(),
 				schema: req.schema,
 				accountability: req.accountability ?? null,
 			});
@@ -97,11 +97,8 @@ export async function createServer(): Promise<http.Server> {
 	}
 
 	async function onSignal() {
-		for (const key in databases) {
-			if (databases.hasOwnProperty(key)) {
-				await databases[key].destroy();
-			}
-		}
+		const database = getDatabase();
+		await database.destroy();
 
 		logger.info('Database connections destroyed');
 	}
@@ -109,7 +106,7 @@ export async function createServer(): Promise<http.Server> {
 	async function onShutdown() {
 		emitter.emitAction(
 			'server.stop',
-			{server},
+			{ server },
 			{
 				database: getDatabase(),
 				schema: null,
@@ -144,7 +141,7 @@ export async function startServer(): Promise<void> {
 
 			emitter.emitAction(
 				'server.start',
-				{server},
+				{ server },
 				{
 					database: getDatabase(),
 					schema: null,

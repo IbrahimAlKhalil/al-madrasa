@@ -1,15 +1,15 @@
 import SchemaInspector from '@directus/schema';
-import {knex, Knex} from 'knex';
-import {performance} from 'perf_hooks';
+import { knex, Knex } from 'knex';
+import { performance } from 'perf_hooks';
 import env from '../env';
 import logger from '../logger';
-import {getConfigFromEnv} from '../utils/get-config-from-env';
-import {validateEnv} from '../utils/validate-env';
+import { getConfigFromEnv } from '../utils/get-config-from-env';
+import { validateEnv } from '../utils/validate-env';
 import fse from 'fs-extra';
 import path from 'path';
-import {merge} from 'lodash';
-import {promisify} from 'util';
-import {getGeometryHelper} from './helpers/geometry';
+import { merge } from 'lodash';
+import { promisify } from 'util';
+import { getHelpers } from './helpers';
 
 export const databases: { [key: string]: Knex } = {};
 export const inspectors: { [key: string]: ReturnType<typeof SchemaInspector> } = {};
@@ -92,7 +92,7 @@ export default function getDatabase(key = 'master', config?: Record<string, any>
 		// This brings MS SQL in line with the other DB vendors. We shouldn't do any automatic
 		// timezone conversion on the database level, especially not when other database vendors don't
 		// act the same
-		merge(knexConfig, {connection: {options: {useUTC: false}}});
+		merge(knexConfig, { connection: { options: { useUTC: false } } });
 	}
 
 	databases[key] = knex(knexConfig);
@@ -208,7 +208,7 @@ export async function validateMigrations(): Promise<boolean> {
 
 		const requiredVersions = migrationFiles.map((filePath) => filePath.split('-')[0]);
 		const completedVersions = (await database.select('version').from('directus_migrations')).map(
-			({version}) => version
+			({ version }) => version
 		);
 
 		return requiredVersions.every((version) => completedVersions.includes(version));
@@ -224,11 +224,11 @@ export async function validateMigrations(): Promise<boolean> {
  */
 export async function validateDatabaseExtensions(): Promise<void> {
 	const database = getDatabase();
-	const databaseClient = getDatabaseClient(database);
-	const geometryHelper = getGeometryHelper(database);
-	const geometrySupport = await geometryHelper.supported();
+	const client = getDatabaseClient(database);
+	const helpers = getHelpers(database);
+	const geometrySupport = await helpers.st.supported();
 	if (!geometrySupport) {
-		switch (databaseClient) {
+		switch (client) {
 			case 'postgres':
 				logger.warn(`PostGIS isn't installed. Geometry type support will be limited.`);
 				break;
@@ -236,7 +236,7 @@ export async function validateDatabaseExtensions(): Promise<void> {
 				logger.warn(`Spatialite isn't installed. Geometry type support will be limited.`);
 				break;
 			default:
-				logger.warn(`Geometry type not supported on ${databaseClient}`);
+				logger.warn(`Geometry type not supported on ${client}`);
 		}
 	}
 }

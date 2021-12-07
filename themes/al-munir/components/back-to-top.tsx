@@ -13,7 +13,7 @@ export const BackToTop: FunctionComponent = () => {
         setClassName(className);
       }
     });
-  });
+  }, []);
 
   return (
     <a href="#" className={className}>

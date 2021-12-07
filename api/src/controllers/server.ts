@@ -1,7 +1,7 @@
-import {format} from 'date-fns';
-import {Router} from 'express';
+import { format } from 'date-fns';
+import { Router } from 'express';
 import {ForbiddenException, RouteNotFoundException, UnprocessableEntityException} from '../exceptions';
-import {respond} from '../middleware/respond';
+import { respond } from '../middleware/respond';
 import {ItemsService, ServerService, SpecificationService} from '../services';
 import asyncHandler from '../utils/async-handler';
 import getDatabase, {databases} from "../database";
@@ -64,7 +64,7 @@ router.get(
 			knex: req.knex,
 		});
 		const data = await service.serverInfo();
-		res.locals.payload = {data};
+		res.locals.payload = { data };
 		return next();
 	}),
 	respond

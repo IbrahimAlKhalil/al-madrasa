@@ -1,11 +1,9 @@
 import { Knex } from 'knex';
-import getDatabase from '..';
 
 let dateHelper: KnexDate | undefined;
 
-export function getDateHelper(): KnexDate {
+export function getDateHelper(db: Knex): KnexDate {
 	if (!dateHelper) {
-		const db = getDatabase();
 		const client = db.client.config.client as string;
 		const constructor = {
 			mysql: KnexDate,

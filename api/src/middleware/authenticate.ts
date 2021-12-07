@@ -1,5 +1,6 @@
 import { RequestHandler } from 'express';
 import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
+import getDatabase from '../database';
 import env from '../env';
 import { InvalidCredentialsException } from '../exceptions';
 import asyncHandler from '../utils/async-handler';

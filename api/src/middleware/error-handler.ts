@@ -94,7 +94,7 @@ const errorHandler: ErrorRequestHandler = (err, req, res, _next) => {
 			payload.errors,
 			{},
 			{
-				database: req.knex,
+				database: getDatabase(),
 				schema: req.schema,
 				accountability: req.accountability ?? null,
 			}

@@ -18,7 +18,8 @@
     "sass": "1.43.4"
   },
   "devDependencies": {
-    "@directus/sdk": "9.1.1",
+    "@directus/app": "workspace:9.2.1",
+    "@directus/sdk": "9.2.1",
     "@pinia/plugin-debounce": "^0.0.2",
     "@types/express": "4.17.13",
     "@types/lodash": "4.14.176",

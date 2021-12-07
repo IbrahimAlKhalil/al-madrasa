@@ -13,12 +13,6 @@
 @import 'lib/fullcalendar';
 @import 'lib/frappe-charts';
 
-/* -------------- Al-Madrasah --------------- */
-
-@import "am-style";
-
-/* ------------------------------------------ */
-
 body.light {
 	@include light;
 }
