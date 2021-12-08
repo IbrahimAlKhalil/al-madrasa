@@ -2547,6 +2547,20 @@ INSERT INTO "public"."directus_fields" VALUES (484, 'theme', 'websites', 'o2m', 
 -- Data for Name: directus_files; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO "public"."directus_files" VALUES ('22cb1536-b477-4629-9467-71822bfc4dcd', 'local', '22cb1536-b477-4629-9467-71822bfc4dcd.svg', 'Man_riding_camel_in_desert_night.svg', 'Man Riding Camel in Desert Night', 'image/svg+xml', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-11-29 10:54:11.046+00', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-11-29 10:56:34.495+00', NULL, 975291, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, true);
+INSERT INTO "public"."directus_files" VALUES ('b300399b-855a-46ac-9293-fcf4adfd2f58', 'local', 'b300399b-855a-46ac-9293-fcf4adfd2f58.png', 'Screenshot from 2021-12-07 13-03-06.png', 'Screenshot from 2021 12 07 13 03 06', 'image/png', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-07 07:03:43.291+00', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-08 06:18:55.639+00', NULL, 176046, 1600, 815, NULL, NULL, NULL, NULL, NULL, '{"ihdr":{"ImageWidth":1600,"ImageHeight":815,"BitDepth":8,"ColorType":"RGB with Alpha","Compression":"Deflate/Inflate","Filter":"Adaptive","Interlace":"Noninterlaced","Software":"gnome-screenshot"}}', true);
+INSERT INTO "public"."directus_files" VALUES ('79f44b35-2a20-42bc-aac8-9a2434abfd89', 'local', '79f44b35-2a20-42bc-aac8-9a2434abfd89.jpg', 'muslim-people-reading-and-learning-the-quran-islamic-holy-book-vector.jpg', 'Muslim People Reading and Learning The Quran Islamic Holy Book Vector', 'image/jpeg', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 14:14:39.937+00', NULL, '2021-12-03 14:14:39.972+00', NULL, 78757, 1920, 1280, NULL, NULL, NULL, NULL, NULL, NULL, true);
+INSERT INTO "public"."directus_files" VALUES ('92cd04e4-e0bb-4f9c-ba55-7414a0f1ea4e', 'local', '92cd04e4-e0bb-4f9c-ba55-7414a0f1ea4e.jpg', '360_F_198744537_QLEesLpQ9msi59KWamqXXNXcFF9FsjS8.jpg', '360 F 198744537 Ql Ees Lp Q9msi59 K Wamq Xxn Xc F F9 Fsj S8', 'image/jpeg', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 14:22:01.499+00', NULL, '2021-12-03 14:22:01.521+00', NULL, 16040, 360, 360, NULL, NULL, NULL, NULL, NULL, '{"iptc":{},"ifd0":{"XResolution":300,"YResolution":300,"ResolutionUnit":"inches","YCbCrPositioning":1}}', true);
+INSERT INTO "public"."directus_files" VALUES ('49cd8be5-26d7-442a-b635-287d1ea387be', 'local', '49cd8be5-26d7-442a-b635-287d1ea387be.png', 'quran.png', 'Quran', 'image/png', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 14:17:48.614+00', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-08 06:18:55.639+00', NULL, 22229, 512, 512, NULL, NULL, NULL, NULL, NULL, '{"ihdr":{"ImageWidth":512,"ImageHeight":512,"BitDepth":8,"ColorType":"RGB with Alpha","Compression":"Deflate/Inflate","Filter":"Adaptive","Interlace":"Noninterlaced","Software":"www.inkscape.org"}}', true);
+INSERT INTO "public"."directus_files" VALUES ('42c95a11-408f-415d-8c3e-fc8e073ac5a0', 'local', '42c95a11-408f-415d-8c3e-fc8e073ac5a0.png', 'pricing-free.png', 'Pricing Free', 'image/png', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 14:04:32.713+00', NULL, '2021-12-03 14:04:32.76+00', NULL, 6518, 278, 191, NULL, NULL, NULL, NULL, NULL, '{"ihdr":{"ImageWidth":278,"ImageHeight":191,"BitDepth":8,"ColorType":"Palette","Compression":"Deflate/Inflate","Filter":"Adaptive","Interlace":"Noninterlaced"}}', true);
+INSERT INTO "public"."directus_files" VALUES ('a7a19d7f-184f-4c17-b9b6-c2f6b9d8a880', 'local', 'a7a19d7f-184f-4c17-b9b6-c2f6b9d8a880.png', 'pricing-starter.png', 'Pricing Starter', 'image/png', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 14:04:32.715+00', NULL, '2021-12-03 14:04:32.77+00', NULL, 8215, 278, 191, NULL, NULL, NULL, NULL, NULL, '{"ihdr":{"ImageWidth":278,"ImageHeight":191,"BitDepth":8,"ColorType":"Palette","Compression":"Deflate/Inflate","Filter":"Adaptive","Interlace":"Noninterlaced"}}', true);
+INSERT INTO "public"."directus_files" VALUES ('dc1ff2b2-33ec-48ac-8ab3-7927467ad0d2', 'local', 'dc1ff2b2-33ec-48ac-8ab3-7927467ad0d2.svg', 'minar.svg', 'Minar', 'image/svg+xml', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 13:28:02.976+00', NULL, '2021-12-03 13:28:03.09+00', NULL, 262348, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, true);
+INSERT INTO "public"."directus_files" VALUES ('bd041fd6-fdf0-4b1b-8f50-f02b88c05352', 'local', 'bd041fd6-fdf0-4b1b-8f50-f02b88c05352.webp', 'muslim-people-reading-quran-illustration-vector.webp', 'Muslim People Reading Quran Illustration Vector', 'image/webp', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 14:14:39.88+00', NULL, '2021-12-03 14:14:39.958+00', NULL, 40924, 1920, 1440, NULL, NULL, NULL, NULL, NULL, '{}', true);
+INSERT INTO "public"."directus_files" VALUES ('e1be9a33-0219-4919-a2b7-2f8bd827498e', 'local', 'e1be9a33-0219-4919-a2b7-2f8bd827498e.svg', 'Arab_businessman7-18.svg', 'Team', 'image/svg+xml', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 13:37:50.262+00', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 13:37:59.217+00', NULL, 39080, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, true);
+INSERT INTO "public"."directus_files" VALUES ('348e4117-39e0-44c4-8ad2-cbe27929fd9c', 'local', '348e4117-39e0-44c4-8ad2-cbe27929fd9c.png', 'features.png', 'Features', 'image/png', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 13:56:50.157+00', NULL, '2021-12-03 13:56:50.188+00', NULL, 55886, 1043, 663, NULL, NULL, NULL, NULL, NULL, '{"ihdr":{"ImageWidth":1043,"ImageHeight":663,"BitDepth":8,"ColorType":"Palette","Compression":"Deflate/Inflate","Filter":"Adaptive","Interlace":"Noninterlaced"}}', true);
+INSERT INTO "public"."directus_files" VALUES ('e76b74d0-89ae-4268-bcce-5293fcad9fd5', 'local', 'e76b74d0-89ae-4268-bcce-5293fcad9fd5.png', 'pricing-ultimate.png', 'Pricing Ultimate', 'image/png', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 14:04:32.644+00', NULL, '2021-12-03 14:04:32.746+00', NULL, 8139, 278, 191, NULL, NULL, NULL, NULL, NULL, '{"ihdr":{"ImageWidth":278,"ImageHeight":191,"BitDepth":8,"ColorType":"Palette","Compression":"Deflate/Inflate","Filter":"Adaptive","Interlace":"Noninterlaced"}}', true);
+INSERT INTO "public"."directus_files" VALUES ('2c3fa8f6-a20f-4dea-b68c-e6439cc2c5cc', 'local', '2c3fa8f6-a20f-4dea-b68c-e6439cc2c5cc.png', 'pricing-business.png', 'Pricing Business', 'image/png', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 14:04:32.72+00', NULL, '2021-12-03 14:04:32.755+00', NULL, 10763, 278, 191, NULL, NULL, NULL, NULL, NULL, '{"ihdr":{"ImageWidth":278,"ImageHeight":191,"BitDepth":8,"ColorType":"Palette","Compression":"Deflate/Inflate","Filter":"Adaptive","Interlace":"Noninterlaced"}}', true);
+INSERT INTO "public"."directus_files" VALUES ('e726304d-e234-4bee-b09c-247466a36ea7', 'local', 'e726304d-e234-4bee-b09c-247466a36ea7.webp', 'muslim-couple-reading-and-studying-the-quran-during-ramadan-kareem-holy-month-vector.webp', 'Muslim Couple Reading and Studying The Quran during Ramadan Kareem Holy Month Vector', 'image/webp', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 14:14:39.942+00', NULL, '2021-12-03 14:14:39.969+00', NULL, 89898, 1920, 1536, NULL, NULL, NULL, NULL, NULL, '{}', true);
 
 
 --
@@ -2622,12 +2636,207 @@ INSERT INTO "public"."directus_migrations" VALUES ('20211118A', 'Add Notificatio
 -- Data for Name: directus_permissions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO "public"."directus_permissions" VALUES (104, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'book_author', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (105, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'book_author', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (106, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'book_author', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (107, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'book_author', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (108, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'book_category', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (109, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'book_category', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (110, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'book_category', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (111, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'book_category', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (112, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'book_category_pivot', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (113, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'book_category_pivot', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (114, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'book_category_pivot', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (115, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'book_category_pivot', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (116, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'comment', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (117, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'comment', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (118, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'comment', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (119, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'comment', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (120, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'comment_entity', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (121, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'comment_entity', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (122, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'comment_entity', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (20, NULL, 'article', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (21, NULL, 'article_category', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (22, NULL, 'article_category_pivot', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (23, NULL, 'audio', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (24, NULL, 'audio_category', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (25, NULL, 'audio_category_pivot', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (26, NULL, 'book', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (27, NULL, 'book_author', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (28, NULL, 'book_category', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (29, NULL, 'book_category_pivot', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (30, NULL, 'comment', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (31, NULL, 'comment_entity', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (32, NULL, 'document', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (33, NULL, 'document_category', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (34, NULL, 'document_category_pivot', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (35, NULL, 'image', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (36, NULL, 'image_category_pivot', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (37, NULL, 'image_category', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (38, NULL, 'institute', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (39, NULL, 'menu', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (40, NULL, 'page', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (42, NULL, 'question_category', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (43, NULL, 'question_type', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (44, NULL, 'reaction', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (46, NULL, 'reaction_entity', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (47, NULL, 'reaction_type', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (48, NULL, 'section', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (49, NULL, 'theme', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (123, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'comment_entity', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (50, NULL, 'theme_page', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (51, NULL, 'theme_page_section', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (52, NULL, 'video', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (53, NULL, 'video_category', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (54, NULL, 'video_category_pivot', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (55, NULL, 'website', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (57, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'directus_files', 'create', '{}', NULL, NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (58, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'directus_files', 'read', '{}', NULL, NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (59, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'directus_files', 'update', '{}', NULL, NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (60, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'directus_files', 'delete', '{}', NULL, NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (61, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'directus_dashboards', 'create', '{}', NULL, NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (62, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'directus_dashboards', 'read', '{}', NULL, NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (63, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'directus_dashboards', 'update', '{}', NULL, NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (64, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'directus_dashboards', 'delete', '{}', NULL, NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (65, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'directus_panels', 'create', '{}', NULL, NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (66, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'directus_panels', 'read', '{}', NULL, NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (67, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'directus_panels', 'update', '{}', NULL, NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (68, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'directus_panels', 'delete', '{}', NULL, NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (69, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'directus_folders', 'create', '{}', NULL, NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (70, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'directus_folders', 'read', '{}', NULL, NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (71, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'directus_folders', 'update', '{}', NULL, NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (72, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'directus_folders', 'delete', '{}', NULL, NULL, NULL);
+INSERT INTO "public"."directus_permissions" VALUES (73, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'directus_users', 'read', '{}', NULL, NULL, NULL);
+INSERT INTO "public"."directus_permissions" VALUES (74, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'directus_users', 'update', '{"id":{"_eq":"$CURRENT_USER"}}', NULL, NULL, 'first_name,last_name,email,password,location,title,description,avatar,language,theme');
+INSERT INTO "public"."directus_permissions" VALUES (75, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'directus_roles', 'read', '{}', NULL, NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (76, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'article', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (77, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'article', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (78, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'article', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (79, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'article', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (80, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'article_category', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (81, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'article_category', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (82, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'article_category', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (83, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'article_category', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (84, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'article_category_pivot', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (85, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'article_category_pivot', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (86, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'article_category_pivot', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (87, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'article_category_pivot', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (88, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'audio', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (89, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'audio', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (90, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'audio', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (91, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'audio', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (92, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'audio_category', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (93, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'audio_category', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (94, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'audio_category', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (95, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'audio_category', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (96, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'audio_category_pivot', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (97, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'audio_category_pivot', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (98, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'audio_category_pivot', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (99, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'audio_category_pivot', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (100, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'book', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (101, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'book', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (102, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'book', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (103, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'book', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (124, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'document', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (125, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'document', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (126, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'document', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (127, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'document', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (128, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'document_category', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (129, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'document_category', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (130, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'document_category', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (131, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'document_category', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (140, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'image', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (132, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'document_category_pivot', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (139, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'image', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (133, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'document_category_pivot', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (135, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'document_category_pivot', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (137, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'image', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (136, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'document_category_pivot', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (138, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'image', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (141, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'image_category', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (142, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'image_category', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (143, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'image_category', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (144, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'image_category', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (145, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'image_category_pivot', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (146, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'image_category_pivot', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (147, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'image_category_pivot', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (148, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'image_category_pivot', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (150, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'institute', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (151, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'institute', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (152, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'institute', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (153, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'institute', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (154, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'menu', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (155, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'menu', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (156, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'menu', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (157, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'menu', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (158, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'question', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (159, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'question', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (160, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'question', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (161, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'question', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (163, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'page', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (164, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'page', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (165, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'page', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (166, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'page', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (167, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'question_category', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (168, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'question_category', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (169, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'question_category', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (170, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'question_category', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (171, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'question_category_pivot', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (172, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'question_category_pivot', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (173, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'question_category_pivot', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (174, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'question_category_pivot', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (176, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'question_type', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (177, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'question_type', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (178, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'question_type', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (179, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'question_type', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (180, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'reaction', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (181, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'reaction', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (182, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'reaction', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (183, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'reaction', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (184, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'reaction_entity', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (185, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'reaction_entity', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (186, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'reaction_entity', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (187, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'reaction_entity', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (189, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'reaction_type', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (190, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'reaction_type', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (191, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'reaction_type', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (192, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'reaction_type', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (194, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'section', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (195, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'section', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (196, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'section', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (197, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'section', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (198, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'theme', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (199, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'theme_page', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (200, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'theme_page_section', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (201, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'video', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (202, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'video', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (203, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'video', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (204, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'video', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (205, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'video_category', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (206, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'video_category', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (207, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'video_category', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (208, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'video_category', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (209, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'video_category_pivot', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (210, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'video_category_pivot', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (211, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'video_category_pivot', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (212, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'video_category_pivot', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (213, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'website', 'create', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (214, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'website', 'read', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (215, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'website', 'update', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (216, 'b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'website', 'delete', '{}', '{}', NULL, '*');
+INSERT INTO "public"."directus_permissions" VALUES (134, NULL, 'directus_files', 'read', '{}', '{}', NULL, '*');
 
 
 --
 -- Data for Name: directus_presets; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO "public"."directus_presets" VALUES (61, NULL, '2d9ba661-779d-455c-904d-614bc31b8f60', NULL, 'page', NULL, 'tabular', '{"tabular":{"page":1}}', NULL, NULL, NULL);
+INSERT INTO "public"."directus_presets" VALUES (62, NULL, '2d9ba661-779d-455c-904d-614bc31b8f60', NULL, 'directus_files', NULL, 'cards', '{"cards":{"sort":["-uploaded_on"],"page":1}}', '{"cards":{"icon":"insert_drive_file","title":"{{ title }}","subtitle":"{{ type }} • {{ filesize }}","size":4,"imageFit":"crop"}}', NULL, NULL);
+INSERT INTO "public"."directus_presets" VALUES (63, NULL, '2d9ba661-779d-455c-904d-614bc31b8f60', NULL, 'menu', NULL, 'tabular', '{"tabular":{"page":1,"fields":["title","items"]}}', NULL, NULL, NULL);
+INSERT INTO "public"."directus_presets" VALUES (65, NULL, '2d9ba661-779d-455c-904d-614bc31b8f60', NULL, 'theme', NULL, 'tabular', '{"tabular":{"page":1,"fields":["name","cover"]}}', NULL, NULL, NULL);
+INSERT INTO "public"."directus_presets" VALUES (66, NULL, '2d9ba661-779d-455c-904d-614bc31b8f60', NULL, 'image', NULL, 'tabular', '{"tabular":{"page":1}}', NULL, NULL, NULL);
+INSERT INTO "public"."directus_presets" VALUES (64, NULL, '2d9ba661-779d-455c-904d-614bc31b8f60', NULL, 'directus_users', NULL, 'cards', '{"cards":{"sort":["email"],"page":1}}', '{"cards":{"icon":"account_circle","title":"{{ first_name }} {{ last_name }}","subtitle":"{{ email }}","size":4}}', NULL, NULL);
 
 
 --
@@ -2724,6 +2933,8 @@ INSERT INTO "public"."directus_relations" VALUES (145, 'website', 'project_logo'
 -- Data for Name: directus_roles; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO "public"."directus_roles" VALUES ('eb61ce1d-8967-4f00-be52-8cd1fb1c7c54', 'Administrator', 'supervised_user_circle', NULL, NULL, false, true, true);
+INSERT INTO "public"."directus_roles" VALUES ('b65f1fc0-6bdd-4dfc-b2dd-89d847a1bf42', 'Moderator', 'supervised_user_circle', NULL, NULL, false, false, true);
 
 
 --
@@ -2736,12 +2947,14 @@ INSERT INTO "public"."directus_relations" VALUES (145, 'website', 'project_logo'
 -- Data for Name: directus_settings; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO "public"."directus_settings" VALUES (1, 'Al-Madrasah', NULL, '#607D8B', '49cd8be5-26d7-442a-b635-287d1ea387be', NULL, '22cb1536-b477-4629-9467-71822bfc4dcd', NULL, 25, NULL, 'all', NULL, '', NULL, NULL, NULL, '[{"type":"module","id":"insights","enabled":true},{"type":"module","id":"content","enabled":true},{"type":"module","id":"files","enabled":true},{"type":"module","id":"users","enabled":true},{"type":"module","id":"customization","enabled":true},{"type":"module","id":"_settings","enabled":true},{"type":"module","id":"settings","enabled":true,"locked":true}]');
 
 
 --
 -- Data for Name: directus_users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO "public"."directus_users" VALUES ('2d9ba661-779d-455c-904d-614bc31b8f60', 'SAHARA', 'IT', 'admin@saharait.com', '$argon2i$v=19$m=4096,t=3,p=1$AYp3n4IPbrxw1EzU3R5e6g$TxdFFLW23n+C5WwdR1KmYa6vqelaPupHOrYBZeSjHIo', NULL, NULL, NULL, NULL, NULL, 'en-US', 'light', NULL, 'active', 'eb61ce1d-8967-4f00-be52-8cd1fb1c7c54', NULL, '2021-12-08 06:29:53.707+00', '/files/folders/520a5812-5bca-4e68-8532-5ce450750d46', 'default', NULL, NULL, true);
 
 
 --
@@ -2850,6 +3063,20 @@ INSERT INTO "public"."directus_relations" VALUES (145, 'website', 'project_logo'
 -- Data for Name: section; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO "public"."section" VALUES (3, 0, '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 13:29:01.082+00', true, '{"title":"We offer modern solutions for growing your business","description":"<h2 class=\"aos-init aos-animate\" data-aos=\"fade-up\" data-aos-delay=\"400\">We are team of talented designers making websites with Bootstrap</h2>","link":"https://saharait.com","image":"dc1ff2b2-33ec-48ac-8ab3-7927467ad0d2","link_text":"Get Started"}', 'al-munir-frontpage-intro');
+INSERT INTO "public"."section" VALUES (10, 8, '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 14:30:18.43+00', true, '{"title":"Team","subtitle":"Our hard working team","members":[{"name":"Jamal","photo":"92cd04e4-e0bb-4f9c-ba55-7414a0f1ea4e","designation":"Teacher","description":"Velit aut quia fugit et et. Dolorum ea voluptate vel tempore tenetur ipsa quae aut. Ipsum exercitationem iure minima enim corporis et voluptate.","facebook":"https://facebook.com","linked_in":"https://linkedin.com","youtube":"https://youtube.com"},{"name":"Kamal","photo":"92cd04e4-e0bb-4f9c-ba55-7414a0f1ea4e","designation":"Senior Teacher","description":"Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima suscipit corporis. Voluptate sed quas reiciendis animi neque sapiente.","facebook":"https://facebook.com","linked_in":"https://linkedin.com","youtube":"https://youtube.com"},{"name":"Makbul","photo":"92cd04e4-e0bb-4f9c-ba55-7414a0f1ea4e","designation":"Teacher","description":"Vero omnis enim consequatur. Voluptas consectetur unde qui molestiae deserunt. Voluptates enim aut architecto porro aspernatur molestiae modi.","facebook":"https://facebook.com","linked_in":"https://linkedin.com","youtube":"https://youtube.com"},{"name":"Mujib","photo":"92cd04e4-e0bb-4f9c-ba55-7414a0f1ea4e","designation":"Teacher","description":"Rerum voluptate non adipisci animi distinctio et deserunt amet voluptas. Quia aut aliquid doloremque ut possimus ipsum officia.","facebook":"https://facebook.com","linked_in":"https://linkedin.com","youtube":"https://youtube.com"}]}', 'al-munir-frontpage-team');
+INSERT INTO "public"."section" VALUES (4, 1, '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 13:38:31.506+00', true, '{"title":"Who We Are","subtitle":"<h2>Expedita voluptas omnis cupiditate totam eveniet nobis sint iste. Dolores est repellat corrupti reprehenderit.</h2>","description":"<p>Quisquam vel ut sint cum eos hic dolores aperiam. Sed deserunt et. Inventore et et dolor consequatur itaque ut voluptate sed et. Magnam nam ipsum tenetur suscipit voluptatum nam et est corrupti.&nbsp;</p>","link":"https://saharait.com","link_text":"Read More","image":"e1be9a33-0219-4919-a2b7-2f8bd827498e"}', 'al-munir-frontpage-about');
+INSERT INTO "public"."section" VALUES (5, 2, '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 14:19:21.329+00', true, '{"title":"Our Values","subtitle":"Odit est perspiciatis laborum et dicta","items":[{"title":"Ad cupiditate sed est odio","image":"e726304d-e234-4bee-b09c-247466a36ea7","description":"<p>Eum ad dolor et. Autem aut fugiat debitis voluptatem consequuntur sit. Et veritatis id.</p>"},{"title":"Voluptatem voluptatum alias","image":"79f44b35-2a20-42bc-aac8-9a2434abfd89","description":"<p>Repudiandae amet nihil natus in distinctio suscipit id. Doloremque ducimus ea sit non.</p>"},{"title":"Fugit cupiditate alias nobis.","image":"bd041fd6-fdf0-4b1b-8f50-f02b88c05352","description":"<h3>&nbsp;</h3>\n<p>Quam rem vitae est autem molestias explicabo debitis sint. Vero aliquid quidem commodi.</p>"}]}', 'al-munir-frontpage-values');
+INSERT INTO "public"."section" VALUES (11, 7, '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 14:27:18.397+00', true, '{"title":"Testimonials","subtitle":"What they are saying about us","items":[{"name":"Muhammad Iqbal","designation":"Principal","photo":"92cd04e4-e0bb-4f9c-ba55-7414a0f1ea4e","comment":"With Testimonial Generator you can easily generate viral testimonies for your website or product, no need to learn how to write a testimonial. Having Testimonals on your website will help drive conversions and bring further sales of your products/services."},{"name":"Abdul Kahhar","designation":"Khademe Islam","photo":"92cd04e4-e0bb-4f9c-ba55-7414a0f1ea4e","comment":"With Testimonial Generator you can easily generate viral testimonies for your website or product, no need to learn how to write a testimonial. Having Testimonals on your website will help drive conversions and bring further sales of your products/services."},{"name":"Junaid Hassan","designation":"Senior Teacher Hatahajari","photo":"92cd04e4-e0bb-4f9c-ba55-7414a0f1ea4e","comment":"With Testimonial Generator you can easily generate viral testimonies for your website or product, no need to learn how to write a testimonial. Having Testimonals on your website will help drive conversions and bring further sales of your products/services."},{"name":"Abul Hasanat","designation":"Grand Mufti Pakistan","photo":"92cd04e4-e0bb-4f9c-ba55-7414a0f1ea4e","comment":"With Testimonial Generator you can easily generate viral testimonies for your website or product, no need to learn how to write a testimonial. Having Testimonals on your website will help drive conversions and bring further sales of your products/services."}]}', 'al-munir-frontpage-testimonial');
+INSERT INTO "public"."section" VALUES (2, -1, NULL, NULL, true, '{"main_menu":2}', 'al-munir-general-header');
+INSERT INTO "public"."section" VALUES (6, 3, '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-07 06:10:02.52+00', true, '{"counts":[{"title":"Happy Clients","icon":"emoji_emotions","count":301,"color":"#E35169"},{"title":"Projects","icon":"collections_bookmark","count":402},{"title":"Hours Of Support","icon":"support_agent","count":4654},{"title":"Hard Workers","icon":"people_alt","count":2121}]}', 'al-munir-frontpage-counts');
+INSERT INTO "public"."section" VALUES (7, 4, '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 14:09:23.623+00', true, '{"image":"348e4117-39e0-44c4-8ad2-cbe27929fd9c","title":"Features","subtitle":"Laboriosam et omnis fuga quis dolor direda fara","features":[{"title":"Eos aspernatur rem"},{"title":"Facilis neque ipsa"},{"title":"Volup amet voluptas"},{"title":"Rerum omnis sint"},{"title":"Alias possimus"},{"title":"Repellendus mollitia"}]}', 'al-munir-frontpage-features');
+INSERT INTO "public"."section" VALUES (14, -1, '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-07 04:31:37.744+00', true, '{"about":"<p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam</p>","twitter":"https://saharait.com","facebook":"https://saharait.com","instagram":"https://saharait.com","linked_in":"https://saharait.com"}', 'al-munir-general-footer-about');
+INSERT INTO "public"."section" VALUES (8, 5, '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-07 05:23:02.382+00', true, '{"title":"Services","subtitle":"Veritatis et dolores facere numquam et praesentium","services":[{"title":"Nesciunt Mete","description":"<p>Provident nihil minus qui consequatur non omnis maiores. Eos accusantium minus dolores iure perferendis tempore et consequatur.</p>","link":"https://saharait.com","color":"#2DB5F9","icon":"accessibility"},{"title":"Eosle Commodi","description":"<p>Ut autem aut autem non a. Sint sint sit facilis nam iusto sint. Libero corrupti neque eum hic non ut nesciunt dolorem.</p>","link":"https://saharait.com","color":"#F58C0A","icon":"add_shopping_cart"},{"title":"Ledo Markt","description":"<p>Ut excepturi voluptatem nisi sed. Quidem fuga consequatur. Minus ea aut. Vel qui id voluptas adipisci eos earum corrupti.</p>","link":"https://saharait.com","color":"#08D94E"},{"title":"Asperiores Commodi","description":"<p>Non et temporibus minus omnis sed dolor esse consequatur. Cupiditate sed error ea fuga sit provident adipisci neque.</p>","link":"https://saharait.com","color":"#E9222C"},{"title":"Velit Doloremque.","description":"<p>Cumque et suscipit saepe. Est maiores autem enim facilis ut aut ipsam corporis aut. Sed animi at autem alias eius labore.</p>","link":"https://saharait.com","color":"#B50EDF"},{"title":"Dolori Architecto","description":"<p>Hic molestias ea quibusdam eos. Fugiat enim doloremque aut neque non et debitis iure. Corrupti recusandae ducimus enim.</p>","link":"https://saharait.com","color":"#F51F9C"}]}', 'al-munir-frontpage-services');
+INSERT INTO "public"."section" VALUES (15, -1, NULL, NULL, true, '{"title":"Contact Us","contact_info":"<p>A108 Adam Street<br />New York, NY 535022<br />United States&nbsp;</p>","phone":"+1 5589 55488 55","email":"saharaitech@gmail.com"}', 'al-munir-general-footer-contact');
+INSERT INTO "public"."section" VALUES (9, 6, '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-07 06:12:56.845+00', true, '{"title":"Pricing","subtitle":"Check our Pricing","items":[{"title":"Free Plan","price":0,"basis":"mo","color":"#07D6CA","link":"https://saharait.com","link_text":"Read More","features":[{"name":"Aida dere","strikethrough":false},{"name":"Nec feugiat nisl"},{"name":"Nulla at volutpat dola"},{"name":"Pharetra massa","strikethrough":true},{"name":"Massa ultricies mi","strikethrough":true}],"image":"42c95a11-408f-415d-8c3e-fc8e073ac5a0"},{"title":"Starter Plan","price":19,"basis":"mo","color":"#7DE50C","link":"https://saharait.com","link_text":"Read More","features":[{"name":"Aida dere"},{"name":"Nec feugiat nisl"},{"name":"Nulla at volutpat dola"},{"name":"Pharetra massa"},{"name":"Massa ultricies mi","strikethrough":true}],"featured":"Featured","image":"a7a19d7f-184f-4c17-b9b6-c2f6b9d8a880"},{"title":"Business Plan","price":29,"basis":"mo","color":"#FF9652","link":"https://saharait.com","link_text":"Read More","features":[{"name":"Aida dere"},{"name":"Nec feugiat nisl"},{"name":"Nulla at volutpat dola"},{"name":"Pharetra massa"},{"name":"Massa ultricies mi"}],"image":"2c3fa8f6-a20f-4dea-b68c-e6439cc2c5cc"},{"title":"Ultimate Plan","price":45,"basis":"mo","color":"#FF0071","link":"https://saharait.com","link_text":"Read More","features":[{"name":"Aida dere"},{"name":"Nec feugiat nisl"},{"name":"Nulla at volutpat dola"},{"name":"Pharetra massa"},{"name":"Massa ultricies mi"}],"image":"e76b74d0-89ae-4268-bcce-5293fcad9fd5"}]}', 'al-munir-frontpage-pricing');
+INSERT INTO "public"."section" VALUES (13, -1, '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-07 06:56:41.518+00', true, '{"title":"Useful Links","links":[{"link":"/","link_text":"Home"},{"link":"#about","link_text":"About Us"},{"link":"#services","link_text":"Services"},{"link":"https://saharait.com","link_text":"Terms of service"},{"link":"https://saharait.com","link_text":"Privacy policy"}]}', 'al-munir-general-footer-left-menu');
+INSERT INTO "public"."section" VALUES (12, -1, '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-07 06:58:02.448+00', true, '{"title":"Our Services","links":[{"link":"https://saharait.com","link_text":"Web Design"},{"link":"https://saharait.com","link_text":"Web Development"},{"link":"https://saharait.com","link_text":"Product Management"},{"link":"https://saharait.com","link_text":"Marketing"},{"link":"https://saharait.com","link_text":"Graphic Design"}]}', 'al-munir-general-footer-right-menu');
 
 
 --
@@ -2862,18 +3089,35 @@ INSERT INTO "public"."directus_relations" VALUES (145, 'website', 'project_logo'
 -- Data for Name: theme; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO "public"."theme" VALUES ('al-munir', 'Al-Munir', 'b300399b-855a-46ac-9293-fcf4adfd2f58', '1.0.0');
 
 
 --
 -- Data for Name: theme_page; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO "public"."theme_page" VALUES ('al-munir-general', 1, 'General', 'color_lens', 'al-munir');
+INSERT INTO "public"."theme_page" VALUES ('al-munir-frontpage', 2, 'Frontpage', 'article', 'al-munir');
 
 
 --
 -- Data for Name: theme_page_section; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-general-header', 1, 'al-munir-general', 'Header', '[{"field":"main_menu","name":"Main Menu","type":"integer","meta":{"name":"Main Menu","field":"main_menu","type":"integer","interface":"m2o-repeater","options":{"related-collection":"menu","related-field":"id","template":"{{title}}"}}}]', 'view_quilt', false, false);
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-frontpage-intro', 2, 'al-munir-frontpage', 'Introduction', '[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"placeholder":null,"iconLeft":"title","trim":true}}},{"field":"description","name":"Description","type":"text","meta":{"name":"Description","field":"description","type":"text","interface":"input-rich-text-html"}},{"field":"link","name":"Link","type":"text","meta":{"name":"Link","field":"link","type":"text","interface":"input","options":{"iconLeft":"http","trim":true}}},{"field":"link_text","name":"Link Text","type":"string","meta":{"name":"Link Text","field":"link_text","type":"string","interface":"input","options":{"iconLeft":"label","trim":true}}},{"field":"image","name":"Image","type":"uuid","meta":{"name":"Image","field":"image","type":"uuid","interface":"file-image-repeater"}}]', 'horizontal_split', true, true);
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-general-footer-right-menu', 11, 'al-munir-general', 'Footer - Right Menu', '[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"trim":true,"iconLeft":"title"}}},{"field":"links","name":"Links","type":"json","meta":{"name":"Links","field":"links","type":"json","interface":"list","options":{"fields":[{"field":"link","name":"Link","type":"string","meta":{"name":"Link","field":"link","type":"string","interface":"input","options":{"iconLeft":"http","trim":true}}},{"field":"link_text","name":"Link Text","type":"string","meta":{"name":"Link Text","field":"link_text","type":"string","interface":"input","options":{"trim":true,"iconLeft":"title"}}}]}}}]', 'menu', false, false);
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-frontpage-team', 9, 'al-munir-frontpage', 'Team', '[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"iconLeft":"title","trim":true}}},{"field":"subtitle","name":"Subtitle","type":"string","meta":{"name":"Subtitle","field":"subtitle","type":"string","interface":"input","options":{"iconLeft":"subtitles","trim":true}}},{"field":"members","name":"Members","type":"json","meta":{"name":"Members","field":"members","type":"json","interface":"list","options":{"fields":[{"field":"name","name":"Name","type":"string","meta":{"name":"Name","field":"name","type":"string","interface":"input","options":{"trim":true,"iconLeft":"title"}}},{"field":"photo","name":"Photo","type":"uuid","meta":{"name":"Photo","field":"photo","type":"uuid","interface":"file-image-repeater"}},{"field":"designation","name":"Designation","type":"string","meta":{"name":"Designation","field":"designation","type":"string","interface":"input","options":{"trim":true,"iconLeft":"verified_user"}}},{"field":"description","name":"Description","type":"text","meta":{"name":"Description","field":"description","type":"text","interface":"input-multiline","options":{"trim":true}}},{"field":"facebook","name":"Facebook","type":"string","meta":{"name":"Facebook","field":"facebook","type":"string","interface":"input","options":{"iconLeft":"http","trim":true}}},{"field":"linked_in","name":"Linked In","type":"string","meta":{"name":"Linked In","field":"linked_in","type":"string","interface":"input","options":{"iconLeft":"http","trim":true}}},{"field":"youtube","name":"Youtube","type":"string","meta":{"name":"Youtube","field":"youtube","type":"string","interface":"input","options":{"iconLeft":"http","trim":true}}}]}}}]', 'supervised_user_circle', true, true);
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-frontpage-features', 6, 'al-munir-frontpage', 'Features', '[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"iconLeft":"title","trim":true}}},{"field":"subtitle","name":"Subtitle","type":"text","meta":{"name":"Subtitle","field":"subtitle","type":"text","interface":"input","options":{"iconLeft":"subtitles","trim":true}}},{"field":"image","name":"Image","type":"uuid","meta":{"name":"Image","field":"image","type":"uuid","interface":"file-image-repeater"}},{"field":"features","name":"Features","type":"json","meta":{"name":"Features","field":"features","type":"json","interface":"list","options":{"fields":[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"trim":true,"iconLeft":"title"}}}]}}}]', 'featured_play_list', true, true);
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-frontpage-values', 4, 'al-munir-frontpage', 'Values', '[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"iconLeft":"title","trim":true}}},{"field":"subtitle","name":"Subtitle","type":"string","meta":{"name":"Subtitle","field":"subtitle","type":"string","interface":"input","options":{"iconLeft":"subtitles","trim":true}}},{"field":"items","name":"Items","type":"json","meta":{"name":"Items","field":"items","type":"json","interface":"list","options":{"addLabel":"Add New","fields":[{"field":"title","name":"Title","type":"string","meta":{"field":"title","type":"string","interface":"input","options":{"iconLeft":"title","trim":true},"name":"Title"}},{"field":"image","name":"Image","type":"uuid","meta":{"field":"image","type":"uuid","interface":"file-image-repeater","name":"Image"}},{"field":"description","name":"Description","type":"text","meta":{"field":"description","type":"text","interface":"input-rich-text-html","name":"Description"}}]}}}]', 'done', true, true);
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-frontpage-counts', 5, 'al-munir-frontpage', 'Counts', '[{"field":"counts","name":"Counts","type":"json","meta":{"name":"Counts","field":"counts","type":"json","interface":"list","options":{"fields":[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"trim":true,"iconLeft":"title"}}},{"field":"icon","name":"Icon","type":"string","meta":{"name":"Icon","field":"icon","type":"string","interface":"select-icon"}},{"field":"color","name":"Color","type":"string","meta":{"name":"Color","field":"color","type":"string","interface":"select-color"}},{"field":"count","name":"Count","type":"integer","meta":{"name":"Count","field":"count","type":"integer","interface":"input","options":{"iconLeft":"money","trim":true}}}]}}}]', 'looks_one', true, true);
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-frontpage-pricing', 8, 'al-munir-frontpage', 'Pricing', '[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"iconLeft":"title","trim":true}}},{"field":"subtitle","name":"Subtitle","type":"string","meta":{"name":"Subtitle","field":"subtitle","type":"string","interface":"input","options":{"iconLeft":"subtitles","trim":true}}},{"field":"items","name":"Items","type":"json","meta":{"name":"Items","field":"items","type":"json","interface":"list","options":{"fields":[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"iconLeft":"title","trim":true}}},{"field":"price","name":"Price","type":"integer","meta":{"name":"Price","field":"price","type":"integer","interface":"input","options":{"iconLeft":"attach_money","trim":true}}},{"field":"basis","name":"Basis","type":"string","meta":{"name":"Basis","field":"basis","type":"string","interface":"input","options":{"trim":true,"iconLeft":"calendar_today"}}},{"field":"color","name":"Color","type":"string","meta":{"name":"Color","field":"color","type":"string","interface":"select-color"}},{"field":"link","name":"Link","type":"string","meta":{"name":"Link","field":"link","type":"string","interface":"input","options":{"iconLeft":"http","trim":true}}},{"field":"link_text","name":"Link Text","type":"string","meta":{"name":"Link Text","field":"link_text","type":"string","interface":"input","options":{"iconLeft":"title","trim":true}}},{"field":"features","name":"Features","type":"json","meta":{"name":"Features","field":"features","type":"json","interface":"list","options":{"fields":[{"field":"name","name":"Name","type":"string","meta":{"name":"Name","field":"name","type":"string","interface":"input","options":{"iconLeft":"title","trim":true}}},{"field":"strikethrough","name":"Strikethrough","type":"boolean","meta":{"name":"Strikethrough","field":"strikethrough","type":"boolean","interface":"boolean"}}]}}},{"field":"featured","name":"Featured","type":"string","meta":{"name":"Featured","field":"featured","type":"string","interface":"input","options":{"label":"Yes","iconLeft":"label","trim":true}}},{"field":"image","name":"Image","type":"uuid","meta":{"name":"Image","field":"image","type":"uuid","interface":"file-image-repeater"}}]}}}]', 'attach_money', true, true);
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-general-footer-left-menu', 12, 'al-munir-general', 'Footer - Left Menu', '[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"iconLeft":"title","trim":true}}},{"field":"links","name":"Links","type":"json","meta":{"name":"Links","field":"links","type":"json","interface":"list","options":{"fields":[{"field":"link","name":"Link","type":"string","meta":{"name":"Link","field":"link","type":"string","interface":"input","options":{"iconLeft":"http","trim":true}}},{"field":"link_text","name":"Link Text","type":"string","meta":{"name":"Link Text","field":"link_text","type":"string","interface":"input","options":{"iconLeft":"title","trim":true}}}]}}}]', 'menu', false, false);
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-frontpage-services', 7, 'al-munir-frontpage', 'Services', '[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"iconLeft":"title","trim":true}}},{"field":"subtitle","name":"Subtitle","type":"string","meta":{"name":"Subtitle","field":"subtitle","type":"string","interface":"input","options":{"iconLeft":"subtitles","trim":true}}},{"field":"services","name":"Services","type":"json","meta":{"name":"Services","field":"services","type":"json","interface":"list","options":{"fields":[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"iconLeft":"title","trim":true}}},{"field":"description","name":"Description","type":"text","meta":{"name":"Description","field":"description","type":"text","interface":"input-rich-text-html"}},{"field":"link","name":"Link","type":"string","meta":{"name":"Link","field":"link","type":"string","interface":"input","options":{"trim":true,"iconLeft":"http"}}},{"field":"icon","name":"Icon","type":"string","meta":{"name":"Icon","field":"icon","type":"string","interface":"select-icon"}},{"field":"color","name":"Color","type":"string","meta":{"name":"Color","field":"color","type":"string","interface":"select-color","options":{"presets":null}}}]}}}]', 'home_repair_service', true, true);
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-frontpage-testimonial', 14, 'al-munir-frontpage', 'Testimonial', '[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"iconLeft":"title","trim":true}}},{"field":"subtitle","name":"Subtitle","type":"string","meta":{"name":"Subtitle","field":"subtitle","type":"string","interface":"input","options":{"trim":true,"iconLeft":"subtitles"}}},{"field":"items","name":"Items","type":"json","meta":{"name":"Items","field":"items","type":"json","interface":"list","options":{"fields":[{"field":"name","name":"Name","type":"string","meta":{"name":"Name","field":"name","type":"string","interface":"input","options":{"trim":true,"iconLeft":"title"}}},{"field":"designation","name":"Designation","type":"string","meta":{"name":"Designation","field":"designation","type":"string","interface":"input","options":{"trim":true}}},{"field":"photo","name":"Photo","type":"uuid","meta":{"name":"Photo","field":"photo","type":"uuid","interface":"file-image-repeater"}},{"field":"comment","name":"Comment","type":"text","meta":{"name":"Comment","field":"comment","type":"text","interface":"input-multiline","options":{"trim":true}}}]}}}]', 'comment_bank', true, true);
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-general-footer-about', 10, 'al-munir-general', 'Footer - About', '[{"field":"about","name":"About","type":"text","meta":{"name":"About","field":"about","type":"text","interface":"input-rich-text-html"}},{"field":"twitter","name":"Twitter","type":"string","meta":{"name":"Twitter","field":"twitter","type":"string","interface":"input","options":{"trim":true,"iconLeft":"http"}}},{"field":"facebook","name":"Facebook","type":"string","meta":{"name":"Facebook","field":"facebook","type":"string","interface":"input","options":{"iconLeft":"http","trim":true}}},{"field":"instagram","name":"Instagram","type":"string","meta":{"name":"Instagram","field":"instagram","type":"string","interface":"input","options":{"trim":true,"iconLeft":"http"}}},{"field":"linked_in","name":"Linked In","type":"string","meta":{"name":"Linked In","field":"linked_in","type":"string","interface":"input","options":{"trim":true,"iconLeft":"http"}}}]', 'line_style', false, false);
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-frontpage-about', 3, 'al-munir-frontpage', 'About', '[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"iconLeft":"title","trim":true}}},{"field":"subtitle","name":"Subtitle","type":"text","meta":{"name":"Subtitle","field":"subtitle","type":"text","interface":"input-rich-text-html","options":{"iconLeft":"subtitles","trim":true}}},{"field":"description","name":"Description","type":"text","meta":{"name":"Description","field":"description","type":"text","interface":"input-rich-text-html"}},{"field":"link","name":"Link","type":"string","meta":{"name":"Link","field":"link","type":"string","interface":"input","options":{"iconLeft":"http","trim":true}}},{"field":"link_text","name":"Link Text","type":"string","meta":{"name":"Link Text","field":"link_text","type":"string","interface":"input","options":{"iconLeft":"label","trim":true}}},{"field":"image","name":"Image","type":"uuid","meta":{"name":"Image","field":"image","type":"uuid","interface":"file-image-repeater"}}]', 'domain', true, true);
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-general-footer-contact', 13, 'al-munir-general', 'Footer - Contact', '[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"trim":true,"iconLeft":"title"}}},{"field":"contact_info","name":"Contact Info","type":"text","meta":{"name":"Contact Info","field":"contact_info","type":"text","interface":"input-rich-text-html"}},{"field":"phone","name":"Phone","type":"string","meta":{"name":"Phone","field":"phone","type":"string","interface":"input","options":{"trim":true,"iconLeft":"phone_android"}}},{"field":"email","name":"Email Address","type":"string","meta":{"name":"Email Address","field":"email","type":"string","interface":"input","options":{"iconLeft":"alternate_email","trim":true}}}]', 'map', false, false);
 
 
 --
@@ -3045,14 +3289,14 @@ SELECT pg_catalog.setval('"public"."directus_notifications_id_seq"', 1, false);
 -- Name: directus_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."directus_permissions_id_seq"', 1, false);
+SELECT pg_catalog.setval('"public"."directus_permissions_id_seq"', 217, true);
 
 
 --
 -- Name: directus_presets_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."directus_presets_id_seq"', 1, false);
+SELECT pg_catalog.setval('"public"."directus_presets_id_seq"', 66, true);
 
 
 --
@@ -3073,7 +3317,7 @@ SELECT pg_catalog.setval('"public"."directus_revisions_id_seq"', 1, false);
 -- Name: directus_settings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."directus_settings_id_seq"', 1, false);
+SELECT pg_catalog.setval('"public"."directus_settings_id_seq"', 1, true);
 
 
 --
@@ -3199,7 +3443,7 @@ SELECT pg_catalog.setval('"public"."reaction_type_id_seq"', 1, false);
 -- Name: section_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."section_id_seq"', 1, false);
+SELECT pg_catalog.setval('"public"."section_id_seq"', 15, true);
 
 
 --

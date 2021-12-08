@@ -327,6 +327,7 @@ router.post(
 		const authService = new AuthenticationService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 		await authService.verifyPassword(req.accountability.user, req.body.password);
 

@@ -18,8 +18,8 @@ export class ActivityService extends ItemsService {
 
 	constructor(options: AbstractServiceOptions) {
 		super('directus_activity', options);
-		this.notificationsService = new NotificationsService({ schema: this.schema });
-		this.usersService = new UsersService({ schema: this.schema });
+		this.notificationsService = new NotificationsService({ schema: this.schema, knex: this.knex });
+		this.usersService = new UsersService({ schema: this.schema, knex: this.knex });
 	}
 
 	async createOne(data: Partial<Item>, opts?: MutationOptions): Promise<PrimaryKey> {
@@ -48,8 +48,8 @@ export class ActivityService extends ItemsService {
 
 				accountability.permissions = await getPermissions(accountability, this.schema, this.knex);
 
-				const authorizationService = new AuthorizationService({ schema: this.schema, accountability });
-				const usersService = new UsersService({ schema: this.schema, accountability });
+				const authorizationService = new AuthorizationService({ schema: this.schema, accountability, knex: this.knex });
+				const usersService = new UsersService({ schema: this.schema, accountability, knex: this.knex });
 
 				try {
 					await authorizationService.checkAccess('read', data.collection, data.item);

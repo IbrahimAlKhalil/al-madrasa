@@ -123,7 +123,7 @@ function pullImages() {
     });
 }
 
-async function startApi() {
+async function startApp() {
     logTask('Starting', 'CMS API');
 
     if (!fs.existsSync(path.resolve(__dirname, '../uploads'))) {
@@ -143,19 +143,6 @@ async function startApi() {
         shell: true,
         stdio: 'inherit',
         cwd: path.resolve(__dirname, '../api')
-    });
-}
-
-async function startApp() {
-    logTask('Starting', 'CMS App');
-
-    const vite = path.resolve(__dirname, '../app/node_modules/.bin/vite')
-
-    execa(vite, ['--port', process.env.APP_PORT, '--host', '0.0.0.0'], {
-        env: process.env,
-        shell: true,
-        stdio: "inherit",
-        cwd: path.resolve(__dirname, '../app')
     });
 }
 
@@ -300,7 +287,7 @@ async function close() {
     process.exit();
 }
 
-export async function start(postgres, api, app) {
+export async function start(postgres, app) {
     process.stdin.resume();
     process.on('exit', close);
     process.on('SIGINT', close);
@@ -318,18 +305,13 @@ export async function start(postgres, api, app) {
         await startPostgres();
     }
 
-    if (api) {
-        await startApi();
+    if (app) {
+        await startApp();
     }
 
-    // if (app) {
-    //     await startApp();
-    // }
-
-    if (!postgres && !api && !app) {
+    if (!postgres && !app) {
         await startPostgres();
-        await startApi();
-        // await startApp();
+        await startApp();
     }
 
     console.log('\x1b[42mStarted\x1b[0m \x1b[32m✔\x1b[0m');

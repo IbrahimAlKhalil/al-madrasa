@@ -762,6 +762,20 @@ INSERT INTO "public"."directus_fields" VALUES (37, 'theme', 'theme_page', 'o2m',
 -- Data for Name: directus_files; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO "public"."directus_files" VALUES ('42c95a11-408f-415d-8c3e-fc8e073ac5a0', 'local', '42c95a11-408f-415d-8c3e-fc8e073ac5a0.png', 'pricing-free.png', 'Pricing Free', 'image/png', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 14:04:32.713477+00', NULL, '2021-12-03 14:04:32.76+00', NULL, 6518, 278, 191, NULL, NULL, NULL, NULL, NULL, '{"ihdr":{"ImageWidth":278,"ImageHeight":191,"BitDepth":8,"ColorType":"Palette","Compression":"Deflate/Inflate","Filter":"Adaptive","Interlace":"Noninterlaced"}}', true);
+INSERT INTO "public"."directus_files" VALUES ('a7a19d7f-184f-4c17-b9b6-c2f6b9d8a880', 'local', 'a7a19d7f-184f-4c17-b9b6-c2f6b9d8a880.png', 'pricing-starter.png', 'Pricing Starter', 'image/png', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 14:04:32.715137+00', NULL, '2021-12-03 14:04:32.77+00', NULL, 8215, 278, 191, NULL, NULL, NULL, NULL, NULL, '{"ihdr":{"ImageWidth":278,"ImageHeight":191,"BitDepth":8,"ColorType":"Palette","Compression":"Deflate/Inflate","Filter":"Adaptive","Interlace":"Noninterlaced"}}', true);
+INSERT INTO "public"."directus_files" VALUES ('22cb1536-b477-4629-9467-71822bfc4dcd', 'local', '22cb1536-b477-4629-9467-71822bfc4dcd.svg', 'Man_riding_camel_in_desert_night.svg', 'Man Riding Camel in Desert Night', 'image/svg+xml', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-11-29 10:54:11.046967+00', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-11-29 10:56:34.495+00', NULL, 975291, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, true);
+INSERT INTO "public"."directus_files" VALUES ('dc1ff2b2-33ec-48ac-8ab3-7927467ad0d2', 'local', 'dc1ff2b2-33ec-48ac-8ab3-7927467ad0d2.svg', 'minar.svg', 'Minar', 'image/svg+xml', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 13:28:02.976638+00', NULL, '2021-12-03 13:28:03.09+00', NULL, 262348, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, true);
+INSERT INTO "public"."directus_files" VALUES ('bd041fd6-fdf0-4b1b-8f50-f02b88c05352', 'local', 'bd041fd6-fdf0-4b1b-8f50-f02b88c05352.webp', 'muslim-people-reading-quran-illustration-vector.webp', 'Muslim People Reading Quran Illustration Vector', 'image/webp', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 14:14:39.880967+00', NULL, '2021-12-03 14:14:39.958+00', NULL, 40924, 1920, 1440, NULL, NULL, NULL, NULL, NULL, '{}', true);
+INSERT INTO "public"."directus_files" VALUES ('e1be9a33-0219-4919-a2b7-2f8bd827498e', 'local', 'e1be9a33-0219-4919-a2b7-2f8bd827498e.svg', 'Arab_businessman7-18.svg', 'Team', 'image/svg+xml', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 13:37:50.262488+00', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 13:37:59.217+00', NULL, 39080, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, true);
+INSERT INTO "public"."directus_files" VALUES ('348e4117-39e0-44c4-8ad2-cbe27929fd9c', 'local', '348e4117-39e0-44c4-8ad2-cbe27929fd9c.png', 'features.png', 'Features', 'image/png', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 13:56:50.157495+00', NULL, '2021-12-03 13:56:50.188+00', NULL, 55886, 1043, 663, NULL, NULL, NULL, NULL, NULL, '{"ihdr":{"ImageWidth":1043,"ImageHeight":663,"BitDepth":8,"ColorType":"Palette","Compression":"Deflate/Inflate","Filter":"Adaptive","Interlace":"Noninterlaced"}}', true);
+INSERT INTO "public"."directus_files" VALUES ('e76b74d0-89ae-4268-bcce-5293fcad9fd5', 'local', 'e76b74d0-89ae-4268-bcce-5293fcad9fd5.png', 'pricing-ultimate.png', 'Pricing Ultimate', 'image/png', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 14:04:32.644935+00', NULL, '2021-12-03 14:04:32.746+00', NULL, 8139, 278, 191, NULL, NULL, NULL, NULL, NULL, '{"ihdr":{"ImageWidth":278,"ImageHeight":191,"BitDepth":8,"ColorType":"Palette","Compression":"Deflate/Inflate","Filter":"Adaptive","Interlace":"Noninterlaced"}}', true);
+INSERT INTO "public"."directus_files" VALUES ('2c3fa8f6-a20f-4dea-b68c-e6439cc2c5cc', 'local', '2c3fa8f6-a20f-4dea-b68c-e6439cc2c5cc.png', 'pricing-business.png', 'Pricing Business', 'image/png', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 14:04:32.720302+00', NULL, '2021-12-03 14:04:32.755+00', NULL, 10763, 278, 191, NULL, NULL, NULL, NULL, NULL, '{"ihdr":{"ImageWidth":278,"ImageHeight":191,"BitDepth":8,"ColorType":"Palette","Compression":"Deflate/Inflate","Filter":"Adaptive","Interlace":"Noninterlaced"}}', true);
+INSERT INTO "public"."directus_files" VALUES ('e726304d-e234-4bee-b09c-247466a36ea7', 'local', 'e726304d-e234-4bee-b09c-247466a36ea7.webp', 'muslim-couple-reading-and-studying-the-quran-during-ramadan-kareem-holy-month-vector.webp', 'Muslim Couple Reading and Studying The Quran during Ramadan Kareem Holy Month Vector', 'image/webp', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 14:14:39.942358+00', NULL, '2021-12-03 14:14:39.969+00', NULL, 89898, 1920, 1536, NULL, NULL, NULL, NULL, NULL, '{}', true);
+INSERT INTO "public"."directus_files" VALUES ('79f44b35-2a20-42bc-aac8-9a2434abfd89', 'local', '79f44b35-2a20-42bc-aac8-9a2434abfd89.jpg', 'muslim-people-reading-and-learning-the-quran-islamic-holy-book-vector.jpg', 'Muslim People Reading and Learning The Quran Islamic Holy Book Vector', 'image/jpeg', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 14:14:39.937079+00', NULL, '2021-12-03 14:14:39.972+00', NULL, 78757, 1920, 1280, NULL, NULL, NULL, NULL, NULL, NULL, true);
+INSERT INTO "public"."directus_files" VALUES ('92cd04e4-e0bb-4f9c-ba55-7414a0f1ea4e', 'local', '92cd04e4-e0bb-4f9c-ba55-7414a0f1ea4e.jpg', '360_F_198744537_QLEesLpQ9msi59KWamqXXNXcFF9FsjS8.jpg', '360 F 198744537 Ql Ees Lp Q9msi59 K Wamq Xxn Xc F F9 Fsj S8', 'image/jpeg', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 14:22:01.499372+00', NULL, '2021-12-03 14:22:01.521+00', NULL, 16040, 360, 360, NULL, NULL, NULL, NULL, NULL, '{"iptc":{},"ifd0":{"XResolution":300,"YResolution":300,"ResolutionUnit":"inches","YCbCrPositioning":1}}', true);
+INSERT INTO "public"."directus_files" VALUES ('49cd8be5-26d7-442a-b635-287d1ea387be', 'local', '49cd8be5-26d7-442a-b635-287d1ea387be.png', 'quran.png', 'Quran', 'image/png', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-03 14:17:48.614315+00', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-08 06:18:55.639+00', NULL, 22229, 512, 512, NULL, NULL, NULL, NULL, NULL, '{"ihdr":{"ImageWidth":512,"ImageHeight":512,"BitDepth":8,"ColorType":"RGB with Alpha","Compression":"Deflate/Inflate","Filter":"Adaptive","Interlace":"Noninterlaced","Software":"www.inkscape.org"}}', true);
+INSERT INTO "public"."directus_files" VALUES ('b300399b-855a-46ac-9293-fcf4adfd2f58', 'local', 'b300399b-855a-46ac-9293-fcf4adfd2f58.png', 'Screenshot from 2021-12-07 13-03-06.png', 'Screenshot from 2021 12 07 13 03 06', 'image/png', '520a5812-5bca-4e68-8532-5ce450750d46', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-07 07:03:43.291399+00', '2d9ba661-779d-455c-904d-614bc31b8f60', '2021-12-08 06:18:55.639+00', NULL, 176046, 1600, 815, NULL, NULL, NULL, NULL, NULL, '{"ihdr":{"ImageWidth":1600,"ImageHeight":815,"BitDepth":8,"ColorType":"RGB with Alpha","Compression":"Deflate/Inflate","Filter":"Adaptive","Interlace":"Noninterlaced","Software":"gnome-screenshot"}}', true);
 
 
 --
@@ -837,12 +851,19 @@ INSERT INTO "public"."directus_migrations" VALUES ('20211118A', 'Add Notificatio
 -- Data for Name: directus_permissions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO "public"."directus_permissions" VALUES (134, NULL, 'directus_files', 'read', '{}', '{}', NULL, '*');
 
 
 --
 -- Data for Name: directus_presets; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO "public"."directus_presets" VALUES (5, NULL, '2d9ba661-779d-455c-904d-614bc31b8f60', NULL, 'theme_page_section', NULL, 'tabular', '{"tabular":{"page":1,"fields":["name","icon","page"],"sort":[]}}', '{"tabular":{"widths":{"page":297}}}', NULL, NULL);
+INSERT INTO "public"."directus_presets" VALUES (2, NULL, '2d9ba661-779d-455c-904d-614bc31b8f60', NULL, 'directus_users', NULL, 'cards', '{"cards":{"sort":["email"],"page":1}}', '{"cards":{"icon":"account_circle","title":"{{ first_name }} {{ last_name }}","subtitle":"{{ email }}","size":4}}', NULL, NULL);
+INSERT INTO "public"."directus_presets" VALUES (1, NULL, '2d9ba661-779d-455c-904d-614bc31b8f60', NULL, 'institute', NULL, 'tabular', '{"tabular":{"page":1}}', NULL, NULL, NULL);
+INSERT INTO "public"."directus_presets" VALUES (3, NULL, '2d9ba661-779d-455c-904d-614bc31b8f60', NULL, 'theme', NULL, 'tabular', '{"tabular":{"page":1,"fields":["name","cover"]}}', NULL, NULL, NULL);
+INSERT INTO "public"."directus_presets" VALUES (6, NULL, '2d9ba661-779d-455c-904d-614bc31b8f60', NULL, 'directus_files', NULL, 'cards', '{"cards":{"sort":["-uploaded_on"],"page":1}}', '{"cards":{"icon":"insert_drive_file","title":"{{ title }}","subtitle":"{{ type }} • {{ filesize }}","size":3,"imageFit":"crop"}}', NULL, NULL);
+INSERT INTO "public"."directus_presets" VALUES (4, NULL, '2d9ba661-779d-455c-904d-614bc31b8f60', NULL, 'theme_page', NULL, 'tabular', '{"tabular":{"page":1,"fields":["name","icon","theme"],"sort":[]}}', NULL, NULL, NULL);
 
 
 --
@@ -866,6 +887,7 @@ INSERT INTO "public"."directus_relations" VALUES (20, 'theme', 'cover', 'directu
 -- Data for Name: directus_roles; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO "public"."directus_roles" VALUES ('eb61ce1d-8967-4f00-be52-8cd1fb1c7c54', 'Administrator', 'supervised_user_circle', NULL, NULL, false, true, true);
 
 
 --
@@ -878,12 +900,14 @@ INSERT INTO "public"."directus_relations" VALUES (20, 'theme', 'cover', 'directu
 -- Data for Name: directus_settings; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO "public"."directus_settings" VALUES (1, 'Al-Madrasah', NULL, '#607D8B', '49cd8be5-26d7-442a-b635-287d1ea387be', NULL, '22cb1536-b477-4629-9467-71822bfc4dcd', NULL, 25, NULL, 'all', NULL, NULL, NULL, NULL, NULL, NULL);
 
 
 --
 -- Data for Name: directus_users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO "public"."directus_users" VALUES ('2d9ba661-779d-455c-904d-614bc31b8f60', 'SAHARA', 'IT', 'admin@saharait.com', '$argon2i$v=19$m=4096,t=3,p=1$AYp3n4IPbrxw1EzU3R5e6g$TxdFFLW23n+C5WwdR1KmYa6vqelaPupHOrYBZeSjHIo', NULL, NULL, NULL, NULL, NULL, 'en-US', 'auto', NULL, 'active', 'eb61ce1d-8967-4f00-be52-8cd1fb1c7c54', NULL, '2021-12-08 06:18:39.781+00', '/settings/project', 'default', NULL, NULL, true);
 
 
 --
@@ -902,18 +926,135 @@ INSERT INTO "public"."directus_relations" VALUES (20, 'theme', 'cover', 'directu
 -- Data for Name: theme; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO "public"."theme" VALUES ('al-munir', 'Al-Munir', 'b300399b-855a-46ac-9293-fcf4adfd2f58', '1.0.0');
 
 
 --
 -- Data for Name: theme_page; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO "public"."theme_page" VALUES ('al-munir-general', 1, 'General', 'color_lens', 'al-munir');
+INSERT INTO "public"."theme_page" VALUES ('al-munir-frontpage', 2, 'Frontpage', 'article', 'al-munir');
 
 
 --
 -- Data for Name: theme_page_section; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-general-header', 1, 'Header', 'view_quilt', false, false, '[{"field":"main_menu","name":"Main Menu","type":"integer","meta":{"name":"Main Menu","field":"main_menu","type":"integer","interface":"m2o-repeater","options":{"related-collection":"menu","related-field":"id","template":"{{title}}"}}}]', 'al-munir-general');
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-frontpage-values', 4, 'Values', 'done', true, true, '[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"iconLeft":"title","trim":true}}},{"field":"subtitle","name":"Subtitle","type":"string","meta":{"name":"Subtitle","field":"subtitle","type":"string","interface":"input","options":{"iconLeft":"subtitles","trim":true}}},{"field":"items","name":"Items","type":"json","meta":{"name":"Items","field":"items","type":"json","interface":"list","options":{"addLabel":"Add New","fields":[{"field":"title","name":"Title","type":"string","meta":{"field":"title","type":"string","interface":"input","options":{"iconLeft":"title","trim":true},"name":"Title"}},{"field":"image","name":"Image","type":"uuid","meta":{"field":"image","type":"uuid","interface":"file-image-repeater","name":"Image"}},{"field":"description","name":"Description","type":"text","meta":{"field":"description","type":"text","interface":"input-rich-text-html","name":"Description"}}]}}}]', 'al-munir-frontpage');
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-frontpage-intro', 2, 'Introduction', 'horizontal_split', true, true, '[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"placeholder":null,"iconLeft":"title","trim":true}}},{"field":"description","name":"Description","type":"text","meta":{"name":"Description","field":"description","type":"text","interface":"input-rich-text-html"}},{"field":"link","name":"Link","type":"text","meta":{"name":"Link","field":"link","type":"text","interface":"input","options":{"iconLeft":"http","trim":true}}},{"field":"link_text","name":"Link Text","type":"string","meta":{"name":"Link Text","field":"link_text","type":"string","interface":"input","options":{"iconLeft":"label","trim":true}}},{"field":"image","name":"Image","type":"uuid","meta":{"name":"Image","field":"image","type":"uuid","interface":"file-image-repeater"}}]', 'al-munir-frontpage');
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-general-footer-right-menu', 11, 'Footer - Right Menu', 'menu', false, false, '[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"trim":true,"iconLeft":"title"}}},{"field":"links","name":"Links","type":"json","meta":{"name":"Links","field":"links","type":"json","interface":"list","options":{"fields":[{"field":"link","name":"Link","type":"string","meta":{"name":"Link","field":"link","type":"string","interface":"input","options":{"iconLeft":"http","trim":true}}},{"field":"link_text","name":"Link Text","type":"string","meta":{"name":"Link Text","field":"link_text","type":"string","interface":"input","options":{"trim":true,"iconLeft":"title"}}}]}}}]', 'al-munir-general');
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-frontpage-counts', 5, 'Counts', 'looks_one', true, true, '[{"field":"counts","name":"Counts","type":"json","meta":{"name":"Counts","field":"counts","type":"json","interface":"list","options":{"fields":[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"trim":true,"iconLeft":"title"}}},{"field":"icon","name":"Icon","type":"string","meta":{"name":"Icon","field":"icon","type":"string","interface":"select-icon"}},{"field":"color","name":"Color","type":"string","meta":{"name":"Color","field":"color","type":"string","interface":"select-color"}},{"field":"count","name":"Count","type":"integer","meta":{"name":"Count","field":"count","type":"integer","interface":"input","options":{"iconLeft":"money","trim":true}}}]}}}]', 'al-munir-frontpage');
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-frontpage-about', 3, 'About', 'domain', true, true, '[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"iconLeft":"title","trim":true}}},{"field":"subtitle","name":"Subtitle","type":"text","meta":{"name":"Subtitle","field":"subtitle","type":"text","interface":"input-rich-text-html","options":{"iconLeft":"subtitles","trim":true}}},{"field":"description","name":"Description","type":"text","meta":{"name":"Description","field":"description","type":"text","interface":"input-rich-text-html"}},{"field":"link","name":"Link","type":"string","meta":{"name":"Link","field":"link","type":"string","interface":"input","options":{"iconLeft":"http","trim":true}}},{"field":"link_text","name":"Link Text","type":"string","meta":{"name":"Link Text","field":"link_text","type":"string","interface":"input","options":{"iconLeft":"label","trim":true}}},{"field":"image","name":"Image","type":"uuid","meta":{"name":"Image","field":"image","type":"uuid","interface":"file-image-repeater"}}]', 'al-munir-frontpage');
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-general-footer-left-menu', 12, 'Footer - Left Menu', 'menu', false, false, '[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"iconLeft":"title","trim":true}}},{"field":"links","name":"Links","type":"json","meta":{"name":"Links","field":"links","type":"json","interface":"list","options":{"fields":[{"field":"link","name":"Link","type":"string","meta":{"name":"Link","field":"link","type":"string","interface":"input","options":{"iconLeft":"http","trim":true}}},{"field":"link_text","name":"Link Text","type":"string","meta":{"name":"Link Text","field":"link_text","type":"string","interface":"input","options":{"iconLeft":"title","trim":true}}}]}}}]', 'al-munir-general');
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-general-footer-contact', 13, 'Footer - Contact', 'map', false, false, '[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"trim":true,"iconLeft":"title"}}},{"field":"contact_info","name":"Contact Info","type":"text","meta":{"name":"Contact Info","field":"contact_info","type":"text","interface":"input-rich-text-html"}},{"field":"phone","name":"Phone","type":"string","meta":{"name":"Phone","field":"phone","type":"string","interface":"input","options":{"trim":true,"iconLeft":"phone_android"}}},{"field":"email","name":"Email Address","type":"string","meta":{"name":"Email Address","field":"email","type":"string","interface":"input","options":{"iconLeft":"alternate_email","trim":true}}}]', 'al-munir-general');
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-frontpage-pricing', 8, 'Pricing', 'attach_money', true, true, '[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"iconLeft":"title","trim":true}}},{"field":"subtitle","name":"Subtitle","type":"string","meta":{"name":"Subtitle","field":"subtitle","type":"string","interface":"input","options":{"iconLeft":"subtitles","trim":true}}},{"field":"items","name":"Items","type":"json","meta":{"name":"Items","field":"items","type":"json","interface":"list","options":{"fields":[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"iconLeft":"title","trim":true}}},{"field":"price","name":"Price","type":"integer","meta":{"name":"Price","field":"price","type":"integer","interface":"input","options":{"iconLeft":"attach_money","trim":true}}},{"field":"basis","name":"Basis","type":"string","meta":{"name":"Basis","field":"basis","type":"string","interface":"input","options":{"trim":true,"iconLeft":"calendar_today"}}},{"field":"color","name":"Color","type":"string","meta":{"name":"Color","field":"color","type":"string","interface":"select-color"}},{"field":"link","name":"Link","type":"string","meta":{"name":"Link","field":"link","type":"string","interface":"input","options":{"iconLeft":"http","trim":true}}},{"field":"link_text","name":"Link Text","type":"string","meta":{"name":"Link Text","field":"link_text","type":"string","interface":"input","options":{"iconLeft":"title","trim":true}}},{"field":"features","name":"Features","type":"json","meta":{"name":"Features","field":"features","type":"json","interface":"list","options":{"fields":[{"field":"name","name":"Name","type":"string","meta":{"name":"Name","field":"name","type":"string","interface":"input","options":{"iconLeft":"title","trim":true}}},{"field":"strikethrough","name":"Strikethrough","type":"boolean","meta":{"name":"Strikethrough","field":"strikethrough","type":"boolean","interface":"boolean"}}]}}},{"field":"featured","name":"Featured","type":"string","meta":{"name":"Featured","field":"featured","type":"string","interface":"input","options":{"label":"Yes","iconLeft":"label","trim":true}}},{"field":"image","name":"Image","type":"uuid","meta":{"name":"Image","field":"image","type":"uuid","interface":"file-image-repeater"}}]}}}]', 'al-munir-frontpage');
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-frontpage-features', 6, 'Features', 'featured_play_list', true, true, '[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"iconLeft":"title","trim":true}}},{"field":"subtitle","name":"Subtitle","type":"text","meta":{"name":"Subtitle","field":"subtitle","type":"text","interface":"input","options":{"iconLeft":"subtitles","trim":true}}},{"field":"image","name":"Image","type":"uuid","meta":{"name":"Image","field":"image","type":"uuid","interface":"file-image-repeater"}},{"field":"features","name":"Features","type":"json","meta":{"name":"Features","field":"features","type":"json","interface":"list","options":{"fields":[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"trim":true,"iconLeft":"title"}}}]}}}]', 'al-munir-frontpage');
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-frontpage-testimonial', 14, 'Testimonial', 'comment_bank', true, true, '[
+  {
+    "field": "title",
+    "name": "Title",
+    "type": "string",
+    "meta": {
+      "name": "Title",
+      "field": "title",
+      "type": "string",
+      "interface": "input",
+      "options": {
+        "iconLeft": "title",
+        "trim": true
+      }
+    }
+  },
+  {
+    "field": "subtitle",
+    "name": "Subtitle",
+    "type": "string",
+    "meta": {
+      "name": "Subtitle",
+      "field": "subtitle",
+      "type": "string",
+      "interface": "input",
+      "options": {
+        "trim": true,
+        "iconLeft": "subtitles"
+      }
+    }
+  },
+  {
+    "field": "items",
+    "name": "Items",
+    "type": "json",
+    "meta": {
+      "name": "Items",
+      "field": "items",
+      "type": "json",
+      "interface": "list",
+      "options": {
+        "fields": [
+          {
+            "field": "name",
+            "name": "Name",
+            "type": "string",
+            "meta": {
+              "name": "Name",
+              "field": "name",
+              "type": "string",
+              "interface": "input",
+              "options": {
+                "trim": true,
+                "iconLeft": "title"
+              }
+            }
+          },
+          {
+            "field": "designation",
+            "name": "Designation",
+            "type": "string",
+            "meta": {
+              "name": "Designation",
+              "field": "designation",
+              "type": "string",
+              "interface": "input",
+              "options": {
+                "trim": true
+              }
+            }
+          },
+          {
+            "field": "photo",
+            "name": "Photo",
+            "type": "uuid",
+            "meta": {
+              "name": "Photo",
+              "field": "photo",
+              "type": "uuid",
+              "interface": "file-image-repeater"
+            }
+          },
+          {
+            "field": "comment",
+            "name": "Comment",
+            "type": "text",
+            "meta": {
+              "name": "Comment",
+              "field": "comment",
+              "type": "text",
+              "interface": "input-multiline",
+              "options": {
+                "trim": true
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+]', 'al-munir-frontpage');
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-general-footer-about', 10, 'Footer - About', 'line_style', false, false, '[{"field":"about","name":"About","type":"text","meta":{"name":"About","field":"about","type":"text","interface":"input-rich-text-html"}},{"field":"twitter","name":"Twitter","type":"string","meta":{"name":"Twitter","field":"twitter","type":"string","interface":"input","options":{"trim":true,"iconLeft":"http"}}},{"field":"facebook","name":"Facebook","type":"string","meta":{"name":"Facebook","field":"facebook","type":"string","interface":"input","options":{"iconLeft":"http","trim":true}}},{"field":"instagram","name":"Instagram","type":"string","meta":{"name":"Instagram","field":"instagram","type":"string","interface":"input","options":{"trim":true,"iconLeft":"http"}}},{"field":"linked_in","name":"Linked In","type":"string","meta":{"name":"Linked In","field":"linked_in","type":"string","interface":"input","options":{"trim":true,"iconLeft":"http"}}}]', 'al-munir-general');
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-frontpage-services', 7, 'Services', 'home_repair_service', true, true, '[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"iconLeft":"title","trim":true}}},{"field":"subtitle","name":"Subtitle","type":"string","meta":{"name":"Subtitle","field":"subtitle","type":"string","interface":"input","options":{"iconLeft":"subtitles","trim":true}}},{"field":"services","name":"Services","type":"json","meta":{"name":"Services","field":"services","type":"json","interface":"list","options":{"fields":[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"iconLeft":"title","trim":true}}},{"field":"description","name":"Description","type":"text","meta":{"name":"Description","field":"description","type":"text","interface":"input-rich-text-html"}},{"field":"link","name":"Link","type":"string","meta":{"name":"Link","field":"link","type":"string","interface":"input","options":{"trim":true,"iconLeft":"http"}}},{"field":"icon","name":"Icon","type":"string","meta":{"name":"Icon","field":"icon","type":"string","interface":"select-icon"}},{"field":"color","name":"Color","type":"string","meta":{"name":"Color","field":"color","type":"string","interface":"select-color","options":{"presets":null}}}]}}}]', 'al-munir-frontpage');
+INSERT INTO "public"."theme_page_section" VALUES ('al-munir-frontpage-team', 9, 'Team', 'supervised_user_circle', true, true, '[{"field":"title","name":"Title","type":"string","meta":{"name":"Title","field":"title","type":"string","interface":"input","options":{"iconLeft":"title","trim":true}}},{"field":"subtitle","name":"Subtitle","type":"string","meta":{"name":"Subtitle","field":"subtitle","type":"string","interface":"input","options":{"iconLeft":"subtitles","trim":true}}},{"field":"members","name":"Members","type":"json","meta":{"name":"Members","field":"members","type":"json","interface":"list","options":{"fields":[{"field":"name","name":"Name","type":"string","meta":{"name":"Name","field":"name","type":"string","interface":"input","options":{"trim":true,"iconLeft":"title"}}},{"field":"photo","name":"Photo","type":"uuid","meta":{"name":"Photo","field":"photo","type":"uuid","interface":"file-image-repeater"}},{"field":"designation","name":"Designation","type":"string","meta":{"name":"Designation","field":"designation","type":"string","interface":"input","options":{"trim":true,"iconLeft":"verified_user"}}},{"field":"description","name":"Description","type":"text","meta":{"name":"Description","field":"description","type":"text","interface":"input-multiline","options":{"trim":true}}},{"field":"facebook","name":"Facebook","type":"string","meta":{"name":"Facebook","field":"facebook","type":"string","interface":"input","options":{"iconLeft":"http","trim":true}}},{"field":"linked_in","name":"Linked In","type":"string","meta":{"name":"Linked In","field":"linked_in","type":"string","interface":"input","options":{"iconLeft":"http","trim":true}}},{"field":"youtube","name":"Youtube","type":"string","meta":{"name":"Youtube","field":"youtube","type":"string","interface":"input","options":{"iconLeft":"http","trim":true}}}]}}}]', 'al-munir-frontpage');
 
 
 --
@@ -941,14 +1082,14 @@ SELECT pg_catalog.setval('"public"."directus_notifications_id_seq"', 1, false);
 -- Name: directus_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."directus_permissions_id_seq"', 1, false);
+SELECT pg_catalog.setval('"public"."directus_permissions_id_seq"', 134, true);
 
 
 --
 -- Name: directus_presets_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."directus_presets_id_seq"', 1, false);
+SELECT pg_catalog.setval('"public"."directus_presets_id_seq"', 7, true);
 
 
 --
@@ -969,7 +1110,7 @@ SELECT pg_catalog.setval('"public"."directus_revisions_id_seq"', 1, false);
 -- Name: directus_settings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('"public"."directus_settings_id_seq"', 1, false);
+SELECT pg_catalog.setval('"public"."directus_settings_id_seq"', 1, true);
 
 
 --

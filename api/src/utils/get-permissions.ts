@@ -92,8 +92,8 @@ export async function getPermissions(accountability: Accountability, schema: Sch
 			);
 		}
 
-		const usersService = new UsersService({ schema });
-		const rolesService = new RolesService({ schema });
+		const usersService = new UsersService({ schema, knex: database });
+		const rolesService = new RolesService({ schema, knex: database });
 
 		const filterContext: Record<string, any> = {};
 

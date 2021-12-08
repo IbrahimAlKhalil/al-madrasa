@@ -1,7 +1,8 @@
-import path, {dirname} from "path";
-import {fileURLToPath} from "url";
+import path, {dirname} from 'path';
+import {fileURLToPath} from 'url';
 import {promises as fs} from 'fs';
-import execa from "execa";
+import {pack} from './pack.mjs';
+import execa from 'execa';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -34,20 +35,7 @@ async function buildThemes() {
     }
 }
 
-function buildImage() {
-    execa.sync('docker', ['build', '.', '-t', 'registry.saharait.com/al-madrasah-cms'], {
-        stdio: 'inherit',
-        shell: true,
-        cwd: path.resolve(__dirname, '../')
-    });
-}
-
-export async function build(api, dashboard, image, themes) {
-    if (dashboard) {
-        api = true;
-        dashboard = true;
-    }
-
+export async function build(api, dashboard, themes, _pack) {
     if (api) {
         buildApi();
     }
@@ -60,14 +48,14 @@ export async function build(api, dashboard, image, themes) {
         await buildThemes();
     }
 
-    if (image) {
-        buildImage();
+    if (_pack) {
+        await pack();
     }
 
-    if (!api && !dashboard && !image && !themes) {
+    if (!api && !dashboard && !themes && !_pack) {
         buildApi();
         buildDashboard();
         await buildThemes();
-        buildImage();
+        await pack();
     }
 }

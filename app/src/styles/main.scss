@@ -12,6 +12,7 @@
 @import 'lib/highlight';
 @import 'lib/fullcalendar';
 @import 'lib/frappe-charts';
+@import "am-style";
 
 body.light {
 	@include light;

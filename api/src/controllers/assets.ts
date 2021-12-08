@@ -19,7 +19,7 @@ router.get(
 	'/:pk',
 	// Validate query params
 	asyncHandler(async (req, res, next) => {
-		const payloadService = new PayloadService('directus_settings', { schema: req.schema });
+		const payloadService = new PayloadService('directus_settings', { schema: req.schema, knex: req.knex });
 		const defaults = { storage_asset_presets: [], storage_asset_transform: 'all' };
 
 		const database = getDatabase();
@@ -113,6 +113,7 @@ router.get(
 		const service = new AssetsService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const transformation: TransformationParams | TransformationPreset = res.locals.transformation.key

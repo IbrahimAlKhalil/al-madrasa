@@ -6,7 +6,7 @@ export function useField<T = any>(
   pageId: string,
   sectionId: string,
   field: string,
-  _default: any = null,
+  _default: T,
 ): T {
   const ctx = useContext(PageContext);
 

@@ -28,4 +28,8 @@ export const loadRelation = async (
     ? await queryBuilder.select(columns)
     : await queryBuilder.select();
   section.value[field] = multiple ? items : items[0];
+
+  if (section.value[field] === undefined) {
+    section.value[field] = null;
+  }
 };

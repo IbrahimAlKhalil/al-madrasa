@@ -34,7 +34,7 @@ export const actionCreate: ActionHandler = async (meta, context) => {
 	} catch (e) {
 		console.log(e);
 	} finally {
-		getDatabase('template', {database: 'template'});
+		getDatabase('template', {database: env.DB_TEMPLATE});
 	}
 
 	if (institute.status === 'archived') {

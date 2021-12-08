@@ -1,16 +1,16 @@
 #!/usr/bin/env node
 
-import {restore} from "./scripts/restore.mjs";
-import {Command, program} from "commander";
-import {build} from "./scripts/build.mjs";
-import {start} from "./scripts/start.mjs";
-import {clean} from "./scripts/clean.mjs";
-import {prod} from "./scripts/prod.mjs";
-import {dump} from "./scripts/dump.mjs";
+import {restore} from './scripts/restore.mjs';
+import {Command, program} from 'commander';
+import {build} from './scripts/build.mjs';
+import {start} from './scripts/start.mjs';
+import {clean} from './scripts/clean.mjs';
+import {prod} from './scripts/prod.mjs';
+import {dump} from './scripts/dump.mjs';
 import {fileURLToPath} from 'url';
 import {dirname} from 'path';
 import dotenv from 'dotenv';
-import path from "path";
+import path from 'path';
 import fs from 'fs';
 
 dotenv.config();
@@ -27,12 +27,10 @@ program
 program.addCommand(
     new Command('dev')
         .option('-p, --postgres', 'Start postgres database')
-        .option('-a, --api', 'Start api server')
-        .option('-d, --dashboard', 'Start dashboard application')
+        .option('-a, --app', 'Start application')
         .action((_, p) => start(
             p.getOptionValue('postgres'),
-            p.getOptionValue('api'),
-            p.getOptionValue('dashboard')
+            p.getOptionValue('app'),
         ))
     ,
     {
@@ -49,13 +47,13 @@ program.addCommand(
     new Command('build')
         .option('-a, --api', 'Build api')
         .option('-d, --dashboard', 'Build dashboard')
-        .option('-i, --image', 'Build docker image')
         .option('-t, --themes', 'Build themes')
+        .option('-p, --pack', 'Package application')
         .action((_, p) => build(
             p.getOptionValue('api'),
             p.getOptionValue('dashboard'),
-            p.getOptionValue('image'),
-            p.getOptionValue('themes')
+            p.getOptionValue('themes'),
+            p.getOptionValue('pack'),
         ))
 );
 

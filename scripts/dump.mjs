@@ -82,14 +82,14 @@ async function run(database, filename) {
           and table_type = 'BASE TABLE'
     `);
 
-    const excluded = new Set(['spatial_ref_sys']);
+    const excluded = new Set(['spatial_ref_sys', 'theme', 'theme_page', 'theme_page_section', 'section']);
 
     const tables = result.rows
         .filter(r => !r.table_name.startsWith('directus_'))
         .filter(r => !excluded.has(r.table_name))
         .map(r => r.table_name);
 
-    tables.push('directus_activity', 'directus_revisions', 'directus_sessions', 'directus_users', 'directus_roles', 'directus_files');
+    tables.push('directus_activity', 'directus_revisions', 'directus_sessions');
 
     for (const table of tables) {
         await tempClient.query(`TRUNCATE "public"."${table}" RESTART IDENTITY CASCADE`);

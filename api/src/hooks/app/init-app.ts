@@ -6,7 +6,7 @@ import env from "../../env";
 export const initApp: InitHandler = async () => {
 	const masterDB = getDatabase();
 	const templateDB = getDatabase('template',
-		{database: 'template'});
+		{database: env.DB_TEMPLATE});
 
 	const institutes = await masterDB('institute')
 		.select('db_name');

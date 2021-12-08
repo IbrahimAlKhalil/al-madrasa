@@ -254,7 +254,7 @@ export async function connectAllDatabases() {
 		.select(['db_name']);
 
 	institutes.push({
-		db_name: 'template',
+		db_name: env.DB_TEMPLATE,
 	});
 
 	for (const institute of institutes) {

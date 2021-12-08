@@ -16,11 +16,13 @@ const readHandler = asyncHandler(async (req, res, next) => {
 	const service = new ActivityService({
 		accountability: req.accountability,
 		schema: req.schema,
+		knex: req.knex,
 	});
 
 	const metaService = new MetaService({
 		accountability: req.accountability,
 		schema: req.schema,
+		knex: req.knex,
 	});
 
 	let result;
@@ -52,6 +54,7 @@ router.get(
 		const service = new ActivityService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const record = await service.readOne(req.params.pk, req.sanitizedQuery);
@@ -77,6 +80,7 @@ router.post(
 		const service = new ActivityService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const { error } = createCommentSchema.validate(req.body);
@@ -122,6 +126,7 @@ router.patch(
 		const service = new ActivityService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const { error } = updateCommentSchema.validate(req.body);
@@ -157,10 +162,12 @@ router.delete(
 		const service = new ActivityService({
 			accountability: req.accountability,
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const adminService = new ActivityService({
 			schema: req.schema,
+			knex: req.knex,
 		});
 
 		const item = await adminService.readOne(req.params.pk, { fields: ['action'] });
