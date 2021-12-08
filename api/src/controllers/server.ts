@@ -1,12 +1,14 @@
-import { format } from 'date-fns';
-import { Router } from 'express';
+import {format} from 'date-fns';
+import {Router} from 'express';
 import {ForbiddenException, RouteNotFoundException, UnprocessableEntityException} from '../exceptions';
-import { respond } from '../middleware/respond';
+import {respond} from '../middleware/respond';
 import {ItemsService, ServerService, SpecificationService} from '../services';
 import asyncHandler from '../utils/async-handler';
-import getDatabase, {databases} from "../database";
-import {getSchema} from "../utils/get-schema";
-import env from "../env";
+import getDatabase, {databases} from '../database';
+import {getSchema} from '../utils/get-schema';
+import env from '../env';
+import {isMaster} from '../database/helpers/is-master';
+import {isTemplate} from '../database/helpers/is-template';
 
 const router = Router();
 
@@ -64,7 +66,7 @@ router.get(
 			knex: req.knex,
 		});
 		const data = await service.serverInfo();
-		res.locals.payload = { data };
+		res.locals.payload = {data};
 		return next();
 	}),
 	respond
@@ -135,7 +137,7 @@ router.get(
 		return next();
 	}),
 	respond
-)
+);
 
 router.post(
 	'/switch-app',
@@ -154,7 +156,7 @@ router.post(
 
 		const session = await req.knex('directus_sessions')
 			.where('token', req.cookies.directus_refresh_token)
-			.first()
+			.first();
 
 		if (!session) {
 			throw new UnprocessableEntityException('app must be a string');
@@ -174,6 +176,22 @@ router.post(
 		return next();
 	}),
 	respond
-)
+);
+
+router.get(
+	'/current-app',
+	asyncHandler(async (req, res, next) => {
+		if (!req?.accountability?.admin) {
+			throw new ForbiddenException();
+		}
+
+		res.locals.payload = {
+			app: isMaster(req.knex) ? 'master' : isTemplate(req.knex) ? 'template' : req.knex.client.config.connection.database,
+		};
+
+		return next();
+	}),
+	respond
+);
 
 export default router;

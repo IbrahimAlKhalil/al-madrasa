@@ -113,6 +113,11 @@ export default defineComponent({
 		const apps = reactive<any[]>([]);
 		const app = ref(sessionStorage.getItem('default_app') ?? 'master');
 
+		api.get('/server/current-app')
+			.then(res => {
+				app.value = res.data.app;
+			});
+
 		async function handleAppSelect(value: string) {
 			if (app.value === value) {
 				return;
