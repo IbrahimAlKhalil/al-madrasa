@@ -1,9 +1,9 @@
-import getDatabase, {disconnectDatabase} from "../../database";
-import {isMaster} from "../../database/helpers/is-master";
-import {ActionHandler, SchemaOverview} from "../../types";
-import {ItemsService} from "../../services";
-import env from "../../env";
-import {killAll} from "../../database/helpers/kill-all";
+import getDatabase, {disconnectDatabase} from '../../database';
+import {isMaster} from '../../database/helpers/is-master';
+import {ActionHandler, SchemaOverview} from '../../types';
+import {killAll} from '../../database/helpers/kill-all';
+import {ItemsService} from '../../services';
+import env from '../../env';
 
 export const actionCreate: ActionHandler = async (meta, context) => {
 	debugger;
@@ -31,6 +31,10 @@ export const actionCreate: ActionHandler = async (meta, context) => {
            ENCODING = 'UTF8'
            CONNECTION LIMIT = -1;`
 		);
+
+		await getDatabase(institute.db_name, {
+			database: institute.db_name,
+		});
 	} catch (e) {
 		console.log(e);
 	} finally {
@@ -40,4 +44,4 @@ export const actionCreate: ActionHandler = async (meta, context) => {
 	if (institute.status === 'archived') {
 		await disconnectDatabase(institute.db_name);
 	}
-}
+};
