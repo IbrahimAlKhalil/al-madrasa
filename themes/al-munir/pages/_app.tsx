@@ -7,7 +7,7 @@ import 's/index.scss';
 function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     aos.init({
-      duration: 1000,
+      duration: 400,
       easing: 'ease-in-out',
       once: true,
       mirror: false,
