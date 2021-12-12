@@ -2,18 +2,20 @@ import { useSection } from 'm/use-section';
 import { useSetting } from 'm/use-setting';
 import { FunctionComponent } from 'react';
 import Link from 'next/link';
+import { useField } from 'm/use-field';
 
 export const About: FunctionComponent = () => {
   const logo = useSetting('logo');
   const title = useSetting('title', 'Al-Madrasah');
   const section = useSection('general', 'footer-about')?.value;
+  const showTitle = useField('general', 'header', 'show_title', true);
 
   return (
     <div className="col-lg-5 col-md-12 footer-info">
       <Link href="/">
         <a className="logo d-flex align-items-center">
           {logo ? <img src={`/assets/${logo}`} alt={title} /> : null}
-          <span>{title}</span>
+          {showTitle ? <span>{title}</span> : null}
         </a>
       </Link>
 
