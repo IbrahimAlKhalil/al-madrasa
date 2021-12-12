@@ -40,6 +40,7 @@ export const initApp: InitHandler = async () => {
 		'email',
 		'password',
 		'status',
+		'avatar',
 		'role',
 		'first_name',
 		'last_name',
