@@ -5,6 +5,7 @@ import {Command, program} from 'commander';
 import {build} from './scripts/build.mjs';
 import {start} from './scripts/start.mjs';
 import {clean} from './scripts/clean.mjs';
+import {lint} from './scripts/lint.mjs';
 import {prod} from './scripts/prod.mjs';
 import {dump} from './scripts/dump.mjs';
 import {fileURLToPath} from 'url';
@@ -55,6 +56,11 @@ program.addCommand(
             p.getOptionValue('themes'),
             p.getOptionValue('pack'),
         ))
+);
+
+program.addCommand(
+    new Command('lint')
+        .action(lint)
 );
 
 
