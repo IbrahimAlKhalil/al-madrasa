@@ -1,23 +1,32 @@
-import { FunctionComponent, useEffect, useState } from 'react';
+import { Component } from 'react';
 
-export const BackToTop: FunctionComponent = () => {
-  const [className, setClassName] = useState(
-    `back-to-top d-flex align-items-center justify-content-center`,
-  );
+interface State {
+  active: boolean;
+}
 
-  useEffect(() => {
+export class BackToTop extends Component<null, State> {
+  state = {
+    active: typeof window !== 'undefined' && window.scrollY > 100,
+  };
+
+  componentDidMount() {
     document.addEventListener('scroll', () => {
-      if (window.scrollY > 100) {
-        setClassName(className + ' active');
-      } else {
-        setClassName(className);
-      }
+      this.setState({
+        active: window.scrollY > 100,
+      });
     });
-  }, []);
+  }
 
-  return (
-    <a href="#" className={className}>
-      <i className="mi">arrow_upward</i>
-    </a>
-  );
-};
+  render() {
+    const className = `back-to-top d-flex align-items-center justify-content-center`;
+
+    return (
+      <a
+        href="#"
+        className={`${className}${this.state.active ? ' active' : ''}`}
+      >
+        <i className="mi">arrow_upward</i>
+      </a>
+    );
+  }
+}
