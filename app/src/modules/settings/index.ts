@@ -26,7 +26,7 @@ export default defineModule({
 	routes: [
 		{
 			path: '',
-			redirect: '/settings/data-model',
+			redirect: (import.meta as any).DEV ? '/settings/data-model' : '/settings/project',
 		},
 		{
 			name: 'settings-project',
@@ -175,6 +175,6 @@ export default defineModule({
 		},
 	],
 	preRegisterCheck: (user) => {
-		return (import.meta as any).DEV && user.role.admin_access === true;
+		return user.role.admin_access === true;
 	},
 });
