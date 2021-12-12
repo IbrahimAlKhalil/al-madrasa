@@ -1,6 +1,6 @@
 import api from '@/api';
-import { defineModule } from '@directus/shared/utils';
-import { useCollectionsStore, useFieldsStore } from '@/stores';
+import {defineModule} from '@directus/shared/utils';
+import {useCollectionsStore, useFieldsStore} from '@/stores';
 import RouterPass from '@/utils/router-passthrough';
 import Collections from './routes/data-model/collections/collections.vue';
 import FieldDetail from './routes/data-model/field-detail/field-detail.vue';
@@ -65,7 +65,7 @@ export default defineModule({
 						const fieldsStore = useFieldsStore();
 
 						if (!info?.meta) {
-							await api.patch(`/collections/${to.params.collection}`, { meta: {} });
+							await api.patch(`/collections/${to.params.collection}`, {meta: {}});
 						}
 
 						fieldsStore.hydrate();
@@ -175,6 +175,6 @@ export default defineModule({
 		},
 	],
 	preRegisterCheck: (user) => {
-		return user.role.admin_access === true;
+		return (import.meta as any).DEV && user.role.admin_access === true;
 	},
 });
