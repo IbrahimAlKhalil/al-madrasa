@@ -50,12 +50,49 @@ export const initApp: InitHandler = async () => {
 		'auth_data',
 		'token'
 	];
+	const fileCols = [
+		'id',
+		'storage',
+		'filename_disk',
+		'filename_download',
+		'title',
+		'type',
+		'folder',
+		'uploaded_by',
+		'modified_by',
+		'modified_on',
+		'charset',
+		'filesize',
+		'width',
+		'height',
+		'duration',
+		'embed',
+		'description',
+		'location',
+		'tags',
+		'metadata',
+		'read_only'
+	];
 
 	await syncTable(
 		masterDB,
 		templateDB,
 		'directus_roles',
 		roleCols,
+	);
+
+	await syncTable(
+		masterDB,
+		templateDB,
+		'directus_folders',
+		['id', 'name', 'parent', 'read_only']
+	);
+
+	await syncTable(
+		masterDB,
+		templateDB,
+		'directus_files',
+		fileCols,
 	);
 
 	await syncTable(
@@ -83,7 +120,7 @@ export const initApp: InitHandler = async () => {
 		);
 
 		await syncTable(
-			masterDB,
+			templateDB,
 			instituteDB,
 			'directus_folders',
 			['id', 'name', 'parent', 'read_only']
@@ -92,37 +129,15 @@ export const initApp: InitHandler = async () => {
 		await syncTable(
 			masterDB,
 			instituteDB,
-			'directus_users',
-			userCols,
+			'directus_files',
+			fileCols
 		);
 
 		await syncTable(
 			masterDB,
 			instituteDB,
-			'directus_files',
-			[
-				'id',
-				'storage',
-				'filename_disk',
-				'filename_download',
-				'title',
-				'type',
-				'folder',
-				'uploaded_by',
-				'modified_by',
-				'modified_on',
-				'charset',
-				'filesize',
-				'width',
-				'height',
-				'duration',
-				'embed',
-				'description',
-				'location',
-				'tags',
-				'metadata',
-				'read_only'
-			]
+			'directus_users',
+			userCols,
 		);
 
 		await syncTable(
