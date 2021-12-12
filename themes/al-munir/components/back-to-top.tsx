@@ -4,7 +4,7 @@ interface State {
   active: boolean;
 }
 
-export class BackToTop extends Component<{}, State> {
+export class BackToTop extends Component<Record<string, any>, State> {
   state = {
     active: typeof window !== 'undefined' && window.scrollY > 100,
   };
