@@ -14,6 +14,7 @@ const Value: FunctionComponent<ValueInterface> = (props) => {
         <img
           src={`/assets/${props.image}`}
           className="img-fluid"
+          alt={props.title}
         />
         <h3>{props.title}</h3>
         <div dangerouslySetInnerHTML={{ __html: props.description }} />

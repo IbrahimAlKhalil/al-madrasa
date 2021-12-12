@@ -7,27 +7,27 @@ import { Menu } from 't/menu';
 export const Navbar: FunctionComponent = () => {
   const { navClass, btnClass, update } = useNav();
   const menu = useField<Menu>('general', 'header', 'main_menu', {
-      id: 0,
-      items: [
-          {
-              id: 'm1',
-              link: '/',
-              label: 'Home',
-              children: [],
-          },
-          {
-              id: 'm2',
-              link: '/contact',
-              label: 'Contact',
-              children: [],
-          },
-          {
-              id: 'm3',
-              link: 'https://saharait.com',
-              label: 'Exam Result',
-              children: [],
-          },
-      ],
+    id: 0,
+    items: [
+      {
+        id: 'm1',
+        link: '/',
+        label: 'Home',
+        children: [],
+      },
+      {
+        id: 'm2',
+        link: '/contact',
+        label: 'Contact',
+        children: [],
+      },
+      {
+        id: 'm3',
+        link: 'https://saharait.com',
+        label: 'Exam Result',
+        children: [],
+      },
+    ],
   });
 
   return (

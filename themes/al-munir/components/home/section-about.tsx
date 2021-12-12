@@ -36,6 +36,7 @@ export const SectionAbout: FunctionComponent<SectionProps> = (props) => {
             <img
               src={`/assets/${data?.image}`}
               className="img-fluid"
+              alt={data?.title}
             />
           </div>
         </div>

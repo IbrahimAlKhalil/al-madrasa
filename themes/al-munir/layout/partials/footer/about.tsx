@@ -12,9 +12,7 @@ export const About: FunctionComponent = () => {
     <div className="col-lg-5 col-md-12 footer-info">
       <Link href="/">
         <a className="logo d-flex align-items-center">
-            {
-                logo ? <img src={`/assets/${logo}`} alt={title} /> : null
-            }
+          {logo ? <img src={`/assets/${logo}`} alt={title} /> : null}
           <span>{title}</span>
         </a>
       </Link>

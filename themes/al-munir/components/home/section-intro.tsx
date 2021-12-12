@@ -1,6 +1,5 @@
 import { SectionProps } from 't/section-props';
 import { FunctionComponent } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 
 export const SectionIntro: FunctionComponent<SectionProps> = (props) => {
@@ -36,7 +35,7 @@ export const SectionIntro: FunctionComponent<SectionProps> = (props) => {
             <img
               src={`/assets/${data?.image}`}
               className="img-fluid"
-              alt="Introduction"
+              alt={data?.title}
             />
           </div>
         </div>

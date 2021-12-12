@@ -12,9 +12,7 @@ export const Header: FunctionComponent = () => {
       <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
         <Link href="/">
           <a className="logo d-flex align-items-center">
-            {
-              logo ? <img src={`/assets/${logo}`} alt={title} /> : null
-            }
+            {logo ? <img src={`/assets/${logo}`} alt={title} /> : null}
             <span>{title}</span>
           </a>
         </Link>
