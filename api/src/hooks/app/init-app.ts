@@ -15,37 +15,55 @@ export const initApp: InitHandler = async () => {
 		db_name: env.DB_TEMPLATE,
 	});
 
+	const roleCols = [
+		'id',
+		'name',
+		'icon',
+		'description',
+		'ip_access',
+		'enforce_tfa',
+		'admin_access',
+		'app_access'
+	];
+	const permCols = [
+		'id',
+		'role',
+		'collection',
+		'action',
+		'permissions',
+		'validation',
+		'presets',
+		'fields'
+	];
+	const userCols = [
+		'id',
+		'email',
+		'password',
+		'status',
+		'role',
+		'first_name',
+		'last_name',
+		'location',
+		'title',
+		'description',
+		'tags',
+		'auth_data',
+		'token'
+	];
+
 	await syncTable(
 		masterDB,
 		templateDB,
 		'directus_roles',
-		[
-			'id',
-			'name',
-			'icon',
-			'description',
-			'ip_access',
-			'enforce_tfa',
-			'admin_access',
-			'app_access'
-		]
+		roleCols,
 	);
 
 	await syncTable(
 		masterDB,
 		templateDB,
-		'directus_permissions',
-		[
-			'id',
-			'role',
-			'collection',
-			'action',
-			'permissions',
-			'validation',
-			'presets',
-			'fields'
-		]
-	)
+		'directus_users',
+		userCols,
+	);
 
 	for (const institute of institutes) {
 		const instituteDB = getDatabase(institute.db_name);
@@ -54,32 +72,14 @@ export const initApp: InitHandler = async () => {
 			templateDB,
 			instituteDB,
 			'directus_roles',
-			[
-				'id',
-				'name',
-				'icon',
-				'description',
-				'ip_access',
-				'enforce_tfa',
-				'admin_access',
-				'app_access'
-			]
+			roleCols,
 		);
 
 		await syncTable(
 			templateDB,
 			instituteDB,
 			'directus_permissions',
-			[
-				'id',
-				'role',
-				'collection',
-				'action',
-				'permissions',
-				'validation',
-				'presets',
-				'fields'
-			]
+			permCols,
 		);
 
 		await syncTable(
@@ -87,6 +87,13 @@ export const initApp: InitHandler = async () => {
 			instituteDB,
 			'directus_folders',
 			['id', 'name', 'parent', 'read_only']
+		);
+
+		await syncTable(
+			masterDB,
+			instituteDB,
+			'directus_users',
+			userCols,
 		);
 
 		await syncTable(
@@ -115,27 +122,6 @@ export const initApp: InitHandler = async () => {
 				'tags',
 				'metadata',
 				'read_only'
-			]
-		);
-
-		await syncTable(
-			masterDB,
-			instituteDB,
-			'directus_users',
-			[
-				'id',
-				'email',
-				'password',
-				'status',
-				'role',
-				'first_name',
-				'last_name',
-				'location',
-				'title',
-				'description',
-				'tags',
-				'auth_data',
-				'token'
 			]
 		);
 

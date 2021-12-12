@@ -9,12 +9,14 @@ function sanitize(item: Record<string, any>) {
 }
 
 async function copy(item: Record<string, any>, table: string, targetDB: Knex) {
-	const hasItem = await targetDB(table)
+	let existing = await targetDB(table)
 		.where('id', item.id)
 		.first();
 
-	if (hasItem) {
-		if (isEqual(hasItem, item)) {
+	if (existing) {
+		existing = sanitize(existing);
+
+		if (isEqual(existing, item)) {
 			return;
 		}
 
@@ -31,8 +33,6 @@ async function copy(item: Record<string, any>, table: string, targetDB: Knex) {
 }
 
 export const syncItem = async (meta: Record<string, any>, sourceDB: Knex, targetDB?: Knex | null, validateSourceDB?: ValidateDB) => {
-	debugger;
-
 	const shouldRun = typeof validateSourceDB === 'function' ? await validateSourceDB(sourceDB) : true;
 
 	if (!shouldRun) return;

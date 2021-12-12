@@ -22,13 +22,15 @@ export async function syncTable(sourceDB: Knex | string, targetDB: Knex | string
 	).map(sanitize);
 
 	for (const item of items) {
-		const has = await targetDB(table)
+		let existing = await targetDB(table)
 			.select(fields)
 			.where('id', item.id)
 			.first();
 
-		if (has) {
-			if (isEqual(has, item)) {
+		if (existing) {
+			existing = sanitize(existing);
+
+			if (isEqual(existing, item)) {
 				continue;
 			}
 
@@ -42,7 +44,7 @@ export async function syncTable(sourceDB: Knex | string, targetDB: Knex | string
 		await targetDB(table)
 			.insert(item)
 			.onConflict()
-			.ignore();
+			.merge(fields);
 	}
 }
 
