@@ -7,5 +7,5 @@ import {HookContext} from "../../types";
 export async function commonCopyMT(meta: Record<string, any>, ctx: HookContext) {
 	const database = isMaster(ctx.database) ? getDatabase() : getDatabase(ctx.database.client.config.connection.database);
 
-	syncItem(meta, database, null, isMasterOrTemplate);
+	await syncItem(meta, database, null, isMasterOrTemplate);
 }

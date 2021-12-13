@@ -13,6 +13,8 @@ async function copy(item: Record<string, any>, table: string, targetDB: Knex) {
 		.where('id', item.id)
 		.first();
 
+	item = sanitize(item);
+
 	if (existing) {
 		existing = sanitize(existing);
 
@@ -27,7 +29,7 @@ async function copy(item: Record<string, any>, table: string, targetDB: Knex) {
 	}
 
 	await targetDB(table)
-		.insert(sanitize(item))
+		.insert(item)
 		.onConflict()
 		.ignore();
 }
