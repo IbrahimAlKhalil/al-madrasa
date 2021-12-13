@@ -244,6 +244,10 @@ export async function validateDatabaseExtensions(): Promise<void> {
 export async function connectAllDatabases() {
 	const knex = getDatabase();
 
+	getDatabase('template', {
+		database: env.DB_TEMPLATE,
+	});
+
 	const institutes = await knex.from('institute')
 		.where(qb => {
 			qb.whereNotNull('db_name')
@@ -252,10 +256,6 @@ export async function connectAllDatabases() {
 			});
 		})
 		.select(['db_name']);
-
-	institutes.push({
-		db_name: env.DB_TEMPLATE,
-	});
 
 	for (const institute of institutes) {
 		if (databases.hasOwnProperty(institute.db_name)) {
