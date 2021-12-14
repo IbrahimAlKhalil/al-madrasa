@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import {migrate} from './scripts/migrate.mjs';
 import {restore} from './scripts/restore.mjs';
 import {Command, program} from 'commander';
 import {build} from './scripts/build.mjs';
@@ -85,6 +86,17 @@ db.addCommand(
         .option('-d, --database <db>', 'Restore databases from dump files', 'all')
         .action((_, p) => clean(p.getOptionValue('database')))
 );
+
+const migrateCommand = new Command('migrate');
+
+['up', 'down', 'latest'].forEach(dir => {
+   migrateCommand.addCommand(
+       new Command(dir)
+           .action(() => migrate(dir))
+   )
+});
+
+db.addCommand(migrateCommand);
 
 program.addCommand(db);
 
