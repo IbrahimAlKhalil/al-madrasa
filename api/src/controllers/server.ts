@@ -123,7 +123,7 @@ router.get(
 				name: 'Master'
 			},
 			{
-				app: env.DB_TEMPLATE,
+				app: 'template',
 				code: null,
 				name: 'Template'
 			},
