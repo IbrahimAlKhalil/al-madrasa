@@ -6,8 +6,11 @@ import env from '../../env';
 import logger from '../../logger';
 import { Migration } from '../../types';
 import { orderBy } from 'lodash';
+import {isMaster} from '../helpers/is-master';
 
 export default async function run(database: Knex, direction: 'up' | 'down' | 'latest', log = true): Promise<void> {
+	logger.info(`Upgrading ${database.client.config.connection.database}`);
+
 	let migrationFiles = await fse.readdir(__dirname);
 
 	const customMigrationsPath = path.resolve(env.EXTENSIONS_PATH, 'migrations');
@@ -62,10 +65,14 @@ export default async function run(database: Knex, direction: 'up' | 'down' | 'la
 		}
 
 		if (!nextVersion) {
-			throw Error('Nothing to upgrade');
+			return logger.info('Nothing to upgrade');
 		}
 
-		const { up } = require(nextVersion.file);
+		const { up, CHILD_ONLY } = require(nextVersion.file);
+
+		if (CHILD_ONLY && isMaster(database)) {
+			return logger.info(`Skipping ${nextVersion.name}`);
+		}
 
 		if (log) {
 			logger.info(`Applying ${nextVersion.name}...`);
