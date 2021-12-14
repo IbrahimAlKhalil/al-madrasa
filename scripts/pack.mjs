@@ -23,7 +23,7 @@ export async function pack() {
     const zip = new AdmZip();
 
     await zipAdd(zip, ['uploads', 'database', 'scripts', 'am.mjs', 'package.json', 'pnpm-lock.yaml', 'pnpm-workspace.yaml'], '../');
-    await zipAdd(zip, ['dist', 'package.json', 'index.js', 'start.js', 'cli.js'], '../api', '/api');
+    await zipAdd(zip, ['dist', 'package.json', 'index.js', 'start.js'], '../api', '/api');
     await zipAdd(zip, ['dist'], '../app', '/app');
 
     const themes = await fs.readdir(path.resolve(__dirname, '../themes'));
