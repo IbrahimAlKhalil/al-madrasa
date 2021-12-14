@@ -6,7 +6,7 @@ const schema: RequestHandler = asyncHandler(async (req, res, next) => {
 	req.masterDB = getDatabase('master');
 
 	const institute = await req.masterDB.from('institute')
-		.where('domain', req.hostname)
+		.where('domain', req.hostname.replace('www.', ''))
 		.select('db_name')
 		.first();
 
