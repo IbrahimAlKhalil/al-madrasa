@@ -33,7 +33,7 @@ export const SectionValues: FunctionComponent<SectionProps> = (props) => {
       <div className="container" data-aos="fade-up">
         <header className="section-header">
           <h2>{data?.title}</h2>
-          <p>{data?.subtitle}</p>
+          <h3>{data?.subtitle}</h3>
         </header>
         <div className="row">
           {items.map((item) => (

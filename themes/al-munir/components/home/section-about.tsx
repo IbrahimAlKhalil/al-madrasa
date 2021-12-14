@@ -15,7 +15,7 @@ export const SectionAbout: FunctionComponent<SectionProps> = (props) => {
             data-aos-delay={200}
           >
             <div className="content">
-              <h3>{data?.title}</h3>
+              <h2>{data?.title}</h2>
               <div dangerouslySetInnerHTML={{ __html: data?.subtitle }} />
               <div dangerouslySetInnerHTML={{ __html: data?.description }} />
               <div className="text-center text-lg-start">

@@ -62,7 +62,7 @@ export const SectionPricing: FunctionComponent<SectionProps> = (props) => {
       <div className="container" data-aos="fade-up">
         <header className="section-header">
           <h2>{data.title}</h2>
-          <p>{data.subtitle}</p>
+          <h3>{data.subtitle}</h3>
         </header>
         <div className="row gy-4" data-aos="fade-left">
           {data.items.map((item: PriceInterface) => (
