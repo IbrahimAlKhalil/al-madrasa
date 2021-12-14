@@ -89,7 +89,7 @@ async function run(database, filename) {
         .filter(r => !excluded.has(r.table_name))
         .map(r => r.table_name);
 
-    tables.push('directus_activity', 'directus_revisions', 'directus_sessions');
+    tables.push('directus_activity', 'directus_revisions', 'directus_sessions', 'directus_users');
 
     for (const table of tables) {
         await tempClient.query(`TRUNCATE "public"."${table}" RESTART IDENTITY CASCADE`);
