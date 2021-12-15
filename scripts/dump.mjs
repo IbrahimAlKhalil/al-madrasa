@@ -1,8 +1,8 @@
-import path, {dirname} from "path";
+import path, {dirname} from 'path';
 import {fileURLToPath} from 'url';
-import crypto from "crypto";
-import execa from "execa";
-import pg from "pg";
+import crypto from 'crypto';
+import execa from 'execa';
+import pg from 'pg';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -82,14 +82,24 @@ async function run(database, filename) {
           and table_type = 'BASE TABLE'
     `);
 
-    const excluded = new Set(['spatial_ref_sys', 'theme', 'theme_page', 'theme_page_section', 'section']);
+    const excluded = new Set([
+        'spatial_ref_sys',
+        'theme',
+        'theme_page',
+        'theme_page_section',
+        'directus_collections',
+        'directus_fields',
+        'directus_relations',
+        'directus_migrations',
+        'directus_dashboards',
+        'directus_panels',
+        'directus_roles',
+        'directus_permissions',
+    ]);
 
     const tables = result.rows
-        .filter(r => !r.table_name.startsWith('directus_'))
         .filter(r => !excluded.has(r.table_name))
         .map(r => r.table_name);
-
-    tables.push('directus_activity', 'directus_revisions', 'directus_sessions', 'directus_users');
 
     for (const table of tables) {
         await tempClient.query(`TRUNCATE "public"."${table}" RESTART IDENTITY CASCADE`);
