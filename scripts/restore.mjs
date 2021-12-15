@@ -1,18 +1,18 @@
-import path, {dirname} from "path";
-import {fileURLToPath} from "url";
-import execa from "execa";
+import path, {dirname} from 'path';
+import {fileURLToPath} from 'url';
+import execa from 'execa';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 function run(db, filename) {
-    execa.sync('/usr/bin/psql', [
+    execa.sync('/usr/bin/pg_restore', [
+        path.resolve(__dirname, `../database/${filename}`),
         `--username=${process.env.DB_USER}`,
         `--host=${process.env.DB_HOST}`,
         `--port=${process.env.DB_PORT}`,
         '--no-password',
         `--dbname=${db}`,
-        `--file=${path.resolve(__dirname, `../database/${filename}.sql`)}`
     ], {
         shell: true,
         stdio: 'inherit',
@@ -25,13 +25,13 @@ function run(db, filename) {
 export async function restore(database) {
     switch (database) {
         case 'master':
-            await run(process.env.DB_DATABASE, 'master');
+            await run(process.env.DB_DATABASE, 'master.tar');
             break;
         case 'template':
-            await run(process.env.DB_TEMPLATE, 'template');
+            await run(process.env.DB_TEMPLATE, 'template.tar');
             break;
         default:
-            await run(process.env.DB_DATABASE, 'master');
-            await run(process.env.DB_TEMPLATE, 'template');
+            await run(process.env.DB_DATABASE, 'master.tar');
+            await run(process.env.DB_TEMPLATE, 'template.tar');
     }
 }

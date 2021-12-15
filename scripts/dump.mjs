@@ -39,7 +39,7 @@ async function run(database, filename) {
         stdio: 'inherit'
     };
 
-    execa.sync('pg_dump', [
+    execa.sync('/usr/bin/pg_dump', [
         ...dumpFlags,
         `--dbname=${database}`,
         `--file=${path.resolve(__dirname, `../database/${filename}`)}`
@@ -112,7 +112,7 @@ async function run(database, filename) {
 
     await tempClient.end();
 
-    execa.sync('pg_dump', [
+    execa.sync('/usr/bin/pg_dump', [
         ...dumpFlags,
         `--dbname=${tempDBName}`,
         `--file=${path.resolve(__dirname, `../database/${filename}`)}`
@@ -125,13 +125,13 @@ async function run(database, filename) {
 export async function dump(database) {
     switch (database) {
         case 'master':
-            await run(process.env.DB_DATABASE, 'master.sql');
+            await run(process.env.DB_DATABASE, 'master.tar');
             break;
         case 'template':
-            await run(process.env.DB_TEMPLATE, 'template.sql');
+            await run(process.env.DB_TEMPLATE, 'template.tar');
             break;
         default:
-            await run(process.env.DB_DATABASE, 'master.sql');
-            await run(process.env.DB_TEMPLATE, 'template.sql');
+            await run(process.env.DB_DATABASE, 'master.tar');
+            await run(process.env.DB_TEMPLATE, 'template.tar');
     }
 }
