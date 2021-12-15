@@ -1,4 +1,4 @@
-import { useSection } from 'm/use-section';
+import { useSection } from 'sm/use-section';
 import { FunctionComponent } from 'react';
 import { Copyright } from './copyright';
 import { Contact } from './contact';

@@ -33,7 +33,6 @@ importers:
       lodash: ^4.17.21
       ms: ^2.1.3
       next: ^12.0.4
-      nookies: ^2.5.2
       pg: ^8.7.1
       prettier: ^2.4.1
       react: 17.0.2
@@ -45,7 +44,6 @@ importers:
       execa: 5.1.1
       knex: 0.95.11_pg@8.7.1
       next: 12.0.4_0c41f19aae22112e9f1896e888ec7296
-      nookies: 2.5.2
       sass: 1.43.4
     devDependencies:
       '@directus/sdk': 9.2.1
@@ -493,6 +491,16 @@ importers:
       vuedraggable: 4.1.0_vue@3.2.22
       wellknown: 0.5.0
 
+  shared:
+    specifiers:
+      '@types/react': 17.0.35
+      react: 17.0.2
+      typescript: 4.5.2
+    devDependencies:
+      '@types/react': 17.0.35
+      react: 17.0.2
+      typescript: 4.5.2
+
   themes/al-munir:
     specifiers:
       '@directus/sdk': 9.1.1
@@ -514,18 +522,18 @@ importers:
       isotope-layout: ^3.0.6
       jquery: ^3.6.0
       next: ^12.0.4
-      nookies: ^2.5.2
       prettier: ^2.4.1
       react: 17.0.2
       react-dom: 17.0.2
       remixicon: ^2.5.0
       sass: 1.43.4
+      shared: workspace:^1.0.0
       swiper: 6.4.10
       typescript: 4.5.2
     dependencies:
       next: 12.0.4_0c41f19aae22112e9f1896e888ec7296
-      nookies: 2.5.2
       sass: 1.43.4
+      shared: link:../../shared
     devDependencies:
       '@directus/sdk': 9.1.1
       '@srexi/purecounterjs': 1.2.1
@@ -4499,6 +4507,17 @@ packages:
       node-releases: 2.0.1
       picocolors: 1.0.0
 
+  /browserslist/4.19.0:
+    resolution: {integrity: sha512-JGHzm73ei2OnAcobcQ61GXNnN6vDCg5Oz5MayudL+FyzjoLnCzUWnuLtDLMIYw8aXgQzzdCZMVky+fftD5jbtA==}
+    engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
+    hasBin: true
+    dependencies:
+      caniuse-lite: 1.0.30001286
+      electron-to-chromium: 1.4.17
+      escalade: 3.1.1
+      node-releases: 2.0.1
+      picocolors: 1.0.0
+
   /bs-logger/0.2.6:
     resolution: {integrity: sha512-pd8DCoxmbgc7hyPKOvxtqNcjYoOsABPQdcCUjGp3d42VR2CX1ORhk2A87oqqu5R1kk+76nsxZupkmyd+MVtCog==}
     engines: {node: '>= 6'}
@@ -4671,13 +4690,16 @@ packages:
   /caniuse-api/3.0.0:
     resolution: {integrity: sha512-bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==}
     dependencies:
-      browserslist: 4.17.5
-      caniuse-lite: 1.0.30001271
+      browserslist: 4.19.0
+      caniuse-lite: 1.0.30001286
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
 
   /caniuse-lite/1.0.30001271:
     resolution: {integrity: sha512-BBruZFWmt3HFdVPS8kceTBIguKxu4f99n5JNp06OlPD/luoAMIaIK5ieV5YjnBLH3Nysai9sxj9rpJj4ZisXOA==}
+
+  /caniuse-lite/1.0.30001286:
+    resolution: {integrity: sha512-zaEMRH6xg8ESMi2eQ3R4eZ5qw/hJiVsO/HlLwniIwErij0JDr9P+8V4dtx1l+kLq6j3yy8l8W4fst1lBnat5wQ==}
 
   /caret-pos/2.0.0:
     resolution: {integrity: sha512-cOIiBS1SjzXg+LXSiQAzGg89dHDKq/y4c30+tB5hkVN7GbtXh1BNypOmjti4LwAWQrvP4y+bNG7RJFxLGoL3bA==}
@@ -5082,11 +5104,6 @@ packages:
   /cookie/0.4.0:
     resolution: {integrity: sha512-+Hp8fLp57wnUSt0tY0tHEXh4voZRDnoIrZPqlo3DPiI4y9lwg/jqx+1Om94/W6ZaPDOUbnjOt/99w66zk+l1Xg==}
     engines: {node: '>= 0.6'}
-
-  /cookie/0.4.1:
-    resolution: {integrity: sha512-ZwrFkGJxUR3EIoXtO+yVE69Eb7KlixbaeAWfBQB9vVsNn/o+Yw69gBWSSDK825hQNdN+wF8zELf3dFNl/kxkUA==}
-    engines: {node: '>= 0.6'}
-    dev: false
 
   /cookiejar/2.1.3:
     resolution: {integrity: sha512-JxbCBUdrfr6AQjOXrxoTvAMJO4HBTUIlBzslcJPAz+/KT8yk53fXun51u+RenNYvad/+Vc2DIz5o9UxlCDymFQ==}
@@ -5817,6 +5834,9 @@ packages:
 
   /electron-to-chromium/1.3.879:
     resolution: {integrity: sha512-zJo+D9GwbJvM31IdFmwcGvychhk4KKbKYo2GWlsn+C/dxz2NwmbhGJjWwTfFSF2+eFH7VvfA8MCZ8SOqTrlnpw==}
+
+  /electron-to-chromium/1.4.17:
+    resolution: {integrity: sha512-zhk1MravPtq/KBhmGB7TLBILmXTgRG9TFSI3qS3DbgyfHzIl72iiTE37r/BHIbPCJJlWIo5rySyxiH4vWhu2ZA==}
 
   /elliptic/6.5.4:
     resolution: {integrity: sha512-iLhC6ULemrljPZb+QutR5TQGB+pdW6KGD5RSegS+8sorOZT+rdQFbsQFJgvN3eRqNALqJer4oQ16YvJHlU8hzQ==}
@@ -10035,13 +10055,6 @@ packages:
       readable-stream: 1.0.34
     dev: true
 
-  /nookies/2.5.2:
-    resolution: {integrity: sha512-x0TRSaosAEonNKyCrShoUaJ5rrT5KHRNZ5DwPCuizjgrnkpE5DRf3VL7AyyQin4htict92X1EQ7ejDbaHDVdYA==}
-    dependencies:
-      cookie: 0.4.1
-      set-cookie-parser: 2.4.8
-    dev: false
-
   /nopt/3.0.6:
     resolution: {integrity: sha1-xkZdvwirzU2zWTF/eaxopkayj/k=}
     hasBin: true
@@ -12065,10 +12078,6 @@ packages:
 
   /set-blocking/2.0.0:
     resolution: {integrity: sha1-BF+XgtARrppoA93TgrJDkrPYkPc=}
-
-  /set-cookie-parser/2.4.8:
-    resolution: {integrity: sha512-edRH8mBKEWNVIVMKejNnuJxleqYE/ZSdcT8/Nem9/mmosx12pctd80s2Oy00KNZzrogMZS5mauK2/ymL1bvlvg==}
-    dev: false
 
   /set-value/2.0.1:
     resolution: {integrity: sha512-JxHc1weCN68wRY0fhCoXpyK55m/XPHafOmK4UWD7m2CI14GMcFypt4w/0+NV5f/ZMby2F6S2wwA7fgynh9gWSw==}

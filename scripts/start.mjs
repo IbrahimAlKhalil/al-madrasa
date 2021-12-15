@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
-import cliProgress from "cli-progress";
-import {restore} from "./restore.mjs";
+import cliProgress from 'cli-progress';
+import {restore} from './restore.mjs';
 import {fileURLToPath} from 'url';
-import Docker from "dockerode";
+import Docker from 'dockerode';
 import {dirname} from 'path';
-import execa from "execa";
-import path from "path";
-import pg from "pg";
-import fs from "fs";
+import execa from 'execa';
+import path from 'path';
+import pg from 'pg';
+import fs from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -154,7 +154,7 @@ async function startPostgres() {
             Name: containerNames.postgres,
         });
     } catch (e) {
-        console.log(`Volume ${containerNames.postgres} already exists`)
+        console.log(`Volume ${containerNames.postgres} already exists`);
     }
 
     logTask('Creating container', containerNames.postgres);
@@ -241,7 +241,7 @@ async function startPostgres() {
            OWNER = "${process.env.DB_USER}"
            ENCODING = 'UTF8'
            CONNECTION LIMIT = -1;
-        `)
+        `);
     }
 
     await client.end();
@@ -271,6 +271,14 @@ async function startPostgres() {
     }
 }
 
+async function startShared() {
+    execa(path.resolve(__dirname, '../shared/node_modules/.bin/tsc'), ['-w'], {
+        shell: true,
+        stdio: 'inherit',
+        cwd: path.resolve(__dirname, '../shared')
+    });
+}
+
 async function stop() {
     console.log('\x1b[41mStopping...\x1b[0m');
 
@@ -287,7 +295,7 @@ async function close() {
     process.exit();
 }
 
-export async function start(postgres, app) {
+export async function start(postgres, app, shared) {
     process.stdin.resume();
     process.on('exit', close);
     process.on('SIGINT', close);
@@ -305,13 +313,18 @@ export async function start(postgres, app) {
         await startPostgres();
     }
 
+    if (shared) {
+        await startShared();
+    }
+
     if (app) {
         await startApp();
     }
 
-    if (!postgres && !app) {
+    if (!postgres && !app && !shared) {
         await startPostgres();
         await startApp();
+        await startShared();
     }
 
     console.log('\x1b[42mStarted\x1b[0m \x1b[32m✔\x1b[0m');

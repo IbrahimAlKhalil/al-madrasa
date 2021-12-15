@@ -28,11 +28,13 @@ program
 
 program.addCommand(
     new Command('dev')
-        .option('-p, --postgres', 'Start postgres database')
-        .option('-a, --app', 'Start application')
+        .option('-p, --postgres', 'Start postgres database', true)
+        .option('-a, --app', 'Start application', true)
+        .option('-s, --shared', 'Compile shared module in watch mode', false)
         .action((_, p) => start(
             p.getOptionValue('postgres'),
             p.getOptionValue('app'),
+            p.getOptionValue('shared'),
         ))
     ,
     {
@@ -50,11 +52,13 @@ program.addCommand(
         .option('-a, --api', 'Build api')
         .option('-d, --dashboard', 'Build dashboard')
         .option('-t, --themes', 'Build themes')
+        .option('-s, --shared', 'Build the shared module')
         .option('-p, --pack', 'Package application')
         .action((_, p) => build(
             p.getOptionValue('api'),
             p.getOptionValue('dashboard'),
             p.getOptionValue('themes'),
+            p.getOptionValue('shared'),
             p.getOptionValue('pack'),
         ))
 );

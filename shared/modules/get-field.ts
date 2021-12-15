@@ -1,4 +1,4 @@
-import { PageProps } from 't/page-props';
+import { PageProps } from '../types/page-props';
 
 export function getField<T = any>(
   props: PageProps | null,

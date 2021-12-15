@@ -1,7 +1,7 @@
 import { Fragment, FunctionComponent, useContext } from 'react';
-import { SectionProps } from 't/section-props';
-import { PageContext } from 'm/page-context';
-import { Section } from 't/section';
+import { SectionProps } from '../types/section-props';
+import { PageContext } from '../modules/page-context';
+import { Section } from '../types/section';
 
 interface SectionsInterface {
   pageId: string;

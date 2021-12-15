@@ -1,5 +1,5 @@
 import { FunctionComponent, useEffect } from 'react';
-import { SectionProps } from 't/section-props';
+import { SectionProps } from 'st/section-props';
 import { Swiper } from 'swiper';
 
 interface TestimonyInterface {

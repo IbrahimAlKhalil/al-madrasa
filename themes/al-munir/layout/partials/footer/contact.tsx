@@ -1,5 +1,5 @@
+import { useSection } from 'sm/use-section';
 import { FunctionComponent } from 'react';
-import { useSection } from 'm/use-section';
 
 export const Contact: FunctionComponent = () => {
   const section = useSection('general', 'footer-contact')?.value;

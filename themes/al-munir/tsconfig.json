@@ -19,7 +19,12 @@
       "c/*": ["components/*"],
       "m/*": ["modules/*"],
       "s/*": ["styles/*"],
-      "t/*": ["typings/*"]
+      "t/*": ["types/*"],
+
+      "sc/*": ["node_modules/shared/dist/components/*"],
+      "sm/*": ["node_modules/shared/dist/modules/*"],
+      "ss/*": ["node_modules/shared/dist/styles/*"],
+      "st/*": ["node_modules/shared/types/*"]
     },
     "incremental": true
   },

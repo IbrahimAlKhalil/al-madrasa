@@ -1,8 +1,8 @@
-import { useSection } from 'm/use-section';
-import { useSetting } from 'm/use-setting';
+import { useSection } from 'sm/use-section';
+import { useSetting } from 'sm/use-setting';
 import { FunctionComponent } from 'react';
+import { useField } from 'sm/use-field';
 import Link from 'next/link';
-import { useField } from 'm/use-field';
 
 export const About: FunctionComponent = () => {
   const logo = useSetting('logo');

@@ -2,7 +2,7 @@
 // import { BroadcastChannel } from 'broadcast-channel';
 // import { clone, isObject, merge } from 'lodash';
 import { /*useEffect,*/ useState } from 'react';
-import { PageProps } from 't/page-props';
+import { PageProps } from '../types/page-props';
 
 // type BroadcastEvent = {
 //   type: 'field' | 'sort' | 'visibility';

@@ -1,4 +1,4 @@
-import { Section } from 't/section';
+import { Section } from './section';
 
 export interface SectionProps {
   data?: Section;

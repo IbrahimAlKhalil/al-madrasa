@@ -1,5 +1,5 @@
-import { SiteSettings } from 't/site-settings';
-import { useSettings } from 'm/use-settings';
+import { SiteSettings } from '../types/site-settings';
+import { useSettings } from './use-settings';
 
 export function useSetting(field: keyof SiteSettings, _default: any = null) {
   const settings = useSettings();

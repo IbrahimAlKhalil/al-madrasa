@@ -1,5 +1,5 @@
-import { GetServerSidePropsContext } from 't/next';
-import { PageProps } from 't/page-props';
+import { GetServerSidePropsContext } from './next';
+import { PageProps } from './page-props';
 
 export type ServerSidePropsHook = (
   props: PageProps,

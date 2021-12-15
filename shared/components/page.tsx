@@ -1,7 +1,7 @@
-import { useCustomizer } from 'm/use-customizer';
-import { PageContext } from 'm/page-context';
+import { useCustomizer } from '../modules/use-customizer';
+import { PageContext } from '../modules/page-context';
+import { PageProps } from '../types/page-props';
 import { FunctionComponent } from 'react';
-import { PageProps } from 't/page-props';
 
 interface PageInterface {
   pageProps: PageProps;

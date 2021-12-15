@@ -1,5 +1,5 @@
-import { PageProps } from 't/page-props';
-import { Section } from 't/section';
+import { PageProps } from '../types/page-props';
+import { Section } from '../types/section';
 
 export function getSection(
   props: PageProps | null,

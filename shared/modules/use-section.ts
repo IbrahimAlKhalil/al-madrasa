@@ -1,5 +1,5 @@
-import { PageContext } from 'm/page-context';
-import { getSection } from 'm/get-section';
+import { PageContext } from './page-context';
+import { getSection } from './get-section';
 import { useContext } from 'react';
 
 export function useSection(pageId: string, sectionId: string) {

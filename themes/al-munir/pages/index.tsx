@@ -1,3 +1,4 @@
+import { getServerSidePageProps } from 'm/get-server-side-page-props';
 import { SectionTestimonial } from 'c/home/section-testimonial';
 import { SectionFeatures } from 'c/home/section-features';
 import { SectionServices } from 'c/home/section-services';
@@ -9,12 +10,11 @@ import { SectionIntro } from 'c/home/section-intro';
 import { LayoutWide } from '../layout/layout-wide';
 import { SectionTeam } from 'c/home/section-team';
 import { loadRelations } from 'm/load-relations';
-import { loadPageData } from 'm/load-page-data';
 import { BackToTop } from 'c/back-to-top';
-import { PageProps } from 't/page-props';
-import { Sections } from 'c/sections';
+import { PageProps } from 'st/page-props';
+import { Sections } from 'sc/sections';
 import { NextPage } from 'next';
-import { Page } from 'c/page';
+import { Page } from 'sc/page';
 
 const Home: NextPage<PageProps> = (props) => {
   const sections = {
@@ -40,7 +40,7 @@ const Home: NextPage<PageProps> = (props) => {
   );
 };
 
-export const getServerSideProps = loadPageData(
+export const getServerSideProps = getServerSidePageProps(
   ['general', 'frontpage'],
   loadRelations,
 );

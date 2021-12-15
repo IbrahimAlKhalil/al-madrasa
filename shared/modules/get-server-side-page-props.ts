@@ -1,18 +1,19 @@
-import { ServerSidePropsHook } from 't/server-side-props-hook';
-import { GetServerSidePropsContext } from 't/next';
-import { loadPageDeps } from 'm/load-page-deps';
+import { ServerSidePropsHook } from '../types/server-side-props-hook';
+import { GetServerSidePropsContext } from '../types/next';
+import { loadPageDeps } from './load-page-deps';
+import { PageProps } from '../types/page-props';
+import { PageDeps } from '../types/page-deps';
 import { GetServerSideProps } from 'next';
-import { PageProps } from 't/page-props';
-import { PageDeps } from 't/page-deps';
 import { merge } from 'lodash';
 
-export const loadPageData = (
+export const getServerSidePageProps = (
+  theme: string,
   deps: string | string[] | PageDeps | PageDeps[],
   hook?: ServerSidePropsHook,
 ): GetServerSideProps<PageProps> => {
   return async (ctx) => {
     let props: PageProps = {
-      pages: await loadPageDeps(deps, ctx),
+      pages: await loadPageDeps(theme, deps, ctx),
       siteSettings: (ctx as GetServerSidePropsContext).req.siteSettings,
     };
 

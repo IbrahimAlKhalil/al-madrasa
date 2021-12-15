@@ -1,5 +1,5 @@
-import { SiteSettings } from 't/site-settings';
-import { Page } from 't/page';
+import { SiteSettings } from './site-settings';
+import { Page } from './page';
 
 export interface Pages {
   [id: string]: Page;

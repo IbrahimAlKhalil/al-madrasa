@@ -1,6 +1,6 @@
 import { NextApiRequestCookies } from 'next/dist/server/api-utils';
 import { GetServerSidePropsContext as Base } from 'next';
-import { SiteSettings } from 't/site-settings';
+import { SiteSettings } from './site-settings';
 import { IncomingMessage } from 'http';
 import { Knex } from 'knex';
 

@@ -1,6 +1,6 @@
-import { GetServerSidePropsContext } from 't/next';
-import { getSection } from 'm/get-section';
-import { PageProps } from 't/page-props';
+import { GetServerSidePropsContext } from '../types/next';
+import { getSection } from './get-section';
+import { PageProps } from '../types/page-props';
 
 export const loadRelation = async (
   props: PageProps,

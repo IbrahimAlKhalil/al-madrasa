@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 import { NavItem } from './nav-item';
-import { MenuItem } from 't/menu';
+import { MenuItem } from 'st/menu';
 
 interface NavMenuInterface {
   items: MenuItem[];

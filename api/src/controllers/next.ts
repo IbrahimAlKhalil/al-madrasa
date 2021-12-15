@@ -25,10 +25,6 @@ export default async function () {
 	}, 8000);
 
 	for (const theme of themes) {
-		if (theme === 'shared') {
-			continue;
-		}
-
 		const server = next({
 			dev: env.NODE_ENV === 'development',
 			dir: `${themesDir}/${theme}`,

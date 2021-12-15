@@ -1,5 +1,5 @@
-import { SiteSettings } from 't/site-settings';
-import { PageContext } from 'm/page-context';
+import { SiteSettings } from '../types/site-settings';
+import { PageContext } from './page-context';
 import { useContext } from 'react';
 
 export function useSettings(_default?: Partial<SiteSettings>) {

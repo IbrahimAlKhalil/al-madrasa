@@ -1,8 +1,8 @@
 import { FunctionComponent } from 'react';
-import { useField } from 'm/use-field';
+import { useField } from 'sm/use-field';
 import { NavMenu } from './nav-menu';
 import { useNav } from 'm/use-nav';
-import { Menu } from 't/menu';
+import { Menu } from 'st/menu';
 
 export const Navbar: FunctionComponent = () => {
   const { navClass, btnClass, update } = useNav();

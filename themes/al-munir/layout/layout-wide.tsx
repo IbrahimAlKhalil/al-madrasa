@@ -1,6 +1,6 @@
 import { Header } from './partials/header/header';
 import { Footer } from './partials/footer/footer';
-import { useSetting } from 'm/use-setting';
+import { useSetting } from 'sm/use-setting';
 import { FunctionComponent } from 'react';
 import Head from 'next/head';
 

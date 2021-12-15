@@ -35,13 +35,25 @@ async function buildThemes() {
     }
 }
 
-export async function build(api, dashboard, themes, _pack) {
+function buildShared() {
+    execa.sync(path.resolve(__dirname, '../shared/node_modules/.bin/tsc'), [], {
+        cwd: path.resolve(__dirname, '../shared'),
+        shell: true,
+        stdio: 'inherit',
+    })
+}
+
+export async function build(api, dashboard, themes, shared, _pack) {
     if (api) {
         buildApi();
     }
 
     if (dashboard) {
         buildDashboard();
+    }
+
+    if (shared) {
+        buildShared();
     }
 
     if (themes) {
@@ -52,9 +64,10 @@ export async function build(api, dashboard, themes, _pack) {
         await pack();
     }
 
-    if (!api && !dashboard && !themes && !_pack) {
+    if (!api && !dashboard && !themes && !shared && !_pack) {
         buildApi();
         buildDashboard();
+        buildShared();
         await buildThemes();
         await pack();
     }

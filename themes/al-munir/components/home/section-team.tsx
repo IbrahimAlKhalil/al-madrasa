@@ -1,4 +1,4 @@
-import { SectionProps } from 't/section-props';
+import { SectionProps } from 'st/section-props';
 import { FunctionComponent } from 'react';
 // import Link from 'next/link';
 
