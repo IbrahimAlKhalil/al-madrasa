@@ -3,11 +3,16 @@ import {fileURLToPath} from 'url';
 import crypto from 'crypto';
 import execa from 'execa';
 import pg from 'pg';
+import fs from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 async function run(database, filename) {
+    if (!fs.existsSync(path.resolve(__dirname, `../database`))) {
+        fs.mkdirSync(path.resolve(__dirname, `../database`));
+    }
+
     const dumpFlags = [
         `--username=${process.env.DB_USER}`,
         `--host=${process.env.DB_HOST}`,
