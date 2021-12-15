@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import {_export, _import} from './scripts/metadata.mjs';
 import {migrate} from './scripts/migrate.mjs';
 import {restore} from './scripts/restore.mjs';
 import {Command, program} from 'commander';
@@ -75,34 +76,52 @@ const db = new Command('db');
 
 db.addCommand(
     new Command('dump')
-        .option('-d, --database <db>', 'Dump databases', 'all')
+        .option('-d, --database <db>', 'Specify the database to be dumped', 'all')
         .action((_, p) => dump(p.getOptionValue('database')))
 );
 
 db.addCommand(
     new Command('restore')
-        .option('-d, --database <db>', 'Restore databases from dump files', 'all')
+        .option('-d, --database <db>', 'Specify the database to restore', 'all')
         .action((_, p) => restore(p.getOptionValue('database')))
 );
 
 db.addCommand(
     new Command('clean')
-        .option('-d, --database <db>', 'Restore databases from dump files', 'all')
+        .option('-d, --database <db>', 'Specify the database to clean', 'all')
         .action((_, p) => clean(p.getOptionValue('database')))
 );
 
 const migrateCommand = new Command('migrate');
 
 ['up', 'down', 'latest'].forEach(dir => {
-   migrateCommand.addCommand(
-       new Command(dir)
-           .action(() => migrate(dir))
-   )
+    migrateCommand.addCommand(
+        new Command(dir)
+            .action(() => migrate(dir))
+    );
 });
 
 db.addCommand(migrateCommand);
 
 program.addCommand(db);
+
+// ----------------------- Metadata -----------------------
+
+const metadata = new Command('metadata');
+
+metadata.addCommand(
+    new Command('export')
+        .option('-d, --database <db>', 'Specify the database to export metadata from', 'all')
+        .action((_, p) => _export(p.getOptionValue('database')))
+);
+
+metadata.addCommand(
+    new Command('import')
+        .option('-d, --database <db>', 'Specify the database to import metadata to', 'all')
+        .action((_, p) => _import(p.getOptionValue('database')))
+);
+
+program.addCommand(metadata);
 
 // -----------------------------------------
 
