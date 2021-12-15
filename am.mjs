@@ -28,9 +28,9 @@ program
 
 program.addCommand(
     new Command('dev')
-        .option('-p, --postgres', 'Start postgres database', true)
-        .option('-a, --app', 'Start application', true)
-        .option('-s, --shared', 'Compile shared module in watch mode', false)
+        .option('-p, --postgres', 'Start postgres database')
+        .option('-a, --app', 'Start application')
+        .option('-s, --shared', 'Compile shared module in watch mode')
         .action((_, p) => start(
             p.getOptionValue('postgres'),
             p.getOptionValue('app'),
