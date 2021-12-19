@@ -1,10 +1,6 @@
-import {fileURLToPath} from 'url';
 import {build} from './build.mjs';
-import {dirname} from 'path';
 import knex from 'knex';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import {logger} from './logger.mjs';
 
 async function getDatabases() {
     const connection = {
@@ -60,12 +56,4 @@ export async function migrate(direction) {
 
     await databases.master.destroy();
     await databases.template.destroy();
-}
-
-export function down() {
-
-}
-
-export function latest() {
-
 }

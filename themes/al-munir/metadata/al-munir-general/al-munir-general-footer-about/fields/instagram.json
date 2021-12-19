@@ -1,0 +1,15 @@
+{
+  "field": "instagram",
+  "name": "Instagram",
+  "type": "string",
+  "meta": {
+    "name": "Instagram",
+    "field": "instagram",
+    "type": "string",
+    "interface": "input",
+    "options": {
+      "trim": true,
+      "iconLeft": "http"
+    }
+  }
+}

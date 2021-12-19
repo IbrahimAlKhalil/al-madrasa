@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 
+import {_export as exportThemeMeta, _import as importThemeMeta, migrate as themeMigrate} from './scripts/theme.mjs';
 import {_export, _import} from './scripts/metadata.mjs';
+import {prepare} from './scripts/prepare.mjs';
 import {migrate} from './scripts/migrate.mjs';
 import {restore} from './scripts/restore.mjs';
 import {Command, program} from 'commander';
 import {build} from './scripts/build.mjs';
 import {start} from './scripts/start.mjs';
 import {clean} from './scripts/clean.mjs';
-import {lint} from './scripts/lint.mjs';
-import {prod} from './scripts/prod.mjs';
+import {lint} from './scripts/theme.mjs';
 import {dump} from './scripts/dump.mjs';
 import {fileURLToPath} from 'url';
 import {dirname} from 'path';
@@ -44,8 +45,8 @@ program.addCommand(
 );
 
 program.addCommand(
-    new Command('prod')
-        .action(prod)
+    new Command('prepare')
+        .action(prepare)
 );
 
 program.addCommand(
@@ -64,15 +65,10 @@ program.addCommand(
         ))
 );
 
-program.addCommand(
-    new Command('lint')
-        .action(lint)
-);
 
+// ----------------- Database ---------------------
 
-// ----------------- Command: db ---------------------
-
-const db = new Command('db');
+const db = new Command('database');
 
 db.addCommand(
     new Command('dump')
@@ -123,7 +119,45 @@ metadata.addCommand(
 
 program.addCommand(metadata);
 
-// -----------------------------------------
+
+// ---------------- Theme ------------------
+
+const theme = new Command('theme');
+
+if (process.env.NODE_ENV === 'development') {
+    theme.addCommand(
+        new Command('lint')
+            .action(lint)
+    );
+}
+
+theme.addCommand(
+    new Command('export')
+        .option('-t, --theme', 'The theme, which metadata will be exported from', 'all')
+        .action((_, p) => exportThemeMeta(p.getOptionValue('theme')))
+);
+
+theme.addCommand(
+    new Command('import')
+        .option('-t, --theme', 'The theme, which metadata will be imported to', 'all')
+        .action((_, p) => importThemeMeta(p.getOptionValue('theme')))
+);
+
+const themeMigrateCmd = new Command('migrate');
+
+['up', 'down'].forEach(dir => {
+    themeMigrateCmd.addCommand(
+        new Command(dir)
+            .action(() => themeMigrate(dir))
+    );
+});
+
+theme.addCommand(themeMigrateCmd);
+
+
+program.addCommand(theme);
+
+// ---------------------------------------
 
 program.parse(process.argv);
 

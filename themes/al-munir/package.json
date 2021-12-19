@@ -1,6 +1,7 @@
 {
   "name": "al-munir",
-  "version": "0.0.0",
+  "description": "Al-Munir",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "prod": "next start",

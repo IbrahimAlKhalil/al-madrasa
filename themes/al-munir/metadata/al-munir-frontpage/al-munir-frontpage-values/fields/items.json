@@ -1,0 +1,53 @@
+{
+  "field": "items",
+  "name": "Items",
+  "type": "json",
+  "meta": {
+    "name": "Items",
+    "field": "items",
+    "type": "json",
+    "interface": "list",
+    "options": {
+      "addLabel": "Add New",
+      "fields": [
+        {
+          "field": "title",
+          "name": "Title",
+          "type": "string",
+          "meta": {
+            "field": "title",
+            "type": "string",
+            "interface": "input",
+            "options": {
+              "iconLeft": "title",
+              "trim": true
+            },
+            "name": "Title"
+          }
+        },
+        {
+          "field": "image",
+          "name": "Image",
+          "type": "uuid",
+          "meta": {
+            "field": "image",
+            "type": "uuid",
+            "interface": "file-image-repeater",
+            "name": "Image"
+          }
+        },
+        {
+          "field": "description",
+          "name": "Description",
+          "type": "text",
+          "meta": {
+            "field": "description",
+            "type": "text",
+            "interface": "input-rich-text-html",
+            "name": "Description"
+          }
+        }
+      ]
+    }
+  }
+}

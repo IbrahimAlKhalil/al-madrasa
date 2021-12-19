@@ -1,0 +1,11 @@
+{
+  "field": "contact_info",
+  "name": "Contact Info",
+  "type": "text",
+  "meta": {
+    "name": "Contact Info",
+    "field": "contact_info",
+    "type": "text",
+    "interface": "input-rich-text-html"
+  }
+}

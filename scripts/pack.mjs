@@ -22,14 +22,15 @@ async function zipAdd(zip, paths, srcPath, zipPath) {
 export async function pack() {
     const zip = new AdmZip();
 
-    await zipAdd(zip, ['uploads', 'database', 'scripts', 'am.mjs', 'package.json', 'pnpm-lock.yaml', 'pnpm-workspace.yaml'], '../');
+    await zipAdd(zip, ['database', 'metadata', 'scripts', 'am.mjs', 'package.json', 'pnpm-lock.yaml', 'pnpm-workspace.yaml'], '../');
     await zipAdd(zip, ['dist', 'package.json', 'index.js', 'start.js'], '../api', '/api');
     await zipAdd(zip, ['dist'], '../app', '/app');
+    await zipAdd(zip, ['dist', 'package.json'], '../shared', '/shared');
 
     const themes = await fs.readdir(path.resolve(__dirname, '../themes'));
 
     for (const theme of themes) {
-        await zipAdd(zip, ['.next', 'package.json', 'next.config.js'], `../themes/${theme}`, `/themes/${theme}`);
+        await zipAdd(zip, ['.next', 'package.json', 'next.config.js', 'metadata', 'migrations'], `../themes/${theme}`, `/themes/${theme}`);
     }
 
     zip.writeZip(path.resolve(__dirname, '../dist/package.zip'), () => {

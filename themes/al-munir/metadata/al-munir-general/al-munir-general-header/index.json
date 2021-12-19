@@ -1,0 +1,9 @@
+{
+  "id": "al-munir-general-header",
+  "sort": 1,
+  "name": "Header",
+  "icon": "view_quilt",
+  "sortable": false,
+  "can_hide": false,
+  "page": "al-munir-general"
+}

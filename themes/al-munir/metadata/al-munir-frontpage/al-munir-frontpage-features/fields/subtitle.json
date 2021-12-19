@@ -1,0 +1,15 @@
+{
+  "field": "subtitle",
+  "name": "Subtitle",
+  "type": "text",
+  "meta": {
+    "name": "Subtitle",
+    "field": "subtitle",
+    "type": "text",
+    "interface": "input",
+    "options": {
+      "iconLeft": "subtitles",
+      "trim": true
+    }
+  }
+}

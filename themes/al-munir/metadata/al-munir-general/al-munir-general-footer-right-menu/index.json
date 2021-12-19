@@ -1,0 +1,9 @@
+{
+  "id": "al-munir-general-footer-right-menu",
+  "sort": 11,
+  "name": "Footer - Right Menu",
+  "icon": "menu",
+  "sortable": false,
+  "can_hide": false,
+  "page": "al-munir-general"
+}

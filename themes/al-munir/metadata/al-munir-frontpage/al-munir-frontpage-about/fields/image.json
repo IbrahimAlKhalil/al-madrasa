@@ -1,0 +1,11 @@
+{
+  "field": "image",
+  "name": "Image",
+  "type": "uuid",
+  "meta": {
+    "name": "Image",
+    "field": "image",
+    "type": "uuid",
+    "interface": "file-image-repeater"
+  }
+}

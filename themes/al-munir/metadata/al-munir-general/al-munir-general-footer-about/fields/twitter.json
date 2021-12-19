@@ -1,0 +1,15 @@
+{
+  "field": "twitter",
+  "name": "Twitter",
+  "type": "string",
+  "meta": {
+    "name": "Twitter",
+    "field": "twitter",
+    "type": "string",
+    "interface": "input",
+    "options": {
+      "trim": true,
+      "iconLeft": "http"
+    }
+  }
+}

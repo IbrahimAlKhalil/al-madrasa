@@ -1,0 +1,9 @@
+{
+  "id": "al-munir-frontpage-intro",
+  "sort": 2,
+  "name": "Introduction",
+  "icon": "horizontal_split",
+  "sortable": true,
+  "can_hide": true,
+  "page": "al-munir-frontpage"
+}

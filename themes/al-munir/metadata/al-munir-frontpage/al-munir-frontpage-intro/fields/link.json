@@ -1,0 +1,15 @@
+{
+  "field": "link",
+  "name": "Link",
+  "type": "text",
+  "meta": {
+    "name": "Link",
+    "field": "link",
+    "type": "text",
+    "interface": "input",
+    "options": {
+      "iconLeft": "http",
+      "trim": true
+    }
+  }
+}

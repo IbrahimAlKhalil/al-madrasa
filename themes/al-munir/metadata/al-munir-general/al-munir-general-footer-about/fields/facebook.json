@@ -1,0 +1,15 @@
+{
+  "field": "facebook",
+  "name": "Facebook",
+  "type": "string",
+  "meta": {
+    "name": "Facebook",
+    "field": "facebook",
+    "type": "string",
+    "interface": "input",
+    "options": {
+      "iconLeft": "http",
+      "trim": true
+    }
+  }
+}

@@ -9,7 +9,7 @@ const __dirname = dirname(__filename);
 
 function buildApi() {
     execa.sync('pnpm', ['build'], {
-        stdio: 'inherit',
+        stderr: 'inherit',
         cwd: path.resolve(__dirname, '../api'),
         shell: true,
     });
@@ -40,7 +40,7 @@ function buildShared() {
         cwd: path.resolve(__dirname, '../shared'),
         shell: true,
         stdio: 'inherit',
-    })
+    });
 }
 
 export async function build(api, dashboard, themes, shared, _pack) {

@@ -1,0 +1,15 @@
+{
+  "field": "phone",
+  "name": "Phone",
+  "type": "string",
+  "meta": {
+    "name": "Phone",
+    "field": "phone",
+    "type": "string",
+    "interface": "input",
+    "options": {
+      "trim": true,
+      "iconLeft": "phone_android"
+    }
+  }
+}

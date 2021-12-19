@@ -1,0 +1,9 @@
+{
+  "id": "al-munir-frontpage-features",
+  "sort": 6,
+  "name": "Features",
+  "icon": "featured_play_list",
+  "sortable": true,
+  "can_hide": true,
+  "page": "al-munir-frontpage"
+}

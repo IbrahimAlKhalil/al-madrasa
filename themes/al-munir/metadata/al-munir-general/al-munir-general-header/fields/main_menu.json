@@ -1,0 +1,16 @@
+{
+  "field": "main_menu",
+  "name": "Main Menu",
+  "type": "integer",
+  "meta": {
+    "name": "Main Menu",
+    "field": "main_menu",
+    "type": "integer",
+    "interface": "m2o-repeater",
+    "options": {
+      "related-collection": "menu",
+      "related-field": "id",
+      "template": "{{title}}"
+    }
+  }
+}

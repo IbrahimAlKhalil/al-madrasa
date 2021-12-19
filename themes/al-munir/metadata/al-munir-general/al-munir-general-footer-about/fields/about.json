@@ -1,0 +1,11 @@
+{
+  "field": "about",
+  "name": "About",
+  "type": "text",
+  "meta": {
+    "name": "About",
+    "field": "about",
+    "type": "text",
+    "interface": "input-rich-text-html"
+  }
+}
