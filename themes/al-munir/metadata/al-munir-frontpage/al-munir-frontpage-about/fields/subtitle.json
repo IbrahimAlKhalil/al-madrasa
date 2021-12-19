@@ -1,12 +1,12 @@
 {
   "field": "subtitle",
   "name": "Subtitle",
-  "type": "text",
+  "type": "string",
   "meta": {
     "name": "Subtitle",
     "field": "subtitle",
-    "type": "text",
-    "interface": "input-rich-text-html",
+    "type": "string",
+    "interface": "input",
     "options": {
       "iconLeft": "subtitles",
       "trim": true
