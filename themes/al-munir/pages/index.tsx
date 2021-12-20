@@ -10,7 +10,6 @@ import { SectionIntro } from 'c/home/section-intro';
 import { LayoutWide } from '../layout/layout-wide';
 import { SectionTeam } from 'c/home/section-team';
 import { loadRelations } from 'm/load-relations';
-import { BackToTop } from 'c/back-to-top';
 import { PageProps } from 'st/page-props';
 import { Sections } from 'sc/sections';
 import { NextPage } from 'next';
@@ -33,8 +32,6 @@ const Home: NextPage<PageProps> = (props) => {
     <Page pageProps={props}>
       <LayoutWide>
         <Sections pageId="frontpage" sections={sections} />
-
-        <BackToTop />
       </LayoutWide>
     </Page>
   );

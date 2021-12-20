@@ -1,6 +1,7 @@
 import {isMaster} from '../database/helpers/is-master';
 import {SiteSettings} from '../types/site-settings';
 import asyncHandler from '../utils/async-handler';
+import {ForbiddenException} from '../exceptions';
 import {NextServer} from 'next/dist/server/next';
 import {Request, Response} from 'express';
 import {AssetsService} from '../services';
@@ -55,6 +56,11 @@ export default async function () {
 		}
 
 		const database = isMaster(req.knex) ? getDatabase('template') : req.knex;
+
+		if (!database) {
+			throw new ForbiddenException();
+		}
+
 		const databaseName = database.client.config.connection.database;
 
 		if (!cache.hasOwnProperty(databaseName)) {

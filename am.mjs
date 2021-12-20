@@ -7,6 +7,7 @@ import {migrate} from './scripts/migrate.mjs';
 import {restore} from './scripts/restore.mjs';
 import {Command, program} from 'commander';
 import {build} from './scripts/build.mjs';
+import {create} from './scripts/user.mjs';
 import {start} from './scripts/start.mjs';
 import {clean} from './scripts/clean.mjs';
 import {lint} from './scripts/theme.mjs';
@@ -71,14 +72,14 @@ program.addCommand(
 const db = new Command('database');
 
 db.addCommand(
-    new Command('dump')
+    new Command('export')
         .option('-d, --database <db>', 'Specify the database to be dumped', 'all')
         .action((_, p) => dump(p.getOptionValue('database')))
 );
 
 db.addCommand(
-    new Command('restore')
-        .option('-d, --database <db>', 'Specify the database to restore', 'all')
+    new Command('import')
+        .option('-d, --database <db>', 'Specify the database to import', 'all')
         .action((_, p) => restore(p.getOptionValue('database')))
 );
 

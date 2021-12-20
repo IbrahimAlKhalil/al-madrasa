@@ -16,7 +16,7 @@ async function runExport(database, filename) {
         `--username=${process.env.DB_USER}`,
         `--host=${process.env.DB_HOST}`,
         `--port=${process.env.DB_PORT}`,
-        '--format=tar',
+        '--format=custom',
         '--no-owner',
         '--no-privileges',
         '--no-acl',
@@ -62,6 +62,9 @@ async function runImport(database, filename) {
         `--host=${process.env.DB_HOST}`,
         `--port=${process.env.DB_PORT}`,
         '--no-password',
+        '--no-owner',
+        '--no-privileges',
+        '--no-acl',
         '--disable-triggers',
         `--dbname=${database}`,
     ], {
@@ -76,27 +79,27 @@ async function runImport(database, filename) {
 export async function _export(database) {
     switch (database) {
         case 'master':
-            await runExport(process.env.DB_DATABASE, 'master.tar');
+            await runExport(process.env.DB_DATABASE, 'master');
             break;
         case 'template':
-            await runExport(process.env.DB_TEMPLATE, 'template.tar');
+            await runExport(process.env.DB_TEMPLATE, 'template');
             break;
         default:
-            await runExport(process.env.DB_DATABASE, 'master.tar');
-            await runExport(process.env.DB_TEMPLATE, 'template.tar');
+            await runExport(process.env.DB_DATABASE, 'master');
+            await runExport(process.env.DB_TEMPLATE, 'template');
     }
 }
 
 export async function _import(database) {
     switch (database) {
         case 'master':
-            await runImport(process.env.DB_DATABASE, 'master.tar');
+            await runImport(process.env.DB_DATABASE, 'master');
             break;
         case 'template':
-            await runImport(process.env.DB_TEMPLATE, 'template.tar');
+            await runImport(process.env.DB_TEMPLATE, 'template');
             break;
         default:
-            await runImport(process.env.DB_DATABASE, 'master.tar');
-            await runImport(process.env.DB_TEMPLATE, 'template.tar');
+            await runImport(process.env.DB_DATABASE, 'master');
+            await runImport(process.env.DB_TEMPLATE, 'template');
     }
 }

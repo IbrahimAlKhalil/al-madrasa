@@ -3,6 +3,7 @@ import { Footer } from './partials/footer/footer';
 import { useSetting } from 'sm/use-setting';
 import { FunctionComponent } from 'react';
 import Head from 'next/head';
+import { BackToTop } from 'c/back-to-top';
 
 export const LayoutWide: FunctionComponent = (props) => {
   const title = useSetting('title');
@@ -22,6 +23,8 @@ export const LayoutWide: FunctionComponent = (props) => {
       <main>{props.children}</main>
 
       <Footer />
+
+      <BackToTop />
     </>
   );
 };

@@ -189,12 +189,12 @@ async function runImport(theme) {
 }
 
 export async function lint() {
-    const themes = fs.readdirSync(path.resolve(__dirname, '../themes'));
+    const themes = await fs.readdir(path.resolve(__dirname, '../themes'));
 
     for (const theme of themes) {
         const esLintPath = path.resolve(__dirname, `../themes/${theme}/node_modules/.bin/eslint`);
 
-        if (!fs.existsSync(esLintPath)) {
+        if (!fsSync.existsSync(esLintPath)) {
             continue;
         }
 

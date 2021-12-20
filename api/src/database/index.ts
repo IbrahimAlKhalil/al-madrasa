@@ -274,11 +274,16 @@ export async function connectAllDatabases() {
 	}
 }
 
-export async function disconnectDatabase(key: string) {
-	if (key === 'master' || !databases.hasOwnProperty(key)) {
-		return;
-	}
+export async function disconnectDatabase(database: string) {
+	for (const key in databases) {
+		if (!databases.hasOwnProperty(key)) {
+			continue;
+		}
 
-	await databases[key].destroy();
-	delete databases[key];
+		if (databases[key].client.config.connection.database === database) {
+			await databases[key].destroy();
+			delete databases[key];
+			break;
+		}
+	}
 }

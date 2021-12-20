@@ -1,3 +1,4 @@
+import {run as _restore} from './restore.mjs';
 import path, {dirname} from 'path';
 import {fileURLToPath} from 'url';
 import crypto from 'crypto';
@@ -17,18 +18,13 @@ async function run(database, filename) {
         `--username=${process.env.DB_USER}`,
         `--host=${process.env.DB_HOST}`,
         `--port=${process.env.DB_PORT}`,
-        '--format=plain',
+        '--format=custom',
         '--no-owner',
         '--no-privileges',
+        '--disable-triggers',
         '--no-acl',
         '--inserts',
         '--quote-all-identifiers',
-        '--no-password',
-    ];
-    const restoreFlags = [
-        `--username=${process.env.DB_USER}`,
-        `--host=${process.env.DB_HOST}`,
-        `--port=${process.env.DB_PORT}`,
         '--no-password',
     ];
     const spawnOptions = {
@@ -62,14 +58,7 @@ async function run(database, filename) {
       CONNECTION LIMIT = -1;
     `);
 
-    execa.sync('psql', [
-        ...restoreFlags,
-        `--dbname=${tempDBName}`,
-        `--file=${path.resolve(__dirname, `../database/${filename}`)}`,
-    ], {
-        ...spawnOptions,
-        stdio: 'ignore',
-    });
+    await _restore(tempDBName, filename);
 
     const tempClient = new pg.Client({
         user: process.env.DB_USER,
@@ -125,13 +114,13 @@ async function run(database, filename) {
 export async function dump(database) {
     switch (database) {
         case 'master':
-            await run(process.env.DB_DATABASE, 'master.tar');
+            await run(process.env.DB_DATABASE, 'master');
             break;
         case 'template':
-            await run(process.env.DB_TEMPLATE, 'template.tar');
+            await run(process.env.DB_TEMPLATE, 'template');
             break;
         default:
-            await run(process.env.DB_DATABASE, 'master.tar');
-            await run(process.env.DB_TEMPLATE, 'template.tar');
+            await run(process.env.DB_DATABASE, 'master');
+            await run(process.env.DB_TEMPLATE, 'template');
     }
 }

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import cliProgress from 'cli-progress';
-import {restore} from './restore.mjs';
+import {prepare} from './prepare.mjs';
 import {fileURLToPath} from 'url';
 import Docker from 'dockerode';
 import {dirname} from 'path';
@@ -18,7 +18,7 @@ const docker = new Docker(
         ? 'tcp://127.0.0.1:2375'
         : '/var/run/docker.sock',
 );
-const prefix = 'madrasa3';
+const prefix = 'al-madrasah';
 const images = {
     postgres: 'postgis/postgis:14-3.1-alpine',
 };
@@ -214,61 +214,9 @@ async function startPostgres() {
         }
     }, () => !!client);
 
-    const checkDirectusQuery = `
-        select exists(
-                       select *
-                       from information_schema.tables
-                       where table_schema = 'public'
-                         and table_name = 'directus_collections'
-                   )
-    `;
-    let exists = await client.query(checkDirectusQuery);
-
-    if (!exists.rows[0].exists) {
-        await restore('master');
-    }
-
-    exists = await client.query(`
-        select exists(select datname
-                      from pg_catalog.pg_database
-                      where datname = $1)
-    `, [process.env.DB_TEMPLATE]);
-
-    if (!exists.rows[0].exists) {
-        await client.query(`
-           CREATE DATABASE "${process.env.DB_TEMPLATE}"
-           WITH
-           OWNER = "${process.env.DB_USER}"
-           ENCODING = 'UTF8'
-           CONNECTION LIMIT = -1;
-        `);
-    }
-
     await client.end();
-    client = null;
 
-    await waitUntilTrue(async () => {
-        try {
-            const _client = new pg.Client({
-                host: process.env.DB_HOST,
-                port: Number(process.env.DB_PORT),
-                database: process.env.DB_TEMPLATE,
-                user: process.env.DB_USER,
-                password: process.env.DB_PASSWORD,
-                connect_timeout: 30000
-            });
-
-            await _client.connect();
-            client = _client;
-        } catch (e) {
-            //
-        }
-    }, () => !!client);
-    exists = await client.query(checkDirectusQuery);
-
-    if (!exists.rows[0].exists) {
-        await restore('template');
-    }
+    await prepare();
 }
 
 async function startShared() {
