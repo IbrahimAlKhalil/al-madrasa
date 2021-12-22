@@ -160,6 +160,8 @@ export default async function createApp(): Promise<express.Application> {
 
 	app.use(database);
 
+	app.use(schema);
+
 	const themeRouter = await nextJs();
 
 	app.use('/', themeRouter);
@@ -179,8 +181,6 @@ export default async function createApp(): Promise<express.Application> {
 		});
 	});
 
-	app.use(extractToken);
-
 	// use the rate limiter - all routes for now
 	if (env.RATE_LIMITER_ENABLED === true) {
 		app.use(rateLimiter);
@@ -193,8 +193,6 @@ export default async function createApp(): Promise<express.Application> {
 	app.use(sanitizeQuery);
 
 	app.use(cache);
-
-	app.use(schema);
 
 	app.use(getPermissions);
 
