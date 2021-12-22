@@ -15,7 +15,7 @@ export const Sections: FunctionComponent<SectionsInterface> = (props) => {
   const page = ctx?.pages[props.pageId];
 
   if (!page) {
-    throw new Error(`Page ${props.pageId} doesn't exist`);
+    return null;
   }
 
   const sectionIds = Object.keys(props.sections);
