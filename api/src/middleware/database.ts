@@ -10,7 +10,7 @@ const schema: RequestHandler = asyncHandler(async (req, res, next) => {
 		.select('db_name')
 		.first();
 
-	req.knex = getDatabase(req.cookies['al-mad-app'] ?? req.header('X-Al-Mad-App') ?? institute?.db_name ?? 'master');
+	req.knex = getDatabase(req.query.al_mad_app ?? req.cookies['al-mad-app'] ?? req.header('X-Al-Mad-App') ?? institute?.db_name ?? 'master') ?? req.masterDB;
 
 	return next();
 });
