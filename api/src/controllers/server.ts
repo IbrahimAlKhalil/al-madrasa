@@ -159,7 +159,7 @@ router.post(
 			.first();
 
 		if (!session) {
-			throw new UnprocessableEntityException('app must be a string');
+			throw new ForbiddenException();
 		}
 
 		const sessionCheck = await database('directus_sessions')
@@ -172,6 +172,8 @@ router.post(
 				.onConflict('token')
 				.ignore();
 		}
+
+		res.cookie('al-mad-app', req.body.app);
 
 		return next();
 	}),

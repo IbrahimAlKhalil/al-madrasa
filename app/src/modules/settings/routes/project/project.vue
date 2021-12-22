@@ -111,7 +111,7 @@ export default defineComponent({
 		onBeforeRouteLeave(editsGuard);
 
 		const apps = reactive<any[]>([]);
-		const app = ref(sessionStorage.getItem('default_app') ?? 'master');
+		const app = ref( 'master');
 
 		api.get('/server/current-app')
 			.then(res => {
@@ -124,7 +124,6 @@ export default defineComponent({
 			}
 
 			app.value = value;
-		  sessionStorage.setItem('default_app', value);
 
 		  try {
 		    await api.post('/server/switch-app', {

@@ -5,18 +5,12 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { addQueryToPath } from './utils/add-query-to-path';
 import PQueue from 'p-queue';
 
-const headers = {
-	'Cache-Control': 'no-store',
-};
-
-if (sessionStorage.getItem('default_app')) {
-	(headers as any)['X-Al-Mad-App'] = sessionStorage.getItem('default_app');
-}
-
 const api = axios.create({
 	baseURL: '/api',
 	withCredentials: true,
-	headers,
+	headers: {
+		'Cache-Control': 'no-store',
+	},
 });
 
 const queue = new PQueue({ concurrency: 5, intervalCap: 5, interval: 500, carryoverConcurrencyCount: true });
