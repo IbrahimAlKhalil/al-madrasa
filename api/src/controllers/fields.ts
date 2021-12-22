@@ -13,10 +13,12 @@ import {isTemplate} from '../database/helpers/is-template';
 import {isMaster} from '../database/helpers/is-master';
 import {Knex} from 'knex';
 import {getChildDatabases} from '../database/helpers/get-child-databases';
+import {saveMetadata} from '../middleware/save-metadata';
 
 const router = Router();
 
 router.use(useCollection('directus_fields'));
+router.use(saveMetadata);
 
 router.get(
 	'/',
