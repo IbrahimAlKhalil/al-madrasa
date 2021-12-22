@@ -10,5 +10,8 @@ export interface GetServerSidePropsContext extends Base {
     knex: Knex;
     masterDB: Knex;
     siteSettings: SiteSettings;
+    query: Record<string, any>;
+    services: Record<string, any>;
+    schema: any;
   };
 }

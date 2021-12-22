@@ -4,9 +4,10 @@
 
 import { Accountability } from '@directus/shared/types';
 import { Query } from '@directus/shared/types';
-import { SchemaOverview } from './schema';
-import {Knex} from "knex";
 import {SiteSettings} from './site-settings';
+import { SchemaOverview } from './schema';
+import * as services from '../services';
+import {Knex} from "knex";
 
 export {};
 
@@ -21,6 +22,7 @@ declare global {
 
 			siteSettings?: SiteSettings;
 			masterDB: Knex;
+			services?: typeof services;
 
 			accountability?: Accountability;
 			singleton?: boolean;

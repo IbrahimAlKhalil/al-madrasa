@@ -5,6 +5,7 @@ import {ForbiddenException} from '../exceptions';
 import {NextServer} from 'next/dist/server/next';
 import {Request, Response} from 'express';
 import {AssetsService} from '../services';
+import * as services from '../services';
 import getDatabase from '../database';
 import {promises as fs} from 'fs';
 import env from '../env';
@@ -79,6 +80,7 @@ export default async function () {
 
 		req.knex = database;
 		req.siteSettings = cache[databaseName];
+		req.services = services;
 
 		if (req.path === '/favicon.ico') {
 			const logo = cache[databaseName].logo;
