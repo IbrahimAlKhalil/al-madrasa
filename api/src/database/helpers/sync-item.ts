@@ -30,8 +30,8 @@ async function copy(item: Record<string, any>, table: string, targetDB: Knex) {
 
 	await targetDB(table)
 		.insert(item)
-		.onConflict()
-		.ignore();
+		.onConflict('id')
+		.merge();
 }
 
 export const syncItem = async (meta: Record<string, any>, sourceDB: Knex, targetDB?: Knex | null, validateSourceDB?: ValidateDB) => {

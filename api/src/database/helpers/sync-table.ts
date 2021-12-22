@@ -43,7 +43,7 @@ export async function syncTable(sourceDB: Knex | string, targetDB: Knex | string
 
 		await targetDB(table)
 			.insert(item)
-			.onConflict()
+			.onConflict('id')
 			.merge(fields);
 	}
 }
