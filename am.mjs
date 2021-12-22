@@ -7,7 +7,6 @@ import {migrate} from './scripts/migrate.mjs';
 import {restore} from './scripts/restore.mjs';
 import {Command, program} from 'commander';
 import {build} from './scripts/build.mjs';
-import {create} from './scripts/user.mjs';
 import {start} from './scripts/start.mjs';
 import {clean} from './scripts/clean.mjs';
 import {lint} from './scripts/theme.mjs';
@@ -94,7 +93,9 @@ const migrateCommand = new Command('migrate');
 ['up', 'down', 'latest'].forEach(dir => {
     migrateCommand.addCommand(
         new Command(dir)
-            .action(() => migrate(dir))
+            .option('-m, --master', 'Run only for master database')
+            .option('-c, --children', 'Run only for children databases')
+            .action((_, p) => migrate(dir, p.getOptionValue('master'), p.getOptionValue('children')))
     );
 });
 

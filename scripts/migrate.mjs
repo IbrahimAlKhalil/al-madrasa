@@ -1,6 +1,5 @@
 import {build} from './build.mjs';
 import knex from 'knex';
-import {logger} from './logger.mjs';
 
 async function getDatabases() {
     const connection = {
@@ -37,23 +36,37 @@ async function getDatabases() {
     return {master, template, institutes};
 }
 
-export async function migrate(direction) {
+export async function migrate(direction, master , children) {
     await build(true);
 
     const run = await import('../api/dist/database/migrations/run.js');
     const databases = await getDatabases();
 
-    await run.default.default(databases.master, direction);
-    await run.default.default(databases.template, direction);
+    async function runChildren() {
+        await run.default.default(databases.template, direction);
 
-    for (const institute of databases.institutes) {
-        await run.default.default(institute, direction);
+        for (const institute of databases.institutes) {
+            await run.default.default(institute, direction);
+        }
+
+        for (const institute of databases.institutes) {
+            await institute.destroy();
+        }
+
+        await databases.master.destroy();
+        await databases.template.destroy();
     }
 
-    for (const institute of databases.institutes) {
-        await institute.destroy();
+    if (!master && !children) {
+        await run.default.default(databases.master, direction);
+        await runChildren();
     }
 
-    await databases.master.destroy();
-    await databases.template.destroy();
+    if (master) {
+        await run.default.default(databases.master, direction);
+    }
+
+    if (children) {
+        await runChildren();
+    }
 }
