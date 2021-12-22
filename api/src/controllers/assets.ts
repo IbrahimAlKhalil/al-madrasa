@@ -22,7 +22,7 @@ router.get(
 		const payloadService = new PayloadService('directus_settings', { schema: req.schema, knex: req.knex });
 		const defaults = { storage_asset_presets: [], storage_asset_transform: 'all' };
 
-		const database = getDatabase();
+		const database = req.knex;
 		const savedAssetSettings = await database
 			.select('storage_asset_presets', 'storage_asset_transform')
 			.from('directus_settings')
