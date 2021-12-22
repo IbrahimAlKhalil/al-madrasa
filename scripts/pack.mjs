@@ -30,7 +30,7 @@ export async function pack() {
     const themes = await fs.readdir(path.resolve(__dirname, '../themes'));
 
     for (const theme of themes) {
-        await zipAdd(zip, ['.next', 'package.json', 'next.config.js', 'metadata', 'migrations'], `../themes/${theme}`, `/themes/${theme}`);
+        await zipAdd(zip, ['.next', 'package.json', 'next.config.js', 'metadata'], `../themes/${theme}`, `/themes/${theme}`);
     }
 
     zip.writeZip(path.resolve(__dirname, '../dist/package.zip'), () => {

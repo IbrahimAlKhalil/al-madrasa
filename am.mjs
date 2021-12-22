@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import {_export as exportThemeMeta, _import as importThemeMeta, migrate as themeMigrate} from './scripts/theme.mjs';
-import {_export, _import} from './scripts/metadata.mjs';
 import {prepare} from './scripts/prepare.mjs';
 import {migrate} from './scripts/migrate.mjs';
 import {restore} from './scripts/restore.mjs';
@@ -16,6 +15,7 @@ import {dirname} from 'path';
 import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
+import {createAdmin, createBot} from './scripts/user.mjs';
 
 dotenv.config();
 
@@ -103,24 +103,6 @@ db.addCommand(migrateCommand);
 
 program.addCommand(db);
 
-// ----------------------- Metadata -----------------------
-
-const metadata = new Command('metadata');
-
-metadata.addCommand(
-    new Command('export')
-        .option('-d, --database <db>', 'Specify the database to export metadata from', 'all')
-        .action((_, p) => _export(p.getOptionValue('database')))
-);
-
-metadata.addCommand(
-    new Command('import')
-        .option('-d, --database <db>', 'Specify the database to import metadata to', 'all')
-        .action((_, p) => _import(p.getOptionValue('database')))
-);
-
-program.addCommand(metadata);
-
 
 // ---------------- Theme ------------------
 
@@ -158,6 +140,24 @@ theme.addCommand(themeMigrateCmd);
 
 
 program.addCommand(theme);
+
+// ------------------ User -----------------
+
+const userCmd = new Command('user');
+
+userCmd.addCommand(
+    new Command('create-admin')
+        .requiredOption('-e, --email <email>', 'Email address to use')
+        .action((_, p) => createAdmin(p.getOptionValue('email')))
+);
+
+userCmd.addCommand(
+    new Command('create-bot')
+        .requiredOption('-e, --email <email>', 'Email address to use')
+        .action((_, p) => createBot(p.getOptionValue('email')))
+);
+
+program.addCommand(userCmd);
 
 // ---------------------------------------
 

@@ -1,5 +1,4 @@
 import {_import as importThemeMetadata, migrate as migrateThemeData} from './theme.mjs';
-import {_import as importAppMetadata} from './metadata.mjs';
 import {migrate as migrateDB} from './migrate.mjs';
 import {logger} from './logger.mjs';
 import pg from 'pg';
@@ -76,9 +75,6 @@ export async function prepare() {
 
     logger.info('Running database migrations...');
     await migrateDB('latest');
-
-    logger.info('Loading application metadata...');
-    await importAppMetadata();
 
     logger.info('Loading theme metadata...');
     await importThemeMetadata();

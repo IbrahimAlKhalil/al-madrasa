@@ -2,6 +2,7 @@
 
 import cliProgress from 'cli-progress';
 import {prepare} from './prepare.mjs';
+import {logger} from './logger.mjs';
 import {fileURLToPath} from 'url';
 import Docker from 'dockerode';
 import {dirname} from 'path';
@@ -26,12 +27,8 @@ const containerNames = {
     postgres: `${prefix}-postgres`,
 };
 
-function logTask(message, name) {
-    console.log(`\x1b[34m ${message}:\x1b[0m \x1b[36m${name}\x1b[0m`);
-}
-
 async function removeContainer(name) {
-    logTask('Stopping container', name);
+    logger.info(`Stopping container ${name}`);
 
     try {
         const postgres = docker.getContainer(name);
@@ -40,7 +37,7 @@ async function removeContainer(name) {
         //
     }
 
-    logTask('Removing container', name);
+    logger.info(`Removing container ${name}`);
     try {
         const postgres = docker.getContainer(name);
         await postgres.remove();
@@ -67,7 +64,7 @@ function waitUntilTrue(fn, callback) {
 
 function pullImage(tag) {
     return new Promise(async (resolve) => {
-        console.log(`\x1b[32mPulling:\x1b[0m ${tag}`, '\n');
+        logger.info(`Pulling ${tag}`);
 
         const bar = new cliProgress.SingleBar(
             {},
@@ -124,7 +121,7 @@ function pullImages() {
 }
 
 async function startApp() {
-    logTask('Starting', 'CMS API');
+    logger.info('Starting application');
 
     if (!fs.existsSync(path.resolve(__dirname, '../uploads'))) {
         fs.mkdirSync(path.resolve(__dirname, '../uploads'));
@@ -147,17 +144,17 @@ async function startApp() {
 }
 
 async function startPostgres() {
-    logTask('Creating volume', containerNames.postgres);
+    logger.info(`Creating volume ${containerNames.postgres}`);
 
     try {
         await docker.createVolume({
             Name: containerNames.postgres,
         });
     } catch (e) {
-        console.log(`Volume ${containerNames.postgres} already exists`);
+        logger.info(`Volume ${containerNames.postgres} already exists`);
     }
 
-    logTask('Creating container', containerNames.postgres);
+    logger.info(`Creating container ${containerNames.postgres}`);
 
     const postgres = await docker.createContainer({
         name: containerNames.postgres,
@@ -190,7 +187,7 @@ async function startPostgres() {
         },
     });
 
-    logTask('Starting container', containerNames.postgres);
+    logger.info(`Starting container ${containerNames.postgres}`);
 
     await postgres.start();
 
@@ -228,11 +225,11 @@ async function startShared() {
 }
 
 async function stop() {
-    console.log('\x1b[41mStopping...\x1b[0m');
+    logger.info('Stopping...');
 
     await removeContainer(containerNames.postgres);
 
-    console.log('\x1b[41mStopped\x1b[0m \x1b[32m✔\x1b[0m');
+    logger.info('Stopped');
 }
 
 async function close() {
@@ -254,8 +251,8 @@ export async function start(postgres, app, shared) {
     await pullImages();
     await stop();
 
-    console.log('\x1b[42mStarting...\x1b[0m');
-    logTask('Creating network', prefix);
+    logger.info('Starting...');
+    logger.info(`Creating network ${prefix}`);
 
     if (postgres) {
         await startPostgres();
@@ -275,5 +272,5 @@ export async function start(postgres, app, shared) {
         await startShared();
     }
 
-    console.log('\x1b[42mStarted\x1b[0m \x1b[32m✔\x1b[0m');
+    logger.info('Started');
 }
