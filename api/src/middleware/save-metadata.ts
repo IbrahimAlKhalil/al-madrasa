@@ -5,6 +5,7 @@ import fsSync, {promises as fs} from 'fs';
 import {Knex} from 'knex';
 import env from '../env';
 import path from 'path';
+import crypto from 'crypto';
 
 const methods = new Set(['POST', 'PATCH', 'DELETE']);
 
@@ -35,12 +36,15 @@ export const saveMetadata = asyncHandler(async (req, res, next) => {
 			.insert({id});
 	}
 
-	await fs.writeFile(`${metadataDir}/${id}.json`, JSON.stringify({
+	const content = JSON.stringify({
 		database,
 		method: req.method,
 		url: req.originalUrl,
 		data: req.body,
-	}, null, 2), {
+	}, null, 2);
+	const hash = crypto.createHash('md5').update(JSON.stringify(req.body)).digest('hex');
+
+	await fs.writeFile(`${metadataDir}/${id}_${hash}.json`, content, {
 		encoding: 'utf-8'
 	});
 
