@@ -231,11 +231,6 @@ export default async function createApp(): Promise<express.Application> {
 
 	app.use('/api', router);
 
-	// Register custom endpoints
-	await emitter.emitInit('routes.custom.before', { app });
-	app.use(extensionManager.getEndpointRouter());
-	await emitter.emitInit('routes.custom.after', { app });
-
 	app.use(notFoundHandler);
 	app.use(errorHandler);
 
