@@ -46,7 +46,9 @@ async function getDatabases() {
 
 export async function migrate(direction, master, children) {
     logger.info('Compiling migration files');
-    await build(true);
+    if (process.env.NODE_ENV === 'development') {
+        await build(true);
+    }
 
     const run = await import('../api/dist/database/migrations/run.js');
     const databases = await getDatabases();
