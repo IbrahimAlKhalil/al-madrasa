@@ -9,8 +9,6 @@ import path from 'path';
 const methods = new Set(['POST', 'PATCH', 'DELETE']);
 
 export const saveMetadata = asyncHandler(async (req, res, next) => {
-	console.log(req.query);
-
 	if (!methods.has(req.method) || env.NODE_ENV !== 'development' || req.query.do_not_save) {
 		return next();
 	}
