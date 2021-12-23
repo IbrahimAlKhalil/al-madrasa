@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import {_export as exportThemeMeta, _import as importThemeMeta, migrate as themeMigrate} from './scripts/theme.mjs';
+import {createAdmin, createBot} from './scripts/user.mjs';
 import {prepare} from './scripts/prepare.mjs';
 import {migrate} from './scripts/migrate.mjs';
 import {restore} from './scripts/restore.mjs';
@@ -15,7 +16,6 @@ import {dirname} from 'path';
 import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
-import {createAdmin, createBot} from './scripts/user.mjs';
 
 dotenv.config();
 
@@ -49,21 +49,23 @@ program.addCommand(
         .action(prepare)
 );
 
-program.addCommand(
-    new Command('build')
-        .option('-a, --api', 'Build api')
-        .option('-d, --dashboard', 'Build dashboard')
-        .option('-t, --themes', 'Build themes')
-        .option('-s, --shared', 'Build the shared module')
-        .option('-p, --pack', 'Package application')
-        .action((_, p) => build(
-            p.getOptionValue('api'),
-            p.getOptionValue('dashboard'),
-            p.getOptionValue('themes'),
-            p.getOptionValue('shared'),
-            p.getOptionValue('pack'),
-        ))
-);
+if (process.env.NODE_ENV === 'development') {
+    program.addCommand(
+        new Command('build')
+            .option('-a, --api', 'Build api')
+            .option('-d, --dashboard', 'Build dashboard')
+            .option('-t, --themes', 'Build themes')
+            .option('-s, --shared', 'Build the shared module')
+            .option('-p, --pack', 'Package application')
+            .action((_, p) => build(
+                p.getOptionValue('api'),
+                p.getOptionValue('dashboard'),
+                p.getOptionValue('themes'),
+                p.getOptionValue('shared'),
+                p.getOptionValue('pack'),
+            ))
+    );
+}
 
 
 // ----------------- Database ---------------------
