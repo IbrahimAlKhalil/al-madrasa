@@ -2,10 +2,10 @@ import {getChildDatabases} from '../database/helpers/get-child-databases';
 import {isMaster} from '../database/helpers/is-master';
 import asyncHandler from '../utils/async-handler';
 import fsSync, {promises as fs} from 'fs';
+import crypto from 'crypto';
 import {Knex} from 'knex';
 import env from '../env';
 import path from 'path';
-import crypto from 'crypto';
 
 const methods = new Set(['POST', 'PATCH', 'DELETE']);
 
@@ -41,7 +41,7 @@ export const saveMetadata = asyncHandler(async (req, res, next) => {
 		method: req.method,
 		url: req.originalUrl,
 		data: req.body,
-	}, null, 2);
+	});
 	const hash = crypto.createHash('md5').update(JSON.stringify(req.body)).digest('hex');
 
 	await fs.writeFile(`${metadataDir}/${id}_${hash}.json`, content, {
