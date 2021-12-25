@@ -85,14 +85,18 @@ export async function migrate(direction, master, children) {
             url.pathname = migration.url;
             url.search = `?do_not_save=true&access_token=${process.env.BOT_USER_TOKEN}`;
 
-            await axios.request({
-                url: url.toString(),
-                method: migration.method,
-                data: migration.data,
-                headers: {
-                    'X-Al-Mad-App': migration.database,
-                },
-            });
+            try {
+                await axios.request({
+                    url: url.toString(),
+                    method: migration.method,
+                    data: migration.data,
+                    headers: {
+                        'X-Al-Mad-App': migration.database,
+                    },
+                });
+            } catch (e) {
+                logger.warn('Failed!');
+            }
 
             await knex
                 .table('am_migration')
