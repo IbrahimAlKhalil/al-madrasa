@@ -70,18 +70,7 @@
       "field": "excerpt",
       "meta": {
         "sort": 10,
-        "group": null,
-        "options": {
-          "tinymceOverrides": {
-            "plugins": "preview paste directionality code fullscreen image link media table hr pagebreak insertdatetime lists imagetools",
-            "toolbar": "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | customImage customMedia link | ltr rtl | fontselect fontsizeselect formatselect",
-            "menubar": "edit view insert format tools table tc",
-            "template_cdate_format": "[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]",
-            "template_mdate_format": "[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]",
-            "contextmenu": "link image table",
-            "height": 500
-          }
-        }
+        "group": null
       }
     },
     {

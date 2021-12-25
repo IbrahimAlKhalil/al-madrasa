@@ -94,24 +94,19 @@ export async function migrate(direction, master, children) {
                         'X-Al-Mad-App': migration.database,
                     },
                 });
+
+                await knex
+                    .table('am_migration')
+                    .insert({id});
             } catch (e) {
                 logger.warn('Failed!');
             }
-
-            await knex
-                .table('am_migration')
-                .insert({id});
         }
     }
 
     async function runChildren() {
         await run.default.default(databases.template, direction);
         await importMetadata(databases.template, 'template');
-
-        for (const institute of databases.institutes) {
-            await run.default.default(institute, direction);
-            await importMetadata(institute, 'template');
-        }
     }
 
     if (!master && !children) {
