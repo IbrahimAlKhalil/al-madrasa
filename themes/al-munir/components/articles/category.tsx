@@ -7,6 +7,8 @@ export interface CategoryInterface {
     name: string;
 }
 
+// TODO: Highlight active category
+
 export const Category: FunctionComponent<CategoryInterface> = (props) => {
     return (
         <li>

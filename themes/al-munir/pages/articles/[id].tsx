@@ -95,6 +95,7 @@ const Article: NextPage<Props> = (props) => {
                                         <p>{article.user_created.description}</p>
                                     </div>
                                 </div>
+                                {/* TODO: Add comment section */}
                                 {/*<div className="blog-comments">
                                     <h4 className="comments-count">8 Comments</h4>
                                     <div id="comment-1" className="comment">
