@@ -1,0 +1,1 @@
+{"database":"template","method":"POST","url":"/api/fields/article","data":{"field":"excerpt","type":"text","schema":{},"meta":{"interface":"input-rich-text-html","special":null,"required":true},"collection":"article"}}

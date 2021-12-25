@@ -1,0 +1,109 @@
+{
+  "database": "template",
+  "method": "PATCH",
+  "url": "/api/fields/article",
+  "data": [
+    {
+      "field": "id",
+      "meta": {
+        "sort": 1,
+        "group": null
+      }
+    },
+    {
+      "field": "sort",
+      "meta": {
+        "sort": 2,
+        "group": null
+      }
+    },
+    {
+      "field": "user_created",
+      "meta": {
+        "sort": 3,
+        "group": null
+      }
+    },
+    {
+      "field": "date_created",
+      "meta": {
+        "sort": 4,
+        "group": null
+      }
+    },
+    {
+      "field": "user_updated",
+      "meta": {
+        "sort": 5,
+        "group": null
+      }
+    },
+    {
+      "field": "date_updated",
+      "meta": {
+        "sort": 6,
+        "group": null
+      }
+    },
+    {
+      "field": "status",
+      "meta": {
+        "sort": 7,
+        "group": null
+      }
+    },
+    {
+      "field": "title",
+      "meta": {
+        "sort": 8,
+        "group": null
+      }
+    },
+    {
+      "field": "content",
+      "meta": {
+        "sort": 9,
+        "group": null
+      }
+    },
+    {
+      "field": "excerpt",
+      "meta": {
+        "sort": 10,
+        "group": null,
+        "options": {
+          "tinymceOverrides": {
+            "plugins": "preview paste directionality code fullscreen image link media table hr pagebreak insertdatetime lists imagetools",
+            "toolbar": "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | customImage customMedia link | ltr rtl | fontselect fontsizeselect formatselect",
+            "menubar": "edit view insert format tools table tc",
+            "template_cdate_format": "[Date Created (CDATE): %m/%d/%Y : %H:%M:%S]",
+            "template_mdate_format": "[Date Modified (MDATE): %m/%d/%Y : %H:%M:%S]",
+            "contextmenu": "link image table",
+            "height": 500
+          }
+        }
+      }
+    },
+    {
+      "field": "featured_image",
+      "meta": {
+        "sort": 11,
+        "group": null
+      }
+    },
+    {
+      "field": "tags",
+      "meta": {
+        "sort": 12,
+        "group": null
+      }
+    },
+    {
+      "field": "categories",
+      "meta": {
+        "sort": 13,
+        "group": null
+      }
+    }
+  ]
+}

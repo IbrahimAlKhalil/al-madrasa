@@ -1,0 +1,6 @@
+{
+  "database": "template",
+  "method": "DELETE",
+  "url": "/api/fields/article/categories",
+  "data": {}
+}

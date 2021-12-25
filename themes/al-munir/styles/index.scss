@@ -1644,6 +1644,10 @@ section {
       max-height: 440px;
       margin: -30px -30px 20px -30px;
       overflow: hidden;
+
+      img {
+        width: 100%;
+      }
     }
 
     .entry-title {
