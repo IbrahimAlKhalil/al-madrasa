@@ -203,6 +203,30 @@ export default defineComponent({
 
 		watch(props, fetchValues, { immediate: true, deep: true });
 
+		console.log({
+		t,
+		previewValues,
+		collections,
+		selectingFrom,
+		stageSelection,
+		templates,
+		o2mRelation,
+		anyRelation,
+		currentlyEditing,
+		relatedPrimaryKey,
+		editsAtStart,
+		stageEdits,
+		cancelEdit,
+		editExisting,
+		createNew,
+		previewLoading,
+		deselect,
+		relatedItemValues,
+		hideDragImage,
+		onSort,
+		allowedCollections,
+	});
+
 		return {
 			t,
 			previewValues,

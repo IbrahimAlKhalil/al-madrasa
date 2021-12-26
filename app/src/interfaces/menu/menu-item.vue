@@ -7,9 +7,9 @@
 			<div class="item-name" @click="$emit('open', item)">
 				<v-icon
 						class="item-icon"
-						:name="item.icon"
+						:name="item.link.icon"
 				/>
-				<span>{{ item.label }}</span>
+				<span>{{ item.link.label }}</span>
 			</div>
 			<am-interface-menu-options @delete="$emit('remove', item)"/>
 		</v-list-item>

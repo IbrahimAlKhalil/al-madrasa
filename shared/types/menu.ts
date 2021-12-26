@@ -1,8 +1,8 @@
+import {Link} from './link';
+
 export interface MenuItem {
   id: string;
-  label: string;
-  link: string;
-  icon?: string;
+  link: Link;
   children: MenuItem[];
 }
 

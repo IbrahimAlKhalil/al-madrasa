@@ -6,10 +6,6 @@
     "name": "Link",
     "field": "link",
     "type": "string",
-    "interface": "input",
-    "options": {
-      "iconLeft": "http",
-      "trim": true
-    }
+    "interface": "link"
   }
 }

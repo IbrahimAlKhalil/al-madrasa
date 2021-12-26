@@ -65,7 +65,11 @@ export const SectionTestimonial: FunctionComponent<SectionProps> = (props) => {
     });
 
     return () => {
-      swipper.destroy(true, true);
+      try {
+        swipper.destroy(true, true);
+      } catch (e) {
+        //
+      }
     };
   }, []);
 

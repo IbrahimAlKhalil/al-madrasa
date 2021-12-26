@@ -187,38 +187,6 @@ export async function isInstalled(): Promise<boolean> {
 	return await inspector.hasTable('directus_collections');
 }
 
-export async function validateMigrations(): Promise<boolean> {
-	const database = getDatabase();
-
-	try {
-		let migrationFiles = await fse.readdir(path.join(__dirname, 'migrations'));
-
-		const customMigrationsPath = path.resolve(env.EXTENSIONS_PATH, 'migrations');
-
-		let customMigrationFiles =
-			((await fse.pathExists(customMigrationsPath)) && (await fse.readdir(customMigrationsPath))) || [];
-
-		migrationFiles = migrationFiles.filter(
-			(file: string) => file.startsWith('run') === false && file.endsWith('.d.ts') === false
-		);
-
-		customMigrationFiles = customMigrationFiles.filter((file: string) => file.endsWith('.js'));
-
-		migrationFiles.push(...customMigrationFiles);
-
-		const requiredVersions = migrationFiles.map((filePath) => filePath.split('-')[0]);
-		const completedVersions = (await database.select('version').from('directus_migrations')).map(
-			({ version }) => version
-		);
-
-		return requiredVersions.every((version) => completedVersions.includes(version));
-	} catch (error: any) {
-		logger.error(`Database migrations cannot be found`);
-		logger.error(error);
-		throw process.exit(1);
-	}
-}
-
 /**
  * These database extensions should be optional, so we don't throw or return any problem states when they don't
  */

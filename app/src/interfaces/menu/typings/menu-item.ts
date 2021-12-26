@@ -1,7 +1,7 @@
+import {Link} from '@/interfaces/link/types/link';
+
 export interface MenuItem {
 	id: string;
-	label?: string;
-	link?: string;
-	icon?: string;
+	link?: Link;
 	children?: MenuItem[];
 }
