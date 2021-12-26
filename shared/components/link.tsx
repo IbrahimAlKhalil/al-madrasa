@@ -23,6 +23,9 @@ export function link(item: Link, renderer: (url: string) => ReturnType<FunctionC
         case 'book':
             href = item.url ?? `/books/${item.id}`;
             break;
+        case 'page':
+            href = `/${item.id}`;
+            break;
         default:
             href = item.url ?? '#';
     }
