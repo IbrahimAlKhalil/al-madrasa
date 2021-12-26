@@ -33,7 +33,6 @@ import {
 	isInstalled,
 	validateDatabaseConnection,
 	validateDatabaseExtensions,
-	validateMigrations
 } from './database';
 import emitter from './emitter';
 import env from './env';
@@ -77,10 +76,6 @@ export default async function createApp(): Promise<express.Application> {
 	if ((await isInstalled()) === false) {
 		logger.error(`Database doesn't have Directus tables installed.`);
 		process.exit(1);
-	}
-
-	if ((await validateMigrations()) === false) {
-		logger.warn(`Database migrations have not all been run`);
 	}
 
 	await flushCaches();
