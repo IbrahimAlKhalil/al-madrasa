@@ -8,6 +8,7 @@ import {CategoryInterface} from 'c/articles/category';
 import {LayoutWide} from '../../layout/layout-wide';
 import {Page} from 'shared/dist/components/page';
 import {loadRelations} from 'm/load-relations';
+import {TagInterface} from 'c/articles/tag';
 import {Sidebar} from 'c/articles/sidebar';
 import {NextPage} from 'next';
 import {find} from 'lodash';
@@ -16,6 +17,7 @@ interface Props extends PageProps {
   articles: ArticleInterface[];
   recent: RecentArticleInterface[];
   categories: CategoryInterface[];
+  tags: TagInterface[];
   pageCount: number;
   activePage: number;
   keyword?: string;
@@ -67,7 +69,7 @@ const Blog: NextPage<Props> = (props) => {
               </div>
 
               <div className="col-lg-4">
-                <Sidebar categories={props.categories} recent={props.recent} keyword={props.keyword}/>
+                <Sidebar categories={props.categories} recent={props.recent} tags={props.tags} keyword={props.keyword}/>
               </div>
             </div>
           </div>
@@ -103,6 +105,14 @@ export const getServerSideProps = getServerSidePageProps(
                   _eq: query.category
               }
           }
+      }
+
+      if (query.tag) {
+          filter.tags = {
+            id: {
+                _eq: query.tag,
+            }
+          };
       }
 
       const articles: ArticleInterface[] = await articleService.readByQuery({
@@ -147,11 +157,11 @@ export const getServerSideProps = getServerSidePageProps(
         articles[i].date_created = formatter.format(new Date(articles[i].date_created));
       }
 
-      const {recent, categories} = await loadSidebarContent(ctx);
+      const {recent, categories, tags} = await loadSidebarContent(ctx);
       const total = Number(count[0].countDistinct.id);
       const pageCount = Math.ceil(total / limit);
 
-      return { articles, pageCount, activePage: page, categories, recent, keyword: query.q ?? '' };
+      return { articles, pageCount, activePage: page, categories, tags, recent, keyword: query.q ?? '' };
     },
 );
 

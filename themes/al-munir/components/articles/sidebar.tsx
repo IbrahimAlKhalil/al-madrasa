@@ -1,6 +1,7 @@
 import {RecentArticle, RecentArticleInterface} from 'c/articles/recent-article';
 import {Category, CategoryInterface} from 'c/articles/category';
 import {FormEvent, FunctionComponent, useState} from 'react';
+import {Tag, TagInterface} from 'c/articles/tag';
 
 export const Sidebar: FunctionComponent<SidebarInterface> = (props) => {
     const [keyword, updateKeyword] = useState(props.keyword);
@@ -15,7 +16,7 @@ export const Sidebar: FunctionComponent<SidebarInterface> = (props) => {
             <h3 className="sidebar-title">অনুসন্ধান</h3>
             <div className="sidebar-item search-form">
                 <form action={props.action ?? ''} method="get">
-                    <input type="text" name="q" value={keyword} onInput={handleSearchInput} />
+                    <input type="text" name="q" value={keyword} onInput={handleSearchInput}/>
                     <button type="submit">
                         <i className="mi">search</i>
                     </button>
@@ -44,21 +45,22 @@ export const Sidebar: FunctionComponent<SidebarInterface> = (props) => {
                 }
             </div>
 
-            {/*<h3 className="sidebar-title">ট্যগ সমূহ</h3>
-                  <div className="sidebar-item tags">
-                    <ul>
-                      <li>
-                        <a href="#">App</a>
-                      </li>
-                    </ul>
-                  </div>*/}
+            <h3 className="sidebar-title">ট্যগ সমূহ</h3>
+            <div className="sidebar-item tags">
+                <ul>
+                    {
+                        props.tags.map(t => <Tag key={t.id} {...t}/>)
+                    }
+                </ul>
+            </div>
         </div>
     );
-}
+};
 
 export interface SidebarInterface {
     action?: string;
     keyword?: string;
     categories: CategoryInterface[];
+    tags: TagInterface[];
     recent: RecentArticleInterface[];
 }

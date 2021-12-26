@@ -1,0 +1,1 @@
+{"database":"template","method":"POST","url":"/api/fields/article","data":{"field":"tags","type":"alias","meta":{"special":["m2m"],"interface":"list-m2m"},"collection":"article"}}

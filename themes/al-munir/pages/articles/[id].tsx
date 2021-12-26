@@ -7,20 +7,22 @@ import {CategoryInterface} from 'c/articles/category';
 import {LayoutWide} from '../../layout/layout-wide';
 import {Page} from 'shared/dist/components/page';
 import {loadRelations} from 'm/load-relations';
+import {TagInterface} from 'c/articles/tag';
 import {Sidebar} from 'c/articles/sidebar';
 import userAvatar from 'a/img/user.svg';
-import Image from 'next/image';
 import {NextPage} from 'next';
-import {find} from 'lodash';
+import Link from 'next/link';
 
 interface ArticleInterface extends ArticleInterfaceBase {
-    tags: string[];
+    tags: TagInterface[];
+    categories: TagInterface[];
 }
 
 interface Props extends PageProps {
     article: ArticleInterface;
     recent: RecentArticleInterface[];
     categories: CategoryInterface[];
+    tags: TagInterface[];
 }
 
 const Article: NextPage<Props> = (props) => {
@@ -39,13 +41,14 @@ const Article: NextPage<Props> = (props) => {
                             <div className="col-lg-8 entries">
                                 <article className="entry entry-single">
                                     <div className="entry-img">
-                                        <img src={`/assets/${article.featured_image}`} alt={article.title} className="img-fluid" />
+                                        <img src={`/assets/${article.featured_image}`} alt={article.title}
+                                             className="img-fluid"/>
                                     </div>
                                     <h2 className="entry-title">{article.title}</h2>
                                     <div className="entry-meta">
                                         <ul>
                                             <li className="d-flex align-items-center">
-                                                <i className="mi" >person</i>
+                                                <i className="mi">person</i>
                                                 <a>{article.user_created.first_name} {article.user_created.last_name}</a>
                                             </li>
                                             <li className="d-flex align-items-center">
@@ -57,23 +60,33 @@ const Article: NextPage<Props> = (props) => {
                                             </li>
                                         </ul>
                                     </div>
-                                    <div className="entry-content" dangerouslySetInnerHTML={{__html: article.content}}>
 
-                                    </div>
+                                    <div className="entry-content" dangerouslySetInnerHTML={{__html: article.content}}/>
+
                                     <div className="entry-footer">
-                                        <ul className="cats">
-                                            {
-                                                article.tags.map(t => <li><a href="#"><strong>{t}</strong></a></li>)
-                                            }
-                                        </ul>
-
-                                        |
-
-                                        &nbsp;&nbsp;&nbsp;
-
                                         <ul className="tags">
                                             {
-                                                article.tags.map(t => <li><a href="#"><strong>{t}</strong></a></li>)
+                                                article.categories.map(c => (
+                                                    <li key={c.id}>
+                                                        <a href={`/articles?category=${c.id}`}>
+                                                            {c.name}
+                                                        </a>&nbsp;
+                                                    </li>
+                                                ))
+                                            }
+                                        </ul>
+                                        {
+                                            article.tags.length > 0 ? ' | ' : ''
+                                        }
+                                        <ul className="tags">
+                                            {
+                                                article.tags.map(t => (
+                                                    <li key={t.id}>
+                                                        <Link href={`/articles?tag=${t.id}`}>
+                                                            <a>#{t.name}</a>
+                                                        </Link>
+                                                    </li>
+                                                ))
                                             }
                                         </ul>
                                     </div>
@@ -81,8 +94,11 @@ const Article: NextPage<Props> = (props) => {
                                 <div className="blog-author d-flex align-items-center">
                                     {
                                         article.user_created.avatar
-                                            ? <img src={`/assets/${article.user_created.avatar}`} className="rounded-circle float-left" alt={article.user_created.first_name} />
-                                            : <img src={userAvatar.src} alt={article.user_created.first_name} className="rounded-circle float-left"/>
+                                            ? <img src={`/assets/${article.user_created.avatar}`}
+                                                   className="rounded-circle float-left"
+                                                   alt={article.user_created.first_name}/>
+                                            : <img src={userAvatar.src} alt={article.user_created.first_name}
+                                                   className="rounded-circle float-left"/>
                                     }
 
                                     <div>
@@ -202,7 +218,8 @@ const Article: NextPage<Props> = (props) => {
                                 </div>*/}
                             </div>
                             <div className="col-lg-4">
-                                <Sidebar categories={props.categories} recent={props.recent} action="/articles"/>
+                                <Sidebar categories={props.categories} tags={props.tags} recent={props.recent}
+                                         action="/articles"/>
                             </div>
                         </div>
                     </div>
@@ -226,7 +243,7 @@ export const getServerSideProps = getServerSidePageProps(
 
 
         const article = await articleService.readOne(ctx.query.id, {
-            fields: ['id', 'title', 'featured_image', 'content', 'tags', 'date_created', 'user_created.first_name', 'user_created.last_name', 'user_created.description', 'user_created.avatar'],
+            fields: ['id', 'title', 'featured_image', 'content', 'date_created', 'user_created.first_name', 'user_created.last_name', 'user_created.description', 'user_created.avatar'],
             filter: {
                 status: {
                     _eq: 'published',
@@ -234,17 +251,27 @@ export const getServerSideProps = getServerSidePageProps(
             }
         });
 
+        article.categories = await ctx.req.knex.table('article_category_pivot')
+            .join('article_category', 'article_category_id', 'article_category.id')
+            .where('article_id', ctx.query.id)
+            .select('article_category.id', 'article_category.name');
+
+        article.tags = await ctx.req.knex.table('article_tag_pivot')
+            .join('article_tag', 'article_tag_id', 'article_tag.id')
+            .where('article_id', ctx.query.id)
+            .select('article_tag.id', 'article_tag.name');
+
         const formatter = new Intl.DateTimeFormat('bn-BD', {
             hour12: true,
             timeStyle: 'short',
             dateStyle: 'full',
         });
 
-       article.date_created = formatter.format(new Date(article.date_created));
+        article.date_created = formatter.format(new Date(article.date_created));
 
-       const {recent, categories} = await loadSidebarContent(ctx);
+        const {recent, categories, tags} = await loadSidebarContent(ctx);
 
-       return { article, recent, categories };
+        return {article, recent, categories, tags};
     },
 );
 

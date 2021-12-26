@@ -1,6 +1,7 @@
 import {RecentArticleInterface} from 'c/articles/recent-article';
 import {GetServerSidePropsContext} from 'shared/types/next';
 import {CategoryInterface} from 'c/articles/category';
+import {TagInterface} from 'c/articles/tag';
 
 export async function loadSidebarContent(ctx: GetServerSidePropsContext) {
     const {knex, schema, services} = ctx.req;
@@ -30,6 +31,10 @@ export async function loadSidebarContent(ctx: GetServerSidePropsContext) {
         .limit(10)
         .count();
 
+    const tags: TagInterface[] = await knex.table('article_tag')
+        .select('id', 'name')
+        .orderBy('sort', 'asc');
+
     const formatter = new Intl.DateTimeFormat('bn-BD', {
         hour12: true,
         timeStyle: 'short',
@@ -40,5 +45,5 @@ export async function loadSidebarContent(ctx: GetServerSidePropsContext) {
         recent[i].date_created = formatter.format(new Date(recent[i].date_created));
     }
 
-    return {categories, recent};
+    return {categories, tags, recent};
 }

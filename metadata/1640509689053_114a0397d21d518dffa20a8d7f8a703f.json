@@ -1,0 +1,1 @@
+{"database":"template","method":"PATCH","url":"/api/collections/article_tag","data":{"meta":{"translations":[{"language":"en-US","translation":"Tag","singular":"Tag","plural":"Tags"}],"icon":"label_important"}}}

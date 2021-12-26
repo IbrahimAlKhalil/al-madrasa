@@ -1,0 +1,1 @@
+{"database":"template","method":"POST","url":"/api/fields/article_tag","data":{"field":"name","type":"string","schema":{"is_nullable":false},"meta":{"interface":"input","special":null,"required":true,"options":{"iconLeft":"title","trim":true}},"collection":"article_tag"}}
