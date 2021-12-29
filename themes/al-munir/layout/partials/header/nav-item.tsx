@@ -1,5 +1,5 @@
 import {Link as LinkInterface} from 'shared/types/link';
-import {link} from 'shared/dist/components/link';
+import {link} from 'shared/dist/modules/link';
 import { FunctionComponent } from 'react';
 import Link from 'next/link';
 

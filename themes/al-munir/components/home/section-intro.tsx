@@ -1,4 +1,5 @@
 import { SectionProps } from 'st/section-props';
+import {link} from 'shared/dist/modules/link';
 import { FunctionComponent } from 'react';
 import Link from 'next/link';
 
@@ -18,12 +19,16 @@ export const SectionIntro: FunctionComponent<SectionProps> = (props) => {
             />
             <div data-aos="fade-up" data-aos-delay={600}>
               <div className="text-center text-lg-start">
-                <Link href={data?.link ?? '#'}>
-                  <a className="btn-get-started d-inline-flex align-items-center justify-content-center align-self-center">
-                    <span>{data?.link_text}</span>
-                    <i className="mi">arrow_right_alt</i>
-                  </a>
-                </Link>
+                {
+                  link(data?.link, (href) => (
+                      <Link href={href}>
+                        <a className="btn-get-started d-inline-flex align-items-center justify-content-center align-self-center">
+                          <span>{data?.link?.label}</span>
+                          <i className="mi">arrow_right_alt</i>
+                        </a>
+                      </Link>
+                  ))
+                }
               </div>
             </div>
           </div>

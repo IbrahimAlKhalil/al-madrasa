@@ -1,4 +1,6 @@
+import {Link as LinkInterface} from 'shared/types/link';
 import { SectionProps } from 'st/section-props';
+import {link} from 'shared/dist/modules/link';
 import { FunctionComponent } from 'react';
 import Link from 'next/link';
 
@@ -7,8 +9,7 @@ interface PriceInterface {
   price: number;
   basis: string;
   color: string;
-  link: string;
-  link_text: string;
+  link: LinkInterface;
   features: { name: string; strikethrough: boolean }[];
   image: string;
   featured: string;
@@ -42,9 +43,13 @@ const Price: FunctionComponent<PriceInterface> = (props) => {
             </li>
           ))}
         </ul>
-        <Link href={props.link}>
-          <a className="btn-buy">{props.link_text}</a>
-        </Link>
+        {
+          link(props.link, (href) => (
+              <Link href={href}>
+                <a className="btn-buy">{props.link.label}</a>
+              </Link>
+          ))
+        }
       </div>
     </div>
   );
