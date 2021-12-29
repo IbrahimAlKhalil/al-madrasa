@@ -533,13 +533,12 @@ importers:
       react-dom: 17.0.2
       remixicon: ^2.5.0
       sass: 1.43.4
-      shared: workspace:^1.0.0
+      shared: workspace:^1.1.0
       swiper: 6.4.10
       typescript: 4.5.2
     dependencies:
       next: 12.0.4_0c41f19aae22112e9f1896e888ec7296
       sass: 1.43.4
-      shared: link:../../shared
     devDependencies:
       '@directus/sdk': 9.1.1
       '@srexi/purecounterjs': 1.2.1
@@ -563,6 +562,7 @@ importers:
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       remixicon: 2.5.0
+      shared: link:../../shared
       swiper: 6.4.10
       typescript: 4.5.2
 
