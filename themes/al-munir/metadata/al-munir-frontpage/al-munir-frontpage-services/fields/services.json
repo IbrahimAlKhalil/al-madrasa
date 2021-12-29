@@ -43,7 +43,7 @@
             "name": "Link",
             "field": "link",
             "type": "string",
-            "interface": "input",
+            "interface": "link",
             "options": {
               "trim": true,
               "iconLeft": "http"

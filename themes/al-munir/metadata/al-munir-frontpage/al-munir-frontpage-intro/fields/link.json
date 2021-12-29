@@ -1,12 +1,12 @@
 {
   "field": "link",
   "name": "Link",
-  "type": "text",
+  "type": "string",
   "meta": {
     "name": "Link",
     "field": "link",
-    "type": "text",
-    "interface": "input",
+    "type": "string",
+    "interface": "link",
     "options": {
       "iconLeft": "http",
       "trim": true

@@ -17,25 +17,10 @@
             "name": "Link",
             "field": "link",
             "type": "string",
-            "interface": "input",
+            "interface": "link",
             "options": {
               "iconLeft": "http",
               "trim": true
-            }
-          }
-        },
-        {
-          "field": "link_text",
-          "name": "Link Text",
-          "type": "string",
-          "meta": {
-            "name": "Link Text",
-            "field": "link_text",
-            "type": "string",
-            "interface": "input",
-            "options": {
-              "trim": true,
-              "iconLeft": "title"
             }
           }
         }
