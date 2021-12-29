@@ -18,7 +18,7 @@ export const Article: FunctionComponent<ArticleInterface> = (props) => {
     const intl = new Intl.NumberFormat('bn-BD');
 
     return (
-        <article className="entry">
+        <article className="entry" data-aos="fade-up" data-aos-delay={100}>
             <div className="entry-img">
                 <img src={`/assets/${props.featured_image}`} alt={props.title} className="img-fluid"/>
             </div>

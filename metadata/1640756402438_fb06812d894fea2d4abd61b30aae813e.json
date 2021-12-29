@@ -1,0 +1,1 @@
+{"database":"template","method":"POST","url":"/api/fields/video","data":{"field":"link","type":"string","schema":{"is_nullable":false},"meta":{"interface":"input","special":null,"required":true,"options":{"iconLeft":"play_circle_filled","trim":true}},"collection":"video"}}

@@ -2,6 +2,7 @@ import { refresh } from '@/auth';
 import { hydrate } from '@/hydrate';
 import AcceptInviteRoute from '@/routes/accept-invite';
 import LoginRoute from '@/routes/login';
+import RegistrationRoute from '@/routes/registration/registration.vue';
 import LogoutRoute from '@/routes/logout';
 import PrivateNotFoundRoute from '@/routes/private-not-found';
 import ResetPasswordRoute from '@/routes/reset-password';
@@ -26,6 +27,14 @@ export const defaultRoutes: RouteRecordRaw[] = [
 			public: true,
 		},
 	},
+	/*{
+		name: 'registration',
+		path: '/registration',
+		component: RegistrationRoute,
+		meta: {
+			public: true,
+		},
+	},*/
 	{
 		name: 'reset-password',
 		path: '/reset-password',

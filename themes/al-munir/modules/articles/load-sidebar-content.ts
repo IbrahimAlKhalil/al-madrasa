@@ -1,6 +1,6 @@
 import {RecentArticleInterface} from 'c/articles/recent-article';
-import {GetServerSidePropsContext} from 'shared/types/next';
-import {CategoryInterface} from 'c/articles/category';
+import {GetServerSidePropsContext} from 'shared/dist/types/next';
+import {CategoryInterface} from 'c/category';
 import {TagInterface} from 'c/articles/tag';
 
 export async function loadSidebarContent(ctx: GetServerSidePropsContext) {

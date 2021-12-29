@@ -1,9 +1,9 @@
 import {ArticleInterface as ArticleInterfaceBase} from 'c/articles/article';
 import {getServerSidePageProps} from 'm/get-server-side-page-props';
 import {RecentArticleInterface} from 'c/articles/recent-article';
-import {loadSidebarContent} from 'm/load-sidebar-content';
+import {loadSidebarContent} from 'm/articles/load-sidebar-content';
 import {PageProps} from 'shared/dist/types/page-props';
-import {CategoryInterface} from 'c/articles/category';
+import {CategoryInterface} from 'c/category';
 import {LayoutWide} from '../../layout/layout-wide';
 import {Page} from 'shared/dist/components/page';
 import {loadRelations} from 'm/load-relations';
@@ -12,6 +12,7 @@ import {Sidebar} from 'c/articles/sidebar';
 import userAvatar from 'a/img/user.svg';
 import {NextPage} from 'next';
 import Link from 'next/link';
+import Head from 'next/head';
 
 interface ArticleInterface extends ArticleInterfaceBase {
     tags: TagInterface[];
@@ -31,6 +32,11 @@ const Article: NextPage<Props> = (props) => {
     return (
         <Page pageProps={props}>
             <LayoutWide>
+                <Head>
+                    <title>{props.article.title}</title>
+                    <meta name="keywords" content={props.article.tags.map(t => t.name).join(',')} />
+                </Head>
+
                 <br/>
                 <br/>
                 <br/>

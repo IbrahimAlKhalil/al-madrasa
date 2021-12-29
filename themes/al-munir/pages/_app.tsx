@@ -7,7 +7,6 @@ import 's/index.scss';
 export default class App extends Component<AppProps> {
   async componentDidMount() {
     await import('bootstrap');
-    await import('isotope-layout');
     aos.init({
       duration: 400,
       easing: 'ease-in-out',

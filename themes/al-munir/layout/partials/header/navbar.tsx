@@ -11,20 +11,29 @@ export const Navbar: FunctionComponent = () => {
     items: [
       {
         id: 'm1',
-        link: '/',
-        label: 'Home',
+        link: {
+          type: 'custom',
+          label: 'Home',
+          url: '/',
+        },
         children: [],
       },
       {
         id: 'm2',
-        link: '/contact',
-        label: 'Contact',
+        link: {
+          type: 'custom',
+          url: '/contact',
+          label: 'Contact',
+        },
         children: [],
       },
       {
         id: 'm3',
-        link: 'https://saharait.com',
-        label: 'Exam Result',
+        link: {
+          type: 'custom',
+          url: 'https://saharait.com',
+          label: 'Exam Result',
+        },
         children: [],
       },
     ],

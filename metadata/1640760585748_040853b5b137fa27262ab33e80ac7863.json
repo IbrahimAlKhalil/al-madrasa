@@ -1,0 +1,1 @@
+{"database":"template","method":"PATCH","url":"/api/fields/image_category/images","data":{"field":"images","collection":"image_category","type":"alias","meta":{"special":["m2m"],"interface":"list-m2m"}}}

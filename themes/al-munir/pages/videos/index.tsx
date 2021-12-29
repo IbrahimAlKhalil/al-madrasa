@@ -1,35 +1,30 @@
 import {getServerSidePageProps} from 'm/get-server-side-page-props';
-import {RecentArticleInterface} from 'c/articles/recent-article';
-import {Article, ArticleInterface} from 'c/articles/article';
-import {loadSidebarContent} from 'm/articles/load-sidebar-content';
+import {loadSidebarContent} from 'm/videos/load-sidebar-content';
 import {PageProps} from 'shared/dist/types/page-props';
+import {Video, VideoInterface} from 'c/videos/video';
 import {LayoutWide} from '../../layout/layout-wide';
+import {PaginationLinks} from 'c/pagination-links';
 import {Page} from 'shared/dist/components/page';
 import {loadRelations} from 'm/load-relations';
 import {CategoryInterface} from 'c/category';
-import {TagInterface} from 'c/articles/tag';
-import {Sidebar} from 'c/articles/sidebar';
+import {Sidebar} from 'c/videos/sidebar';
 import {NextPage} from 'next';
-import {find} from 'lodash';
 import Head from 'next/head';
-import {PaginationLinks} from 'c/pagination-links';
 
 interface Props extends PageProps {
-  articles: ArticleInterface[];
-  recent: RecentArticleInterface[];
+  videos: VideoInterface[];
   categories: CategoryInterface[];
-  tags: TagInterface[];
   pageCount: number;
   activePage: number;
   keyword?: string;
 }
 
-const Blog: NextPage<Props> = (props) => {
+const Videos: NextPage<Props> = (props) => {
   return (
     <Page pageProps={props}>
       <LayoutWide>
         <Head>
-            <title>প্রবন্ধ সমুহ</title>
+            <title>ভিডিও সমুহ</title>
         </Head>
 
         <br/>
@@ -41,14 +36,14 @@ const Blog: NextPage<Props> = (props) => {
             <div className="row">
               <div className="col-lg-8 entries">
                 {
-                  props.articles.map(article => <Article key={article.id} {...article} />)
+                  props.videos.map(video => <Video key={video.id} {...video} />)
                 }
 
                 {
                   props.pageCount > 1 ? (
                       <div className="blog-pagination">
                         <ul className="justify-content-center">
-                          <PaginationLinks pageCount={props.pageCount} activePage={props.activePage}/>
+                          <PaginationLinks pageCount={props.pageCount} activePage={props.activePage} />
                         </ul>
                       </div>
                   ): null
@@ -56,7 +51,7 @@ const Blog: NextPage<Props> = (props) => {
               </div>
 
               <div className="col-lg-4">
-                <Sidebar categories={props.categories} recent={props.recent} tags={props.tags} keyword={props.keyword}/>
+                <Sidebar categories={props.categories} keyword={props.keyword}/>
               </div>
             </div>
           </div>
@@ -75,7 +70,7 @@ export const getServerSideProps = getServerSidePageProps(
       const page = Number(query.page ?? 1) || 1;
       const limit = 6;
 
-      const articleService = new services.ItemsService('article', {
+      const videoService = new services.ItemsService('video', {
         knex,
         schema,
       });
@@ -94,40 +89,15 @@ export const getServerSideProps = getServerSidePageProps(
           }
       }
 
-      if (query.tag) {
-          filter.tags = {
-            id: {
-                _eq: query.tag,
-            }
-          };
-      }
-
-      const articles: ArticleInterface[] = await articleService.readByQuery({
-        fields: ['id', 'title', 'featured_image', 'excerpt', 'date_created', 'user_created.first_name', 'user_created.last_name'],
+      const videos: Record<string, any>[] = await videoService.readByQuery({
+        fields: ['id', 'description', 'link', 'date_created', 'user_created.first_name', 'user_created.last_name'],
         search: query.q,
         filter,
         page,
         limit,
       });
 
-      const commentCount = await knex.table('comment_entity')
-          .join('comment', 'comment_id', 'comment.id')
-          .where('collection', 'article')
-          .where('approved', true)
-          .whereIn('item', articles.map(a => a.id.toString()))
-          .groupBy('item')
-          .select('item')
-          .count();
-
-      for (const cm of commentCount) {
-        const article = find(articles, a => a.id.toString() === cm.item);
-
-        if (article) {
-          article.commentCount = Number(cm.count);
-        }
-      }
-
-      const count = await articleService.readByQuery({
+      const count = await videoService.readByQuery({
         filter,
         aggregate: {
           countDistinct: ['id'],
@@ -140,16 +110,16 @@ export const getServerSideProps = getServerSidePageProps(
         dateStyle: 'medium',
       });
 
-      for (let i = 0; i < articles.length; i++) {
-        articles[i].date_created = formatter.format(new Date(articles[i].date_created));
+      for (let i = 0; i < videos.length; i++) {
+        videos[i].date_created = formatter.format(new Date(videos[i].date_created));
       }
 
-      const {recent, categories, tags} = await loadSidebarContent(ctx);
+      const {categories} = await loadSidebarContent(ctx);
       const total = Number(count[0].countDistinct.id);
       const pageCount = Math.ceil(total / limit);
 
-      return { articles, pageCount, activePage: page, categories, tags, recent, keyword: query.q ?? '' };
+      return { videos, pageCount, activePage: page, categories, keyword: query.q ?? '' };
     },
 );
 
-export default Blog;
+export default Videos;
