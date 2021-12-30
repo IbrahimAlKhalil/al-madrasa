@@ -1,6 +1,6 @@
-import {Link as LinkInterface} from 'shared/types/link';
+import { Link as LinkInterface } from 'shared/types/link';
 import { SectionProps } from 'st/section-props';
-import {link} from 'shared/dist/modules/link';
+import { link } from 'shared/dist/modules/link';
 import { FunctionComponent } from 'react';
 import Link from 'next/link';
 
@@ -43,13 +43,11 @@ const Price: FunctionComponent<PriceInterface> = (props) => {
             </li>
           ))}
         </ul>
-        {
-          link(props.link, (href) => (
-              <Link href={href}>
-                <a className="btn-buy">{props.link.label}</a>
-              </Link>
-          ))
-        }
+        {link(props.link, (href) => (
+          <Link href={href}>
+            <a className="btn-buy">{props.link.label}</a>
+          </Link>
+        ))}
       </div>
     </div>
   );

@@ -2,7 +2,11 @@ import {FunctionComponent} from 'react';
 import {Link} from '../types/link';
 
 export function link(item: Link, renderer: (url: string) => ReturnType<FunctionComponent>): ReturnType<FunctionComponent> {
-    let href: string = '';
+    let href: string = '#';
+
+    if (!item) {
+        return renderer(href);
+    }
 
     switch (item.type) {
         case 'article':
@@ -24,7 +28,7 @@ export function link(item: Link, renderer: (url: string) => ReturnType<FunctionC
             href = item.url ?? `/books/${item.id}`;
             break;
         case 'page':
-            href = `/${item.id}`;
+            href = `/pages/${item.id}`;
             break;
         default:
             href = item.url ?? '#';

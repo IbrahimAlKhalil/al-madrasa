@@ -10,7 +10,9 @@ interface NavMenuInterface {
 export const NavMenu: FunctionComponent<NavMenuInterface> = (props) => {
   const menuItems = props.items.map((item) => {
     if (item.children?.length) {
-      return <NavMenu label={item.link.label} items={item.children} key={item.id} />;
+      return (
+        <NavMenu label={item.link.label} items={item.children} key={item.id} />
+      );
     }
 
     return <NavItem link={item.link} key={item.id} />;

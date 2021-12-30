@@ -5,7 +5,7 @@ import { useNav } from 'm/use-nav';
 import { Menu } from 'st/menu';
 
 export const Navbar: FunctionComponent = () => {
-  const { navClass, btnClass, update } = useNav();
+  const { navClass, btnIcon, update } = useNav();
   const menu = useField<Menu>('general', 'header', 'main_menu', {
     id: 0,
     items: [
@@ -43,7 +43,9 @@ export const Navbar: FunctionComponent = () => {
     <nav className={navClass}>
       <NavMenu items={menu.items} />
 
-      <i className={btnClass} onClick={update} />
+      <i className="mi mobile-nav-toggle" onClick={update}>
+        {btnIcon}
+      </i>
     </nav>
   );
 };

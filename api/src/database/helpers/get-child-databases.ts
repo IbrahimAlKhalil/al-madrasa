@@ -8,7 +8,10 @@ export async function getChildDatabases(): Promise<Knex[]> {
 	const institutes = await masterDB('institute')
 		.select('db_name');
 
-	return institutes
-		.concat({db_name: env.DB_TEMPLATE})
+	const databases = institutes
 		.map(institute => getDatabase(institute.db_name, {database: institute.db_name}));
+
+	databases.push(getDatabase('template', {database: env.DB_TEMPLATE}));
+
+	return databases;
 }

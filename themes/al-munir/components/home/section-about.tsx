@@ -1,4 +1,4 @@
-import {link} from 'shared/dist/components/link';
+import { link } from 'shared/dist/modules/link';
 import { SectionProps } from 'st/section-props';
 import { FunctionComponent } from 'react';
 import Link from 'next/link';
@@ -20,16 +20,14 @@ export const SectionAbout: FunctionComponent<SectionProps> = (props) => {
               <div dangerouslySetInnerHTML={{ __html: data?.subtitle }} />
               <div dangerouslySetInnerHTML={{ __html: data?.description }} />
               <div className="text-center text-lg-start">
-                {
-                  link(data?.link, (href) => (
-                      <Link href={href}>
-                        <a className="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center">
-                          <span>{data?.link?.label}</span>
-                          <i className="mi">arrow_right_alt</i>
-                        </a>
-                      </Link>
-                  ))
-                }
+                {link(data?.link, (href) => (
+                  <Link href={href}>
+                    <a className="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center">
+                      <span>{data?.link?.label}</span>
+                      <i className="mi">arrow_right_alt</i>
+                    </a>
+                  </Link>
+                ))}
               </div>
             </div>
           </div>

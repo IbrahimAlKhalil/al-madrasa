@@ -1,59 +1,44 @@
-import {RecentArticleInterface} from 'c/articles/recent-article';
-import {FunctionComponent} from 'react';
+import { RecentArticleInterface } from 'c/articles/recent-article';
+import { FunctionComponent } from 'react';
 import Link from 'next/link';
 
 export interface ArticleInterface extends RecentArticleInterface {
-    commentCount: number;
-    content: string;
-    excerpt: string;
-    user_created: {
-        first_name: string;
-        last_name: string;
-        avatar: string;
-        description: string;
-    };
+  commentCount: number;
+  content: string;
+  excerpt: string;
+  user_created: {
+    first_name: string;
+    last_name: string;
+    avatar: string;
+    description: string;
+  };
 }
 
 export const Article: FunctionComponent<ArticleInterface> = (props) => {
-    const intl = new Intl.NumberFormat('bn-BD');
+  return (
+    <div className="col-lg-4">
+      <div className="post-box">
+        <div className="post-img">
+          <img
+            src={`/assets/${props.featured_image}`}
+            className="img-fluid"
+            alt={props.title}
+          />
+        </div>
 
-    return (
-        <article className="entry" data-aos="fade-up" data-aos-delay={100}>
-            <div className="entry-img">
-                <img src={`/assets/${props.featured_image}`} alt={props.title} className="img-fluid"/>
-            </div>
+        <span className="post-date">{props.date_created}</span>
 
-            <h2 className="entry-title">
-                <Link href={`/articles/${props.id.toString()}`}>{props.title}</Link>
-            </h2>
+        <h3 className="post-title">{props.title}</h3>
 
-            <div className="entry-meta">
-                <ul>
-                    <li className="d-flex align-items-center">
-                        <i className="mi">person</i>
-                        <a>{props.user_created.first_name} {props.user_created.last_name}</a>
-                    </li>
-                    <li className="d-flex align-items-center">
-                        <i className="mi">access_time</i>
-                        <a>
-                            {/* TODO: add datetime attribute */}
-                            <time>{props.date_created}</time>
-                        </a>
-                    </li>
-                    <li className="d-flex align-items-center">
-                        <i className="mi">chat</i>
-                        <Link href={`/articles/${props.id.toString()}#comments`}><a>{intl.format(props.commentCount)} টি
-                            মন্তব্য</a></Link>
-                    </li>
-                </ul>
-            </div>
+        <div dangerouslySetInnerHTML={{ __html: props.excerpt }} />
 
-            <div className="entry-content">
-                <div dangerouslySetInnerHTML={{__html: props.excerpt}}/>
-                <div className="read-more">
-                    <Link href={`/articles/${props.id.toString()}`}>আরও পরুন</Link>
-                </div>
-            </div>
-        </article>
-    );
+        <Link href={`/articles/${props.id}`}>
+          <a className="readmore stretched-link mt-auto">
+            <span>আরও পড়ুন</span>
+            <i className="mi">arrow_right</i>
+          </a>
+        </Link>
+      </div>
+    </div>
+  );
 };

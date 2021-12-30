@@ -7,7 +7,12 @@ import execa from 'execa';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-function buildApi() {
+async function buildApi() {
+    await fs.rm(path.resolve(__dirname, '../api/dist'), {
+        force: true,
+        recursive: true,
+    });
+
     execa.sync('pnpm', ['build'], {
         stderr: 'inherit',
         cwd: path.resolve(__dirname, '../api'),
@@ -15,7 +20,12 @@ function buildApi() {
     });
 }
 
-function buildDashboard() {
+async function buildDashboard() {
+    await fs.rm(path.resolve(__dirname, '../app/dist'), {
+        force: true,
+        recursive: true,
+    });
+
     execa.sync('pnpm', ['build'], {
         stdio: 'inherit',
         cwd: path.resolve(__dirname, '../app'),
@@ -27,6 +37,11 @@ async function buildThemes() {
     const themes = await fs.readdir(path.resolve(__dirname, '../themes'));
 
     for (const theme of themes) {
+        await fs.rm(path.resolve(__dirname, `../themes/${theme}/.next`), {
+            force: true,
+            recursive: true,
+        });
+
         execa.sync('pnpm', ['build'], {
             stdio: 'inherit',
             shell: true,
@@ -35,7 +50,12 @@ async function buildThemes() {
     }
 }
 
-function buildShared() {
+async function buildShared() {
+    await fs.rm(path.resolve(__dirname, '../shared/dist'), {
+        force: true,
+        recursive: true,
+    });
+
     execa.sync(path.resolve(__dirname, '../shared/node_modules/.bin/tsc'), [], {
         cwd: path.resolve(__dirname, '../shared'),
         shell: true,
@@ -45,15 +65,15 @@ function buildShared() {
 
 export async function build(api, dashboard, themes, shared, _pack) {
     if (api) {
-        buildApi();
+        await buildApi();
     }
 
     if (dashboard) {
-        buildDashboard();
+       await buildDashboard();
     }
 
     if (shared) {
-        buildShared();
+       await buildShared();
     }
 
     if (themes) {
@@ -65,9 +85,9 @@ export async function build(api, dashboard, themes, shared, _pack) {
     }
 
     if (!api && !dashboard && !themes && !shared && !_pack) {
-        buildApi();
-        buildDashboard();
-        buildShared();
+        await buildApi();
+        await buildDashboard();
+        await buildShared();
         await buildThemes();
         await pack();
     }

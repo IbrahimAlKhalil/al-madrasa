@@ -1,124 +1,137 @@
-import {ArticleInterface as ArticleInterfaceBase} from 'c/articles/article';
-import {getServerSidePageProps} from 'm/get-server-side-page-props';
-import {RecentArticleInterface} from 'c/articles/recent-article';
-import {loadSidebarContent} from 'm/articles/load-sidebar-content';
-import {PageProps} from 'shared/dist/types/page-props';
-import {CategoryInterface} from 'c/category';
-import {LayoutWide} from '../../layout/layout-wide';
-import {Page} from 'shared/dist/components/page';
-import {loadRelations} from 'm/load-relations';
-import {TagInterface} from 'c/articles/tag';
-import {Sidebar} from 'c/articles/sidebar';
+import { ArticleInterface as ArticleInterfaceBase } from 'c/articles/article';
+import { getServerSidePageProps } from 'm/get-server-side-page-props';
+import { RecentArticleInterface } from 'c/articles/recent-article';
+import { loadSidebarContent } from 'm/articles/load-sidebar-content';
+import { PageProps } from 'shared/dist/types/page-props';
+import { CategoryInterface } from 'c/category';
+import { LayoutWide } from '../../layout/layout-wide';
+import { Page } from 'shared/dist/components/page';
+import { loadRelations } from 'm/load-relations';
+import { TagInterface } from 'c/articles/tag';
+import { Sidebar } from 'c/articles/sidebar';
 import userAvatar from 'a/img/user.svg';
-import {NextPage} from 'next';
+import { NextPage } from 'next';
 import Link from 'next/link';
 import Head from 'next/head';
 
 interface ArticleInterface extends ArticleInterfaceBase {
-    tags: TagInterface[];
-    categories: TagInterface[];
+  tags: TagInterface[];
+  categories: TagInterface[];
 }
 
 interface Props extends PageProps {
-    article: ArticleInterface;
-    recent: RecentArticleInterface[];
-    categories: CategoryInterface[];
-    tags: TagInterface[];
+  article: ArticleInterface;
+  recent: RecentArticleInterface[];
+  categories: CategoryInterface[];
+  tags: TagInterface[];
 }
 
 const Article: NextPage<Props> = (props) => {
-    const {article} = props;
+  const { article } = props;
 
-    return (
-        <Page pageProps={props}>
-            <LayoutWide>
-                <Head>
-                    <title>{props.article.title}</title>
-                    <meta name="keywords" content={props.article.tags.map(t => t.name).join(',')} />
-                </Head>
+  return (
+    <Page pageProps={props}>
+      <LayoutWide>
+        <Head>
+          <title>{props.article.title}</title>
+          <meta
+            name="keywords"
+            content={props.article.tags.map((t) => t.name).join(',')}
+          />
+        </Head>
 
-                <br/>
-                <br/>
-                <br/>
+        <br />
+        <br />
+        <br />
 
-                <section id="blog" className="blog">
-                    <div className="container" data-aos="fade-up">
-                        <div className="row">
-                            <div className="col-lg-8 entries">
-                                <article className="entry entry-single">
-                                    <div className="entry-img">
-                                        <img src={`/assets/${article.featured_image}`} alt={article.title}
-                                             className="img-fluid"/>
-                                    </div>
-                                    <h2 className="entry-title">{article.title}</h2>
-                                    <div className="entry-meta">
-                                        <ul>
-                                            <li className="d-flex align-items-center">
-                                                <i className="mi">person</i>
-                                                <a>{article.user_created.first_name} {article.user_created.last_name}</a>
-                                            </li>
-                                            <li className="d-flex align-items-center">
-                                                <i className="mi">access_time</i>
-                                                <a>
-                                                    {/* TODO: Add datetime attribute */}
-                                                    <time>{article.date_created}</time>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
+        <section id="blog" className="blog">
+          <div className="container" data-aos="fade-up">
+            <div className="row">
+              <div className="col-lg-8 entries">
+                <article className="entry entry-single">
+                  <div className="entry-img">
+                    <img
+                      src={`/assets/${article.featured_image}`}
+                      alt={article.title}
+                      className="img-fluid"
+                    />
+                  </div>
+                  <h2 className="entry-title">{article.title}</h2>
+                  <div className="entry-meta">
+                    <ul>
+                      <li className="d-flex align-items-center">
+                        <i className="mi">person</i>
+                        <a>
+                          {article.user_created.first_name}{' '}
+                          {article.user_created.last_name}
+                        </a>
+                      </li>
+                      <li className="d-flex align-items-center">
+                        <i className="mi">access_time</i>
+                        <a>
+                          {/* TODO: Add datetime attribute */}
+                          <time>{article.date_created}</time>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
 
-                                    <div className="entry-content" dangerouslySetInnerHTML={{__html: article.content}}/>
+                  <div
+                    className="entry-content"
+                    dangerouslySetInnerHTML={{ __html: article.content }}
+                  />
 
-                                    <div className="entry-footer">
-                                        <ul className="tags">
-                                            {
-                                                article.categories.map(c => (
-                                                    <li key={c.id}>
-                                                        <a href={`/articles?category=${c.id}`}>
-                                                            {c.name}
-                                                        </a>&nbsp;
-                                                    </li>
-                                                ))
-                                            }
-                                        </ul>
-                                        {
-                                            article.tags.length > 0 ? ' | ' : ''
-                                        }
-                                        <ul className="tags">
-                                            {
-                                                article.tags.map(t => (
-                                                    <li key={t.id}>
-                                                        <Link href={`/articles?tag=${t.id}`}>
-                                                            <a>#{t.name}</a>
-                                                        </Link>
-                                                    </li>
-                                                ))
-                                            }
-                                        </ul>
-                                    </div>
-                                </article>
-                                <div className="blog-author d-flex align-items-center">
-                                    {
-                                        article.user_created.avatar
-                                            ? <img src={`/assets/${article.user_created.avatar}`}
-                                                   className="rounded-circle float-left"
-                                                   alt={article.user_created.first_name}/>
-                                            : <img src={userAvatar.src} alt={article.user_created.first_name}
-                                                   className="rounded-circle float-left"/>
-                                    }
+                  <div className="entry-footer">
+                    <ul className="tags">
+                      {article.categories.map((c) => (
+                        <li key={c.id}>
+                          <a href={`/articles?category=${c.id}`}>{c.name}</a>
+                          &nbsp;
+                        </li>
+                      ))}
+                    </ul>
+                    {article.tags.length > 0 ? ' | ' : ''}
+                    <ul className="tags">
+                      {article.tags.map((t) => (
+                        <li key={t.id}>
+                          <Link href={`/articles?tag=${t.id}`}>
+                            <a>#{t.name}</a>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </article>
+                <div className="blog-author d-flex align-items-center">
+                  {article.user_created.avatar ? (
+                    <img
+                      src={`/assets/${article.user_created.avatar}`}
+                      className="rounded-circle float-left"
+                      alt={article.user_created.first_name}
+                    />
+                  ) : (
+                    <img
+                      src={userAvatar.src}
+                      alt={article.user_created.first_name}
+                      className="rounded-circle float-left"
+                    />
+                  )}
 
-                                    <div>
-                                        <h4>{article.user_created.first_name} {article.user_created.last_name}</h4>
-                                        {/*<div className="social-links">
+                  <div>
+                    <h4>
+                      {article.user_created.first_name}{' '}
+                      {article.user_created.last_name}
+                    </h4>
+                    {/*<div className="social-links">
                                             <a href="https://twitters.com/#"><i className="bi bi-twitter" /></a>
                                             <a href="https://facebook.com/#"><i className="bi bi-facebook" /></a>
                                             <a href="https://instagram.com/#"><i className="biu bi-instagram" /></a>
                                         </div>*/}
-                                        <p>{article.user_created.description}</p>
-                                    </div>
-                                </div>
-                                {/* TODO: Add comment section */}
-                                {/*<div className="blog-comments">
+                    <p>{article.user_created.description}</p>
+                  </div>
+                </div>
+                {/* TODO: Add comment section */}
+                {/*<div className="blog-comments">
                                     <h4 className="comments-count">8 Comments</h4>
                                     <div id="comment-1" className="comment">
                                         <div className="d-flex">
@@ -222,63 +235,78 @@ const Article: NextPage<Props> = (props) => {
                                         </form>
                                     </div>
                                 </div>*/}
-                            </div>
-                            <div className="col-lg-4">
-                                <Sidebar categories={props.categories} tags={props.tags} recent={props.recent}
-                                         action="/articles"/>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </LayoutWide>
-        </Page>
-    );
+              </div>
+              <div className="col-lg-4">
+                <Sidebar
+                  categories={props.categories}
+                  tags={props.tags}
+                  recent={props.recent}
+                  action="/articles"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+      </LayoutWide>
+    </Page>
+  );
 };
 
 export const getServerSideProps = getServerSidePageProps(
-    ['general'],
-    async (props, ctx) => {
-        await loadRelations(props, ctx);
+  ['general'],
+  async (props, ctx) => {
+    await loadRelations(props, ctx);
 
-        const {services, knex, schema} = ctx.req;
+    const { services, knex, schema } = ctx.req;
 
-        const articleService = new services.ItemsService('article', {
-            knex,
-            schema,
-        });
+    const articleService = new services.ItemsService('article', {
+      knex,
+      schema,
+    });
 
+    const article = await articleService.readOne(ctx.query.id, {
+      fields: [
+        'id',
+        'title',
+        'featured_image',
+        'content',
+        'date_created',
+        'user_created.first_name',
+        'user_created.last_name',
+        'user_created.description',
+        'user_created.avatar',
+      ],
+      filter: {
+        status: {
+          _eq: 'published',
+        },
+      },
+    });
 
-        const article = await articleService.readOne(ctx.query.id, {
-            fields: ['id', 'title', 'featured_image', 'content', 'date_created', 'user_created.first_name', 'user_created.last_name', 'user_created.description', 'user_created.avatar'],
-            filter: {
-                status: {
-                    _eq: 'published',
-                }
-            }
-        });
+    article.categories = await ctx.req.knex
+      .table('article_category_pivot')
+      .join('article_category', 'article_category_id', 'article_category.id')
+      .where('article_id', ctx.query.id)
+      .select('article_category.id', 'article_category.name');
 
-        article.categories = await ctx.req.knex.table('article_category_pivot')
-            .join('article_category', 'article_category_id', 'article_category.id')
-            .where('article_id', ctx.query.id)
-            .select('article_category.id', 'article_category.name');
+    article.tags = await ctx.req.knex
+      .table('article_tag_pivot')
+      .join('article_tag', 'article_tag_id', 'article_tag.id')
+      .where('article_id', ctx.query.id)
+      .select('article_tag.id', 'article_tag.name');
 
-        article.tags = await ctx.req.knex.table('article_tag_pivot')
-            .join('article_tag', 'article_tag_id', 'article_tag.id')
-            .where('article_id', ctx.query.id)
-            .select('article_tag.id', 'article_tag.name');
+    const formatter = new Intl.DateTimeFormat('bn-BD', {
+      hour12: true,
+      timeStyle: 'short',
+      dateStyle: 'full',
+    });
 
-        const formatter = new Intl.DateTimeFormat('bn-BD', {
-            hour12: true,
-            timeStyle: 'short',
-            dateStyle: 'full',
-        });
+    article.date_created = formatter.format(new Date(article.date_created));
 
-        article.date_created = formatter.format(new Date(article.date_created));
+    const { recent, categories, tags } = await loadSidebarContent(ctx);
 
-        const {recent, categories, tags} = await loadSidebarContent(ctx);
-
-        return {article, recent, categories, tags};
-    },
+    return { article, recent, categories, tags };
+  },
 );
 
 export default Article;

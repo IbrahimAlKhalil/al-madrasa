@@ -98,7 +98,7 @@ router.post(
 			if (isMaster(req.knex)) {
 				databases.push(req.knex);
 			} else {
-				databases = databases.concat(await getChildDatabases());
+				databases = await getChildDatabases();
 			}
 
 			for (const database of databases) {
@@ -148,7 +148,7 @@ router.patch(
 			if (isMaster(req.knex)) {
 				databases.push(req.knex);
 			} else {
-				databases = databases.concat(await getChildDatabases());
+				databases = await getChildDatabases();
 			}
 
 			for (const database of databases) {
@@ -214,7 +214,7 @@ router.patch(
 			if (isMaster(req.knex)) {
 				databases.push(req.knex);
 			} else {
-				databases = databases.concat(await getChildDatabases());
+				databases = await getChildDatabases();
 			}
 
 			for (const database of databases) {
@@ -270,7 +270,7 @@ router.delete(
 			if (isMaster(req.knex)) {
 				databases.push(req.knex);
 			} else {
-				databases = databases.concat(await getChildDatabases());
+				databases = await getChildDatabases();
 			}
 
 			for (const database of databases) {

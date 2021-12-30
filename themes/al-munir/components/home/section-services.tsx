@@ -1,6 +1,6 @@
-import {Link as LintInterface} from 'shared/types/link';
+import { Link as LintInterface } from 'shared/types/link';
 import { SectionProps } from 'st/section-props';
-import {link} from 'shared/dist/modules/link';
+import { link } from 'shared/dist/modules/link';
 import { FunctionComponent } from 'react';
 import Link from 'next/link';
 
@@ -23,16 +23,14 @@ const Service: FunctionComponent<ServiceInterface> = (props) => {
         <i className="mi icon">{props.icon ?? 'miscellaneous_services'}</i>
         <h3>{props.title}</h3>
         <div dangerouslySetInnerHTML={{ __html: props.description }} />
-        {
-          link(props.link, (href) => (
-              <Link href={href}>
-                <a className="read-more">
-                  <span>আরও পরুন</span>
-                  <i className="mi">arrow_right_alt</i>
-                </a>
-              </Link>
-          ))
-        }
+        {link(props.link, (href) => (
+          <Link href={href}>
+            <a className="read-more">
+              <span>আরও পরুন</span>
+              <i className="mi">arrow_right_alt</i>
+            </a>
+          </Link>
+        ))}
       </div>
     </div>
   );
