@@ -1,1 +1,0 @@
-{"database":"template","method":"POST","url":"/api/collections","data":{"collection":"article_tag_pivot","meta":{"hidden":true,"icon":"import_export"},"schema":{"name":"article_tag_pivot"},"fields":[{"field":"id","type":"integer","schema":{"has_auto_increment":true},"meta":{"hidden":true}}]}}

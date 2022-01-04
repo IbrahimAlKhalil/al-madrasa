@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "mssql": "^7.3.0",
     "next": "^12.0.4",
     "sass": "1.43.4"
   },
@@ -19,6 +20,7 @@
     "@types/aos": "^3.0.4",
     "@types/bootstrap": "^5.1.6",
     "@types/isotope-layout": "^3.0.9",
+    "@types/mssql": "^7.1.4",
     "@types/react": "17.0.35",
     "@typescript-eslint/eslint-plugin": "4.33.0",
     "@typescript-eslint/parser": "4.33.0",

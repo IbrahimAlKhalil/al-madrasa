@@ -1,1 +1,0 @@
-{"database":"template","method":"POST","url":"/api/fields/video","data":{"field":"categories","type":"alias","meta":{"special":["m2m"],"interface":"list-m2m","options":{"template":"{{video_category_id.name}}"},"display":"related-values","display_options":{"template":"{{video_category_id.name}}"}},"collection":"video"}}

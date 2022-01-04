@@ -1,0 +1,9 @@
+{
+  "id": "al-munir-frontpage-contact",
+  "sort": null,
+  "name": "Contact",
+  "icon": "contact_mail",
+  "sortable": true,
+  "can_hide": true,
+  "page": "al-munir-frontpage"
+}

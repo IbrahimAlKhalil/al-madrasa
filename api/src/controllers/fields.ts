@@ -18,7 +18,6 @@ import {saveMetadata} from '../middleware/save-metadata';
 const router = Router();
 
 router.use(useCollection('directus_fields'));
-router.use(saveMetadata);
 
 router.get(
 	'/',
@@ -32,8 +31,7 @@ router.get(
 
 		res.locals.payload = { data: fields || null };
 		return next();
-	}),
-	respond
+	})
 );
 
 router.get(
@@ -49,8 +47,7 @@ router.get(
 
 		res.locals.payload = { data: fields || null };
 		return next();
-	}),
-	respond
+	})
 );
 
 router.get(
@@ -67,8 +64,7 @@ router.get(
 
 		res.locals.payload = { data: field || null };
 		return next();
-	}),
-	respond
+	})
 );
 
 const newFieldSchema = Joi.object({
@@ -134,8 +130,7 @@ router.post(
 		}
 
 		return next();
-	}),
-	respond
+	})
 );
 
 router.patch(
@@ -186,8 +181,7 @@ router.patch(
 		}
 
 		return next();
-	}),
-	respond
+	})
 );
 
 const updateSchema = Joi.object({
@@ -256,8 +250,7 @@ router.patch(
 		}
 
 		return next();
-	}),
-	respond
+	})
 );
 
 router.delete(
@@ -287,8 +280,10 @@ router.delete(
 		}
 
 		return next();
-	}),
-	respond
+	})
 );
+
+router.use(saveMetadata);
+router.use(respond);
 
 export default router;

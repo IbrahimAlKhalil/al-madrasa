@@ -1,1 +1,0 @@
-{"database":"template","method":"PATCH","url":"/api/fields/video_category/videos","data":{"field":"videos","collection":"video_category","type":"alias","meta":{"special":["m2m"],"interface":"list-m2m"}}}

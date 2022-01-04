@@ -1,1 +1,0 @@
-{"database":"template","method":"POST","url":"/api/fields/article_tag_pivot","data":{"collection":"article_tag_pivot","field":"article_id","type":"integer","schema":{},"meta":{"hidden":true}}}

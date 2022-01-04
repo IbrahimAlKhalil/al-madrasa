@@ -13,8 +13,6 @@ import {saveMetadata} from '../middleware/save-metadata';
 
 const router = Router();
 
-router.use(saveMetadata);
-
 router.post(
 	'/',
 	asyncHandler(async (req, res, next) => {
@@ -50,8 +48,7 @@ router.post(
 		}
 
 		return next();
-	}),
-	respond
+	})
 );
 
 const readHandler = asyncHandler(async (req, res, next) => {
@@ -81,8 +78,8 @@ const readHandler = asyncHandler(async (req, res, next) => {
 	return next();
 });
 
-router.get('/', validateBatch('read'), readHandler, respond);
-router.search('/', validateBatch('read'), readHandler, respond);
+router.get('/', validateBatch('read'), readHandler);
+router.search('/', validateBatch('read'), readHandler);
 
 router.get(
 	'/:collection',
@@ -97,8 +94,7 @@ router.get(
 		res.locals.payload = { data: collection || null };
 
 		return next();
-	}),
-	respond
+	})
 );
 
 router.patch(
@@ -138,8 +134,7 @@ router.patch(
 		}
 
 		return next();
-	}),
-	respond
+	})
 );
 
 router.delete(
@@ -168,8 +163,10 @@ router.delete(
 		}
 
 		return next();
-	}),
-	respond
+	})
 );
+
+router.use(saveMetadata);
+router.use(respond);
 
 export default router;

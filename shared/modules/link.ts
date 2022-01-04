@@ -15,17 +15,11 @@ export function link(item: Link, renderer: (url: string) => ReturnType<FunctionC
         case 'video':
             href = item.url ?? `/videos/${item.id}`;
             break;
-        case 'audio':
-            href = item.url ?? `/audios/${item.id}`;
-            break;
         case 'question':
             href = item.url ?? `/questions/${item.id}`;
             break;
         case 'image':
             href = item.url ?? `/gallery/${item.id}`;
-            break;
-        case 'book':
-            href = item.url ?? `/books/${item.id}`;
             break;
         case 'page':
             href = `/pages/${item.id}`;

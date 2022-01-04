@@ -4,6 +4,7 @@ import { SectionFeatures } from 'c/home/section-features';
 import { SectionServices } from 'c/home/section-services';
 import { SectionPricing } from 'c/home/section-pricing';
 import { SectionValues } from 'c/home/section-values';
+import {SectionContact} from 'c/home/section-contact';
 import { SectionCounts } from 'c/home/section-counts';
 import { SectionAbout } from 'c/home/section-about';
 import { SectionIntro } from 'c/home/section-intro';
@@ -26,6 +27,7 @@ const Home: NextPage<PageProps> = (props) => {
     pricing: SectionPricing,
     testimonial: SectionTestimonial,
     team: SectionTeam,
+    contact: SectionContact
   };
 
   return (

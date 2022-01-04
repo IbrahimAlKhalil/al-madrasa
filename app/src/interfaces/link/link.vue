@@ -173,6 +173,7 @@ export default defineComponent({
 			}
 
 			label.value = itemSelectLabel.value;
+			emitInput();
 		}
 
 		async function handleSelect(ids: (string | number)[]) {

@@ -1,1 +1,0 @@
-{"database":"template","method":"POST","url":"/api/fields/image","data":{"field":"categories","type":"alias","meta":{"special":["m2m"],"interface":"list-m2m","options":{"template":"{{image_category_id.name}}"},"display":"related-values","display_options":{"template":"{{image_category_id.name}}"}},"collection":"image"}}

@@ -4,6 +4,7 @@ import fse from 'fs-extra';
 import path from 'path';
 import qs from 'qs';
 
+
 import activityRouter from './controllers/activity';
 import assetsRouter from './controllers/assets';
 import authRouter from './controllers/auth';
@@ -223,6 +224,7 @@ export default async function createApp(): Promise<express.Application> {
 	router.use('/users', usersRouter);
 	router.use('/utils', utilsRouter);
 	router.use('/webhooks', webhooksRouter);
+	router.use('/contact', require('./controllers/contact').default);
 
 	app.use('/api', router);
 

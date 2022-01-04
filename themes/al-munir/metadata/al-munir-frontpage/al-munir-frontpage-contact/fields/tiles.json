@@ -1,0 +1,52 @@
+{
+  "field": "tiles",
+  "name": "Tiles",
+  "type": "json",
+  "meta": {
+    "name": "Tiles",
+    "field": "tiles",
+    "type": "json",
+    "interface": "list",
+    "options": {
+      "fields": [
+        {
+          "field": "title",
+          "name": "title",
+          "type": "string",
+          "meta": {
+            "field": "title",
+            "type": "string",
+            "interface": "input",
+            "options": {
+              "iconLeft": "title",
+              "trim": true
+            }
+          }
+        },
+        {
+          "field": "icon",
+          "name": "icon",
+          "type": "string",
+          "meta": {
+            "field": "icon",
+            "type": "string",
+            "interface": "select-icon"
+          }
+        },
+        {
+          "field": "content",
+          "name": "content",
+          "type": "text",
+          "meta": {
+            "field": "content",
+            "type": "text",
+            "interface": "input-rich-text-html",
+            "options": {
+              "trim": true
+            }
+          }
+        }
+      ]
+    }
+  }
+}

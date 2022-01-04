@@ -17,7 +17,6 @@ export const SectionAbout: FunctionComponent<SectionProps> = (props) => {
           >
             <div className="content">
               <h2>{data?.title}</h2>
-              <div dangerouslySetInnerHTML={{ __html: data?.subtitle }} />
               <div dangerouslySetInnerHTML={{ __html: data?.description }} />
               <div className="text-center text-lg-start">
                 {link(data?.link, (href) => (
