@@ -4,7 +4,7 @@ import fse from 'fs-extra';
 import path from 'path';
 import qs from 'qs';
 
-
+// controllers
 import activityRouter from './controllers/activity';
 import assetsRouter from './controllers/assets';
 import authRouter from './controllers/auth';
@@ -29,6 +29,9 @@ import settingsRouter from './controllers/settings';
 import usersRouter from './controllers/users';
 import utilsRouter from './controllers/utils';
 import webhooksRouter from './controllers/webhooks';
+import admission from "./controllers/admission";
+
+// other import
 import {
 	connectAllDatabases,
 	isInstalled,
@@ -40,6 +43,8 @@ import env from './env';
 import { InvalidPayloadException } from './exceptions';
 import { getExtensionManager } from './extensions';
 import logger, { expressLogger } from './logger';
+
+// middlewares
 import authenticate from './middleware/authenticate';
 import getPermissions from './middleware/get-permissions';
 import cache from './middleware/cache';
@@ -74,7 +79,7 @@ export default async function createApp(): Promise<express.Application> {
 	await validateDatabaseExtensions();
 	await connectAllDatabases();
 
-	if ((await isInstalled()) === false) {
+	if (!(await isInstalled())) {
 		logger.error(`Database doesn't have Directus tables installed.`);
 		process.exit(1);
 	}
@@ -225,6 +230,7 @@ export default async function createApp(): Promise<express.Application> {
 	router.use('/utils', utilsRouter);
 	router.use('/webhooks', webhooksRouter);
 	router.use('/contact', require('./controllers/contact').default);
+	router.use('/admission', admission)
 
 	app.use('/api', router);
 
