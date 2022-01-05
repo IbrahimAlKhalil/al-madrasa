@@ -23,6 +23,7 @@ declare global {
 			siteSettings?: SiteSettings;
 			masterDB: Knex;
 			services?: typeof services;
+			qmmsoftDB: string | null;
 
 			accountability?: Accountability;
 			singleton?: boolean;
