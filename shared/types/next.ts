@@ -9,6 +9,7 @@ export interface GetServerSidePropsContext extends Base {
     cookies: NextApiRequestCookies;
     knex: Knex;
     masterDB: Knex;
+    qmmsoftDB: string | null;
     siteSettings: SiteSettings;
     query: Record<string, any>;
     services: Record<string, any>;
