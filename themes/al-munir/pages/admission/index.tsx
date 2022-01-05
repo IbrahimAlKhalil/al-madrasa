@@ -27,7 +27,7 @@ const Admission: NextPage<PageProps> = (props) => {
     });
     changeStatus('loading');
 
-    if (request.status) {
+    if (request.status === 422) {
       console.log(request.status);
       changeStatus('error');
     } else {
