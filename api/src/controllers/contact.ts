@@ -16,7 +16,7 @@ const contactSchema = Joi.object({
 });
 
 router.post('/', asyncHandler(async (req, res, next) => {
-	console.log(req.body);
+	//console.log(req.body);
 
 	if (isMaster(req.knex)) {
 		throw new ForbiddenException();
