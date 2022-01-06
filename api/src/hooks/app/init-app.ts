@@ -97,6 +97,20 @@ export const initApp: InitHandler = async () => {
 	);
 
 	await syncTable(
+		templateDB,
+		masterDB,
+		'directus_folders',
+		['id', 'name', 'parent', 'read_only']
+	);
+
+	await syncTable(
+		templateDB,
+		masterDB,
+		'directus_files',
+		fileCols,
+	);
+
+	await syncTable(
 		masterDB,
 		templateDB,
 		'directus_users',

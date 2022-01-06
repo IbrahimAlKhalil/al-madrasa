@@ -5,7 +5,11 @@ import getDatabase from "../../database";
 import {HookContext} from "../../types";
 
 export async function commonDeleteMT(meta: Record<string, any>, ctx: HookContext) {
-	const database = isMaster(ctx.database) ? getDatabase() : getDatabase(ctx.database.client.config.connection.database);
+	if (!isMasterOrTemplate(ctx.database)) {
+		return;
+	}
 
-	await syncItemDelete(meta, database, null, isMasterOrTemplate);
+	const database = isMaster(ctx.database) ? getDatabase('master') : getDatabase('template');
+
+	await syncItemDelete(meta, database, null);
 }

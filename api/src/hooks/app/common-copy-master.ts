@@ -4,7 +4,9 @@ import getDatabase from "../../database";
 import {HookContext} from "../../types";
 
 export async function commonCopyMaster(meta: Record<string, any>, ctx: HookContext) {
-	const database = isMaster(ctx.database) ? getDatabase() : getDatabase(ctx.database.client.config.connection.database);
+	if (!isMaster(ctx.database)) {
+		return;
+	}
 
-	await syncItem(meta, database, null, isMaster);
+	await syncItem(meta, getDatabase('master'), null);
 }
