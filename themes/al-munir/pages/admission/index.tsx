@@ -6,6 +6,7 @@ import { FormEventHandler, MouseEventHandler, useState } from 'react';
 import { loadRelations } from 'm/load-relations';
 import { NextPage } from 'next';
 import Head from 'next/head';
+// @ts-ignore
 import ToUnicodePipe from 'shared/dist/modules/to-unicode';
 import knex from 'knex';
 
@@ -32,7 +33,8 @@ const Admission: NextPage<Props> = (props) => {
   const findStudent: FormEventHandler<HTMLFormElement> = async (evt) => {
     evt.preventDefault();
     evt.stopPropagation();
-    const request = await fetch(`/api/admission/${evt.target.id.value}`, {
+
+    const request = await fetch(`/api/admission/${evt.currentTarget.getElementById('old_id').value}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -50,7 +52,7 @@ const Admission: NextPage<Props> = (props) => {
   const submit: FormEventHandler<HTMLFormElement> = async (evt) => {
     evt.preventDefault();
     evt.stopPropagation();
-    const formData = new FormData(evt.target);
+    const formData = new FormData(evt.currentTarget);
     const request = await fetch('/api/admission', {
       method: 'POST',
       body: JSON.stringify(Object.fromEntries(formData.entries())),

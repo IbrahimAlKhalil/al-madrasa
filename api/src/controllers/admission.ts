@@ -2,6 +2,7 @@ import asyncHandler from "../utils/async-handler";
 import {respond} from "../middleware/respond";
 import {Router} from 'express';
 import Joi from 'joi';
+// @ts-ignore
 import ToUnicodePipe from 'shared/dist/modules/to-unicode';
 import {UnprocessableEntityException} from "../exceptions";
 import knex from "knex";
