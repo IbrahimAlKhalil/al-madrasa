@@ -581,7 +581,7 @@ const Admission: NextPage<Props> = (props) => {
               ) : null}
               {error === 'reg_success' ? (
                 <div className="alert alert-success" role="alert">
-                  success
+                  নিবন্ধন সফল হয়েছে
                 </div>
               ) : null}
             </div>
