@@ -9,8 +9,13 @@ import Head from 'next/head';
 import knex from 'knex';
 
 // type Props = PageProps;
+interface Props extends PageProps {
+  noDB?: boolean;
+  data?: any;
+}
 
-const Admission: NextPage<PageProps> = (props) => {
+const Admission: NextPage<Props> = (props) => {
+  console.log(props.data);
   const [status, changeStatus] = useState('idle');
   const submit: FormEventHandler<HTMLFormElement> = async (evt) => {
     evt.preventDefault();
@@ -37,7 +42,9 @@ const Admission: NextPage<PageProps> = (props) => {
       changeStatus('success');
     }
   };
-
+  if (props.noDB) {
+    return <h1>Error</h1>;
+  }
   return (
     <Page pageProps={props}>
       <LayoutWide>
@@ -108,7 +115,7 @@ const Admission: NextPage<PageProps> = (props) => {
                         className="form-control"
                         type="text"
                         id="name"
-                        name="name"
+                        name="StudentName"
                         required
                       />
                     </div>
@@ -118,7 +125,7 @@ const Admission: NextPage<PageProps> = (props) => {
 
                       <input
                         className="form-control"
-                        name="fatherName"
+                        name="FatherName"
                         id="fatherName"
                         type="text"
                         required
@@ -133,7 +140,7 @@ const Admission: NextPage<PageProps> = (props) => {
                         placeholder="মাতার নাম"
                         type="text"
                         id="motherName"
-                        name="motherName"
+                        name="MotherName"
                         required
                       />
                     </div>
@@ -147,7 +154,7 @@ const Admission: NextPage<PageProps> = (props) => {
                         className="form-control"
                         type="date"
                         id="dateOfBirth"
-                        name="dateOfBirth"
+                        name="DateOfBirth"
                         required
                       />
                     </div>
@@ -158,7 +165,7 @@ const Admission: NextPage<PageProps> = (props) => {
                       <select
                         placeholder="লিঙ্গ"
                         className="form-control"
-                        name="gender"
+                        name="Gender"
                         id="gender"
                         required
                       >
@@ -173,7 +180,7 @@ const Admission: NextPage<PageProps> = (props) => {
                       <select
                         placeholder="রক্তের গ্রুপ"
                         className="form-control"
-                        name="bloodGroup"
+                        name="BloodGroup"
                         id="bloodGroup"
                         required
                       >
@@ -196,7 +203,7 @@ const Admission: NextPage<PageProps> = (props) => {
                       <select
                         className="form-control"
                         id="abasikAnabasik"
-                        name="abasikAnabasik"
+                        name="AbasikOnabasik"
                         required
                       >
                         <option value={1}>আবাসিক</option>
@@ -206,8 +213,12 @@ const Admission: NextPage<PageProps> = (props) => {
                     </div>
 
                     <div className="col-md-6">
-                      <label htmlFor="abasikAnabasik">সেশন</label>
-                      <select className="form-control" name="session" required>
+                      <label htmlFor="SessionID">সেশন</label>
+                      <select
+                        className="form-control"
+                        name="SessionID"
+                        required
+                      >
                         <option value={1}>আবাসিক</option>
                         <option value={2}>অনাবাসিক</option>
                         <option value={3}>ডে-কেয়ার</option>
@@ -215,11 +226,11 @@ const Admission: NextPage<PageProps> = (props) => {
                     </div>
 
                     <div className="col-md-6">
-                      <label htmlFor="abasikAnabasik"> ক্লাস </label>
+                      <label htmlFor="ClassID"> ক্লাস </label>
                       <select
                         placeholder="জামাত"
                         className="form-control"
-                        name="class"
+                        name="ClassID"
                         required
                       >
                         <option value={1}>আবাসিক</option>
@@ -229,12 +240,13 @@ const Admission: NextPage<PageProps> = (props) => {
                     </div>
 
                     <div className="col-md-6">
-                      <label htmlFor="nid">জাতিয় পরিচয়পত্র</label>
+                      <label htmlFor="NationalID">জাতিয় পরিচয়পত্র</label>
                       <input
+                        id="NationalID"
                         placeholder="পরিচয়পত্রের নাম্বার"
                         className="form-control"
                         type="text"
-                        name="nid"
+                        name="NationalID"
                         required
                       />
                     </div>
@@ -248,7 +260,7 @@ const Admission: NextPage<PageProps> = (props) => {
                         placeholder="গ্রাম"
                         className="form-control"
                         type="text"
-                        name="residevillage"
+                        name="ResideVill"
                         required
                       />
                     </div>
@@ -258,7 +270,7 @@ const Admission: NextPage<PageProps> = (props) => {
                         placeholder="ডাক"
                         className="form-control"
                         type="text"
-                        name="residePost"
+                        name="ResidePost"
                         required
                       />
                     </div>
@@ -268,7 +280,7 @@ const Admission: NextPage<PageProps> = (props) => {
                         placeholder="থানা"
                         className="form-control"
                         type="text"
-                        name="resideThana"
+                        name="ResideThana"
                         required
                       />
                     </div>
@@ -278,7 +290,7 @@ const Admission: NextPage<PageProps> = (props) => {
                         placeholder="জেলা"
                         className="form-control"
                         type="text"
-                        name="resideJela"
+                        name="ResideJela"
                         required
                       />
                     </div>
@@ -292,7 +304,7 @@ const Admission: NextPage<PageProps> = (props) => {
                         placeholder="গ্রাম"
                         className="form-control"
                         type="text"
-                        name="transientVillage"
+                        name="TransientVill"
                         required
                       />
                     </div>
@@ -302,7 +314,7 @@ const Admission: NextPage<PageProps> = (props) => {
                         placeholder="ডাক"
                         className="form-control"
                         type="text"
-                        name="transientPost"
+                        name="TransientPost"
                         required
                       />
                     </div>
@@ -312,7 +324,7 @@ const Admission: NextPage<PageProps> = (props) => {
                         placeholder="থানা"
                         className="form-control"
                         type="text"
-                        name="transientThana"
+                        name="TransientThana"
                         required
                       />
                     </div>
@@ -322,7 +334,7 @@ const Admission: NextPage<PageProps> = (props) => {
                         placeholder="জেলা"
                         className="form-control"
                         type="text"
-                        name="transientJela"
+                        name="TransientJela"
                         required
                       />
                     </div>
@@ -335,8 +347,8 @@ const Admission: NextPage<PageProps> = (props) => {
                       <input
                         placeholder="মোবাইল ১"
                         className="form-control"
-                        type="email"
-                        name="email"
+                        type="text"
+                        name="Mobile1"
                       />
                     </div>
 
@@ -344,8 +356,8 @@ const Admission: NextPage<PageProps> = (props) => {
                       <input
                         placeholder="সম্পর্ক ১"
                         className="form-control"
-                        type="email"
-                        name="email"
+                        type="text"
+                        name="Reletion1"
                       />
                     </div>
 
@@ -353,8 +365,8 @@ const Admission: NextPage<PageProps> = (props) => {
                       <input
                         placeholder="মোবাইল ২"
                         className="form-control"
-                        type="email"
-                        name="email"
+                        type="text"
+                        name="Mobile2"
                       />
                     </div>
 
@@ -362,8 +374,8 @@ const Admission: NextPage<PageProps> = (props) => {
                       <input
                         placeholder="সম্পর্ক ২"
                         className="form-control"
-                        type="email"
-                        name="email"
+                        type="text"
+                        name="Reletion2"
                       />
                     </div>
 
@@ -433,7 +445,6 @@ const Admission: NextPage<PageProps> = (props) => {
             </div>
           </div>
         </section>
-
         <br />
       </LayoutWide>
     </Page>
@@ -444,18 +455,23 @@ export const getServerSideProps = getServerSidePageProps(
   ['general'],
   async (props, ctx) => {
     await loadRelations(props, ctx);
+    if (!ctx.req.qmmsoftDB) {
+      return { noDB: true };
+    }
     const database = knex({
       client: 'mssql',
       connection: {
         server: process.env.DB_MSSQL_HOST as string,
         user: process.env.DB_MSSQL_USER as string,
-        password: process.env.DB_MSSQL_HOST as string,
-        database: '1003_Ranavola',
-        port: Number(process.env.DBJ_MSSQL_PORT),
+        password: process.env.DB_MSSQL_PASSWORD as string,
+        database: ctx.req.qmmsoftDB,
+        port: Number(process.env.DB_MSSQL_PORT),
       },
     });
 
+    const classNames = await database('Class').select('ClassName', 'Cid');
     await database.destroy();
+    return { data: classNames };
   },
 );
 
