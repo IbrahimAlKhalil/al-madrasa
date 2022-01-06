@@ -2,19 +2,11 @@ import { getServerSidePageProps } from 'm/get-server-side-page-props';
 import { PageProps } from 'shared/dist/types/page-props';
 import { LayoutWide } from '../../layout/layout-wide';
 import { Page } from 'shared/dist/components/page';
-import {
-  FormEventHandler,
-  Key,
-  MouseEventHandler,
-  ReactChild,
-  ReactFragment,
-  ReactPortal,
-  useState,
-} from 'react';
+import { FormEventHandler, MouseEventHandler, useState } from 'react';
 import { loadRelations } from 'm/load-relations';
 import { NextPage } from 'next';
 import Head from 'next/head';
-import ToUnicodePipe from 'shared/dist/modules/to-unicode.pipe';
+import ToUnicodePipe from 'shared/dist/modules/to-unicode';
 import knex from 'knex';
 
 interface Props extends PageProps {
@@ -25,7 +17,7 @@ interface Props extends PageProps {
 
 const Admission: NextPage<Props> = (props) => {
   const [status, changeStatus] = useState('idle');
-  const [error, setError] = useState('');
+  const [error, setError] = useState(''); // for showing error messages
   const [sData, setData] = useState({
     FatherName: '',
     MotherName: '',
@@ -34,13 +26,12 @@ const Admission: NextPage<Props> = (props) => {
     Session: '',
     RegID: '',
     RegDate: '',
-  });
-  console.log(error);
+  }); //state for students info
+
+  // find student information with id
   const findStudent: FormEventHandler<HTMLFormElement> = async (evt) => {
     evt.preventDefault();
     evt.stopPropagation();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     const request = await fetch(`/api/admission/${evt.target.id.value}`, {
       method: 'GET',
       headers: {
@@ -48,19 +39,17 @@ const Admission: NextPage<Props> = (props) => {
       },
     });
     setError('no_err');
-    console.log(error);
     const studentInfo = await request.json();
     if (studentInfo.errors) {
-      console.log(error);
       setError('id_err');
     }
     setData(studentInfo);
   };
+
+  // submit new student information
   const submit: FormEventHandler<HTMLFormElement> = async (evt) => {
     evt.preventDefault();
     evt.stopPropagation();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     const formData = new FormData(evt.target);
     const request = await fetch('/api/admission', {
       method: 'POST',
@@ -72,7 +61,6 @@ const Admission: NextPage<Props> = (props) => {
     changeStatus('loading');
 
     if (request.status === 422) {
-      console.log(request.status);
       changeStatus('error');
     } else {
       setTimeout(() => {
@@ -81,6 +69,8 @@ const Admission: NextPage<Props> = (props) => {
       changeStatus('success');
     }
   };
+
+  //register old student
   const RegStudent: MouseEventHandler<HTMLButtonElement> = async () => {
     if (sData.ID) {
       const request = await fetch(`/api/admission/${sData.ID}`, {
@@ -99,6 +89,8 @@ const Admission: NextPage<Props> = (props) => {
       setError('id_err');
     }
   };
+
+  //save unicoded class objects in here
   const classArr: { id: number; name: string }[] = [];
   if (props.clsData) {
     const uniCode = new ToUnicodePipe();
@@ -110,13 +102,19 @@ const Admission: NextPage<Props> = (props) => {
       });
     });
   }
+  //save in globel for use in template
   const sessions: {
     ID: number;
     SessionName: number;
     HizriName: number;
   }[] = props.sessionData;
+
   if (props.noDB) {
-    return <h1>Error</h1>;
+    return (
+      <div className="alert alert-warning" role="alert">
+        অনুগ্রহ করে আমাদের সাপোর্ট এ যোগাযোগ করুন
+      </div>
+    );
   }
   return (
     <Page pageProps={props}>
@@ -629,6 +627,7 @@ export const getServerSideProps = getServerSidePageProps(
       },
     });
 
+    //getting datas from DB
     const classNames = await database('Class').select('ClassName', 'Cid');
     const SessionNames = await database('Sessiontbl').select(
       'ID',
@@ -637,6 +636,7 @@ export const getServerSideProps = getServerSidePageProps(
     );
 
     await database.destroy();
+
     if (classNames && SessionNames) {
       return {
         clsData: classNames,

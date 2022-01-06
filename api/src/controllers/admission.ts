@@ -1,8 +1,8 @@
 import asyncHandler from "../utils/async-handler";
 import {respond} from "../middleware/respond";
 import {Router} from 'express';
-import Joi, {string} from 'joi';
-import ToUnicodePipe from 'shared/dist/modules/to-unicode.pipe';
+import Joi from 'joi';
+import ToUnicodePipe from 'shared/dist/modules/to-unicode';
 import {UnprocessableEntityException} from "../exceptions";
 import knex from "knex";
 const router = Router();
