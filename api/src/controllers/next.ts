@@ -11,6 +11,8 @@ import {promises as fs} from 'fs';
 import env from '../env';
 import path from 'path';
 import next from 'next';
+import {isTemplate} from "../database/helpers/is-template";
+import {getSchema} from "../utils/get-schema";
 
 export default async function () {
 	const themesDir = path.resolve(__dirname, '../../../themes');
@@ -79,6 +81,7 @@ export default async function () {
 		}
 
 		req.knex = database;
+		req.schema = await getSchema({database});
 		req.siteSettings = cache[databaseName];
 		req.services = services;
 
