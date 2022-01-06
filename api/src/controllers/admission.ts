@@ -1,21 +1,12 @@
 import asyncHandler from "../utils/async-handler";
 import {respond} from "../middleware/respond";
 import {Router} from 'express';
-import Joi from 'joi';
+import Joi, {string} from 'joi';
+import ToUnicodePipe from 'shared/dist/modules/to-unicode.pipe';
 import {UnprocessableEntityException} from "../exceptions";
 import knex from "knex";
 const router = Router();
 
-
-//ms sql config
-// const sqlConfig =(dbName: string) => ({
-// 	user: process.env.DB_MSSQL_USER as string,
-// 	password: process.env.DB_MSSQL_HOST as string,
-// 	database: dbName,
-// 	server: process.env.DB_MSSQL_HOST as string,
-// 	port: Number(process.env.DB_MSSQL_PORT),
-// 	Encr
-// })
 
 const database = (dbName: string) => knex({
 	client: 'mssql',
@@ -63,7 +54,7 @@ router.post('/',  asyncHandler(async (req, res, next) => {
 
 	if(error) {
 		console.log(error)
-		throw new UnprocessableEntityException('InvalidInput')
+		throw new UnprocessableEntityException('InvalidInput!')
 	} else {
 		console.log(value)
 		const DB = database(req.qmmsoftDB);
@@ -72,6 +63,66 @@ router.post('/',  asyncHandler(async (req, res, next) => {
 		await DB.destroy();
 	}
 
+	return next();
+}), respond)
+
+interface StudentData {
+	FatherName: string;
+	MotherName: string;
+	StudentName: string;
+	ID: number;
+	Session: string;
+	RegID?: number;
+	RegDate?: string;
+}
+
+router.get('/:id', asyncHandler(async (req, res, next) => {
+	if (req.params.id && req.qmmsoftDB) {
+
+		const DB = database(req.qmmsoftDB)
+		const studentDtls = await DB('student').select(
+			'StudentID',
+			'SessionName',
+			'StudentName',
+			'FatherName',
+			'MotherName',
+
+		).where('StudentID', req.params.id);
+		const studentRegistered = await DB('OnlineRegistration').select('ID','EntryDate')
+			.where('StudentID', req.params.id)
+
+		await DB.destroy();
+		if (studentDtls) {
+			const uniCode = new ToUnicodePipe();
+			const stdntInfo: StudentData = {
+				FatherName: uniCode.transform(studentDtls[0].FatherName),
+				MotherName: uniCode.transform(studentDtls[0].MotherName),
+				StudentName: uniCode.transform(studentDtls[0].StudentName),
+				ID: studentDtls[0].StudentID,
+				Session: studentDtls[0].SessionName
+			}
+			if (studentRegistered[0]) {
+				stdntInfo.RegID = studentRegistered[0].ID
+				stdntInfo.RegDate = studentRegistered[0].EntryDate.toLocaleDateString("bn-BD")
+			}
+			res.locals.payload = stdntInfo;
+		}
+
+
+	}
+	return next();
+}), respond)
+
+router.post('/:id', asyncHandler(async (req, res, next) => {
+	if (req.params.id && req.qmmsoftDB) {
+		const DB = database(req.qmmsoftDB)
+		await DB('OnlineRegistration')
+			.insert({'StudentID': req.params.id})
+		await DB.destroy();
+		res.locals.payload = {success: true}
+	} else {
+		res.locals.payload = {error: true}
+	}
 	return next();
 }), respond)
 

@@ -143,6 +143,7 @@
 		"resolve-cwd": "^3.0.0",
 		"rollup": "^2.52.1",
 		"sanitize-html": "^2.6.0",
+		"shared": "workspace:^1.2.2",
 		"sharp": "^0.29.0",
 		"stream-json": "^1.7.1",
 		"supertest": "^6.1.6",

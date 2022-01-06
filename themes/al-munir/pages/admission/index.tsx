@@ -2,21 +2,60 @@ import { getServerSidePageProps } from 'm/get-server-side-page-props';
 import { PageProps } from 'shared/dist/types/page-props';
 import { LayoutWide } from '../../layout/layout-wide';
 import { Page } from 'shared/dist/components/page';
-import { FormEventHandler, useState } from 'react';
+import {
+  FormEventHandler,
+  Key,
+  MouseEventHandler,
+  ReactChild,
+  ReactFragment,
+  ReactPortal,
+  useState,
+} from 'react';
 import { loadRelations } from 'm/load-relations';
 import { NextPage } from 'next';
 import Head from 'next/head';
+import ToUnicodePipe from 'shared/dist/modules/to-unicode.pipe';
 import knex from 'knex';
 
-// type Props = PageProps;
 interface Props extends PageProps {
   noDB?: boolean;
-  data?: any;
+  clsData?: any;
+  sessionData?: any;
 }
 
 const Admission: NextPage<Props> = (props) => {
-  console.log(props.data);
   const [status, changeStatus] = useState('idle');
+  const [error, setError] = useState('');
+  const [sData, setData] = useState({
+    FatherName: '',
+    MotherName: '',
+    StudentName: '',
+    ID: '',
+    Session: '',
+    RegID: '',
+    RegDate: '',
+  });
+  console.log(error);
+  const findStudent: FormEventHandler<HTMLFormElement> = async (evt) => {
+    evt.preventDefault();
+    evt.stopPropagation();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const request = await fetch(`/api/admission/${evt.target.id.value}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    setError('no_err');
+    console.log(error);
+    const studentInfo = await request.json();
+    if (studentInfo.errors) {
+      console.log(error);
+      setError('id_err');
+    }
+    setData(studentInfo);
+  };
   const submit: FormEventHandler<HTMLFormElement> = async (evt) => {
     evt.preventDefault();
     evt.stopPropagation();
@@ -42,6 +81,40 @@ const Admission: NextPage<Props> = (props) => {
       changeStatus('success');
     }
   };
+  const RegStudent: MouseEventHandler<HTMLButtonElement> = async () => {
+    if (sData.ID) {
+      const request = await fetch(`/api/admission/${sData.ID}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const response = await request.json();
+      if (response.error) {
+        setError('reg_err');
+      } else {
+        setError('reg_success');
+      }
+    } else {
+      setError('id_err');
+    }
+  };
+  const classArr: { id: number; name: string }[] = [];
+  if (props.clsData) {
+    const uniCode = new ToUnicodePipe();
+    props.clsData.map((obj: { ClassName: string; Cid: number }) => {
+      const bnData = uniCode.transform(obj.ClassName);
+      classArr.push({
+        id: obj.Cid,
+        name: bnData,
+      });
+    });
+  }
+  const sessions: {
+    ID: number;
+    SessionName: number;
+    HizriName: number;
+  }[] = props.sessionData;
   if (props.noDB) {
     return <h1>Error</h1>;
   }
@@ -219,9 +292,13 @@ const Admission: NextPage<Props> = (props) => {
                         name="SessionID"
                         required
                       >
-                        <option value={1}>আবাসিক</option>
-                        <option value={2}>অনাবাসিক</option>
-                        <option value={3}>ডে-কেয়ার</option>
+                        {sessions.map((ses) => {
+                          return (
+                            <option key={ses.ID} value={ses.ID}>
+                              {ses.SessionName} ({ses.HizriName})
+                            </option>
+                          );
+                        })}
                       </select>
                     </div>
 
@@ -233,9 +310,13 @@ const Admission: NextPage<Props> = (props) => {
                         name="ClassID"
                         required
                       >
-                        <option value={1}>আবাসিক</option>
-                        <option value={2}>অনাবাসিক</option>
-                        <option value={3}>ডে-কেয়ার</option>
+                        {classArr.map((clsObj) => {
+                          return (
+                            <option key={clsObj.id} value={clsObj.id}>
+                              {clsObj.name}
+                            </option>
+                          );
+                        })}
                       </select>
                     </div>
 
@@ -410,7 +491,7 @@ const Admission: NextPage<Props> = (props) => {
                 <form
                   method="post"
                   className="php-email-form"
-                  onSubmit={submit}
+                  onSubmit={findStudent}
                 >
                   <div className="row gy-4 justify-content-center">
                     <div className="col-md-6 form-group text-center">
@@ -421,23 +502,17 @@ const Admission: NextPage<Props> = (props) => {
                         type="text"
                         id="old_id"
                         name="id"
-                        required
                       />
                     </div>
-
                     <div className="col-md-12 text-center">
-                      {status === 'loading' ? (
-                        <div className="loading">লোড হচ্ছে</div>
-                      ) : null}
-
-                      {status === 'error' ? (
-                        <div className="error-message">
-                          ক্রিটিক্যাল সমস্যার জন্য আবেদন করা সম্ভব হচ্ছেনা, দয়া
-                          করে কিছুক্ষন পর আবার চেষ্টা করুন
-                        </div>
-                      ) : null}
-
-                      <button type="submit">অনুসন্ধান</button>
+                      <button
+                        type="submit"
+                        className="btn btn-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#ApplyForOldStudnt"
+                      >
+                        অনুসন্ধান
+                      </button>
                     </div>
                   </div>
                 </form>
@@ -447,6 +522,91 @@ const Admission: NextPage<Props> = (props) => {
         </section>
         <br />
       </LayoutWide>
+
+      <div
+        className="modal fade"
+        id="ApplyForOldStudnt"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">
+                নিবন্ধন
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div className="modal-body p-5">
+              {error === 'no_err' ? (
+                <table className="table">
+                  <tbody>
+                    <tr>
+                      <td>নামঃ</td>
+                      <td>{sData.StudentName}</td>
+                    </tr>
+                    <tr>
+                      <td>পিতার নামঃ</td>
+                      <td>{sData.FatherName}</td>
+                    </tr>
+                    <tr>
+                      <td>মাতার নামঃ</td>
+                      <td>{sData.MotherName}</td>
+                    </tr>
+                    <tr>
+                      <td>সেশনঃ</td>
+                      <td>{sData.Session}</td>
+                    </tr>
+                    <tr>
+                      <td>নিবন্ধন নংঃ</td>
+                      <td>{sData.RegID}</td>
+                    </tr>
+                    <tr>
+                      <td>আবেদনের তারিখঃ</td>
+                      <td>{sData.RegDate}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              ) : null}
+              {error === 'id_err' ? (
+                <div className="alert alert-danger" role="alert">
+                  আপনার আইডিটি সঠিক নয়।
+                </div>
+              ) : null}
+              {error === 'reg_success' ? (
+                <div className="alert alert-success" role="alert">
+                  success
+                </div>
+              ) : null}
+            </div>
+
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                className={`btn btn-success ${
+                  error === 'reg_success' || sData.RegID ? 'd-none' : ''
+                }`}
+                onClick={RegStudent}
+              >
+                নিবন্ধন করুন
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </Page>
   );
 };
@@ -470,8 +630,21 @@ export const getServerSideProps = getServerSidePageProps(
     });
 
     const classNames = await database('Class').select('ClassName', 'Cid');
+    const SessionNames = await database('Sessiontbl').select(
+      'ID',
+      'SessionName',
+      'HizriName',
+    );
+
     await database.destroy();
-    return { data: classNames };
+    if (classNames && SessionNames) {
+      return {
+        clsData: classNames,
+        sessionData: SessionNames,
+      };
+    } else {
+      return { noDB: true };
+    }
   },
 );
 
