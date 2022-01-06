@@ -56,15 +56,7 @@ class ExtensionManager {
 
 		if (this.isInitialized) return;
 
-		try {
-			this.extensions = await this.getExtensions();
-		} catch (err: any) {
-			logger.warn(`Couldn't load extensions`);
-			logger.warn(err);
-		}
-
 		this.registerCustomHooks();
-		this.registerHooks();
 
 		const loadedExtensions = this.listExtensions();
 		if (loadedExtensions.length > 0) {
@@ -95,19 +87,6 @@ class ExtensionManager {
 
 	public getAppExtensions(type: AppExtensionType): string | undefined {
 		return this.appExtensions[type];
-	}
-
-	private async getExtensions(): Promise<Extension[]> {
-		const packageExtensions = await getPackageExtensions(
-			'.',
-			API_EXTENSION_PACKAGE_TYPES
-		);
-		const localExtensions = await getLocalExtensions(
-			env.EXTENSIONS_PATH,
-			API_EXTENSION_TYPES
-		);
-
-		return [...packageExtensions, ...localExtensions];
 	}
 
 	private registerCustomHooks() {
@@ -173,82 +152,6 @@ class ExtensionManager {
 
 			register(registerFunctions, { services, exceptions, env, getDatabase, logger, getSchema });
 		}
-	}
-
-	private registerHooks(): void {
-		const hooks = this.extensions.filter((extension) => extension.type === 'hook');
-
-		for (const hook of hooks) {
-			try {
-				this.registerHook(hook);
-			} catch (error: any) {
-				logger.warn(`Couldn't register hook "${hook.name}"`);
-				logger.warn(error);
-			}
-		}
-	}
-
-	private registerHook(hook: Extension) {
-		const hookPath = path.resolve(hook.path, hook.entrypoint || '');
-		const hookInstance: HookConfig | { default: HookConfig } = require(hookPath);
-
-		const register = getModuleDefault(hookInstance);
-
-		const registerFunctions = {
-			filter: (event: string, handler: FilterHandler) => {
-				emitter.onFilter(event, handler);
-
-				this.apiHooks.push({
-					type: 'filter',
-					path: hookPath,
-					event,
-					handler,
-				});
-			},
-			action: (event: string, handler: ActionHandler) => {
-				emitter.onAction(event, handler);
-
-				this.apiHooks.push({
-					type: 'action',
-					path: hookPath,
-					event,
-					handler,
-				});
-			},
-			init: (event: string, handler: InitHandler) => {
-				emitter.onInit(event, handler);
-
-				this.apiHooks.push({
-					type: 'init',
-					path: hookPath,
-					event,
-					handler,
-				});
-			},
-			schedule: (cron: string, handler: ScheduleHandler) => {
-				if (validate(cron)) {
-					const task = schedule(cron, async () => {
-						if (this.isScheduleHookEnabled) {
-							try {
-								await handler();
-							} catch (error: any) {
-								logger.error(error);
-							}
-						}
-					});
-
-					this.apiHooks.push({
-						type: 'schedule',
-						path: hookPath,
-						task,
-					});
-				} else {
-					logger.warn(`Couldn't register cron hook. Provided cron is invalid: ${cron}`);
-				}
-			},
-		};
-
-		register(registerFunctions, { services, exceptions, env, getDatabase, logger, getSchema });
 	}
 
 	private unregisterHooks(): void {
