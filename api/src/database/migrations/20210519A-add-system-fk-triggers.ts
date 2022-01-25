@@ -81,7 +81,7 @@ const updates = [
 ];
 
 export async function up(knex: Knex): Promise<void> {
-	const inspector = SchemaInspector(knex);
+	const inspector = SchemaInspector(knex as any);
 
 	const foreignKeys = await inspector.foreignKeys();
 

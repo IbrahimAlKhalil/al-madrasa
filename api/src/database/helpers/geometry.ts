@@ -10,14 +10,14 @@ export function getGeometryHelper(database?: Knex): KnexSpatial {
 	if (!geometryHelper) {
 		database = database ?? getDatabase();
 		const client = getDatabaseClient(database);
-		const constructor = {
+		const constructor = ({
 			mysql: KnexSpatial_MySQL,
 			sqlite: KnexSpatial_SQLite,
 			postgres: KnexSpatial_PG,
 			redshift: KnexSpatial_Redshift,
 			mssql: KnexSpatial_MSSQL,
 			oracle: KnexSpatial_Oracle,
-		}[client];
+		} as any)[client];
 		if (!constructor) {
 			throw new Error(`Geometry helper not implemented on ${client}.`);
 		}

@@ -8,7 +8,7 @@
 		</template>
 
 		<template #actions>
-			<v-button v-tooltip.bottom="t('save')" icon rounded :disabled="noEdits" :loading="saving" @click="save">
+			<v-button v-tooltip.bottom="t('save')" icon rounded :disabled="!hasEdits" :loading="saving" @click="save">
 				<v-icon name="check" />
 			</v-button>
 		</template>
@@ -59,8 +59,8 @@ import { useSettingsStore, useServerStore } from '@/stores';
 import ProjectInfoSidebarDetail from './components/project-info-sidebar-detail.vue';
 import { clone } from 'lodash';
 import useShortcut from '@/composables/use-shortcut';
-import unsavedChanges from '@/composables/unsaved-changes';
-import { useRouter, onBeforeRouteUpdate, onBeforeRouteLeave, NavigationGuard } from 'vue-router';
+import useEditsGuard from '@/composables/use-edits-guard';
+import { useRouter } from 'vue-router';
 import VSelect from "@/components/v-select/v-select.vue";
 import VForm from "@/components/v-form/v-form.vue";
 import VProgressCircular from "@/components/v-progress/circular/v-progress-circular.vue";
@@ -82,82 +82,63 @@ export default defineComponent({
 
 		const edits = ref<{ [key: string]: any } | null>(null);
 
-		const noEdits = computed<boolean>(() => edits.value === null || Object.keys(edits.value).length === 0);
+		const hasEdits = computed(() => edits.value !== null && Object.keys(edits.value).length > 0);
 
 		const saving = ref(false);
 
 		useShortcut('meta+s', () => {
-			if (!noEdits.value) save();
+			if (hasEdits.value) save();
 		});
 
-		const isSavable = computed(() => {
-			if (noEdits.value === true) return false;
-			return noEdits.value;
-		});
+		const { confirmLeave, leaveTo } = useEditsGuard(hasEdits);
 
-		unsavedChanges(isSavable);
+	  const apps = reactive<any[]>([]);
+	  const app = ref( 'master');
 
-		const confirmLeave = ref(false);
-		const leaveTo = ref<string | null>(null);
+	  api.get('/server/current-app')
+		  .then(res => {
+			  app.value = res.data.app;
+		  });
 
-		const editsGuard: NavigationGuard = (to) => {
-			if (!noEdits.value) {
-				confirmLeave.value = true;
-				leaveTo.value = to.fullPath;
-				return false;
-			}
-		};
-		onBeforeRouteUpdate(editsGuard);
-		onBeforeRouteLeave(editsGuard);
+	  async function handleAppSelect(value: string) {
+		  if (app.value === value) {
+			  return;
+		  }
 
-		const apps = reactive<any[]>([]);
-		const app = ref( 'master');
-
-		api.get('/server/current-app')
-			.then(res => {
-				app.value = res.data.app;
-			});
-
-		async function handleAppSelect(value: string) {
-			if (app.value === value) {
-				return;
-			}
-
-			app.value = value;
+		  app.value = value;
 
 		  try {
-		    await api.post('/server/switch-app', {
-			    app: app.value,
-		    });
+			  await api.post('/server/switch-app', {
+				  app: app.value,
+			  });
 
-		    location.reload();
-			} catch (e) {
+			  location.reload();
+		  } catch (e) {
 			  alert('Failed to switch app')
-	    }
-		}
+		  }
+	  }
 
-		api.get('/server/apps').then((res) => {
-			for (const item of res.data) {
-				apps.push({
-						text: item.code ? `${item.name} - ${item.code}` : item.name,
-						value: item.app,
-				});
-			}
+	  api.get('/server/apps').then((res) => {
+		  for (const item of res.data) {
+			  apps.push({
+				  text: item.code ? `${item.name} - ${item.code}` : item.name,
+				  value: item.app,
+			  });
+		  }
 
-			if (!apps.some((a: any) => a.value === app.value)) {
-				app.value = 'master';
-		    api.defaults.headers.common['X-Al-Mad-App'] = app.value;
-			}
-		});
+		  if (!apps.some((a: any) => a.value === app.value)) {
+			  app.value = 'master';
+			  api.defaults.headers.common['X-Al-Mad-App'] = app.value;
+		  }
+	  });
 
 		return {
 			t,
 			fields,
 			initialValues,
 			edits,
-			noEdits,
+			hasEdits,
 			saving,
-			isSavable,
 			confirmLeave,
 			leaveTo,
 			save,
@@ -188,8 +169,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/mixins/form-grid';
-
 .settings {
 	padding: var(--content-padding);
 	padding-bottom: var(--content-padding-bottom);
@@ -198,11 +177,5 @@ export default defineComponent({
 .header-icon {
 	--v-button-color-disabled: var(--warning);
 	--v-button-background-color-disabled: var(--warning-10);
-}
-
-.apps-select-wrapper {
-  @include form-grid;
-
-	margin-top: 30px;
 }
 </style>

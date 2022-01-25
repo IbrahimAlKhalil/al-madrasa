@@ -1,19 +1,11 @@
 import path from 'path';
 import { AppExtensionType, Extension, ExtensionType } from '@directus/shared/types';
-import {
-	getLocalExtensions,
-	getPackageExtensions,
-} from '@directus/shared/utils/node';
-import {
-	API_EXTENSION_PACKAGE_TYPES,
-	API_EXTENSION_TYPES,
-} from '@directus/shared/constants';
 import getDatabase from './database';
 import emitter from './emitter';
 import env from './env';
 import * as exceptions from './exceptions';
 import logger from './logger';
-import { HookConfig, FilterHandler, ActionHandler, InitHandler, ScheduleHandler } from './types';
+import { FilterHandler, ActionHandler, InitHandler, ScheduleHandler } from '@directus/shared/types';
 import { getSchema } from './utils/get-schema';
 
 import * as services from './services';

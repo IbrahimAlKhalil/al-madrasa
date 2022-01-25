@@ -78,8 +78,8 @@ const readHandler = asyncHandler(async (req, res, next) => {
 	return next();
 });
 
-router.get('/', validateBatch('read'), readHandler);
-router.search('/', validateBatch('read'), readHandler);
+router.get('/', validateBatch('read'), readHandler, respond);
+router.search('/', validateBatch('read'), readHandler, respond);
 
 router.get(
 	'/:collection',

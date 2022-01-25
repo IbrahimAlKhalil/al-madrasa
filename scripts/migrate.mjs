@@ -106,6 +106,11 @@ export async function migrate(direction, master, children) {
 
     async function runChildren() {
         await run.default.default(databases.template, direction);
+
+        for (const institute of databases.institutes) {
+            await run.default.default(institute, direction);
+        }
+
         await importMetadata(databases.template, 'template');
     }
 

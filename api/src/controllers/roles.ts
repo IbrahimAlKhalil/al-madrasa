@@ -57,6 +57,7 @@ const readHandler = asyncHandler(async (req, res, next) => {
 		schema: req.schema,
 		knex: req.knex,
 	});
+
 	const metaService = new MetaService({
 		accountability: req.accountability,
 		schema: req.schema,

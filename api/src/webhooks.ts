@@ -2,9 +2,10 @@ import axios from 'axios';
 import {databases} from './database';
 import emitter from './emitter';
 import logger from './logger';
-import { ActionHandler, Webhook, WebhookHeader } from './types';
+import { Webhook, WebhookHeader } from './types';
 import { WebhooksService } from './services';
 import { getSchema } from './utils/get-schema';
+import { ActionHandler } from '@directus/shared/types';
 
 let registered: { event: string; handler: ActionHandler }[] = [];
 
@@ -46,9 +47,9 @@ function createHandler(webhook: Webhook, event: string): ActionHandler {
 			event,
 			accountability: context.accountability
 				? {
-					user: context.accountability.user,
-					role: context.accountability.role,
-				}
+						user: context.accountability.user,
+						role: context.accountability.role,
+				  }
 				: null,
 			...meta,
 		};

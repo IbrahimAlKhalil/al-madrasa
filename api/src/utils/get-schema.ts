@@ -5,8 +5,7 @@ import { systemCollectionRows } from '../database/system-data/collections';
 import { systemFieldRows } from '../database/system-data/fields';
 import logger from '../logger';
 import { RelationsService } from '../services';
-import { SchemaOverview } from '../types';
-import { Accountability } from '@directus/shared/types';
+import { Accountability, SchemaOverview } from '@directus/shared/types';
 import { toArray } from '@directus/shared/utils';
 import getDefaultValue from './get-default-value';
 import getLocalType from './get-local-type';
@@ -19,7 +18,7 @@ export async function getSchema(options?: {
 	database?: Knex;
 }): Promise<SchemaOverview> {
 	const database = options?.database || getDatabase();
-	const schemaInspector = SchemaInspector(database);
+	const schemaInspector = SchemaInspector(database as any);
 	const { systemCache } = getCache();
 
 	let result: SchemaOverview;

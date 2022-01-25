@@ -11,6 +11,7 @@ import {
 	createLocalAuthRouter,
 } from '../auth/drivers';
 import { DEFAULT_AUTH_PROVIDER } from '../constants';
+import { getIPFromReq } from '../utils/get-ip-from-req';
 
 const router = Router();
 
@@ -33,7 +34,7 @@ router.post(
 	'/refresh',
 	asyncHandler(async (req, res, next) => {
 		const accountability = {
-			ip: req.ip,
+			ip: getIPFromReq(req),
 			userAgent: req.get('user-agent'),
 			role: null,
 		};
@@ -82,7 +83,7 @@ router.post(
 	'/logout',
 	asyncHandler(async (req, res, next) => {
 		const accountability = {
-			ip: req.ip,
+			ip: getIPFromReq(req),
 			userAgent: req.get('user-agent'),
 			role: null,
 		};
@@ -123,7 +124,7 @@ router.post(
 		}
 
 		const accountability = {
-			ip: req.ip,
+			ip: getIPFromReq(req),
 			userAgent: req.get('user-agent'),
 			role: null,
 		};
@@ -157,7 +158,7 @@ router.post(
 		}
 
 		const accountability = {
-			ip: req.ip,
+			ip: getIPFromReq(req),
 			userAgent: req.get('user-agent'),
 			role: null,
 		};

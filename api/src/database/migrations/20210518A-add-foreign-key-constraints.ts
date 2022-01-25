@@ -1,11 +1,11 @@
 import { Knex } from 'knex';
 import SchemaInspector from 'knex-schema-inspector';
 import logger from '../../logger';
-import { RelationMeta } from '../../types';
+import { RelationMeta } from '@directus/shared/types';
 import { getDefaultIndexName } from '../../utils/get-default-index-name';
 
 export async function up(knex: Knex): Promise<void> {
-	const inspector = SchemaInspector(knex);
+	const inspector = SchemaInspector(knex as any);
 
 	const foreignKeys = await inspector.foreignKeys();
 	const relations = await knex

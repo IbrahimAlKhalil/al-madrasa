@@ -25,6 +25,7 @@ export async function translateDatabaseError(error: SQLError, knex: Knex): Promi
 		case 'mysql':
 			defaultError = mysql(error);
 			break;
+		case 'cockroachdb':
 		case 'postgres':
 			defaultError = postgres(error);
 			break;

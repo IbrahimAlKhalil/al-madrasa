@@ -30,21 +30,13 @@ import usersRouter from './controllers/users';
 import utilsRouter from './controllers/utils';
 import webhooksRouter from './controllers/webhooks';
 import admission from "./controllers/admission";
-
-// other import
-import {
-	connectAllDatabases,
-	isInstalled,
-	validateDatabaseConnection,
-	validateDatabaseExtensions,
-} from './database';
+import sharesRouter from './controllers/shares';
+import { connectAllDatabases, isInstalled, validateDatabaseConnection, validateDatabaseExtensions, validateMigrations } from './database';
 import emitter from './emitter';
 import env from './env';
 import { InvalidPayloadException } from './exceptions';
 import { getExtensionManager } from './extensions';
 import logger, { expressLogger } from './logger';
-
-// middlewares
 import authenticate from './middleware/authenticate';
 import getPermissions from './middleware/get-permissions';
 import cache from './middleware/cache';
@@ -64,6 +56,8 @@ import { register as registerWebhooks } from './webhooks';
 import { flushCaches } from './cache';
 import { registerAuthProviders } from './auth';
 import { Url } from './utils/url';
+import { getConfigFromEnv } from './utils/get-config-from-env';
+import { merge } from 'lodash';
 import nextJs from './controllers/next';
 
 export default async function createApp(): Promise<express.Application> {
@@ -79,7 +73,7 @@ export default async function createApp(): Promise<express.Application> {
 	await validateDatabaseExtensions();
 	await connectAllDatabases();
 
-	if (!(await isInstalled())) {
+	if ((await isInstalled()) === false) {
 		logger.error(`Database doesn't have Directus tables installed.`);
 		process.exit(1);
 	}
@@ -226,11 +220,12 @@ export default async function createApp(): Promise<express.Application> {
 	router.use('/roles', rolesRouter);
 	router.use('/server', serverRouter);
 	router.use('/settings', settingsRouter);
+	router.use('/shares', sharesRouter);
 	router.use('/users', usersRouter);
 	router.use('/utils', utilsRouter);
 	router.use('/webhooks', webhooksRouter);
 	router.use('/contact', require('./controllers/contact').default);
-	router.use('/admission', admission)
+	router.use('/admission', admission);
 
 	app.use('/api', router);
 
