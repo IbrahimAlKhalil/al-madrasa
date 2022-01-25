@@ -22,7 +22,7 @@ export const SectionIntro: FunctionComponent<SectionProps> = (props) => {
                 {link(data?.link, (href) => (
                   <Link href={href}>
                     <a className="btn-get-started d-inline-flex align-items-center justify-content-center align-self-center">
-                      <span>{data?.link?.label}</span>
+                      <span>{data?.link?.label ?? href}</span>
                       <i className="mi">arrow_right_alt</i>
                     </a>
                   </Link>

@@ -45,7 +45,7 @@ const Price: FunctionComponent<PriceInterface> = (props) => {
         </ul>
         {link(props.link, (href) => (
           <Link href={href}>
-            <a className="btn-buy">{props.link.label}</a>
+            <a className="btn-buy">{props.link?.label ?? href}</a>
           </Link>
         ))}
       </div>
