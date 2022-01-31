@@ -520,6 +520,33 @@ section {
   }
 }
 
+.notice-slider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
+  padding: 20px;
+  border-radius: 6px;
+  background-color: #f6f9ff;
+  min-height: 150px;
+
+  .swiper-slide {
+    text-align: center;
+  }
+}
+
+.notice-box {
+  position: relative;
+
+  .notice-icon {
+    color: var(--bs-primary);
+    font-size: 3em;
+    position: absolute;
+    top: -7px;
+    left: -2px;
+  }
+}
+
 .hero {
   width: 100%;
   height: 100vh;

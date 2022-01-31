@@ -8,6 +8,7 @@ import {SectionContact} from 'c/home/section-contact';
 import { SectionCounts } from 'c/home/section-counts';
 import { SectionAbout } from 'c/home/section-about';
 import { SectionIntro } from 'c/home/section-intro';
+import {SectionNotice} from "c/home/section-notice";
 import { LayoutWide } from '../layout/layout-wide';
 import { SectionTeam } from 'c/home/section-team';
 import { loadRelations } from 'm/load-relations';
@@ -20,6 +21,7 @@ const Home: NextPage<PageProps> = (props) => {
   const sections = {
     intro: SectionIntro,
     about: SectionAbout,
+    notice: SectionNotice,
     values: SectionValues,
     counts: SectionCounts,
     features: SectionFeatures,

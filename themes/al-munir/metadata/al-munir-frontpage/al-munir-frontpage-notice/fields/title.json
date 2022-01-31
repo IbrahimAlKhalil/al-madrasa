@@ -1,0 +1,16 @@
+{
+  "field": "title",
+  "name": "Title",
+  "type": "text",
+  "meta": {
+    "name": "Title",
+    "field": "title",
+    "width": "full",
+    "type": "text",
+    "interface": "input",
+    "options": {
+      "iconLeft": "title",
+      "trim": true
+    }
+  }
+}
