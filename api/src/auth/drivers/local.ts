@@ -77,6 +77,7 @@ export function createLocalAuthRouter(provider: string): Router {
 			const { accessToken, refreshToken, expires } = await authenticationService.login(
 				provider,
 				req.body,
+				req.knex,
 				req.body?.otp
 			);
 
