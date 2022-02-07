@@ -33,16 +33,18 @@ const Price: FunctionComponent<PriceInterface> = (props) => {
           className="img-fluid"
           alt={props.title}
         />
-        <ul>
-          {props.features.map((feature) => (
-            <li
-              className={`${feature.strikethrough ? 'na' : ''}`}
-              key={feature.name}
-            >
-              {feature.name}
-            </li>
-          ))}
-        </ul>
+        {
+          props.features ? <ul>
+            {props.features.map((feature) => (
+                <li
+                    className={`${feature.strikethrough ? 'na' : ''}`}
+                    key={feature.name}
+                >
+                  {feature.name}
+                </li>
+            ))}
+          </ul> : null
+        }
         {link(props.link, (href) => (
           <Link href={href}>
             <a className="btn-buy">{props.link?.label ?? href}</a>
