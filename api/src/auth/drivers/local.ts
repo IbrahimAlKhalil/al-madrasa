@@ -64,6 +64,7 @@ export function createLocalAuthRouter(provider: string): Router {
 			const authenticationService = new AuthenticationService({
 				accountability: accountability,
 				schema: req.schema,
+				knex: req.knex,
 			});
 
 			const { error } = userLoginSchema.validate(req.body);
