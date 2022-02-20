@@ -1,6 +1,5 @@
 import { Component, Fragment } from 'react';
 import { AppProps } from 'next/app';
-import Script from 'next/script';
 import aos from 'aos';
 import 's/index.scss';
 
@@ -21,7 +20,6 @@ export default class App extends Component<AppProps> {
     return (
       <Fragment>
         <Comp {...pageProps} />
-        <Script src="https://cdn.jsdelivr.net/npm/@srexi/purecounterjs/dist/purecounter_vanilla.js" />
       </Fragment>
     );
   }

@@ -1,5 +1,5 @@
+import { FunctionComponent, useEffect } from 'react';
 import { SectionProps } from 'st/section-props';
-import { FunctionComponent } from 'react';
 
 interface CountInterface {
   title: string;
@@ -41,6 +41,11 @@ export const SectionCounts: FunctionComponent<SectionProps> = (props) => {
   if (!data?.counts) {
     return null;
   }
+
+  useEffect(() => {
+      // @ts-ignore
+      import('@srexi/purecounterjs');
+  }, []);
 
   return (
     <section id="counts" className="counts">
