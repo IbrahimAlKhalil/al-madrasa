@@ -10,7 +10,7 @@ export const Header: FunctionComponent = () => {
   const showTitle = useField('general', 'header', 'show_title', true);
 
   return (
-    <header id="header" className="header fixed-top">
+    <header id="header" className="header sticky-top">
       <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
         <Link href="/">
           <a className="logo d-flex align-items-center">

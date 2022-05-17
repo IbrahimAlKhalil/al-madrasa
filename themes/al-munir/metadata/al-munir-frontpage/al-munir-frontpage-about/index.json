@@ -1,9 +1,0 @@
-{
-  "id": "al-munir-frontpage-about",
-  "sort": 3,
-  "name": "About",
-  "icon": "domain",
-  "sortable": true,
-  "can_hide": true,
-  "page": "al-munir-frontpage"
-}

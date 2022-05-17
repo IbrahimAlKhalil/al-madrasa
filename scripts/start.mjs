@@ -213,7 +213,7 @@ async function startPostgres() {
 
     await client.end();
 
-    await prepare();
+    // await prepare();
 }
 
 async function startShared() {

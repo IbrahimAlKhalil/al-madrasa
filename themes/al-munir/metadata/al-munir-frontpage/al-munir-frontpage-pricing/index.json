@@ -1,9 +1,0 @@
-{
-  "id": "al-munir-frontpage-pricing",
-  "sort": 8,
-  "name": "Pricing",
-  "icon": "attach_money",
-  "sortable": true,
-  "can_hide": true,
-  "page": "al-munir-frontpage"
-}

@@ -1,9 +1,0 @@
-{
-  "id": "al-munir-frontpage-team",
-  "sort": 9,
-  "name": "Team",
-  "icon": "supervised_user_circle",
-  "sortable": true,
-  "can_hide": true,
-  "page": "al-munir-frontpage"
-}

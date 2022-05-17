@@ -1,0 +1,56 @@
+{
+  "id": "al-munir-general-footer-left-menu",
+  "sort": 12,
+  "name": "Footer - Left Menu",
+  "icon": "menu",
+  "sortable": false,
+  "can_hide": false,
+  "fields": [
+    {
+      "field": "title",
+      "name": "Title",
+      "type": "string",
+      "meta": {
+        "name": "Title",
+        "field": "title",
+        "type": "string",
+        "interface": "input",
+        "options": {
+          "iconLeft": "title",
+          "trim": true
+        }
+      }
+    },
+    {
+      "field": "links",
+      "name": "Links",
+      "type": "json",
+      "meta": {
+        "name": "Links",
+        "field": "links",
+        "type": "json",
+        "interface": "list",
+        "options": {
+          "fields": [
+            {
+              "field": "link",
+              "name": "Link",
+              "type": "string",
+              "meta": {
+                "name": "Link",
+                "field": "link",
+                "type": "string",
+                "interface": "link",
+                "options": {
+                  "iconLeft": "http",
+                  "trim": true
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "page": "al-munir-general"
+}

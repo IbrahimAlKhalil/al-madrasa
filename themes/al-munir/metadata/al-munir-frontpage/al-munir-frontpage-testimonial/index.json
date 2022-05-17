@@ -1,9 +1,0 @@
-{
-  "id": "al-munir-frontpage-testimonial",
-  "sort": 14,
-  "name": "Testimonial",
-  "icon": "comment_bank",
-  "sortable": true,
-  "can_hide": true,
-  "page": "al-munir-frontpage"
-}

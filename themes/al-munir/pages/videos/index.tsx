@@ -101,6 +101,8 @@ export const getServerSideProps = getServerSidePageProps(
         'date_created',
         'user_created.first_name',
         'user_created.last_name',
+        'user_updated.first_name',
+        'user_updated.last_name',
       ],
       search: query.q,
       filter,
@@ -125,6 +127,10 @@ export const getServerSideProps = getServerSidePageProps(
       videos[i].date_created = formatter.format(
         new Date(videos[i].date_created),
       );
+
+      if (videos[i].user_updated) {
+          videos[i].user_created = videos[i].user_updated;
+      }
     }
 
     const { categories } = await loadSidebarContent(ctx);

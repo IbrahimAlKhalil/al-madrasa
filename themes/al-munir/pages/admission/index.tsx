@@ -28,13 +28,25 @@ const Admission: NextPage<Props> = (props) => {
     RegID: '',
     RegDate: '',
   }); //state for students info
+  const [oldId, setOldId] = useState(''); //state for old id
+
+  function getEndpoint(path: string): string {
+    const url = new URL(window.location.href);
+    const endpoint = new URL(path, url.origin);
+
+    // Add url search params to endpoint
+    const searchParams = new URLSearchParams(url.search);
+    endpoint.search = searchParams.toString();
+
+    return endpoint.toString();
+  }
 
   // find student information with id
   const findStudent: FormEventHandler<HTMLFormElement> = async (evt) => {
     evt.preventDefault();
     evt.stopPropagation();
 
-    const request = await fetch(`/api/admission/${evt.currentTarget.getElementById('old_id').value}`, {
+    const request = await fetch(getEndpoint(`/api/admission/${oldId}`), {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -53,7 +65,7 @@ const Admission: NextPage<Props> = (props) => {
     evt.preventDefault();
     evt.stopPropagation();
     const formData = new FormData(evt.currentTarget);
-    const request = await fetch('/api/admission', {
+    const request = await fetch(getEndpoint('/api/admission'), {
       method: 'POST',
       body: JSON.stringify(Object.fromEntries(formData.entries())),
       headers: {
@@ -75,7 +87,7 @@ const Admission: NextPage<Props> = (props) => {
   //register old student
   const RegStudent: MouseEventHandler<HTMLButtonElement> = async () => {
     if (sData.ID) {
-      const request = await fetch(`/api/admission/${sData.ID}`, {
+      const request = await fetch(getEndpoint(`/api/admission/${sData.ID}`), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -421,7 +433,7 @@ const Admission: NextPage<Props> = (props) => {
                     </div>
 
                     <div className="col-md-12">
-                      <h3>অন্যন্ন</h3>
+                      <h3>অন্যান্য</h3>
                     </div>
 
                     <div className="col-md-6">
@@ -498,7 +510,9 @@ const Admission: NextPage<Props> = (props) => {
                       <label htmlFor="name">আইডি</label>
 
                       <input
+                        onInput={(event => setOldId((event.target as any).value))}
                         className="form-control text-center"
+                        autoComplete={'off'}
                         type="text"
                         id="old_id"
                         name="id"
@@ -615,16 +629,20 @@ export const getServerSideProps = getServerSidePageProps(
   ['general'],
   async (props, ctx) => {
     await loadRelations(props, ctx);
-    if (!ctx.req.qmmsoftDB) {
+
+    const db = typeof ctx.req.query.db === 'string' ? ctx.req.query.db : 'db_1';
+
+    if (!ctx.req.qmmsoftDB[db]) {
       return { noDB: true };
     }
+
     const database = knex({
       client: 'mssql',
       connection: {
         server: process.env.DB_MSSQL_HOST as string,
         user: process.env.DB_MSSQL_USER as string,
         password: process.env.DB_MSSQL_PASSWORD as string,
-        database: ctx.req.qmmsoftDB,
+        database: ctx.req.qmmsoftDB[db] as string,
         port: Number(process.env.DB_MSSQL_PORT),
       },
     });

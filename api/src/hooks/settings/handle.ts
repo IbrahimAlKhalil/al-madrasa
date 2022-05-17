@@ -13,7 +13,7 @@ export const handle: ActionHandler = async (meta, ctx) => {
 		? new ItemsService('website', options)
 		: new SettingsService(options);
 
-	await service.upsertSingleton(pick(meta.payload, 'project_logo', 'project_name'), {
+	await service.upsertSingleton(pick(meta.payload, 'id', 'project_logo', 'project_name'), {
 		emitEvents: false,
 	});
 }

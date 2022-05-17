@@ -1,9 +1,0 @@
-{
-  "id": "al-munir-frontpage-counts",
-  "sort": 5,
-  "name": "Counts",
-  "icon": "looks_one",
-  "sortable": true,
-  "can_hide": true,
-  "page": "al-munir-frontpage"
-}

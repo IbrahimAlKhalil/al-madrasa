@@ -3,7 +3,7 @@ import { AppProps } from 'next/app';
 import aos from 'aos';
 import 's/index.scss';
 
-export default class App extends Component<AppProps> {
+export default class App extends Component<AppProps, {}> {
   async componentDidMount() {
     await import('bootstrap');
     aos.init({

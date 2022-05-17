@@ -1,0 +1,94 @@
+{
+  "id": "al-munir-frontpage-values",
+  "sort": 4,
+  "name": "Values",
+  "icon": "done",
+  "sortable": true,
+  "can_hide": true,
+  "fields": [
+    {
+      "field": "title",
+      "name": "Title",
+      "type": "string",
+      "meta": {
+        "name": "Title",
+        "field": "title",
+        "type": "string",
+        "interface": "input",
+        "options": {
+          "iconLeft": "title",
+          "trim": true
+        }
+      }
+    },
+    {
+      "field": "subtitle",
+      "name": "Subtitle",
+      "type": "string",
+      "meta": {
+        "name": "Subtitle",
+        "field": "subtitle",
+        "type": "string",
+        "interface": "input",
+        "options": {
+          "iconLeft": "subtitles",
+          "trim": true
+        }
+      }
+    },
+    {
+      "field": "items",
+      "name": "Items",
+      "type": "json",
+      "meta": {
+        "name": "Items",
+        "field": "items",
+        "type": "json",
+        "interface": "list",
+        "options": {
+          "addLabel": "Add New",
+          "fields": [
+            {
+              "field": "title",
+              "name": "Title",
+              "type": "string",
+              "meta": {
+                "field": "title",
+                "type": "string",
+                "interface": "input",
+                "options": {
+                  "iconLeft": "title",
+                  "trim": true
+                },
+                "name": "Title"
+              }
+            },
+            {
+              "field": "image",
+              "name": "Image",
+              "type": "uuid",
+              "meta": {
+                "field": "image",
+                "type": "uuid",
+                "interface": "file-image-repeater",
+                "name": "Image"
+              }
+            },
+            {
+              "field": "description",
+              "name": "Description",
+              "type": "text",
+              "meta": {
+                "field": "description",
+                "type": "text",
+                "interface": "input-rich-text-html",
+                "name": "Description"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "page": "al-munir-frontpage"
+}

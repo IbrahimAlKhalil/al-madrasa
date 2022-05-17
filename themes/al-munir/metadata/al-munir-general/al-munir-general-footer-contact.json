@@ -1,0 +1,67 @@
+{
+  "id": "al-munir-general-footer-contact",
+  "sort": 13,
+  "name": "Footer - Contact",
+  "icon": "map",
+  "sortable": false,
+  "can_hide": false,
+  "fields": [
+    {
+      "field": "title",
+      "name": "Title",
+      "type": "string",
+      "meta": {
+        "name": "Title",
+        "field": "title",
+        "type": "string",
+        "interface": "input",
+        "options": {
+          "trim": true,
+          "iconLeft": "title"
+        }
+      }
+    },
+    {
+      "field": "phone",
+      "name": "Phone",
+      "type": "string",
+      "meta": {
+        "name": "Phone",
+        "field": "phone",
+        "type": "string",
+        "interface": "input",
+        "options": {
+          "trim": true,
+          "iconLeft": "phone_android"
+        }
+      }
+    },
+    {
+      "field": "email",
+      "name": "Email Address",
+      "type": "string",
+      "meta": {
+        "name": "Email Address",
+        "field": "email",
+        "type": "string",
+        "interface": "input",
+        "options": {
+          "iconLeft": "alternate_email",
+          "trim": true
+        }
+      }
+    },
+    {
+      "field": "contact_info",
+      "name": "Contact Info",
+      "type": "text",
+      "meta": {
+        "name": "Contact Info",
+        "field": "contact_info",
+        "type": "text",
+        "interface": "input-rich-text-html"
+      }
+    }
+  ],
+  "page": "al-munir-general"
+}

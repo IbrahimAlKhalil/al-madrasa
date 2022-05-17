@@ -76,7 +76,7 @@ export default defineComponent({
 		const {t} = useI18n();
 		const collectionStore = useCollectionsStore();
 		const fieldStore = useFieldsStore();
-		const allowedCollections = ['article', 'page', 'question', 'book', 'image', 'video', 'audio'];
+		const allowedCollections = ['article', 'page', 'question', 'image', 'video'];
 		const collections = reactive<{ id: string; name?: string; icon?: string }[]>([
 			{
 				id: 'custom',

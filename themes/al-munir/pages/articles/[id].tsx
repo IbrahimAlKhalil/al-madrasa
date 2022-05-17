@@ -275,6 +275,10 @@ export const getServerSideProps = getServerSidePageProps(
         'user_created.last_name',
         'user_created.description',
         'user_created.avatar',
+        'user_updated.first_name',
+        'user_updated.last_name',
+        'user_updated.description',
+        'user_updated.avatar',
       ],
       filter: {
         status: {
@@ -302,6 +306,10 @@ export const getServerSideProps = getServerSidePageProps(
     });
 
     article.date_created = formatter.format(new Date(article.date_created));
+
+    if (article.user_updated) {
+      article.user_created = article.user_updated;
+    }
 
     const { recent, categories, tags } = await loadSidebarContent(ctx);
 

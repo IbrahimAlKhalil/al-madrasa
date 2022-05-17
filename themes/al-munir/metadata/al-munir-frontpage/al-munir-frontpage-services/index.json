@@ -1,9 +1,0 @@
-{
-  "id": "al-munir-frontpage-services",
-  "sort": 7,
-  "name": "Services",
-  "icon": "home_repair_service",
-  "sortable": true,
-  "can_hide": true,
-  "page": "al-munir-frontpage"
-}

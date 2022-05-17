@@ -1,0 +1,74 @@
+{
+  "id": "al-munir-frontpage-about",
+  "sort": 3,
+  "name": "About",
+  "icon": "domain",
+  "sortable": true,
+  "can_hide": true,
+  "fields": [
+    {
+      "field": "title",
+      "name": "Title",
+      "type": "string",
+      "meta": {
+        "name": "Title",
+        "field": "title",
+        "type": "string",
+        "interface": "input",
+        "options": {
+          "iconLeft": "title",
+          "trim": true
+        }
+      }
+    },
+    {
+      "field": "subtitle",
+      "name": "Subtitle",
+      "type": "string",
+      "meta": {
+        "name": "Subtitle",
+        "field": "subtitle",
+        "type": "string",
+        "interface": "input",
+        "options": {
+          "iconLeft": "subtitles",
+          "trim": true
+        }
+      }
+    },
+    {
+      "field": "link",
+      "name": "Link",
+      "type": "string",
+      "meta": {
+        "name": "Link",
+        "field": "link",
+        "type": "string",
+        "interface": "link"
+      }
+    },
+    {
+      "field": "image",
+      "name": "Image",
+      "type": "uuid",
+      "meta": {
+        "name": "Image",
+        "field": "image",
+        "type": "uuid",
+        "interface": "file-image-repeater"
+      }
+    },
+    {
+      "field": "description",
+      "name": "Description",
+      "type": "text",
+      "meta": {
+        "name": "Description",
+        "field": "description",
+        "type": "text",
+        "interface": "input-rich-text-html"
+      }
+    }
+  ],
+  "page": "al-munir-frontpage"
+}

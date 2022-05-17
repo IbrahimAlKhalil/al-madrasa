@@ -74,7 +74,7 @@ export const SectionTestimonial: FunctionComponent<SectionProps> = (props) => {
   }, []);
 
   if (!data) {
-    return null;
+    return <div></div>;
   }
 
   return (

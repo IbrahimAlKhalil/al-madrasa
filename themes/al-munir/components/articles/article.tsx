@@ -12,6 +12,12 @@ export interface ArticleInterface extends RecentArticleInterface {
     avatar: string;
     description: string;
   };
+  user_updated: {
+    first_name: string;
+    last_name: string;
+    avatar: string;
+    description: string;
+  };
 }
 
 export const Article: FunctionComponent<ArticleInterface> = (props) => {

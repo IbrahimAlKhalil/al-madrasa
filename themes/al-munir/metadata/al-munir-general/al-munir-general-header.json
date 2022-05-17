@@ -1,0 +1,43 @@
+{
+  "id": "al-munir-general-header",
+  "sort": 1,
+  "name": "Header",
+  "icon": "view_quilt",
+  "sortable": false,
+  "can_hide": false,
+  "fields": [
+    {
+      "field": "show_title",
+      "name": "Show Title",
+      "type": "boolean",
+      "meta": {
+        "name": "Show Title",
+        "field": "show_title",
+        "type": "boolean",
+        "interface": "boolean",
+        "options": {
+          "label": "Visible",
+          "colorOn": "#00C897",
+          "colorOff": "#F7971C"
+        }
+      }
+    },
+    {
+      "field": "main_menu",
+      "name": "Main Menu",
+      "type": "integer",
+      "meta": {
+        "name": "Main Menu",
+        "field": "main_menu",
+        "type": "integer",
+        "interface": "m2o-repeater",
+        "options": {
+          "related-collection": "menu",
+          "related-field": "id",
+          "template": "{{title}}"
+        }
+      }
+    }
+  ],
+  "page": "al-munir-general"
+}

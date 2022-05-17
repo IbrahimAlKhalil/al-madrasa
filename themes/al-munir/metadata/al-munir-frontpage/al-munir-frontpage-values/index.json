@@ -1,9 +1,0 @@
-{
-  "id": "al-munir-frontpage-values",
-  "sort": 4,
-  "name": "Values",
-  "icon": "done",
-  "sortable": true,
-  "can_hide": true,
-  "page": "al-munir-frontpage"
-}

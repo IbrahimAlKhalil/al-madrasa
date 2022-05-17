@@ -54,20 +54,11 @@ async function runExport(theme) {
         for (const section of sections) {
             logger.info(`Section: ${section.id.replace(`${theme}-${pageId}-`, '')}`)
 
-            const sectionPath = `${metadataPath}/${page.id}/${section.id}`;
-            await fs.mkdir(sectionPath);
+            const sectionPath = `${metadataPath}/${page.id}/${section.id}.json`;
 
-            await fs.writeFile(`${sectionPath}/index.json`, JSON.stringify(lodash.omit(section, 'fields'), null, 2), {
+            await fs.writeFile(sectionPath, JSON.stringify(section, null, 2), {
                 encoding: 'utf-8',
             });
-
-            await fs.mkdir(`${sectionPath}/fields`);
-
-            for (const field of section.fields) {
-                await fs.writeFile(`${sectionPath}/fields/${field.field}.json`, JSON.stringify(field, null, 2), {
-                    encoding: 'utf-8',
-                });
-            }
         }
     }
 
@@ -128,39 +119,30 @@ async function runImport(theme) {
                 .onConflict('id')
                 .merge();
 
-            const sectionIds = await fs.readdir(pagePath);
+            const sectionIds = (
+                await fs.readdir(pagePath)
+            ).map(id => id.replace('.json', ''));
 
             for (const sectionId of sectionIds) {
-                if (sectionId === 'index.json') {
+                if (sectionId === 'index') {
                     continue;
                 }
 
                 logger.info(`Importing section: ${sectionId}`);
 
-                const sectionPath = `${metadataPath}/${pageId}/${sectionId}`;
+                const sectionPath = `${metadataPath}/${pageId}/${sectionId}.json`;
 
                 const section = JSON.parse(
-                    await fs.readFile(`${sectionPath}/index.json`, {encoding: 'utf-8'})
+                    await fs.readFile(sectionPath, {encoding: 'utf-8'})
                 );
-
-                section.fields = [];
-
-                const fieldIds = await fs.readdir(`${sectionPath}/fields`);
-
-                for (const fieldFile of fieldIds) {
-                    const field = JSON.parse(
-                        await fs.readFile(`${sectionPath}/fields/${fieldFile}`, {encoding: 'utf-8'})
-                    );
-
-                    section.fields.push(field);
-                }
-
-                section.fields = JSON.stringify(section.fields);
 
 
                 await insClient
                     .table('theme_page_section')
-                    .insert(section)
+                    .insert({
+                        ...section,
+                        fields: JSON.stringify(section.fields),
+                    })
                     .onConflict('id')
                     .merge();
             }

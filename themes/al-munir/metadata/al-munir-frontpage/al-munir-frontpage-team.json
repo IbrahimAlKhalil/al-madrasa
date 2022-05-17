@@ -1,0 +1,156 @@
+{
+  "id": "al-munir-frontpage-team",
+  "sort": 9,
+  "name": "Team",
+  "icon": "supervised_user_circle",
+  "sortable": true,
+  "can_hide": true,
+  "fields": [
+    {
+      "field": "title",
+      "name": "Title",
+      "type": "string",
+      "meta": {
+        "name": "Title",
+        "field": "title",
+        "type": "string",
+        "interface": "input",
+        "options": {
+          "iconLeft": "title",
+          "trim": true
+        }
+      }
+    },
+    {
+      "field": "subtitle",
+      "name": "Subtitle",
+      "type": "string",
+      "meta": {
+        "name": "Subtitle",
+        "field": "subtitle",
+        "type": "string",
+        "interface": "input",
+        "options": {
+          "iconLeft": "subtitles",
+          "trim": true
+        }
+      }
+    },
+    {
+      "field": "members",
+      "name": "Members",
+      "type": "json",
+      "meta": {
+        "name": "Members",
+        "field": "members",
+        "type": "json",
+        "interface": "list",
+        "options": {
+          "fields": [
+            {
+              "field": "name",
+              "name": "Name",
+              "type": "string",
+              "meta": {
+                "name": "Name",
+                "field": "name",
+                "type": "string",
+                "interface": "input",
+                "options": {
+                  "trim": true,
+                  "iconLeft": "title"
+                }
+              }
+            },
+            {
+              "field": "photo",
+              "name": "Photo",
+              "type": "uuid",
+              "meta": {
+                "name": "Photo",
+                "field": "photo",
+                "type": "uuid",
+                "interface": "file-image-repeater"
+              }
+            },
+            {
+              "field": "designation",
+              "name": "Designation",
+              "type": "string",
+              "meta": {
+                "name": "Designation",
+                "field": "designation",
+                "type": "string",
+                "interface": "input",
+                "options": {
+                  "trim": true,
+                  "iconLeft": "verified_user"
+                }
+              }
+            },
+            {
+              "field": "description",
+              "name": "Description",
+              "type": "text",
+              "meta": {
+                "name": "Description",
+                "field": "description",
+                "type": "text",
+                "interface": "input-multiline",
+                "options": {
+                  "trim": true
+                }
+              }
+            },
+            {
+              "field": "facebook",
+              "name": "Facebook",
+              "type": "string",
+              "meta": {
+                "name": "Facebook",
+                "field": "facebook",
+                "type": "string",
+                "interface": "input",
+                "options": {
+                  "iconLeft": "http",
+                  "trim": true
+                }
+              }
+            },
+            {
+              "field": "linked_in",
+              "name": "Linked In",
+              "type": "string",
+              "meta": {
+                "name": "Linked In",
+                "field": "linked_in",
+                "type": "string",
+                "interface": "input",
+                "options": {
+                  "iconLeft": "http",
+                  "trim": true
+                }
+              }
+            },
+            {
+              "field": "youtube",
+              "name": "Youtube",
+              "type": "string",
+              "meta": {
+                "name": "Youtube",
+                "field": "youtube",
+                "type": "string",
+                "interface": "input",
+                "options": {
+                  "iconLeft": "http",
+                  "trim": true
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "page": "al-munir-frontpage"
+}

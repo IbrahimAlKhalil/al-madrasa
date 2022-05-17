@@ -1,0 +1,109 @@
+{
+  "id": "al-munir-frontpage-contact",
+  "sort": null,
+  "name": "Contact",
+  "icon": "contact_mail",
+  "sortable": true,
+  "can_hide": true,
+  "fields": [
+    {
+      "field": "title",
+      "name": "Title",
+      "type": "string",
+      "meta": {
+        "name": "Title",
+        "field": "title",
+        "type": "string",
+        "interface": "input",
+        "options": {
+          "iconLeft": "title",
+          "trim": true
+        }
+      }
+    },
+    {
+      "field": "subtitle",
+      "name": "Subtitle",
+      "type": "string",
+      "meta": {
+        "name": "Subtitle",
+        "field": "subtitle",
+        "type": "string",
+        "interface": "input",
+        "options": {
+          "trim": true,
+          "iconLeft": "subtitles"
+        }
+      }
+    },
+    {
+      "field": "question_type",
+      "name": "Qestion Type",
+      "type": "integer",
+      "meta": {
+        "name": "Qestion Type",
+        "field": "question_type",
+        "type": "integer",
+        "interface": "m2o-repeater",
+        "options": {
+          "related-collection": "question_type",
+          "related-field": "id",
+          "template": "{{name}}"
+        }
+      }
+    },
+    {
+      "field": "tiles",
+      "name": "Tiles",
+      "type": "json",
+      "meta": {
+        "name": "Tiles",
+        "field": "tiles",
+        "type": "json",
+        "interface": "list",
+        "options": {
+          "fields": [
+            {
+              "field": "title",
+              "name": "title",
+              "type": "string",
+              "meta": {
+                "field": "title",
+                "type": "string",
+                "interface": "input",
+                "options": {
+                  "iconLeft": "title",
+                  "trim": true
+                }
+              }
+            },
+            {
+              "field": "icon",
+              "name": "icon",
+              "type": "string",
+              "meta": {
+                "field": "icon",
+                "type": "string",
+                "interface": "select-icon"
+              }
+            },
+            {
+              "field": "content",
+              "name": "content",
+              "type": "text",
+              "meta": {
+                "field": "content",
+                "type": "text",
+                "interface": "input-rich-text-html",
+                "options": {
+                  "trim": true
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "page": "al-munir-frontpage"
+}

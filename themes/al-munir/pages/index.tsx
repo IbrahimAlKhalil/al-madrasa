@@ -7,6 +7,7 @@ import { SectionValues } from 'c/home/section-values';
 import {SectionContact} from 'c/home/section-contact';
 import { SectionCounts } from 'c/home/section-counts';
 import { SectionAbout } from 'c/home/section-about';
+import {SectionSlider} from "c/home/section-slider";
 import { SectionIntro } from 'c/home/section-intro';
 import {SectionNotice} from "c/home/section-notice";
 import { LayoutWide } from '../layout/layout-wide';
@@ -19,6 +20,7 @@ import { Page } from 'sc/page';
 
 const Home: NextPage<PageProps> = (props) => {
   const sections = {
+    slider: SectionSlider,
     intro: SectionIntro,
     about: SectionAbout,
     notice: SectionNotice,

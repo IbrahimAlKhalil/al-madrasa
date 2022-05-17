@@ -1,0 +1,98 @@
+{
+  "id": "al-munir-general-footer-about",
+  "sort": 10,
+  "name": "Footer - About",
+  "icon": "line_style",
+  "sortable": false,
+  "can_hide": false,
+  "fields": [
+    {
+      "field": "about",
+      "name": "About",
+      "type": "text",
+      "meta": {
+        "name": "About",
+        "field": "about",
+        "type": "text",
+        "interface": "input-rich-text-html"
+      }
+    },
+    {
+      "field": "facebook",
+      "name": "Facebook",
+      "type": "string",
+      "meta": {
+        "name": "Facebook",
+        "field": "facebook",
+        "type": "string",
+        "interface": "input",
+        "options": {
+          "iconLeft": "http",
+          "trim": true
+        }
+      }
+    },
+    {
+      "field": "instagram",
+      "name": "Instagram",
+      "type": "string",
+      "meta": {
+        "name": "Instagram",
+        "field": "instagram",
+        "type": "string",
+        "interface": "input",
+        "options": {
+          "trim": true,
+          "iconLeft": "http"
+        }
+      }
+    },
+    {
+      "field": "linked_in",
+      "name": "Linked In",
+      "type": "string",
+      "meta": {
+        "name": "Linked In",
+        "field": "linked_in",
+        "type": "string",
+        "interface": "input",
+        "options": {
+          "trim": true,
+          "iconLeft": "http"
+        }
+      }
+    },
+    {
+      "field": "show_title",
+      "name": "Show Title",
+      "type": "boolean",
+      "meta": {
+        "name": "Show Title",
+        "field": "show_title",
+        "type": "boolean",
+        "interface": "boolean",
+        "options": {
+          "colorOn": "#00C897",
+          "colorOff": "#F7971C",
+          "label": "Visible"
+        }
+      }
+    },
+    {
+      "field": "twitter",
+      "name": "Twitter",
+      "type": "string",
+      "meta": {
+        "name": "Twitter",
+        "field": "twitter",
+        "type": "string",
+        "interface": "input",
+        "options": {
+          "trim": true,
+          "iconLeft": "http"
+        }
+      }
+    }
+  ],
+  "page": "al-munir-general"
+}

@@ -1,0 +1,110 @@
+{
+  "id": "al-munir-frontpage-testimonial",
+  "sort": 14,
+  "name": "Testimonial",
+  "icon": "comment_bank",
+  "sortable": true,
+  "can_hide": true,
+  "fields": [
+    {
+      "field": "title",
+      "name": "Title",
+      "type": "string",
+      "meta": {
+        "name": "Title",
+        "field": "title",
+        "type": "string",
+        "interface": "input",
+        "options": {
+          "iconLeft": "title",
+          "trim": true
+        }
+      }
+    },
+    {
+      "field": "subtitle",
+      "name": "Subtitle",
+      "type": "string",
+      "meta": {
+        "name": "Subtitle",
+        "field": "subtitle",
+        "type": "string",
+        "interface": "input",
+        "options": {
+          "trim": true,
+          "iconLeft": "subtitles"
+        }
+      }
+    },
+    {
+      "field": "items",
+      "name": "Items",
+      "type": "json",
+      "meta": {
+        "name": "Items",
+        "field": "items",
+        "type": "json",
+        "interface": "list",
+        "options": {
+          "fields": [
+            {
+              "field": "name",
+              "name": "Name",
+              "type": "string",
+              "meta": {
+                "name": "Name",
+                "field": "name",
+                "type": "string",
+                "interface": "input",
+                "options": {
+                  "trim": true,
+                  "iconLeft": "title"
+                }
+              }
+            },
+            {
+              "field": "designation",
+              "name": "Designation",
+              "type": "string",
+              "meta": {
+                "name": "Designation",
+                "field": "designation",
+                "type": "string",
+                "interface": "input",
+                "options": {
+                  "trim": true
+                }
+              }
+            },
+            {
+              "field": "photo",
+              "name": "Photo",
+              "type": "uuid",
+              "meta": {
+                "name": "Photo",
+                "field": "photo",
+                "type": "uuid",
+                "interface": "file-image-repeater"
+              }
+            },
+            {
+              "field": "comment",
+              "name": "Comment",
+              "type": "text",
+              "meta": {
+                "name": "Comment",
+                "field": "comment",
+                "type": "text",
+                "interface": "input-multiline",
+                "options": {
+                  "trim": true
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "page": "al-munir-frontpage"
+}

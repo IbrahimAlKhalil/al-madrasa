@@ -1,13 +1,22 @@
 import asyncHandler from "../utils/async-handler";
 import {respond} from "../middleware/respond";
-import {Router} from 'express';
+import {Request, Router} from 'express';
+import {pick} from 'lodash';
 import Joi from 'joi';
 // @ts-ignore
 import ToUnicodePipe from 'shared/dist/modules/to-unicode';
 import {UnprocessableEntityException} from "../exceptions";
 import knex from "knex";
+import {ConvertToASCII} from "../utils/bijoy/uni-2-bijoy";
 const router = Router();
 
+function getDBKey(req: Request): string {
+	if (typeof req.query.db === 'string') {
+		return req.query.db;
+	}
+
+	return 'db_1';
+}
 
 const database = (dbName: string) => knex({
 	client: 'mssql',
@@ -46,21 +55,38 @@ const schema = Joi.object({
 	Reletion2: Joi.string().required(),
 })
 
-
 router.post('/',  asyncHandler(async (req, res, next) => {
-	const {value, error} = schema.validate(req.body)
-	if(!req.qmmsoftDB) {
+	const {value, error} = schema.validate(req.body);
+
+	const db = getDBKey(req);
+
+	if(!req.qmmsoftDB[db]) {
 		throw new UnprocessableEntityException('DatabaseNotFound or UserBlocked')
 	}
 
 	if(error) {
-		console.log(error)
+		console.error(error);
 		throw new UnprocessableEntityException('InvalidInput!')
 	} else {
-		console.log(value)
-		const DB = database(req.qmmsoftDB);
-		await DB('Student_OnlineRegistration')
-			.insert(value)
+		const converted: Record<string, string | number> = {};
+
+		for (const key in value) {
+			if (value.hasOwnProperty(key)) {
+				const element = value[key];
+				if(typeof element === 'string') {
+					converted[key] = ConvertToASCII(value[key]);
+				} else {
+					converted[key] = element;
+				}
+			}
+		}
+
+		const DB = database(req.qmmsoftDB[db] as string);
+		await DB('OnlineRegistration')
+			.insert({
+				...converted,
+				...pick(value, ['AbasikOnabasik', 'Gender', 'ClassID', 'SessionID', 'NationalID']),
+			})
 		await DB.destroy();
 	}
 
@@ -78,9 +104,10 @@ interface StudentData {
 }
 
 router.get('/:id', asyncHandler(async (req, res, next) => {
-	if (req.params.id && req.qmmsoftDB) {
+	const db = getDBKey(req);
 
-		const DB = database(req.qmmsoftDB)
+	if (req.params.id && req.qmmsoftDB[db]) {
+		const DB = database(req.qmmsoftDB[db] as string);
 		const studentDtls = await DB('student').select(
 			'StudentID',
 			'SessionName',
@@ -108,15 +135,15 @@ router.get('/:id', asyncHandler(async (req, res, next) => {
 			}
 			res.locals.payload = stdntInfo;
 		}
-
-
 	}
 	return next();
 }), respond)
 
 router.post('/:id', asyncHandler(async (req, res, next) => {
-	if (req.params.id && req.qmmsoftDB) {
-		const DB = database(req.qmmsoftDB)
+	const db = getDBKey(req);
+
+	if (req.params.id && req.qmmsoftDB[db]) {
+		const DB = database(req.qmmsoftDB[db] as string);
 		await DB('OnlineRegistration')
 			.insert({'StudentID': req.params.id})
 		await DB.destroy();

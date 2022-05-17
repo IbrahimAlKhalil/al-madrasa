@@ -1,0 +1,69 @@
+{
+  "id": "al-munir-frontpage-notice",
+  "sort": null,
+  "name": "Notice Board",
+  "icon": "push_pin",
+  "sortable": true,
+  "can_hide": true,
+  "fields": [
+    {
+      "field": "title",
+      "name": "Title",
+      "type": "text",
+      "meta": {
+        "name": "Title",
+        "field": "title",
+        "width": "full",
+        "type": "text",
+        "interface": "input",
+        "options": {
+          "iconLeft": "title",
+          "trim": true
+        }
+      }
+    },
+    {
+      "field": "subtitle",
+      "name": "Subtitle",
+      "type": "string",
+      "meta": {
+        "name": "Subtitle",
+        "field": "subtitle",
+        "width": "full",
+        "type": "string",
+        "interface": "input",
+        "options": {
+          "iconLeft": "subtitles",
+          "trim": true
+        }
+      }
+    },
+    {
+      "field": "items",
+      "name": "Items",
+      "type": "json",
+      "meta": {
+        "name": "Items",
+        "field": "items",
+        "type": "json",
+        "interface": "list",
+        "options": {
+          "fields": [
+            {
+              "field": "notice",
+              "name": "notice",
+              "type": "text",
+              "meta": {
+                "field": "notice",
+                "width": "full",
+                "type": "text",
+                "interface": "input-rich-text-html"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "page": "al-munir-frontpage"
+}
