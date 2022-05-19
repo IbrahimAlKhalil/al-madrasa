@@ -30,11 +30,11 @@ export const SectionFeatures: FunctionComponent<SectionProps> = (props) => {
           <h2>{data.title}</h2>
           <h3>{data.subtitle}</h3>
         </header>
-        <div className="row">
+        <div className="row align-content-stretch">
           <div className="col-lg-6">
             <img
               src={`/assets/${data.image}`}
-              className="img-fluid"
+              className="img-fluid h-100 img-fluid"
               alt={data.subtitle}
             />
           </div>
