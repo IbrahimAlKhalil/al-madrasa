@@ -1606,7 +1606,7 @@ section {
 
     .entry-img {
       max-height: 440px;
-      margin: -30px -30px 20px -30px;
+      margin: 0;
       overflow: hidden;
 
       img {
@@ -1796,7 +1796,10 @@ section {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 
     img {
-      width: 120px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
       margin-right: 20px;
     }
 
@@ -1972,8 +1975,8 @@ section {
   }
 
   .sidebar {
-    padding: 30px;
-    margin: 0 0 60px 20px;
+    padding: 10px;
+    margin: 0 0 60px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 100px;
@@ -2253,7 +2256,6 @@ section {
         margin-bottom: 15px;
 
         img {
-          max-height: 40px;
           margin-right: 6px;
         }
 

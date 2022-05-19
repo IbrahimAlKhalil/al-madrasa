@@ -13,6 +13,7 @@ import userAvatar from 'a/img/user.svg';
 import { NextPage } from 'next';
 import Link from 'next/link';
 import Head from 'next/head';
+import { useState } from 'react';
 
 interface ArticleInterface extends ArticleInterfaceBase {
   tags: TagInterface[];
@@ -28,6 +29,7 @@ interface Props extends PageProps {
 
 const Article: NextPage<Props> = (props) => {
   const { article } = props;
+  const [isVisibleAuthor, setIsVisibleAuthor] = useState(false);
 
   return (
     <Page pageProps={props}>
@@ -47,17 +49,10 @@ const Article: NextPage<Props> = (props) => {
         <section id="blog" className="blog">
           <div className="container" data-aos="fade-up">
             <div className="row">
-              <div className="col-lg-8 entries">
+              <div className="col-lg-9 entries">
                 <article className="entry entry-single">
-                  <div className="entry-img">
-                    <img
-                      src={`/assets/${article.featured_image}`}
-                      alt={article.title}
-                      className="img-fluid"
-                    />
-                  </div>
-                  <h2 className="entry-title">{article.title}</h2>
-                  <div className="entry-meta">
+                  <h2 className="entry-title text-center">{article.title}</h2>
+                  <div className="entry-meta d-flex align-items-center justify-content-center">
                     <ul>
                       <li className="d-flex align-items-center">
                         <i className="mi">person</i>
@@ -74,6 +69,14 @@ const Article: NextPage<Props> = (props) => {
                         </a>
                       </li>
                     </ul>
+                  </div>
+
+                  <div className="entry-img img-fluid mb-5">
+                    <img
+                      src={`/assets/${article.featured_image}`}
+                      alt={article.title}
+                      className="img-fluid"
+                    />
                   </div>
 
                   <div
@@ -102,34 +105,37 @@ const Article: NextPage<Props> = (props) => {
                     </ul>
                   </div>
                 </article>
-                <div className="blog-author d-flex align-items-center">
-                  {article.user_created.avatar ? (
-                    <img
-                      src={`/assets/${article.user_created.avatar}`}
-                      className="rounded-circle float-left"
-                      alt={article.user_created.first_name}
-                    />
-                  ) : (
-                    <img
-                      src={userAvatar.src}
-                      alt={article.user_created.first_name}
-                      className="rounded-circle float-left"
-                    />
-                  )}
 
-                  <div>
-                    <h4>
-                      {article.user_created.first_name}{' '}
-                      {article.user_created.last_name}
-                    </h4>
-                    {/*<div className="social-links">
+                {isVisibleAuthor && (
+                  <div className="blog-author d-flex align-items-center">
+                    {article.user_created.avatar ? (
+                      <img
+                        src={`/assets/${article.user_created.avatar}`}
+                        className="rounded-circle float-left"
+                        alt={article.user_created.first_name}
+                      />
+                    ) : (
+                      <img
+                        src={userAvatar.src}
+                        alt={article.user_created.first_name}
+                        className="rounded-circle float-left"
+                      />
+                    )}
+
+                    <div>
+                      <h4>
+                        {article.user_created.first_name}{' '}
+                        {article.user_created.last_name}
+                      </h4>
+                      {/*<div className="social-links">
                                             <a href="https://twitters.com/#"><i className="bi bi-twitter" /></a>
                                             <a href="https://facebook.com/#"><i className="bi bi-facebook" /></a>
                                             <a href="https://instagram.com/#"><i className="biu bi-instagram" /></a>
                                         </div>*/}
-                    <p>{article.user_created.description}</p>
+                      <p>{article.user_created.description}</p>
+                    </div>
                   </div>
-                </div>
+                )}
                 {/* TODO: Add comment section */}
                 {/*<div className="blog-comments">
                                     <h4 className="comments-count">8 Comments</h4>
@@ -236,7 +242,7 @@ const Article: NextPage<Props> = (props) => {
                                     </div>
                                 </div>*/}
               </div>
-              <div className="col-lg-4">
+              <div className="col-lg-3">
                 <Sidebar
                   categories={props.categories}
                   tags={props.tags}
