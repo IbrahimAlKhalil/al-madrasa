@@ -4,12 +4,12 @@ import { SectionFeatures } from 'c/home/section-features';
 import { SectionServices } from 'c/home/section-services';
 import { SectionPricing } from 'c/home/section-pricing';
 import { SectionValues } from 'c/home/section-values';
-import {SectionContact} from 'c/home/section-contact';
+import { SectionContact } from 'c/home/section-contact';
 import { SectionCounts } from 'c/home/section-counts';
 import { SectionAbout } from 'c/home/section-about';
-import {SectionSlider} from "c/home/section-slider";
+import { SectionSlider } from 'c/home/section-slider';
 import { SectionIntro } from 'c/home/section-intro';
-import {SectionNotice} from "c/home/section-notice";
+import { SectionNotice } from 'c/home/section-notice';
 import { LayoutWide } from '../layout/layout-wide';
 import { SectionTeam } from 'c/home/section-team';
 import { loadRelations } from 'm/load-relations';
@@ -31,7 +31,7 @@ const Home: NextPage<PageProps> = (props) => {
     pricing: SectionPricing,
     testimonial: SectionTestimonial,
     team: SectionTeam,
-    contact: SectionContact
+    contact: SectionContact,
   };
 
   return (
