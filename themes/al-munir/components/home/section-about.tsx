@@ -11,7 +11,7 @@ export const SectionAbout: FunctionComponent<SectionProps> = (props) => {
       <div className="container" data-aos="fade-up">
         <div className="row gx-0">
           <div
-            className="col-lg-6 d-flex flex-column justify-content-center"
+            className="col-lg-6 order-2 d-flex flex-column justify-content-center"
             data-aos="fade-up"
             data-aos-delay={200}
           >
