@@ -39,7 +39,7 @@ const Blog: NextPage<Props> = (props) => {
         <section id="blog" className="blog recent-blog-posts">
           <div className="container">
             <div className="row">
-              <div className="col-lg-8 row entries">
+              <div className="col-lg-9 row align-items-stretch entries">
                 {props.articles.map((article) => (
                   <Article key={article.id} {...article} />
                 ))}
@@ -56,7 +56,7 @@ const Blog: NextPage<Props> = (props) => {
                 ) : null}
               </div>
 
-              <div className="col-lg-4">
+              <div className="col-lg-3">
                 <Sidebar
                   categories={props.categories}
                   recent={props.recent}
@@ -164,7 +164,7 @@ export const getServerSideProps = getServerSidePageProps(
       );
 
       if (articles[i].user_updated) {
-          articles[i].user_created = articles[i].user_updated;
+        articles[i].user_created = articles[i].user_updated;
       }
     }
 

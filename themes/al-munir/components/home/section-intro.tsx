@@ -1,5 +1,6 @@
 import { SectionProps } from 'st/section-props';
 import { link } from 'shared/dist/modules/link';
+import SectionTitle from 'c/ui/section-title';
 import { FunctionComponent } from 'react';
 import Link from 'next/link';
 
@@ -11,7 +12,7 @@ export const SectionIntro: FunctionComponent<SectionProps> = (props) => {
       <div className="container">
         <div className="row">
           <div className="col-lg-6 d-flex flex-column justify-content-center">
-            <h1 data-aos="fade-up">{data?.title ?? 'AL-Madrasah'}</h1>
+            <SectionTitle title={data?.title ?? 'AL-Madrasah'} />
             <div
               data-aos="fade-up"
               data-aos-delay={400}

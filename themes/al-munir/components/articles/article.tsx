@@ -22,8 +22,8 @@ export interface ArticleInterface extends RecentArticleInterface {
 
 export const Article: FunctionComponent<ArticleInterface> = (props) => {
   return (
-    <div className="col-lg-4">
-      <div className="post-box">
+    <div className="col-lg-6">
+      <div className="post-box w-100 h-100">
         <div className="post-img">
           <img
             src={`/assets/${props.featured_image}`}

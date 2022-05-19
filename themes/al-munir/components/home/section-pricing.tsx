@@ -3,6 +3,8 @@ import { SectionProps } from 'st/section-props';
 import { link } from 'shared/dist/modules/link';
 import { FunctionComponent } from 'react';
 import Link from 'next/link';
+import SectionTitle from 'c/ui/section-title';
+import SubTitle from 'c/ui/sub-title';
 
 interface PriceInterface {
   title: string;
@@ -33,18 +35,18 @@ const Price: FunctionComponent<PriceInterface> = (props) => {
           className="img-fluid"
           alt={props.title}
         />
-        {
-          props.features ? <ul>
+        {props.features ? (
+          <ul>
             {props.features.map((feature) => (
-                <li
-                    className={`${feature.strikethrough ? 'na' : ''}`}
-                    key={feature.name}
-                >
-                  {feature.name}
-                </li>
+              <li
+                className={`${feature.strikethrough ? 'na' : ''}`}
+                key={feature.name}
+              >
+                {feature.name}
+              </li>
             ))}
-          </ul> : null
-        }
+          </ul>
+        ) : null}
         {link(props.link, (href) => (
           <Link href={href}>
             <a className="btn-buy">{props.link?.label ?? href}</a>
@@ -66,8 +68,8 @@ export const SectionPricing: FunctionComponent<SectionProps> = (props) => {
     <section id="pricing" className="pricing">
       <div className="container" data-aos="fade-up">
         <header className="section-header">
-          <h2>{data.title}</h2>
-          <h3>{data.subtitle}</h3>
+          <SubTitle title={data.title} />
+          <SectionTitle title={data.subtitle} />
         </header>
         <div className="row gy-4" data-aos="fade-left">
           {data.items.map((item: PriceInterface) => (

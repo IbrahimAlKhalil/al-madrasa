@@ -10,12 +10,12 @@ export const Contact: FunctionComponent = () => {
 
       <div dangerouslySetInnerHTML={{ __html: section?.contact_info }} />
 
-      <p>
+      {/* <p>
         <strong>Phone:</strong> {section?.phone}
         <br />
         <strong>Email:</strong> {section?.email}
         <br />
-      </p>
+      </p> */}
     </div>
   );
 };

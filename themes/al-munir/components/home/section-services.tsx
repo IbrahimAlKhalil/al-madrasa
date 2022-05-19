@@ -3,6 +3,8 @@ import { SectionProps } from 'st/section-props';
 import { link } from 'shared/dist/modules/link';
 import { FunctionComponent } from 'react';
 import Link from 'next/link';
+import SectionTitle from 'c/ui/section-title';
+import SubTitle from 'c/ui/sub-title';
 
 interface ServiceInterface {
   title: string;
@@ -47,8 +49,8 @@ export const SectionServices: FunctionComponent<SectionProps> = (props) => {
     <section id="services" className="services">
       <div className="container" data-aos="fade-up">
         <header className="section-header">
-          <h2>{data.title}</h2>
-          <h3>{data.subtitle}</h3>
+          <SubTitle title={data?.title} />
+          <SectionTitle title={data.subtitle} />
         </header>
         <div className="row gy-4">
           {data.services.map((service: ServiceInterface) => (

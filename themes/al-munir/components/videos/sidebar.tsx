@@ -7,7 +7,9 @@ export const Sidebar: FunctionComponent<SidebarInterface> = (props) => {
   return (
     <div className="sidebar">
       <Search keyword={props.keyword} action={props.action} />
-      <Categories categories={props.categories} />
+      {props.categories.length > 0 && (
+        <Categories categories={props.categories} />
+      )}
     </div>
   );
 };

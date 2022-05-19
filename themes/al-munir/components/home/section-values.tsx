@@ -1,5 +1,7 @@
 import { SectionProps } from 'st/section-props';
+import SectionTitle from 'c/ui/section-title';
 import { FunctionComponent } from 'react';
+import SubTitle from 'c/ui/sub-title';
 
 interface ValueInterface {
   title: string;
@@ -32,8 +34,8 @@ export const SectionValues: FunctionComponent<SectionProps> = (props) => {
     <section id="values" className="values">
       <div className="container" data-aos="fade-up">
         <header className="section-header">
-          <h2>{data?.title}</h2>
-          <h3>{data?.subtitle}</h3>
+          <SubTitle title={data?.title} />
+          <SectionTitle title={data?.subtitle} />
         </header>
         <div className="row">
           {items.map((item) => (

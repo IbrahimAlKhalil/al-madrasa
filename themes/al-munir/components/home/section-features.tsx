@@ -1,5 +1,7 @@
 import { SectionProps } from 'st/section-props';
+import SectionTitle from 'c/ui/section-title';
 import { FunctionComponent } from 'react';
+import SubTitle from 'c/ui/sub-title';
 
 interface FeatureInterface {
   title: string;
@@ -27,8 +29,8 @@ export const SectionFeatures: FunctionComponent<SectionProps> = (props) => {
     <section id="features" className="features">
       <div className="container" data-aos="fade-up">
         <header className="section-header">
-          <h2>{data.title}</h2>
-          <h3>{data.subtitle}</h3>
+          <SubTitle title={data.title} />
+          <SectionTitle title={data.subtitle} />
         </header>
         <div className="row align-content-stretch">
           <div className="col-lg-6">

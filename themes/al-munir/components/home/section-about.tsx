@@ -1,6 +1,7 @@
 import { link } from 'shared/dist/modules/link';
 import { SectionProps } from 'st/section-props';
 import { FunctionComponent } from 'react';
+import SubTitle from 'c/ui/sub-title';
 import Link from 'next/link';
 
 export const SectionAbout: FunctionComponent<SectionProps> = (props) => {
@@ -16,7 +17,7 @@ export const SectionAbout: FunctionComponent<SectionProps> = (props) => {
             data-aos-delay={200}
           >
             <div className="content">
-              <h2>{data?.title}</h2>
+              <SubTitle title={data?.title} />
               <div dangerouslySetInnerHTML={{ __html: data?.description }} />
               <div className="text-center text-lg-start">
                 {link(data?.link, (href) => (
