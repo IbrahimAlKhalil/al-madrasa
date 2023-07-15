@@ -7,7 +7,7 @@ export const Copyright: FunctionComponent = () => {
       <div className="copyright">
         {year} &copy; &nbsp;
         <strong>
-          <span>SAHARA IT</span>
+          <span>Al-Madrasa</span>
         </strong>
         . All Rights Reserved
       </div>

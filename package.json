@@ -4,7 +4,7 @@
   "description": "Al-Madrasah Content Management System",
   "main": "index.js",
   "private": true,
-  "author": "SAHARA IT",
+  "author": "Ibrahim Al Khalil",
   "scripts": {
     "start": "./am.mjs",
     "prod": "./am.mjs prod",

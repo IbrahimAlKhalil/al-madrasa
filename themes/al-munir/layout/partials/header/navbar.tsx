@@ -27,15 +27,6 @@ export const Navbar: FunctionComponent = () => {
         },
         children: [],
       },
-      {
-        id: 'm3',
-        link: {
-          type: 'custom',
-          url: 'https://saharait.com',
-          label: 'Exam Result',
-        },
-        children: [],
-      },
     ],
   });
 

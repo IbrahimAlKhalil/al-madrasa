@@ -29,7 +29,6 @@ import settingsRouter from './controllers/settings';
 import usersRouter from './controllers/users';
 import utilsRouter from './controllers/utils';
 import webhooksRouter from './controllers/webhooks';
-import admission from "./controllers/admission";
 import sharesRouter from './controllers/shares';
 import { connectAllDatabases, isInstalled, validateDatabaseConnection, validateDatabaseExtensions, validateMigrations } from './database';
 import emitter from './emitter';
@@ -225,7 +224,6 @@ export default async function createApp(): Promise<express.Application> {
 	router.use('/utils', utilsRouter);
 	router.use('/webhooks', webhooksRouter);
 	router.use('/contact', require('./controllers/contact').default);
-	router.use('/admission', admission);
 
 	app.use('/api', router);
 
