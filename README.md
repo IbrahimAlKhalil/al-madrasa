@@ -1,6 +1,6 @@
 # Al-Madrasa
 
-After encountering several challenges with WordPress that caused difficulties for both myself and my clients, some of them expressed a desire to use CMS solutions developed with Node.js. Unfortunately, none of the Node.js options available at the time met my expectations. To address this, I took the initiative to create a project that fulfills my specific requirements for building and managing websites for clients, without relying on WordPress. This endeavor combines Directus v9, a Node.js-based headless CMS, with Next.js, a powerful server-side rendering (SSR) framework.
+After encountering several challenges with WordPress that caused difficulties for both myself and my clients, some of them expressed a desire to use CMS solutions developed with Node.js. Unfortunately, none of the Node.js options available at the time met my expectations. To address this, I took the initiative to create a project that fulfills my specific requirements for building and managing websites for clients, without relying on WordPress. This endeavor combines [Directus v9](https://github.com/directus/directus), a Node.js-based headless CMS, with [Next.js](https://github.com/vercel/next.js), a powerful server-side rendering (SSR) framework.
 
 ## Table of Contents
 
@@ -10,18 +10,19 @@ After encountering several challenges with WordPress that caused difficulties fo
 - [Architecture Overview](#architecture-overview)
 - [Theme Customizer](#theme-customizer)
 - [CLI](#cli)
+- [Screenshots](#screenshots)
 - [License](#license)
 
 ## Introduction
 
-Al-Madrasa is designed to provide freelancers and developers with a reliable and customizable alternative to WordPress for building websites. By leveraging the power of Directus v9 and Next.js, you can create and manage website content easily while having the flexibility to design and develop themes using Next.js.
+Al-Madrasa is designed to provide freelancers and developers with a reliable and customizable alternative to WordPress for building websites. By leveraging the power of [Directus v9](https://github.com/directus/directus) and [Next.js](https://github.com/vercel/next.js), you can create and manage website content easily while having the flexibility to design and develop themes using [Next.js](https://github.com/vercel/next.js).
 
 The project follows a multitenancy architecture, allowing you to serve multiple websites from a single Node.js instance or a cluster, with isolated tenant databases for each website. The main database holds information about the tenants, such as domain, database name, and themes.
 
 ## Features
 
-- **Headless CMS**: Directus v9 serves as the headless CMS, providing a user-friendly interface for content management.
-- **Next.js Integration**: Next.js, a powerful SSR framework, enables server-side rendering and efficient client-side interactions for dynamic and performant websites.
+- **Headless CMS**: [Directus v9](https://github.com/directus/directus) serves as the headless CMS, providing both REST and GraphQL API and a user-friendly interface for content management.
+- **Next.js Integration**: [Next.js](https://github.com/vercel/next.js), a powerful SSR framework, enables server-side rendering and efficient client-side interactions for dynamic and performant websites.
 - **Multitenancy Support**: Serve multiple websites from a single Node.js instance or cluster, with isolated tenant databases for each website.
 - **PostgreSQL Database**: Utilize the robustness and scalability of PostgreSQL for storing your website data.
 - **JWT Token-Based Authentication**: Tenant identification is handled through JWT tokens, allowing secure switching between tenant databases.
@@ -117,6 +118,14 @@ Al-Madrasa offers a user-friendly theme customizer, similar to the WordPress Cus
 ## CLI
 
 Al-Madrasa includes a CLI tool built using the Commander package to ease development tasks. The CLI internally uses Docker to run and pull necessary dependencies. To use the CLI, execute the `am.mjs -h` to see what you can do with it.
+
+## Screenshots
+
+| | |
+|:-------------------------:|:-------------------------:|
+|![Alt text](./screenshots/screenshot-1.png?raw=true "Directus's login interface") | ![Alt text](./screenshots/screenshot-2.png?raw=true "Switching tenant")|
+|![Alt text](./screenshots/screenshot-3.png?raw=true "Creating a post") | ![Alt text](./screenshots/screenshot-4.png?raw=true "Creating a slider using theme customizer")|
+|![Alt text](./screenshots/screenshot-5.png?raw=true "Customizing frontpage") | ![Alt text](./screenshots/screenshot-6.png?raw=true "Customizing frontpage")|
 
 ## License
 
