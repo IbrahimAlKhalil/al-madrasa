@@ -62,10 +62,10 @@
 import RevisionsDrawerDetail from '@/views/private/components/revisions-drawer-detail/revisions-drawer-detail.vue';
 import CommentsSidebarDetail from '@/views/private/components/comments-sidebar-detail/comments-sidebar-detail.vue';
 import SidebarDetail from '@/views/private/components/sidebar-detail/sidebar-detail.vue';
+import {computed, defineComponent, onUnmounted, PropType, ref, watch} from 'vue';
 import {usePageStore} from '@/modules/customization/store/pages';
 import AmCustomizationNav from '../components/navigation.vue';
 import PrivateView from '@/views/private/private-view.vue';
-import {computed, defineComponent, onMounted, PropType, ref, watch} from 'vue';
 import VButton from '@/components/v-button/v-button.vue';
 import VIcon from '@/components/v-icon/v-icon.vue';
 import {useRoute, useRouter} from 'vue-router';
@@ -104,6 +104,8 @@ export default defineComponent({
 		watch(props, () => {
 			pageStore.hydratePage(props.page);
 		});
+
+		onUnmounted(pageStore.dehydrate);
 
 		function save() {
 			if (!section.value?.id || saving.value) {
