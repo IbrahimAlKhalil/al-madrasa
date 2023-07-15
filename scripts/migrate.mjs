@@ -55,6 +55,12 @@ export async function migrate(direction, master, children) {
     const metadataPath = path.resolve(__dirname, '../metadata');
 
     async function importMetadata(knex, database) {
+        try {
+            await fs.stat(metadataPath);
+        } catch (e) {
+            return;   
+        }
+
         logger.info(`Importing metadata into ${knex.client.config.connection.database}`);
 
         const migrated = new Set((
